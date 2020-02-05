@@ -1,3 +1,5 @@
+import { WORDPRESS_GFW_API } from './constants.js';
+
 const settings = {
   "name": "gfw-blog-redesign",
   "state": {
@@ -45,7 +47,7 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "api": "https://dev-global-forest-watch-blog.pantheonsite.io/wp-json"
+          "api": WORDPRESS_GFW_API
         }
       }
     },
