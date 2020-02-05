@@ -7,7 +7,7 @@
     "frontity"
   ],
   "scripts": {
-    "dev": "frontity dev",
+    "start": "frontity dev",
     "build": "frontity build",
     "serve": "frontity serve",
     "lint": "eslint --ext .js --ext .jsx ."
@@ -25,7 +25,6 @@
   "devDependencies": {
     "babel-eslint": "8.0.2",
     "eslint": "^5.16.0",
-    "eslint-config-prettier": "2.4.0",
     "eslint-config-vizzuality": "1.0.5",
     "eslint-import-resolver-webpack": "0.8.3",
     "eslint-plugin-import": "2.7.0",
