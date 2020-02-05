@@ -1,8 +1,8 @@
-import Theme from "./components";
-import image from "@frontity/html2react/processors/image";
+import Theme from './components';
+import image from '@frontity/html2react/processors/image';
 
 const marsTheme = {
-  name: "@frontity/mars-theme",
+  name: '@frontity/mars-theme',
   roots: {
     /**
      *  In Frontity, any package can add React components to the site.

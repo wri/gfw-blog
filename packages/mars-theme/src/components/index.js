@@ -1,11 +1,11 @@
-import React from "react";
-import { Global, css, connect, styled, Head } from "frontity";
-import Header from "./header";
-import List from "./list";
-import Post from "./post";
-import Page404 from "./page404.js";
-import Loading from "./loading";
-import Title from "./title";
+import React from 'react';
+import { Global, css, connect, styled, Head } from 'frontity';
+import Header from './header';
+import List from './list';
+import Post from './post';
+import Page404 from './page404.js';
+import Loading from './loading';
+import Title from './title';
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -24,7 +24,7 @@ const Theme = ({ state }) => {
         <html lang="en" />
       </Head>
 
-      {/* Add some global styles for the whole site, like body or a's. 
+      {/* Add some global styles for the whole site, like body or a's.
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <Global styles={globalStyles} />
 

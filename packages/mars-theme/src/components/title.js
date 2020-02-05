@@ -1,5 +1,5 @@
-import React from "react";
-import { Head, connect } from "frontity";
+import React from 'react';
+import { Head, connect } from 'frontity';
 
 const Title = ({ state }) => {
   // Get data about the current URL.
@@ -27,7 +27,7 @@ const Title = ({ state }) => {
     // 1. Get the post entity from the state and get its title.
     const postTitle = state.source[data.type][data.id].title.rendered;
     // 2. Remove any HTML tags found in the title.
-    const cleanTitle = postTitle.replace(/<\/?[^>]+(>|$)/g, "");
+    const cleanTitle = postTitle.replace(/<\/?[^>]+(>|$)/g, '');
     // 3. Render the proper title.
     title = `${cleanTitle} - ${state.frontity.title}`;
   } else if (data.is404) {

@@ -1,12 +1,12 @@
-import React from "react";
-import { styled } from "frontity";
+import React from 'react';
+import { styled } from 'frontity';
 
 // The 404 page component
 const Page404 = () => (
   <Container>
     <Title>Oops! 404</Title>
     <Description>
-      That page can’t be found{" "}
+      That page can’t be found{' '}
       <span role="img" aria-label="confused face">
         😕
       </span>

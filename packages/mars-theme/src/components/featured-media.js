@@ -1,6 +1,6 @@
-import React from "react";
-import { connect, styled } from "frontity";
-import Image from "@frontity/components/image";
+import React from 'react';
+import { connect, styled } from 'frontity';
+import Image from '@frontity/components/image';
 
 const FeaturedMedia = ({ state, id }) => {
   const media = state.source.attachment[id];
@@ -15,9 +15,9 @@ const FeaturedMedia = ({ state, id }) => {
       .reduce(
         (final, current, index, array) =>
           final.concat(
-            `${current.join(" ")}w${index !== array.length - 1 ? ", " : ""}`
+            `${current.join(' ')}w${index !== array.length - 1 ? ', ' : ''}`
           ),
-        ""
+        ''
       ) || null;
 
   return (

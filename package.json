@@ -9,15 +9,29 @@
   "scripts": {
     "dev": "frontity dev",
     "build": "frontity build",
-    "serve": "frontity serve"
+    "serve": "frontity serve",
+    "lint": "eslint --ext .js --ext .jsx ."
   },
   "prettier": {},
   "dependencies": {
-    "frontity": "^1.4.4",
     "@frontity/core": "^1.4.1",
-    "@frontity/wp-source": "^1.5.0",
-    "@frontity/tiny-router": "^1.0.18",
     "@frontity/html2react": "^1.1.15",
-    "@frontity/mars-theme": "./packages/mars-theme"
+    "@frontity/mars-theme": "./packages/mars-theme",
+    "@frontity/tiny-router": "^1.0.18",
+    "@frontity/wp-source": "^1.5.0",
+    "eslint-config-prettier": "^6.10.0",
+    "frontity": "^1.4.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "8.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "2.4.0",
+    "eslint-config-vizzuality": "1.0.5",
+    "eslint-import-resolver-webpack": "0.8.3",
+    "eslint-plugin-import": "2.7.0",
+    "eslint-plugin-jsx-a11y": "6.0.2",
+    "eslint-plugin-prettier": "2.3.1",
+    "eslint-plugin-react": "7.4.0",
+    "eslint-plugin-react-hooks": "^2.0.1"
   }
 }

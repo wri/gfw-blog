@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { connect, styled } from "frontity";
-import Link from "../link";
+import React, { useEffect } from 'react';
+import { connect, styled } from 'frontity';
+import Link from '../link';
 
 /**
  * Pagination Component
@@ -38,7 +38,7 @@ const Pagination = ({ state, actions, libraries }) => {
   // Pre-fetch the the next page if it hasn't been fetched yet.
   useEffect(() => {
     if (isThereNextPage) actions.source.fetch(nextPageLink);
-  }, []);
+  }, [actions.source, isThereNextPage, nextPageLink]);
 
   return (
     <div>
@@ -49,7 +49,7 @@ const Pagination = ({ state, actions, libraries }) => {
         </Link>
       )}
 
-      {isTherePreviousPage && isThereNextPage && " - "}
+      {isTherePreviousPage && isThereNextPage && ' - '}
 
       {/* If there's a previous page, render this link */}
       {isTherePreviousPage && (

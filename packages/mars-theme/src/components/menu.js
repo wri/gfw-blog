@@ -1,7 +1,7 @@
-import React from "react";
-import { styled, connect, Global } from "frontity";
-import { CloseIcon, HamburgerIcon } from "./menu-icon";
-import MenuModal from "./menu-modal";
+import React from 'react';
+import { styled, connect, Global } from 'frontity';
+import { CloseIcon, HamburgerIcon } from './menu-icon';
+import MenuModal from './menu-modal';
 
 function MobileMenu({ state, actions }) {
   const { isMobileMenuOpen } = state.theme;
@@ -12,7 +12,7 @@ function MobileMenu({ state, actions }) {
           <>
             {/* Add some style to the body when menu is open,
             to prevent body scroll */}
-            <Global styles={{ body: { overflowY: "hidden" } }} />
+            <Global styles={{ body: { overflowY: 'hidden' } }} />
             <CloseIcon color="white" size="20px" />
           </>
         ) : (

@@ -1,7 +1,7 @@
-import React from "react";
-import { connect, styled } from "frontity";
-import Item from "./list-item";
-import Pagination from "./pagination";
+import React from 'react';
+import { connect, styled } from 'frontity';
+import Item from './list-item';
+import Pagination from './pagination';
 
 const List = ({ state }) => {
   // Get the data of the current list.
