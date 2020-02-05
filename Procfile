@@ -1,1 +1,1 @@
-web: npm serve
+web: yarn serve
