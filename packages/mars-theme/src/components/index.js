@@ -1,11 +1,16 @@
 import React from 'react';
 import { Global, css, connect, styled, Head } from 'frontity';
-import Header from './header';
+import gfwUIStyles from 'gfw-components/dist/main.css';
+import { Header } from 'gfw-components';
 import List from './list';
 import Post from './post';
 import Page404 from './page404.js';
 import Loading from './loading';
 import Title from './title';
+
+const GFWComponenentsStyles = () => (
+  <Global styles={css(gfwUIStyles)} />
+);
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -27,11 +32,10 @@ const Theme = ({ state }) => {
       {/* Add some global styles for the whole site, like body or a's.
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <Global styles={globalStyles} />
+      <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
-      <HeadContainer>
-        <Header />
-      </HeadContainer>
+      <Header />
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}

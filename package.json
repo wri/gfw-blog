@@ -19,8 +19,11 @@
     "@frontity/mars-theme": "./packages/mars-theme",
     "@frontity/tiny-router": "^1.0.18",
     "@frontity/wp-source": "^1.5.0",
+    "classnames": "^2.2.6",
     "eslint-config-prettier": "^6.10.0",
-    "frontity": "^1.4.4"
+    "frontity": "^1.4.4",
+    "gfw-components": "^0.2.17",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "babel-eslint": "8.0.2",
