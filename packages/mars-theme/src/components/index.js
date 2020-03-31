@@ -1,12 +1,14 @@
-import React from 'react';
-import { Global, css, connect, styled, Head } from 'frontity';
+import React from "react";
+import { Global, css, connect, styled, Head } from "frontity";
+import Switch from "@frontity/components/switch";
+// import Header from "./header";
 import gfwUIStyles from 'gfw-components/dist/main.css';
 import { Header } from 'gfw-components';
-import List from './list';
-import Post from './post';
-import Page404 from './page404.js';
-import Loading from './loading';
-import Title from './title';
+import List from "./list";
+import Post from "./post";
+import Loading from "./loading";
+import Title from "./title";
+import PageError from "./page-error";
 
 const GFWComponenentsStyles = () => (
   <Global styles={css(gfwUIStyles)} />
@@ -35,15 +37,19 @@ const Theme = ({ state }) => {
       <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
-      <Header />
+      <HeadContainer>
+        <Header />
+      </HeadContainer>
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
       <Main>
-        {(data.isFetching && <Loading />) ||
-          (data.isArchive && <List />) ||
-          (data.isPostType && <Post />) ||
-          (data.is404 && <Page404 />)}
+        <Switch>
+          <Loading when={data.isFetching} />
+          <List when={data.isArchive} />
+          <Post when={data.isPostType} />
+          <PageError when={data.isError} />
+        </Switch>
       </Main>
     </>
   );

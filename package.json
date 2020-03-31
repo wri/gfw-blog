@@ -1,5 +1,5 @@
 {
-  "name": "gfw-blog-redesign",
+  "name": "gfw-blog-test",
   "version": "1.0.0",
   "private": true,
   "description": "Frontity project",
@@ -7,33 +7,45 @@
     "frontity"
   ],
   "scripts": {
-    "start": "frontity dev",
+    "dev": "frontity dev",
     "build": "frontity build",
-    "serve": "frontity serve",
-    "lint": "eslint --ext .js --ext .jsx ."
+    "serve": "frontity serve"
   },
-  "prettier": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.scss": "sass-lint -c .sass-lint.yml -v -q",
+    "*.{js,jsx}": [
+      "prettier --parser flow --write --single-quote",
+      "eslint --ext .js --ext .jsx --fix"
+    ]
+  },
   "dependencies": {
-    "@frontity/core": "^1.4.1",
-    "@frontity/html2react": "^1.1.15",
+    "@frontity/core": "^1.5.1",
+    "@frontity/html2react": "^1.3.1",
     "@frontity/mars-theme": "./packages/mars-theme",
-    "@frontity/tiny-router": "^1.0.18",
-    "@frontity/wp-source": "^1.5.0",
+    "@frontity/tiny-router": "^1.1.1",
+    "@frontity/wp-source": "^1.6.2",
     "classnames": "^2.2.6",
-    "eslint-config-prettier": "^6.10.0",
-    "frontity": "^1.4.4",
-    "gfw-components": "^0.2.17",
+    "frontity": "^1.5.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.0",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "babel-eslint": "8.0.2",
-    "eslint": "^5.16.0",
-    "eslint-config-vizzuality": "1.0.5",
-    "eslint-import-resolver-webpack": "0.8.3",
-    "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-jsx-a11y": "6.0.2",
-    "eslint-plugin-prettier": "2.3.1",
-    "eslint-plugin-react": "7.4.0",
-    "eslint-plugin-react-hooks": "^2.0.1"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "prettier": "^2.0.2",
+    "sass-lint": "^1.13.1"
   }
 }
