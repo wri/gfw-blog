@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Switch from '@frontity/components/switch';
 
 import gfwUIStyles from 'gfw-components/dist/main.css';
-import { Header } from 'gfw-components';
+import { Header, mediaStyles } from 'gfw-components';
 
 import List from './list';
 import Post from './post';
@@ -14,6 +14,7 @@ import Title from './title';
 import PageError from './page-error';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
+const SSRStyles = () => <Global styles={css(mediaStyles)} />;
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -38,6 +39,7 @@ const Theme = ({ state }) => {
 
       {/* Add some global styles for the whole site, like body or a's.
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
+      <SSRStyles />
       <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
