@@ -29,6 +29,10 @@ const Theme = ({ state }) => {
       <Title />
       <Head>
         <meta name="description" content={state.frontity.description} />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
+          rel="stylesheet"
+        />
         <html lang="en" />
       </Head>
 
@@ -37,7 +41,7 @@ const Theme = ({ state }) => {
       <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
-      <Header />
+      <Header pathname="https://blog.globalforestwatch.org" />
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
@@ -62,9 +66,4 @@ export default connect(Theme);
 const Main = styled.div`
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(
-    180deg,
-    rgba(66, 174, 228, 0.1),
-    rgba(66, 174, 228, 0)
-  );
 `;
