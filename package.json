@@ -31,7 +31,7 @@
     "@frontity/wp-source": "^1.6.2",
     "classnames": "^2.2.6",
     "frontity": "^1.5.2",
-    "gfw-components": "^0.2.17",
+    "gfw-components": "^0.3.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
     "prop-types": "^15.7.2"
