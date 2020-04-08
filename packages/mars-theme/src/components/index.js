@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Switch from '@frontity/components/switch';
 
 import gfwUIStyles from 'gfw-components/dist/main.css';
-import { Header, mediaStyles } from 'gfw-components';
+import { Header, Footer, mediaStyles } from 'gfw-components';
 
 import List from './list';
 import Post from './post';
@@ -34,6 +34,8 @@ const Theme = ({ state }) => {
           href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
           rel="stylesheet"
         />
+        {/* <script type="text/javascript" src="/transifex.js" rel="preconnect" /> */}
+        <script type="text/javascript" src="//cdn.transifex.com/live.js" />
         <html lang="en" />
       </Head>
 
@@ -55,6 +57,8 @@ const Theme = ({ state }) => {
           <PageError when={data.isError} />
         </Switch>
       </Main>
+
+      <Footer />
     </>
   );
 };

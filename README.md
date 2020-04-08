@@ -13,7 +13,7 @@ yarn
 There is a bug inside frontity dev commands that when used with yarn symlinks to the packages folder do not work. To fix this we need to manually symlink the `./packages/mars-theme` to the `@frontity/mars-theme` registered in the `package.json`
 
 ```bash
-cd packages/mars-theme && yarn link && cd .. && yarn link @frontity/mars-theme
+cd packages/mars-theme && yarn link && cd .. && cd .. && yarn link @frontity/mars-theme
 ```
 
 Finally we can start the server!
