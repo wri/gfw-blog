@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Switch from '@frontity/components/switch';
 
 import gfwUIStyles from 'gfw-components/dist/main.css';
-import { Header, mediaStyles } from 'gfw-components';
+import { Header, ArrowIcon, mediaStyles } from 'gfw-components';
 
 import List from './list';
 import Post from './post';
@@ -43,7 +43,10 @@ const Theme = ({ state }) => {
       <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
-      <Header pathname="https://blog.globalforestwatch.org" />
+      <Header
+        openContactUsModal={() => {}}
+        pathname="https://blog.globalforestwatch.org"
+      />
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
@@ -55,6 +58,8 @@ const Theme = ({ state }) => {
           <PageError when={data.isError} />
         </Switch>
       </Main>
+
+      <ArrowIcon />
     </>
   );
 };
