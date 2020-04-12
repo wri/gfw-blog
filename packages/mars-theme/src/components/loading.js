@@ -1,30 +1,22 @@
-import React from "react";
-import { styled } from "frontity";
-import Loader from "react-spinners/ScaleLoader";
+import React from 'react';
+import { styled } from 'frontity';
+import { Loader } from 'gfw-components';
 
 const Loading = () => (
   <Container>
-    <Loader
-      color="rgba(12, 17, 43, 0.3)"
-      radius={0}
-      margin="3px"
-      width={4}
-      height={24}
-    />
+    <Loader />
   </Container>
 );
 
 export default Loading;
 
 const Container = styled.div`
+  position: relative;
+  min-height: 600px;
   width: 800px;
   margin: 0;
   padding: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  & > * {
-    margin-top: 24px;
-  }
 `;

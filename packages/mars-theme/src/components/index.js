@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Switch from '@frontity/components/switch';
 
 import gfwUIStyles from 'gfw-components/dist/main.css';
-import { Header, mediaStyles } from 'gfw-components';
+import { Header, Footer, ContactUsModal, mediaStyles } from 'gfw-components';
 
 import List from './list';
 import Post from './post';
@@ -20,7 +20,7 @@ const SSRStyles = () => <Global styles={css(mediaStyles)} />;
  * Theme is the root React component of our theme. The one we will export
  * in roots.
  */
-const Theme = ({ state }) => {
+const Theme = ({ state, actions }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
 
@@ -43,7 +43,10 @@ const Theme = ({ state }) => {
       <GFWComponenentsStyles />
 
       {/* Add the header of the site. */}
-      <Header pathname="https://blog.globalforestwatch.org" />
+      <Header
+        pathname="https://blog.globalforestwatch.org"
+        openContactUsModal={actions.theme.toggleContactUsModal}
+      />
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
@@ -55,12 +58,19 @@ const Theme = ({ state }) => {
           <PageError when={data.isError} />
         </Switch>
       </Main>
+
+      <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
+      <ContactUsModal
+        open={state.theme.isContactUsOpen}
+        onRequestClose={actions.theme.toggleContactUsModal}
+      />
     </>
   );
 };
 
 Theme.propTypes = {
   state: PropTypes.object,
+  actions: PropTypes.object,
 };
 
 export default connect(Theme);

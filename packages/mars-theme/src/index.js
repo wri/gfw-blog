@@ -17,11 +17,10 @@ const marsTheme = {
      * relevant state. It is scoped to the `theme` namespace.
      */
     theme: {
-      menu: [],
-      isMobileMenuOpen: false,
+      isContactUsOpen: false,
       featured: {
         showOnList: false,
-        showOnPost: false,
+        showOnPost: true,
       },
     },
   },
@@ -31,11 +30,8 @@ const marsTheme = {
    */
   actions: {
     theme: {
-      toggleMobileMenu: ({ state }) => {
-        state.theme.isMobileMenuOpen = !state.theme.isMobileMenuOpen;
-      },
-      closeMobileMenu: ({ state }) => {
-        state.theme.isMobileMenuOpen = false;
+      toggleContactUsModal: ({ state }) => {
+        state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
       },
     },
   },
