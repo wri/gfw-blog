@@ -2,6 +2,8 @@ import React from "react";
 import { connect, styled } from "frontity";
 import Link from "../link";
 import FeaturedMedia from "../featured-media";
+import CategoryNameList from '../category/list-name';
+import PostTitle from '../post-title'
 
 /**
  * Item Component
@@ -14,13 +16,12 @@ import FeaturedMedia from "../featured-media";
 const Item = ({ state, item }) => {
   const author = state.source.author[item.author];
   const date = new Date(item.date);
+  const categories = item.categories.map(id => {
+    return state.source.category[id].name;
+  })
 
   return (
     <article>
-      <Link link={item.link}>
-        <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
-      </Link>
-
       <div>
         {/* If the post has an author, we render a clickable author text. */}
         {author && (
@@ -44,6 +45,16 @@ const Item = ({ state, item }) => {
         <FeaturedMedia id={item.featured_media} />
       )}
 
+      {/* Show categories of the post */}
+      <CategoryNameList categories={categories} />
+
+      <Link link={item.link}>
+        <PostTitle>
+          {item.title.rendered}
+        </PostTitle>
+      </Link>
+      
+
       {/* If the post has an excerpt (short summary text), we render it */}
       {item.excerpt && (
         <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
@@ -54,15 +65,6 @@ const Item = ({ state, item }) => {
 
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
-
-const Title = styled.h1`
-  font-size: 2rem;
-  color: rgba(12, 17, 43);
-  margin: 0;
-  padding-top: 24px;
-  padding-bottom: 8px;
-  box-sizing: border-box;
-`;
 
 const AuthorName = styled.span`
   color: rgba(12, 17, 43, 0.9);
