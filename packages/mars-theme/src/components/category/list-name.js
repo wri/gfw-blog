@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { styled } from 'frontity';
 import CategoryName from './name';
 
-const CategoryNameList = ({ categories }) => {
+const CategoryNameList = ({ categories, styles = '' }) => {
   const Wrapper = styled.p`
-      padding: 1em 0;
+      padding: 1rem 0;
+      ${styles}
     `;
   return (
     <Wrapper>
@@ -19,5 +20,6 @@ const CategoryNameList = ({ categories }) => {
 export default CategoryNameList
 
 CategoryNameList.propTypes = {
-  categories: PropTypes.array
+  categories: PropTypes.array,
+  styles: PropTypes.string,
 }

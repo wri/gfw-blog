@@ -49,7 +49,10 @@ const Item = ({ state, item }) => {
       <CategoryNameList categories={categories} />
 
       <Link link={item.link}>
-        <PostTitle>
+        <PostTitle styles={`
+          padding-top: 0;
+          padding-bottom: 1rem;
+        `}>
           {item.title.rendered}
         </PostTitle>
       </Link>
