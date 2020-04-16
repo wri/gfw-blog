@@ -2,7 +2,12 @@ import React from "react";
 import { connect, styled } from "frontity";
 import Image from "@frontity/components/image";
 
-const FeaturedMedia = ({ state, id }) => {
+const FeaturedMedia = ({ state, id, styles='' }) => {
+  const Container = styled.div`
+    margin-top: 16px;
+    height: 200px;
+    ${styles}
+  `;
   const media = state.source.attachment[id];
 
   if (!media) return null;
@@ -32,11 +37,6 @@ const FeaturedMedia = ({ state, id }) => {
 };
 
 export default connect(FeaturedMedia);
-
-const Container = styled.div`
-  margin-top: 16px;
-  height: 200px;
-`;
 
 const StyledImage = styled(Image)`
   display: block;
