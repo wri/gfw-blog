@@ -15,8 +15,6 @@ import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
  * - FeaturedMedia: the featured image/video of the post
  */
 const Item = ({ state, item, styles }) => {
-  const author = state.source.author[item.author];
-  const date = new Date(item.date);
   const categories = item.categories.map(id => {
     return state.source.category[id].name;
   })
@@ -35,21 +33,6 @@ const Item = ({ state, item, styles }) => {
 
   return (
     <Wrapper>
-      <div>
-        {/* If the post has an author, we render a clickable author text. */}
-        {author && (
-          <StyledLink link={author.link}>
-            <AuthorName>
-              By <b>{author.name}</b>
-            </AuthorName>
-          </StyledLink>
-        )}
-        <PublishDate>
-          {" "}
-          on <b>{date.toDateString()}</b>
-        </PublishDate>
-      </div>
-
       {/*
        * If the want to show featured media in the
        * list of featured posts, we render the media.
@@ -81,20 +64,6 @@ const Item = ({ state, item, styles }) => {
 
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
-
-const AuthorName = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-`;
-
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const PublishDate = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-`;
 
 const Excerpt = styled.div`
   line-height: 1.6em;
