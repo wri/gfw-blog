@@ -4,6 +4,7 @@ import Link from "../link";
 import FeaturedMedia from "../featured-media";
 import CategoryNameList from '../category/list-name';
 import PostTitle from '../post-title'
+import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 /**
  * Item Component
@@ -13,15 +14,27 @@ import PostTitle from '../post-title'
  * - Author: name of author and published date
  * - FeaturedMedia: the featured image/video of the post
  */
-const Item = ({ state, item }) => {
+const Item = ({ state, item, styles }) => {
   const author = state.source.author[item.author];
   const date = new Date(item.date);
   const categories = item.categories.map(id => {
     return state.source.category[id].name;
   })
 
+  const Wrapper = styled.article`
+    width: 31.82%;
+    flex-wrap: wrap;
+    @media screen and (max-width: ${LARGE_ENDPOINT}) {
+      width: 49%;
+    }
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+      width: 100%;
+    }
+    ${styles}
+  `;
+
   return (
-    <article>
+    <Wrapper>
       <div>
         {/* If the post has an author, we render a clickable author text. */}
         {author && (
@@ -62,7 +75,7 @@ const Item = ({ state, item }) => {
       {item.excerpt && (
         <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
       )}
-    </article>
+    </Wrapper>
   );
 };
 

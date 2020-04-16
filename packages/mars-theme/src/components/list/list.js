@@ -2,6 +2,7 @@ import React from "react";
 import { connect, styled, decode } from "frontity";
 import Item from "./list-item";
 import Pagination from "./pagination";
+import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const List = ({ state }) => {
   // Get the data of the current list.
@@ -38,10 +39,16 @@ const List = ({ state }) => {
 export default connect(List);
 
 const Container = styled.section`
-  width: 800px;
+  width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 0;
-  padding: 24px;
+  padding: 24px 0;
   list-style: none;
+  @media screen and (max-width: ${LARGE_ENDPOINT}) {
+    padding: 24px;
+  }
 `;
 
 const Header = styled.h3`
