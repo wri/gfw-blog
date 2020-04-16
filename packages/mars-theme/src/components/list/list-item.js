@@ -14,7 +14,7 @@ import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
  * - Author: name of author and published date
  * - FeaturedMedia: the featured image/video of the post
  */
-const Item = ({ state, item, styles }) => {
+const Item = ({ state, item, styles, media = null }) => {
   const categories = item.categories.map(id => {
     return state.source.category[id].name;
   })
@@ -37,7 +37,10 @@ const Item = ({ state, item, styles }) => {
        * If the want to show featured media in the
        * list of featured posts, we render the media.
        */}
-      {state.theme.featured.showOnList && (
+      {(state.theme.featured.showOnList && media) && (
+        media(item.featured_media)
+      )}
+      {(state.theme.featured.showOnList && !media) && (
         <FeaturedMedia id={item.featured_media} />
       )}
 
