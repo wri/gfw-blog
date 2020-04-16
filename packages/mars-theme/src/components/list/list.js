@@ -1,8 +1,10 @@
 import React from "react";
 import { connect, styled, decode } from "frontity";
 import Item from "./list-item";
+import SubPost from "./sub-post";
+import MainPost from "./main-post";
 import Pagination from "./pagination";
-import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { LARGE_ENDPOINT } from '../heplers/css-endpoints';
 
 const List = ({ state }) => {
   // Get the data of the current list.
@@ -26,8 +28,17 @@ const List = ({ state }) => {
       )}
 
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }) => {
+      {data.items.map(({ type, id }, index ) => {
         const item = state.source[type][id];
+
+        // A temporary solution to determine the main post and sub posts
+        if (index === 0 ) {
+          return <MainPost key={item.id} item={item} />    
+        }
+        if (index === 1 || index === 2) {
+          return <SubPost key={item.id} item={item} />   
+        }
+
         // Render one Item component for each one.
         return <Item key={item.id} item={item} />;
       })}
