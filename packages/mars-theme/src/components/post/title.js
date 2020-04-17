@@ -18,4 +18,5 @@ export default PostTitle
 
 PostTitle.propTypes = {
   styles: PropTypes.string,
+  children: PropTypes.node
 }
