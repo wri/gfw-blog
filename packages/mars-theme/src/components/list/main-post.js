@@ -14,6 +14,7 @@ const MainPost = ({ item, state }) => {
     width: 100%;
     flex-wrap: wrap;
     position: relative;
+    z-index: -1;
     @media screen and (max-width: ${LARGE_ENDPOINT}) {
         width: 100%;
     }
@@ -57,6 +58,7 @@ const MainPost = ({ item, state }) => {
           <PostTitle styles={`
             padding-top: 0;
             padding-bottom: 1rem;
+            line-height: 1.25;
             color: #fff
           `}>
             {item.title.rendered}
