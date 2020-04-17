@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect, styled, decode } from "frontity";
-import Item from "./list-item";
-import SubPost from "./sub-post";
-import MainPost from "./main-post";
-import Pagination from "./pagination";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, decode } from 'frontity';
+import Item from './list-item';
+import SubPost from './sub-post';
+import MainPost from './main-post';
+import Pagination from './pagination';
 import { LARGE_ENDPOINT } from '../heplers/css-endpoints';
 
 const List = ({ state }) => {
@@ -18,28 +18,21 @@ const List = ({ state }) => {
         <Header>
           {data.taxonomy}
           :
-          {" "}
+          {' '}
           <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
         </Header>
       )}
 
-      {/* If the list is for a specific author, we render a title. */}
-      {data.isAuthor && (
-        <Header>
-          Author: <b>{decode(state.source.author[data.id].name)}</b>
-        </Header>
-      )}
-
       {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }, index ) => {
+      {data.items.map(({ type, id }, index) => {
         const item = state.source[type][id];
 
         // A temporary solution to determine the main post and sub posts
-        if (index === 0 ) {
-          return <MainPost key={item.id} item={item} />    
+        if (index === 0) {
+          return <MainPost key={item.id} item={item} />;
         }
         if (index === 1 || index === 2) {
-          return <SubPost key={item.id} item={item} />   
+          return <SubPost key={item.id} item={item} />;
         }
 
         // Render one Item component for each one.
@@ -72,5 +65,5 @@ const Header = styled.h3`
 `;
 
 List.propTypes = {
-  state: PropTypes.object
-}
+  state: PropTypes.object,
+};
