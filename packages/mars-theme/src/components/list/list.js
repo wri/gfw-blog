@@ -5,6 +5,7 @@ import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
 import Pagination from './pagination';
+import BlogHeader from '../blog-header';
 import { LARGE_ENDPOINT } from '../heplers/css-endpoints';
 
 const List = ({ state }) => {
@@ -13,6 +14,7 @@ const List = ({ state }) => {
 
   return (
     <Container>
+      <BlogHeader />
       {/* If the list is a taxonomy, we render a title. */}
       {data.isTaxonomy && (
         <Header>

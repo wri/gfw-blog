@@ -48,8 +48,9 @@ const MainPost = ({ item, state }) => {
     align-items: flex-end;
     flex-flow: wrap;
     top: 0;
-    padding: 0 4rem;
+    padding: 0 1rem;
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+      padding: 0 4.375rem;
       width: 67%;
       align-items: center;
     }
