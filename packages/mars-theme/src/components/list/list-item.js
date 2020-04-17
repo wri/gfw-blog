@@ -51,6 +51,7 @@ const Item = ({ state, item, styles, media = null }) => {
         <PostTitle styles={`
           padding-top: 0;
           padding-bottom: 1rem;
+          line-height: 1.25;
         `}>
           {item.title.rendered}
         </PostTitle>
@@ -69,6 +70,7 @@ const Item = ({ state, item, styles, media = null }) => {
 export default connect(Item);
 
 const Excerpt = styled.div`
-  line-height: 1.6em;
+  font-size: 14px;
+  line-height: 1.75;
   color: rgba(12, 17, 43, 0.8);
 `;
