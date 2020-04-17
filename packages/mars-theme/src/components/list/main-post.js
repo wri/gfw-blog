@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect, styled } from "frontity";
 import FeaturedMedia from "../featured-media";
 import { LARGE_ENDPOINT, MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 import CategoryNameList from '../category/list-name';
-import PostTitle from '../post-title';
+import PostTitle from '../post/title';
+import PostExcerpt from '../post/excerpt';
 
 const MainPost = ({ item, state }) => {
   const categories = item.categories.map(id => {
@@ -44,10 +46,24 @@ const MainPost = ({ item, state }) => {
     top: 0;
     padding: 0 4rem;
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      width: 50%;
+      width: 67%;
       align-items: center;
     }
   `
+  const TitleStyles = `
+    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+      padding-bottom: 36px;
+    }
+    padding-top: 0;
+    padding-bottom: 30px;
+    line-height: 1.25;
+    color: #fff
+  `;
+
+  const ExcerptStyles = `
+    color: #fff;
+    font-size: 16px;
+  `;
 
   return (
     <Wrapper>
@@ -55,14 +71,12 @@ const MainPost = ({ item, state }) => {
       <ContentWrapper>
         <div>
           <CategoryNameList categories={categories} />
-          <PostTitle styles={`
-            padding-top: 0;
-            padding-bottom: 1rem;
-            line-height: 1.25;
-            color: #fff
-          `}>
+          <PostTitle styles={TitleStyles}>
             {item.title.rendered}
           </PostTitle>
+          <PostExcerpt styles={ExcerptStyles}>
+            {item.excerpt.rendered}
+          </PostExcerpt>
         </div>
         
       </ContentWrapper>
@@ -71,3 +85,8 @@ const MainPost = ({ item, state }) => {
 }
 
 export default connect(MainPost);
+
+MainPost.propTypes = {
+  item: PropTypes.object,
+  state: PropTypes.object
+}

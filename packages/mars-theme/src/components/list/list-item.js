@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect, styled } from "frontity";
 import Link from "../link";
 import FeaturedMedia from "../featured-media";
 import CategoryNameList from '../category/list-name';
-import PostTitle from '../post-title'
+import PostTitle from '../post/title'
+import Excerpt from '../post/excerpt';
 import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 /**
@@ -31,6 +33,12 @@ const Item = ({ state, item, styles, media = null }) => {
     ${styles}
   `;
 
+  const titleStyles = `
+    padding-top: 0;
+    padding-bottom: 1rem;
+    line-height: 1.25;
+  `;
+
   return (
     <Wrapper>
       {/*
@@ -48,19 +56,14 @@ const Item = ({ state, item, styles, media = null }) => {
       <CategoryNameList categories={categories} />
 
       <Link link={item.link}>
-        <PostTitle styles={`
-          padding-top: 0;
-          padding-bottom: 1rem;
-          line-height: 1.25;
-        `}>
+        <PostTitle styles={titleStyles}>
           {item.title.rendered}
         </PostTitle>
       </Link>
-      
 
       {/* If the post has an excerpt (short summary text), we render it */}
       {item.excerpt && (
-        <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
+        <Excerpt>{item.excerpt.rendered}</Excerpt>
       )}
     </Wrapper>
   );
@@ -69,8 +72,9 @@ const Item = ({ state, item, styles, media = null }) => {
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
 
-const Excerpt = styled.div`
-  font-size: 14px;
-  line-height: 1.75;
-  color: rgba(12, 17, 43, 0.8);
-`;
+Item.propTypes = {
+  state: PropTypes.object,
+  item: PropTypes.object,
+  styles: PropTypes.string,
+  media: PropTypes.node
+}

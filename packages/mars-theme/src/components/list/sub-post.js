@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Item from './list-item';
 import FeaturedMedia from "../featured-media";
 import { LARGE_ENDPOINT, MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
@@ -26,3 +27,7 @@ const SubPost = ({ item }) => {
 }
 
 export default SubPost;
+
+SubPost.propTypes = {
+  item: PropTypes.object
+}

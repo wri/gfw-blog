@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect, styled, decode } from "frontity";
 import Item from "./list-item";
 import SubPost from "./sub-post";
@@ -15,7 +16,9 @@ const List = ({ state }) => {
       {/* If the list is a taxonomy, we render a title. */}
       {data.isTaxonomy && (
         <Header>
-          {data.taxonomy}:{" "}
+          {data.taxonomy}
+          :
+          {" "}
           <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
         </Header>
       )}
@@ -67,3 +70,7 @@ const Header = styled.h3`
   text-transform: capitalize;
   color: rgba(12, 17, 43, 0.9);
 `;
+
+List.propTypes = {
+  state: PropTypes.object
+}
