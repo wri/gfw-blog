@@ -12,6 +12,7 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
+import mainGlobalCss from "./index.css";
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
@@ -41,6 +42,7 @@ const Theme = ({ state, actions }) => {
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <SSRStyles />
       <GFWComponenentsStyles />
+      <Global styles={css(mainGlobalCss)} />
 
       {/* Add the header of the site. */}
       <Header
