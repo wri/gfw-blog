@@ -4,7 +4,7 @@ import { styled } from 'frontity';
 
 const PostTitle = ({ children, styles = '' }) => {
   const Wrapper = styled.h1`
-    font-size: 1.875rem;
+    font-size: 1.375rem;
     color: rgba(12, 17, 43, 1);
     margin: 0;
     box-sizing: border-box;

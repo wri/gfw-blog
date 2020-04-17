@@ -58,6 +58,10 @@ const MainPost = ({ item, state }) => {
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
       padding-bottom: 2rem;
     }
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 2rem;
+    }
+    font-size: 1.875rem;
     padding-top: 0;
     padding-bottom: 1.875rem;
     line-height: 1.25;
@@ -65,8 +69,11 @@ const MainPost = ({ item, state }) => {
   `;
 
   const ExcerptStyles = `
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 1rem;
+    }
     color: #fff;
-    font-size: 1rem;
+    font-size: 0.875rem;
   `;
 
   return (
