@@ -1,0 +1,63 @@
+import React, { useEffect, useCallback, useState } from "react";
+import PropTypes from "prop-types";
+import { connect, styled, css  } from "frontity";
+import { Button, Loader } from 'gfw-components';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
+
+const LoadMore = ({ actions, setPage, page, length, isFetching }) => {
+  console.log(length)
+  const buttonCss = `
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+      width: 100%;
+      margin: 0 1rem;
+    }
+    width: 31.82%;
+  `;
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentLength, setCurrentLength] = useState(0);
+  useEffect(() => {
+    if (page && page > 1) {
+      actions.source.fetch(`/page/${page}`);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    if (!isFetching) {
+      setIsLoading(false);
+    }
+  }, [length, currentLength, isFetching]);
+
+  const loadHandler = useCallback(() => {
+    setCurrentLength(length)
+    setIsLoading(true);
+    setPage(page + 1);
+  }, [page]);
+
+  return (
+    <Wrapper>
+      
+      {isLoading && (
+      <div style={{ position: 'relative', width: '50px', height: '50px' }}>
+        <Loader />
+      </div>
+      )}
+      {!isLoading && <Button css={css`${buttonCss}`} onClick={loadHandler}>Load more articles</Button>}
+    </Wrapper>
+  );
+};
+
+export default connect(LoadMore);
+
+LoadMore.propTypes = {
+  actions: PropTypes.object,
+  setPage: PropTypes.func,
+  page: PropTypes.number,
+  length: PropTypes.number
+};
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 1.5rem 0;
+`;
