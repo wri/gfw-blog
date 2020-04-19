@@ -27,6 +27,10 @@ const settings = {
       state: {
         source: {
           api: WORDPRESS_GFW_API,
+          params: {
+            per_page: 9,
+            type: ["post"]
+          }
         },
       },
     },
