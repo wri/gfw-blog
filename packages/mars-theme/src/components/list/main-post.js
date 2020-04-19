@@ -11,7 +11,9 @@ import CategoryNameList from '../category/list-name';
 import PostTitle from '../post/title';
 import PostExcerpt from '../post/excerpt';
 
-const MainPost = ({ item, state }) => {
+const MainPost = ({ post, state }) => {
+  const { type, id } = post;
+  const item = state.source[type][id];
   const categories = item.categories.map((id) => {
     return state.source.category[id].name;
   });
@@ -96,6 +98,6 @@ const MainPost = ({ item, state }) => {
 export default connect(MainPost);
 
 MainPost.propTypes = {
-  item: PropTypes.object,
+  post: PropTypes.object,
   state: PropTypes.object,
 };

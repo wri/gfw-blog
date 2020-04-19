@@ -36,6 +36,7 @@ const Item = ({
     }
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       width: 100%;
+      padding: 0 1rem;
     }
     ${styles}
   `;

@@ -1,62 +1,92 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, decode } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
-import Pagination from './pagination';
+import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
-import { LARGE_ENDPOINT } from '../heplers/css-endpoints';
+import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const List = ({ state }) => {
-  // Get the data of the current list.
-  const data = state.source.get(state.router.link);
+  const [page, setPage] = useState(1);
+  const data = state.source.get(state.router.link);  
+  const initialPosts = [...data.items];
+  const mainPost = initialPosts.shift();
+  const subPosts = initialPosts.splice(0, 2);
+  const [posts, setPosts] = useState(initialPosts)
+  const length = Object.keys(state.source.post).length;
+
+  useEffect(() => {
+    if (page && page > 1) {
+      const nextData = state.source.get(`/page/${page}`);
+      if (nextData && nextData.items) {
+        const newPosts = posts.concat(nextData.items)
+        setPosts(newPosts);
+      }
+    }
+  }, [page, state, length])
 
   return (
-    <Container>
-      <BlogHeader />
-      {/* If the list is a taxonomy, we render a title. */}
-      {data.isTaxonomy && (
-        <Header>
-          {data.taxonomy}
-          :
-          {' '}
-          <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
-        </Header>
-      )}
-
-      {/* Iterate over the items of the list. */}
-      {data.items.map(({ type, id }, index) => {
-        const item = state.source[type][id];
-
-        // A temporary solution to determine the main post and sub posts
-        if (index === 0) {
-          return <MainPost key={item.id} item={item} />;
-        }
-        if (index === 1 || index === 2) {
+    <Wrapper>
+      <Container>
+        <BlogHeader />
+        {/* If the list is a taxonomy, we render a title. */}
+        {data.isTaxonomy && (
+          <Header>
+            {data.taxonomy}
+            :
+            {' '}
+            <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
+          </Header>
+        )}
+        {mainPost && <MainPost post={mainPost} />}
+        {subPosts && subPosts.map(({ type, id }) => {
+          const item = state.source[type][id];
           return <SubPost key={item.id} item={item} />;
-        }
-
-        // Render one Item component for each one.
-        return <Item key={item.id} item={item} />;
-      })}
-      <Pagination />
-    </Container>
+        })}
+      </Container>
+      <Divider />
+      <Container>
+        <Title>latest articles</Title>
+        {/* Iterate over the items of the list. */}
+        {posts.map((el) => {
+          if (!el) return null;
+          const { type, id } = el;
+          const item = state.source[type][id];
+          // Render one Item component for each one.
+          return <Item key={item.id} item={item} />;
+        })}
+        <LoadMore isFetching={data.isFetching} setPage={setPage} page={page} length={length} />
+      </Container>
+    </Wrapper>
   );
 };
 
 export default connect(List);
 
+const Wrapper = styled.div`
+  width: 100%;
+`;
+
+const Divider = styled.div`
+  border-top: 1px solid #E5E5DF;
+  margin-top: 2rem;
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    display: none;
+  }
+`;
+
 const Container = styled.section`
-  width: 1100px;
+  max-width: 1100px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0;
-  padding: 24px 0;
+  margin: 0 auto;
+  padding: 1.5px 0;
   list-style: none;
   @media screen and (max-width: ${LARGE_ENDPOINT}) {
-    padding: 24px;
+    padding: 1.5px;
   }
 `;
 
@@ -64,6 +94,17 @@ const Header = styled.h3`
   font-weight: 300;
   text-transform: capitalize;
   color: rgba(12, 17, 43, 0.9);
+`;
+
+const Title = styled.h3`
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin: 2rem 0;
+  text-transform: uppercase;
+  width: 100%;
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    display: none;
+  }
 `;
 
 List.propTypes = {
