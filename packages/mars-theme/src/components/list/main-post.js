@@ -17,7 +17,8 @@ const MainPost = ({ post, state }) => {
   const item = state.source[type][id];
   // eslint-disable-next-line no-shadow
   const categories = item.categories.map((id) => {
-    return state.source.category[id].name;
+    const { link, name } = state.source.category[id];
+    return { link, name };
   });
 
   const styles = `
