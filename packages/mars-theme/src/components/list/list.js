@@ -17,7 +17,9 @@ const List = ({ state }) => {
   const initialPosts = [...data.items];
   const mainPost = initialPosts.shift();
   const subPosts = initialPosts.splice(0, 2);
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState(
+    initialPosts.map(({ id, type }) => ({ id, type }))
+  );
   const { length } = Object.keys(state.source.post);
   const pageNumber = Math.round(length / POSTS_PER_PAGE);
   const [page, setPage] = useState(pageNumber);
@@ -25,6 +27,7 @@ const List = ({ state }) => {
   useEffect(() => {
     if (page && page > 1) {
       const diff = length - (posts.length + topSectionNumber);
+
       if (diff > 0) {
         const pagesLoaded = Math.round(
           (posts.length + topSectionNumber) / POSTS_PER_PAGE
@@ -37,7 +40,9 @@ const List = ({ state }) => {
             `${state.router.link}page/${nextPage}`
           );
           if (nextData && nextData.items) {
-            accPosts.push(...nextData.items);
+            accPosts.push(
+              ...nextData.items.map(({ id, type }) => ({ id, type }))
+            );
           }
         }
         setPosts(accPosts);
