@@ -1,11 +1,15 @@
-import React, { useEffect, useCallback, useState } from "react";
-import PropTypes from "prop-types";
-import { connect, styled, css  } from "frontity";
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useLayoutEffect,
+} from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
 import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const LoadMore = ({ actions, setPage, page, length, isFetching }) => {
-  console.log(length)
   const buttonCss = `
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       width: 100%;
@@ -13,7 +17,7 @@ const LoadMore = ({ actions, setPage, page, length, isFetching }) => {
     }
     width: 31.82%;
   `;
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [currentLength, setCurrentLength] = useState(0);
   useEffect(() => {
     if (page && page > 1) {
@@ -21,27 +25,35 @@ const LoadMore = ({ actions, setPage, page, length, isFetching }) => {
     }
   }, [page]);
 
-  useEffect(() => {
-    if (!isFetching) {
+  useLayoutEffect(() => {
+    if (!isFetching && length > currentLength) {
       setIsLoading(false);
     }
   }, [length, currentLength, isFetching]);
 
   const loadHandler = useCallback(() => {
-    setCurrentLength(length)
+    setCurrentLength(length);
     setIsLoading(true);
     setPage(page + 1);
-  }, [page]);
+  }, [page, length]);
 
   return (
     <Wrapper>
-      
       {isLoading && (
-      <div style={{ position: 'relative', width: '50px', height: '50px' }}>
-        <Loader />
-      </div>
+        <div style={{ position: 'relative', width: '50px', height: '50px' }}>
+          <Loader />
+        </div>
       )}
-      {!isLoading && <Button css={css`${buttonCss}`} onClick={loadHandler}>Load more articles</Button>}
+      {!isLoading && (
+        <Button
+          css={css`
+            ${buttonCss}
+          `}
+          onClick={loadHandler}
+        >
+          Load more articles
+        </Button>
+      )}
     </Wrapper>
   );
 };
@@ -52,7 +64,8 @@ LoadMore.propTypes = {
   actions: PropTypes.object,
   setPage: PropTypes.func,
   page: PropTypes.number,
-  length: PropTypes.number
+  length: PropTypes.number,
+  isFetching: PropTypes.bool,
 };
 
 const Wrapper = styled.div`
