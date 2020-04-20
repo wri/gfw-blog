@@ -10,10 +10,12 @@ import {
 import CategoryNameList from '../category/list-name';
 import PostTitle from '../post/title';
 import PostExcerpt from '../post/excerpt';
+import Link from '../link';
 
 const MainPost = ({ post, state }) => {
   const { type, id } = post;
   const item = state.source[type][id];
+  // eslint-disable-next-line no-shadow
   const categories = item.categories.map((id) => {
     return state.source.category[id].name;
   });
@@ -22,7 +24,6 @@ const MainPost = ({ post, state }) => {
     width: 100%;
     flex-wrap: wrap;
     position: relative;
-    z-index: -1;
     @media screen and (max-width: ${LARGE_ENDPOINT}) {
         width: 100%;
     }
@@ -85,7 +86,9 @@ const MainPost = ({ post, state }) => {
       <ContentWrapper>
         <div>
           <CategoryNameList categories={categories} />
-          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+          <Link link={item.link}>
+            <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+          </Link>
           <PostExcerpt styles={ExcerptStyles}>
             {item.excerpt.rendered}
           </PostExcerpt>
