@@ -33,7 +33,9 @@ const List = ({ state }) => {
         const accPosts = posts.concat([]);
         for (let i = pagesLoaded; i < pagesToLoad + pagesLoaded; i++) {
           const nextPage = i + 1;
-          const nextData = state.source.get(`/page/${nextPage}`);
+          const nextData = state.source.get(
+            `${state.router.link}page/${nextPage}`
+          );
           if (nextData && nextData.items) {
             accPosts.push(...nextData.items);
           }

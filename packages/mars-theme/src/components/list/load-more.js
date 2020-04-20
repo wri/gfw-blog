@@ -9,19 +9,19 @@ import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
 import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
-const LoadMore = ({ actions, setPage, page, length, isFetching }) => {
+const LoadMore = ({ actions, state, setPage, page, length, isFetching }) => {
   const buttonCss = `
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
-      width: 100%;
+      width: 100% !important;
       margin: 0 1rem;
     }
-    width: 31.82%;
+    width: 31.82% !important;
   `;
   const [isLoading, setIsLoading] = useState(false);
   const [currentLength, setCurrentLength] = useState(0);
   useEffect(() => {
     if (page && page > 1) {
-      actions.source.fetch(`/page/${page}`);
+      actions.source.fetch(`${state.router.link}page/${page}`);
     }
   }, [page]);
 
@@ -62,6 +62,7 @@ export default connect(LoadMore);
 
 LoadMore.propTypes = {
   actions: PropTypes.object,
+  state: PropTypes.object,
   setPage: PropTypes.func,
   page: PropTypes.number,
   length: PropTypes.number,
