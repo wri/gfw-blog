@@ -8,8 +8,8 @@ import MainPost from './main-post';
 import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
 import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
-import { POSTS_PER_PAGE } from '../../../../../constants';
 
+const POSTS_PER_PAGE = 9;
 const topSectionNumber = 3;
 
 const List = ({ state }) => {
