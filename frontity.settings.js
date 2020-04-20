@@ -1,4 +1,4 @@
-import { WORDPRESS_GFW_API } from './constants';
+import { WORDPRESS_GFW_API, POSTS_PER_PAGE } from './constants';
 
 const settings = {
   name: 'gfw-blog',
@@ -28,9 +28,9 @@ const settings = {
         source: {
           api: WORDPRESS_GFW_API,
           params: {
-            per_page: 9,
-            type: ["post"]
-          }
+            per_page: POSTS_PER_PAGE,
+            type: ['post'],
+          },
         },
       },
     },
