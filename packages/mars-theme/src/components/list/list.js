@@ -7,6 +7,7 @@ import SubPost from './sub-post';
 import MainPost from './main-post';
 import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
+import CategoryNameList from '../category/list-name';
 import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const POSTS_PER_PAGE = 9;
@@ -14,6 +15,9 @@ const topSectionNumber = 3;
 
 const List = ({ state }) => {
   const data = state.source.get(state.router.link);
+  const categories = Object.values(
+    state.source.category
+  ).map(({ name, link }) => ({ name, link }));
   const initialPosts = [...data.items];
   const mainPost = initialPosts.shift();
   const subPosts = initialPosts.splice(0, 2);
@@ -63,6 +67,7 @@ const List = ({ state }) => {
             <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
           </Header>
         )}
+        <CategoryNameList categories={categories} title="Categories" />
         {mainPost && <MainPost post={mainPost} />}
         {subPosts &&
           subPosts.map(({ type, id }) => {
