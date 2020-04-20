@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, decode } from 'frontity';
@@ -7,25 +8,40 @@ import MainPost from './main-post';
 import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
 import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import { POSTS_PER_PAGE } from '../../../../../constants';
+
+const topSectionNumber = 3;
 
 const List = ({ state }) => {
-  const [page, setPage] = useState(1);
-  const data = state.source.get(state.router.link);  
+  const data = state.source.get(state.router.link);
   const initialPosts = [...data.items];
   const mainPost = initialPosts.shift();
   const subPosts = initialPosts.splice(0, 2);
-  const [posts, setPosts] = useState(initialPosts)
-  const length = Object.keys(state.source.post).length;
+  const [posts, setPosts] = useState(initialPosts);
+  const { length } = Object.keys(state.source.post);
+  const pageNumber = Math.round(length / POSTS_PER_PAGE);
+  const [page, setPage] = useState(pageNumber);
 
   useEffect(() => {
     if (page && page > 1) {
-      const nextData = state.source.get(`/page/${page}`);
-      if (nextData && nextData.items) {
-        const newPosts = posts.concat(nextData.items)
-        setPosts(newPosts);
+      const diff = length - (posts.length + topSectionNumber);
+      if (diff > 0) {
+        const pagesLoaded = Math.round(
+          (posts.length + topSectionNumber) / POSTS_PER_PAGE
+        );
+        const pagesToLoad = Math.round(diff / POSTS_PER_PAGE);
+        const accPosts = posts.concat([]);
+        for (let i = pagesLoaded; i < pagesToLoad + pagesLoaded; i++) {
+          const nextPage = i + 1;
+          const nextData = state.source.get(`/page/${nextPage}`);
+          if (nextData && nextData.items) {
+            accPosts.push(...nextData.items);
+          }
+        }
+        setPosts(accPosts);
       }
     }
-  }, [page, state, length])
+  }, [page, state, length, posts]);
 
   return (
     <Wrapper>
@@ -41,10 +57,11 @@ const List = ({ state }) => {
           </Header>
         )}
         {mainPost && <MainPost post={mainPost} />}
-        {subPosts && subPosts.map(({ type, id }) => {
-          const item = state.source[type][id];
-          return <SubPost key={item.id} item={item} />;
-        })}
+        {subPosts &&
+          subPosts.map(({ type, id }) => {
+            const item = state.source[type][id];
+            return <SubPost key={item.id} item={item} />;
+          })}
       </Container>
       <Divider />
       <Container>
@@ -55,9 +72,14 @@ const List = ({ state }) => {
           const { type, id } = el;
           const item = state.source[type][id];
           // Render one Item component for each one.
-          return <Item key={item.id} item={item} />;
+          return <Item key={item.id + item.date} item={item} />;
         })}
-        <LoadMore isFetching={data.isFetching} setPage={setPage} page={page} length={length} />
+        <LoadMore
+          isFetching={data.isFetching}
+          setPage={setPage}
+          page={page}
+          length={length}
+        />
       </Container>
     </Wrapper>
   );
@@ -70,7 +92,7 @@ const Wrapper = styled.div`
 `;
 
 const Divider = styled.div`
-  border-top: 1px solid #E5E5DF;
+  border-top: 1px solid #e5e5df;
   margin-top: 2rem;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: none;
