@@ -2,3 +2,11 @@ p {
     font-size: inherit;
     line-height: inherit;
 }
+
+.categories-list-wrapper a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.categories-list-wrapper a:visited {
+    color: #fff;
+}
