@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import { styled, css } from 'frontity';
 import CategoryName from './name';
 import Link from '../link';
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const CategoryNameList = ({ categories, styles = '', title }) => {
   const Wrapper = styled.p`
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      padding: 0 1rem;
-    }
     ${styles}
   `;
   const linkCss = `
     color: #fff;
+    font-size: 0.75rem;
+    line-height: 0.75rem;
   `;
   return (
     <Wrapper className="categories-list-wrapper">
@@ -46,6 +45,9 @@ CategoryNameList.propTypes = {
 
 const TitleWrapper = styled.span`
   margin-right: 1rem;
+  color: #777;
+  text-transform: uppercase;
+  font-size: 0.875rem;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: block;
   }
