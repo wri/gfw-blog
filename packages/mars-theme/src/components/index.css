@@ -11,3 +11,7 @@ p {
     color: #fff;
     
 }
+
+.breadcrumbs-wrapper a {
+    color: inherit;
+}
