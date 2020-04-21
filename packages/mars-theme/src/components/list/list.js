@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, decode } from 'frontity';
 import Item from './list-item';
@@ -18,13 +18,17 @@ const POSTS_PER_PAGE = 9;
 const topSectionNumber = 3;
 
 const List = ({ state }) => {
+  const isBlogHomePage = () => {
+    return state.router.link === '/';
+  };
+
   const data = state.source.get(state.router.link);
   const categories = Object.values(
     state.source.category
   ).map(({ name, link }) => ({ name, link }));
   const initialPosts = [...data.items];
-  const mainPost = initialPosts.shift();
-  const subPosts = initialPosts.splice(0, 2);
+  const mainPost = isBlogHomePage() ? initialPosts.shift() : null;
+  const subPosts = isBlogHomePage() ? initialPosts.splice(0, 2) : [];
   const [posts, setPosts] = useState(
     initialPosts.map(({ id, type }) => ({ id, type }))
   );
@@ -32,14 +36,18 @@ const List = ({ state }) => {
   const pageNumber = Math.round(length / POSTS_PER_PAGE);
   const [page, setPage] = useState(pageNumber);
 
+  const getLength = useCallback(() => {
+    if (isBlogHomePage()) {
+      return Number(posts.length) + topSectionNumber;
+    }
+    return posts.length;
+  }, [posts]);
+
   useEffect(() => {
     if (page && page > 1) {
-      const diff = length - (posts.length + topSectionNumber);
-
+      const diff = length - getLength();
       if (diff > 0) {
-        const pagesLoaded = Math.round(
-          (posts.length + topSectionNumber) / POSTS_PER_PAGE
-        );
+        const pagesLoaded = Math.round(getLength() / POSTS_PER_PAGE);
         const pagesToLoad = Math.round(diff / POSTS_PER_PAGE);
         const accPosts = posts.concat([]);
         for (let i = pagesLoaded; i < pagesToLoad + pagesLoaded; i++) {
@@ -64,7 +72,7 @@ const List = ({ state }) => {
   return (
     <Wrapper>
       <Container>
-        <BlogHeader />
+        {isBlogHomePage() && <BlogHeader />}
         {/* If the list is a taxonomy, we render a title. */}
         {data.isTaxonomy && (
           <Header>
@@ -74,11 +82,13 @@ const List = ({ state }) => {
             <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
           </Header>
         )}
-        <CategoryNameList
-          categories={categories}
-          title="Categories"
-          styles={categoriesStyles}
-        />
+        {isBlogHomePage() && (
+          <CategoryNameList
+            categories={categories}
+            title="Categories"
+            styles={categoriesStyles}
+          />
+        )}
         {mainPost && <MainPost post={mainPost} />}
         {subPosts &&
           subPosts.map(({ type, id }) => {
@@ -86,9 +96,9 @@ const List = ({ state }) => {
             return <SubPost key={item.id} item={item} />;
           })}
       </Container>
-      <Divider />
+      {isBlogHomePage() && <Divider />}
       <Container>
-        <Title>latest articles</Title>
+        {isBlogHomePage() && <Title>latest articles</Title>}
         {/* Iterate over the items of the list. */}
         {posts.map((el) => {
           if (!el) return null;
@@ -123,7 +133,7 @@ const Divider = styled.div`
 `;
 
 const Container = styled.section`
-  max-width: 1100px;
+  max-width: 1110px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
