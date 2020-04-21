@@ -8,6 +8,7 @@ import MainPost from './main-post';
 import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
+import Breadcrumbs from '../breadcrumbs';
 import {
   LARGE_ENDPOINT,
   SMALL_ENDPOINT,
@@ -72,6 +73,7 @@ const List = ({ state }) => {
   return (
     <Wrapper>
       <Container>
+        <Breadcrumbs />
         {isBlogHomePage() && <BlogHeader />}
         {/* If the list is a taxonomy, we render a title. */}
         {data.isTaxonomy && (
