@@ -8,7 +8,11 @@ import MainPost from './main-post';
 import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
-import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import {
+  LARGE_ENDPOINT,
+  SMALL_ENDPOINT,
+  MEDIUM_ENDPOINT,
+} from '../heplers/css-endpoints';
 
 const POSTS_PER_PAGE = 9;
 const topSectionNumber = 3;
@@ -54,6 +58,9 @@ const List = ({ state }) => {
     }
   }, [page, state, length, posts]);
 
+  const categoriesStyles = `@media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    padding: 0 1rem;
+  }`;
   return (
     <Wrapper>
       <Container>
@@ -67,7 +74,11 @@ const List = ({ state }) => {
             <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
           </Header>
         )}
-        <CategoryNameList categories={categories} title="Categories" />
+        <CategoryNameList
+          categories={categories}
+          title="Categories"
+          styles={categoriesStyles}
+        />
         {mainPost && <MainPost post={mainPost} />}
         {subPosts &&
           subPosts.map(({ type, id }) => {
