@@ -42,6 +42,7 @@ const MainPost = ({ post, state }) => {
     }`;
 
   const Wrapper = styled.article`
+    margin-bottom: 1.5rem;
     ${styles}
   `;
 

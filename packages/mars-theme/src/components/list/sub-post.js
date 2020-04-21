@@ -12,7 +12,7 @@ import {
 
 const SubPost = ({ item }) => {
   const styles = `
-    width: 49%;
+    width: 48.74%;
     flex-wrap: wrap;
     @media screen and (max-width: ${LARGE_ENDPOINT}) {
       width: 100%;
