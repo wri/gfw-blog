@@ -19,7 +19,7 @@ const CategoryNameList = ({ categories, styles = '', title }) => {
       {title && <TitleWrapper>{title}</TitleWrapper>}
       {categories.map(({ name, link }) => {
         return (
-          <CategoryName key={name}>
+          <CategoryName key={name + link}>
             <Link
               css={css`
                 ${linkCss}
