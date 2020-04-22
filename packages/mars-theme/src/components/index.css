@@ -9,9 +9,32 @@ p {
 }
 .categories-list-wrapper a:visited {
     color: #fff;
-    
 }
 
 .breadcrumbs-wrapper a {
     color: inherit;
+}
+
+.footer-contact-us .subscribe-btn {
+    width: 299px;
+}
+@media screen and (max-width: 768px) {
+    .footer-contact-us .subscribe-btn {
+        width: 100%;
+    }
+
+    .footer-links-texts, .footer-links-social {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer-partners .column:last-child {
+        padding-right: 0;
+    }
+}
+
+.footer-logos>p{
+    margin-left: 20px;
 }

@@ -14,6 +14,7 @@ const CategoryName = ({ children, styles = '' }) => {
     margin-right: 1em;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    height: 1.5rem;
     ${styles}
   `;
   return (

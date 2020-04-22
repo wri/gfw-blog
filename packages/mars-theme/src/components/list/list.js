@@ -155,7 +155,7 @@ const Header = styled.h3`
 
 const Title = styled.h3`
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 500;
   margin: 2rem 0;
   text-transform: uppercase;
   width: 100%;
