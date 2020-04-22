@@ -140,10 +140,10 @@ const Container = styled.section`
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 1.5px 0;
+  padding: 0;
   list-style: none;
-  @media screen and (max-width: ${LARGE_ENDPOINT}) {
-    padding: 1.5px;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
+    padding: 1.5rem;
   }
 `;
 

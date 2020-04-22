@@ -27,14 +27,12 @@ p {
         display: flex;
         justify-content: space-between;
     }
-}
 
-@media screen and (max-width: 768px) {
-    .footer-partners .column:last-child {
-        padding-right: 0;
+    .c-footer .footer-links .footer-links-texts li {
+        margin-right: 0;
     }
 }
 
 .footer-logos>p{
     margin-left: 20px;
-}
+} 
