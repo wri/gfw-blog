@@ -11,7 +11,7 @@ p {
     color: #fff;
 }
 
-.breadcrumbs-wrapper a {
+.breadcrumbs-wrapper a, .drop-down-select-wrapper a {
     color: inherit;
 }
 
