@@ -10,7 +10,6 @@ import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
 import Breadcrumbs from '../breadcrumbs';
 import {
-  LARGE_ENDPOINT,
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
 } from '../heplers/css-endpoints';
