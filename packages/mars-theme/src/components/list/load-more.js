@@ -9,7 +9,14 @@ import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
 import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
-const LoadMore = ({ actions, state, setPage, page, length, isFetching }) => {
+const LoadMore = ({ 
+  actions,
+  state,
+  setPage,
+  page,
+  isFetching,
+  setIsFetching
+ }) => {
   const buttonCss = `
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       width: 100% !important;
@@ -18,24 +25,25 @@ const LoadMore = ({ actions, state, setPage, page, length, isFetching }) => {
     width: 31.82% !important;
   `;
   const [isLoading, setIsLoading] = useState(false);
-  const [currentLength, setCurrentLength] = useState(0);
   useEffect(() => {
     if (page && page > 1) {
-      actions.source.fetch(`${state.router.link}page/${page}`);
+      const res = actions.source.fetch(`${state.router.link}page/${page}`);
+      res.then(() => {
+        setIsFetching(true)
+      });
     }
   }, [page]);
 
   useLayoutEffect(() => {
-    if (!isFetching && length > currentLength) {
+    if (!isFetching) {
       setIsLoading(false);
     }
-  }, [length, currentLength, isFetching]);
+  }, [isFetching]);
 
   const loadHandler = useCallback(() => {
-    setCurrentLength(length);
     setIsLoading(true);
     setPage(page + 1);
-  }, [page, length]);
+  }, [page]);
 
   return (
     <Wrapper>
@@ -64,8 +72,8 @@ LoadMore.propTypes = {
   actions: PropTypes.object,
   state: PropTypes.object,
   setPage: PropTypes.func,
+  setIsFetching: PropTypes.func,
   page: PropTypes.number,
-  length: PropTypes.number,
   isFetching: PropTypes.bool,
 };
 
