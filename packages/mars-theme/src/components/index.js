@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Global, css, connect, styled, Head } from 'frontity';
 import PropTypes from 'prop-types';
 
@@ -12,6 +12,7 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
+import twittHighlightedText from '../utils/twitt-selected-text';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
@@ -23,6 +24,10 @@ const SSRStyles = () => <Global styles={css(mediaStyles)} />;
 const Theme = ({ state, actions }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
+
+  useEffect(() => {
+    twittHighlightedText();
+  });
 
   return (
     <>
