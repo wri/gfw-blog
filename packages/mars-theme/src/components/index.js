@@ -12,11 +12,12 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
+import TwittTooltippCss from './tooltip.css';
 import twittHighlightedText from '../utils/twitt-selected-text';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
-const TwittTooltipStyles = () => <Global styles={css()} />;
+const TwittTooltipStyles = () => <Global styles={css(TwittTooltippCss)} />;
 
 /**
  * Theme is the root React component of our theme. The one we will export
