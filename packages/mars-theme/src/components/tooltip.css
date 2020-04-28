@@ -14,3 +14,17 @@
     position: relative !important;
     bottom: 2px !important;
 }
+
+*::selection {
+    color: #fff;
+    background-color: rgb(151, 190, 50);
+}
+
+#root {
+    position: relative;
+}
+
+.tippy-box {
+    position: relative;
+    z-index: 9;
+}

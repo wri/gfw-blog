@@ -1,5 +1,8 @@
 import tippy from 'tippy.js';
-import { TWITT_CREATION_URI } from '../../../../constants';
+
+const WORDPRESS_GFW_API =
+  'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
 
 function createSpan(text, parentContainer) {
   const span = document.createElement('span');
@@ -7,22 +10,24 @@ function createSpan(text, parentContainer) {
   span.style.background = '#96BD3C';
   span.style.color = '#ffffff';
 
-  span.appendChild(text);
+  span.innerHTML = text;
   span.setAttribute('aria-describedby', 'tooltip');
   parentContainer.insertNode(span);
 
   return span;
 }
 
-function createTooltip(span) {
+function createTooltip(text, rects) {
   const tooltip = document.createElement('span');
+  const topPosition = (window.scrollY + rects.top);
   tooltip.setAttribute('role', 'tooltip');
   tooltip.setAttribute('class', 'tippy-box');
-  tooltip.innerHTML = `<img style="margin: 2px 0px 0px 2px;" src="https://img.icons8.com/ios/15/000000/twitter.png"/><a href="${
-    TWITT_CREATION_URI + span.textContent
+  tooltip.setAttribute('style', `position:absolute; top: ${topPosition}px;`);
+  tooltip.innerHTML = `<img style="margin: 2px 0px 0px 2px;" src="https://img.icons8.com/ios/15/000000/twitter.png"/><a target="_blank" href="${
+    TWITT_CREATION_URI + text
   }">Twitt this</a>`;
 
-  tippy(span, {
+  tippy(document.getElementById('post-content'), {
     interactive: true,
     trigger: 'click',
     arrow: true,
@@ -34,24 +39,9 @@ function createTooltip(span) {
 
 function twittText() {
   const selection = window.getSelection();
+  const selectedText = selection.toString();
   const range = selection.getRangeAt(0);
-  const selectedText = range.extractContents();
-
-  if (selectedText.length === 0) {
-    return;
-  }
-
-  const oldSpan = document.getElementById('selected-text');
-
-  if (oldSpan !== null) {
-    const oldContent = document.createTextNode(oldSpan.innerText);
-    oldSpan.parentNode.insertBefore(oldContent, oldSpan);
-    oldSpan.outerHTML = '';
-  }
-
-  const span = createSpan(selectedText, range);
-
-  createTooltip(span);
+  createTooltip(selectedText, range.getBoundingClientRect());
 }
 
 export default function twittHighlightedText() {
