@@ -1,0 +1,16 @@
+.tippy-box[data-theme~='twitt-tooltip'] {
+    background-color: #333333 !important;
+    width: auto !important;
+    height: 30px !important;
+    border-radius: 0 !important;
+    border: 0 !important;
+    z-index: 9999 !important;
+}
+
+.tippy-box a {
+    padding-left: 5px !important;
+    text-decoration: none !important;
+    color: #777777 !important;
+    position: relative !important;
+    bottom: 2px !important;
+}
