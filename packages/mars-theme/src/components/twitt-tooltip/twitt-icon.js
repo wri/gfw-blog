@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { styled } from 'frontity';
 
-const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
-
-const TwittIcon = ({ size, color }) => {
+export default function TwittIcon({ size, color }) {
   const styles = {
     svg: {
       fill: '#000000',
@@ -47,68 +44,7 @@ const TwittIcon = ({ size, color }) => {
       </g>
     </svg>
   );
-};
-
-export default function TwittTextTooltip({
-  isTooltipVisible,
-  text,
-  coordsToShow,
-}) {
-  if (!isTooltipVisible || !coordsToShow || !text) return null;
-
-  const Container = styled.div`
-    background-color: #333333;
-    width: 110px;
-    height: 30px;
-    position: absolute !important;
-    top: ${coordsToShow.top}px;
-    left: ${coordsToShow.left}px;
-    padding: 4px;
-    z-index: 9997;
-  `;
-  const TwittLink = styled.a`
-    padding-left: 5px;
-    position: relative;
-    width: auto;
-    display: inline-block;
-    text-decoration: none;
-    pointer-events: auto !important;
-    color: #777777;
-    z-index: 9998;
-  `;
-  const TwittSpan = styled.span`
-    position: relative;
-    bottom: 5px;
-    right: -5px;
-    z-index: 9999;
-  `;
-  const Arrow = styled.span`
-    width: 13px;
-    height: 13px;
-    transform: rotate(45deg);
-    display: block;
-    position: relative;
-    top: -36px;
-    left: 9px;
-    background: #333333;
-  `;
-
-  return (
-    <Container className="tippy-box">
-      <TwittLink target="_blank" href={TWITT_CREATION_URI + text}>
-        <TwittIcon size={21} color="#ffffff" />
-        <TwittSpan>Twitt this</TwittSpan>
-      </TwittLink>
-      <Arrow />
-    </Container>
-  );
 }
-
-TwittTextTooltip.propTypes = {
-  text: PropTypes.string,
-  isTooltipVisible: PropTypes.bool,
-  coordsToShow: PropTypes.object,
-};
 
 TwittIcon.propTypes = {
   size: PropTypes.number,
