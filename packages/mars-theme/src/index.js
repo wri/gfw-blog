@@ -33,6 +33,11 @@ const marsTheme = {
       toggleContactUsModal: ({ state }) => {
         state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
       },
+      toggleTwitterTooltip: ({ state }) => (isVisible, text, coordsToShow) => {
+        state.theme.isTwitterTooltipVisible = isVisible;
+        state.theme.twitterTooltipText = text;
+        state.theme.coordsToShow = coordsToShow;
+      },
     },
   },
   libraries: {

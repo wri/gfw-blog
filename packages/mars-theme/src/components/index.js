@@ -12,12 +12,14 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
-import TwittTooltippCss from './tooltip.css';
-import twittHighlightedText from '../utils/twitt-selected-text';
+
+import TwittTooltipCss from './twitt-tooltip/tooltip.css';
+import twittHighlightedText from './twitt-tooltip/twitt-selected-text';
+import TwittTextTooltip from './twitt-tooltip/tooltip';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
-const TwittTooltipStyles = () => <Global styles={css(TwittTooltippCss)} />;
+const TwittTooltipStyles = () => <Global styles={css(TwittTooltipCss)} />;
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -28,8 +30,8 @@ const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
 
   useEffect(() => {
-    twittHighlightedText();
-  });
+    twittHighlightedText(actions.theme.toggleTwitterTooltip);
+  }, []);
 
   return (
     <>
@@ -71,6 +73,11 @@ const Theme = ({ state, actions }) => {
       <ContactUsModal
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
+      />
+      <TwittTextTooltip
+        isTooltipVisible={state.theme.isTwitterTooltipVisible}
+        text={state.theme.twitterTooltipText}
+        coordsToShow={state.theme.coordsToShow}
       />
     </>
   );
