@@ -13,6 +13,9 @@ const CategoryNameList = ({ categories, styles = '', title }) => {
     color: #fff;
     font-size: 0.75rem;
     line-height: 0.75rem;
+    :hover, :visited, :active {
+      text-decoration: none;
+    }
   `;
   return (
     <Wrapper className="categories-list-wrapper">

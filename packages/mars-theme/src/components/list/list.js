@@ -1,15 +1,19 @@
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect, styled, decode } from "frontity";
-import Item from "./list-item";
-import SubPost from "./sub-post";
-import MainPost from "./main-post";
-import LoadMore from "./load-more";
-import BlogHeader from "../blog-header";
-import CategoryNameList from "../category/list-name";
-import Breadcrumbs from "../breadcrumbs";
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from "../heplers/css-endpoints";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, decode } from 'frontity';
+import Item from './list-item';
+import SubPost from './sub-post';
+import MainPost from './main-post';
+import LoadMore from './load-more';
+import BlogHeader from '../blog-header';
+import CategoryNameList from '../category/list-name';
+import Breadcrumbs from '../breadcrumbs';
+import {
+  SMALL_ENDPOINT,
+  MEDIUM_ENDPOINT,
+  LARGE_ENDPOINT,
+} from '../heplers/css-endpoints';
 
 const POSTS_PER_PAGE = 9;
 
@@ -17,13 +21,13 @@ const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
   const isBlogHomePage = () => {
-    return link === "/";
+    return link === '/';
   };
 
   const data = state.source.get(state.router.link);
   const categories = Object.values(
     state.source.category
-  // eslint-disable-next-line no-shadow
+    // eslint-disable-next-line no-shadow
   ).map(({ name, link }) => ({ name, link }));
   const initialPosts = [...data.items];
   const mainPosts = isBlogHomePage() ? initialPosts.splice(0, 1) : [];
@@ -35,32 +39,28 @@ const List = ({ state }) => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-      let fetchingAllData = true;
-      let lastLoadedPage = 1;
-      const loadedPosts = [];
-      while (fetchingAllData) {
-        const pageData = state.source.get(`${link}page/${lastLoadedPage + 1}`);
-        if (pageData && pageData.items) {
-          lastLoadedPage++;
-          loadedPosts.push(...pageData.items);
-        } else {
-          fetchingAllData = false;
-        }
+    let fetchingAllData = true;
+    let lastLoadedPage = 1;
+    const loadedPosts = [];
+    while (fetchingAllData) {
+      const pageData = state.source.get(`${link}page/${lastLoadedPage + 1}`);
+      if (pageData && pageData.items) {
+        lastLoadedPage++;
+        loadedPosts.push(...pageData.items);
+      } else {
+        fetchingAllData = false;
       }
-      const finalPosts = [...initialPosts, ...loadedPosts];
-      setPosts({[link]: finalPosts});
-      setPage(lastLoadedPage);
-  }, [link, setIsFetching, setPosts, setPage])
+    }
+    const finalPosts = [...initialPosts, ...loadedPosts];
+    setPosts({ [link]: finalPosts });
+    setPage(lastLoadedPage);
+  }, [link, setIsFetching, setPosts, setPage]);
 
   useEffect(() => {
-    if (
-      page &&
-      page > 1 &&
-      page <= totalPages &&
-      isFetching
-    ) {
+    if (page && page > 1 && page <= totalPages && isFetching) {
       const pagesNumber = Math.round(
-        (posts[state.router.link].length + mainPosts.length + subPosts.length) / POSTS_PER_PAGE
+        (posts[state.router.link].length + mainPosts.length + subPosts.length) /
+          POSTS_PER_PAGE
       );
       if (pagesNumber < page) {
         for (let i = page - 1; i < page; i++) {
@@ -81,10 +81,11 @@ const List = ({ state }) => {
         setIsFetching(false);
       }
     }
-    
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
-  const categoriesStyles = `@media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+  const categoriesStyles = `
+  margin-bottom: 0.25rem;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
     padding: 0 1rem;
   }`;
   return (
@@ -96,8 +97,8 @@ const List = ({ state }) => {
         {data.isTaxonomy && (
           <Header>
             {data.taxonomy}
-            : 
-            {" "}
+            :
+            {' '}
             <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
           </Header>
         )}
@@ -111,7 +112,7 @@ const List = ({ state }) => {
         {mainPosts &&
           mainPosts.map(({ type, id }) => {
             const item = state.source[type][id];
-            return <MainPost key={item.id} post={item} />
+            return <MainPost key={item.id} post={item} />;
           })}
         {subPosts &&
           subPosts.map(({ type, id }) => {
@@ -148,11 +149,17 @@ export default connect(List);
 
 const Wrapper = styled.div`
   width: 100%;
+  padding-top: 3.125rem;
+  padding-bottom: 3.75rem;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    padding-bottom: 6.25rem;
+  }
 `;
 
 const Divider = styled.div`
   border-top: 1px solid #e5e5df;
-  margin-top: 2rem;
+  margin-top: 3.75rem;
+  margin-bottom: 3.75rem;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: none;
   }
@@ -164,10 +171,9 @@ const Container = styled.section`
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 0 auto;
-  padding: 0;
   list-style: none;
-  @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 1.5rem;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
+    padding: 0 1.5rem;
   }
 `;
 
@@ -180,11 +186,14 @@ const Header = styled.h3`
 const Title = styled.h3`
   font-size: 1.125rem;
   font-weight: 500;
-  margin: 2rem 0;
+  margin-bottom: 2rem;
   text-transform: uppercase;
   width: 100%;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: none;
+  }
+  @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
+    padding: 0 1rem;
   }
 `;
 

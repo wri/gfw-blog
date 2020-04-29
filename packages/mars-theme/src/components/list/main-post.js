@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled } from 'frontity';
+import { connect, styled, css } from 'frontity';
 import FeaturedMedia from '../featured-media';
 import {
   LARGE_ENDPOINT,
@@ -71,32 +71,37 @@ const MainPost = ({ post, state }) => {
     padding-top: 0;
     padding-bottom: 1.875rem;
     line-height: 1.25;
-    color: #fff
+    color: var(--color-white);
   `;
 
   const ExcerptStyles = `
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
       font-size: 1rem;
     }
-    color: #fff;
+    color: var(--color-white);
     font-size: 0.875rem;
   `;
 
   return (
-    <Wrapper>
-      <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
-      <ContentWrapper>
-        <div>
-          <CategoryNameList categories={categories} />
-          <Link link={item.link}>
+    <Link
+      link={item.link}
+      css={css`
+        width: 100%;
+      `}
+    >
+      <Wrapper>
+        <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
+        <ContentWrapper>
+          <div>
+            <CategoryNameList categories={categories} />
             <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-          </Link>
-          <PostExcerpt styles={ExcerptStyles}>
-            {item.excerpt.rendered}
-          </PostExcerpt>
-        </div>
-      </ContentWrapper>
-    </Wrapper>
+            <PostExcerpt styles={ExcerptStyles} noHellip>
+              {item.excerpt.rendered}
+            </PostExcerpt>
+          </div>
+        </ContentWrapper>
+      </Wrapper>
+    </Link>
   );
 };
 

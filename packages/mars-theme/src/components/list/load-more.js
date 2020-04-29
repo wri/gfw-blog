@@ -7,29 +7,29 @@ import React, {
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
-import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
-const LoadMore = ({ 
+const LoadMore = ({
   actions,
   state,
   setPage,
   page,
   isFetching,
-  setIsFetching
- }) => {
+  setIsFetching,
+}) => {
   const buttonCss = `
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       width: 100% !important;
       margin: 0 1rem;
     }
-    width: 31.82% !important;
+    width: 31.532% !important;
   `;
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (page && page > 1) {
       const res = actions.source.fetch(`${state.router.link}page/${page}`);
       res.then(() => {
-        setIsFetching(true)
+        setIsFetching(true);
       });
     }
   }, [page]);
@@ -81,5 +81,8 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 1.5rem 0;
+  margin: 0.75rem 0 0 0;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    margin: 3.5rem 0 0 0;
+  }
 `;

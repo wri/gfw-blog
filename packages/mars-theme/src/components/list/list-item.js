@@ -6,7 +6,7 @@ import FeaturedMedia from '../featured-media';
 import CategoryNameList from '../category/list-name';
 import PostTitle from '../post/title';
 import Excerpt from '../post/excerpt';
-import { LARGE_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 /**
  * Item Component
@@ -30,12 +30,13 @@ const Item = ({
   });
 
   const Wrapper = styled.article`
-    width: 31.82%;
+    width: 31.532%;
     flex-wrap: wrap;
+    margin-bottom: 2.75rem;
     @media screen and (max-width: ${LARGE_ENDPOINT}) {
       width: 49%;
     }
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
       width: 100%;
       padding: 0 1rem;
     }
@@ -44,7 +45,7 @@ const Item = ({
 
   const titleStyles = `
     padding-top: 0;
-    padding-bottom: 1rem;
+    padding-bottom: 1.25rem;
     line-height: 1.25;
   `;
 
@@ -54,24 +55,29 @@ const Item = ({
        * If the want to show featured media in the
        * list of featured posts, we render the media.
        */}
-      {state.theme.featured.showOnList && media && media(item.featured_media)}
-      {state.theme.featured.showOnList && !media && (
-        <FeaturedMedia id={item.featured_media} />
-      )}
+      <Link link={item.link} className="post-link">
+        <div className="feautured-media">
+          {state.theme.featured.showOnList &&
+            media &&
+            media(item.featured_media)}
+          {state.theme.featured.showOnList && !media && (
+            <FeaturedMedia key={item.featured_media} id={item.featured_media} />
+          )}
+        </div>
 
-      {/* Show categories of the post */}
-      <CategoryNameList categories={categories} />
+        {/* Show categories of the post */}
+        <CategoryNameList categories={categories} />
 
-      <Link link={item.link}>
-        {!title && (
-          <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>
-        )}
-        {title && title(item.title.rendered)}
+        <Link link={item.link} className="post-title-link">
+          {!title && (
+            <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>
+          )}
+          {title && title(item.title.rendered)}
+        </Link>
+        {/* If the post has an excerpt (short summary text), we render it */}
+        {item.excerpt && excerpt && excerpt(item.excerpt.rendered)}
+        {item.excerpt && !excerpt && <Excerpt>{item.excerpt.rendered}</Excerpt>}
       </Link>
-
-      {/* If the post has an excerpt (short summary text), we render it */}
-      {item.excerpt && excerpt && excerpt(item.excerpt.rendered)}
-      {item.excerpt && !excerpt && <Excerpt>{item.excerpt.rendered}</Excerpt>}
     </Wrapper>
   );
 };

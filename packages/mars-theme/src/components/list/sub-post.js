@@ -35,6 +35,7 @@ const SubPost = ({ item }) => {
 
   const titleStyles = `
     font-size: 1.375rem;
+    margin-bottom: 1rem;
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
       font-size: 1.875rem;
   }`;

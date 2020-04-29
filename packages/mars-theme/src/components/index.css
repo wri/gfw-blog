@@ -1,11 +1,45 @@
+:root {
+    --color-primary: #97BD3D;
+    --color-primary-dark: #658022;
+    --color-darkest-grey: #333;
+    --color-dark-grey: #555;
+    --color-medium-grey: #777;
+    --color-grey: #AAA;
+    --color-light-grey: #E5E5DF;
+    --color-lightest-grey: #F7F7F7;
+    --color-white: #FFF;
+}
+
 p {
     font-size: inherit;
     line-height: inherit;
 }
 
-.categories-list-wrapper a:hover {
-    color: #fff;
+a {
+    color: var(--color-darkest-grey);
+}
+
+a.post-link:hover {
     text-decoration: none;
+}
+
+a.post-link:hover a.post-title-link {
+    text-decoration: underline;
+}
+
+a.post-title-link {
+    color: inherit;
+}
+
+a:hover, .a:hover a.post-title-link
+  {
+    text-decoration: underline;
+    color: var(--color-primary);
+}
+
+.categories-list-wrapper a, .categories-list-wrapper a:hover {
+    color: #fff;
+    text-decoration: none !important;
 }
 .categories-list-wrapper a:visited {
     color: #fff;
@@ -35,4 +69,24 @@ p {
 
 .footer-logos>p{
     margin-left: 20px;
-} 
+}
+
+.c-header.relative .row {
+    max-width: 1110px;
+}
+
+.c-header.relative .row>div {
+    padding: 0 1rem;
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1110px) {
+    .c-header.relative .row>div {
+        padding: 0 1.5rem;
+    }
+}
+
+@media screen and (min-width: 1110px) {
+    .c-header.relative .row>div {
+        padding: 0;
+    }
+}
