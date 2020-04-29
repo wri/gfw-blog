@@ -1,7 +1,7 @@
 function captureText(toggleTwitterTooltip) {
   const selection = window.getSelection();
   const text = selection.toString().trim();
-  if (text.length) {
+  if (text.length > 0) {
     const range = selection.getRangeAt(0);
     const rects = range.getBoundingClientRect();
 

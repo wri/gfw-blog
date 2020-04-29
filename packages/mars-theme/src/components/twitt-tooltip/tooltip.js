@@ -63,20 +63,24 @@ export default function TwittTextTooltip({
     position: absolute !important;
     top: ${coordsToShow.top}px;
     left: ${coordsToShow.left}px;
-    z-index: 999;
     padding: 4px;
+    z-index: 9997;
   `;
   const TwittLink = styled.a`
     padding-left: 5px;
+    position: relative;
     width: auto;
+    display: inline-block;
     text-decoration: none;
+    pointer-events: auto !important;
     color: #777777;
-    z-index: 9999;
+    z-index: 9998;
   `;
   const TwittSpan = styled.span`
     position: relative;
     bottom: 5px;
     right: -5px;
+    z-index: 9999;
   `;
   const Arrow = styled.span`
     width: 13px;
