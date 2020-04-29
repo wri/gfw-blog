@@ -5,6 +5,15 @@ import { styled } from 'frontity';
 const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
 
 const TwittIcon = ({ size, color }) => {
+  const styles = {
+    svg: {
+      fill: '#000000',
+    },
+    g: {
+      mixBlendNode: 'normal',
+    },
+  };
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +22,7 @@ const TwittIcon = ({ size, color }) => {
       width={size}
       height={size}
       viewBox="0 0 172 172"
+      style={styles.svg}
     >
       <g
         fill="none"
@@ -28,6 +38,7 @@ const TwittIcon = ({ size, color }) => {
         fontWeight="none"
         fontSize="none"
         textAnchor="none"
+        style={styles.g}
       >
         <path d="M0,172v-172h172v172z" fill="#333333" />
         <g fill={color}>
@@ -47,12 +58,13 @@ export default function TwittTextTooltip({
 
   const Container = styled.div`
     background-color: #333333;
-    width: 100px;
+    width: 110px;
     height: 30px;
     position: absolute !important;
     top: ${coordsToShow.top}px;
     left: ${coordsToShow.left}px;
     z-index: 999;
+    padding: 4px;
   `;
   const TwittLink = styled.a`
     padding-left: 5px;
@@ -61,18 +73,29 @@ export default function TwittTextTooltip({
     color: #777777;
     z-index: 9999;
   `;
-
   const TwittSpan = styled.span`
     position: relative;
     bottom: 5px;
+    right: -5px;
+  `;
+  const Arrow = styled.span`
+    width: 13px;
+    height: 13px;
+    transform: rotate(45deg);
+    display: block;
+    position: relative;
+    top: -36px;
+    left: 9px;
+    background: #333333;
   `;
 
   return (
     <Container className="tippy-box">
       <TwittLink target="_blank" href={TWITT_CREATION_URI + text}>
-        <TwittIcon size={22} color="#ffffff" />
+        <TwittIcon size={21} color="#ffffff" />
         <TwittSpan>Twitt this</TwittSpan>
       </TwittLink>
+      <Arrow />
     </Container>
   );
 }
@@ -85,5 +108,5 @@ TwittTextTooltip.propTypes = {
 
 TwittIcon.propTypes = {
   size: PropTypes.number,
-  color: PropTypes.number,
+  color: PropTypes.string,
 };
