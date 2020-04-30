@@ -13,7 +13,7 @@ export default function TwittTextTooltip() {
   const showTwitterTooltip = useCallback(() => {
     const selection = window.getSelection();
     const selectionText = selection.toString().trim();
-    if (selectionText.length > 0) {
+    if (selectionText.length !== 0) {
       const range = selection.getRangeAt(0);
       const rects = range.getBoundingClientRect();
 
@@ -36,7 +36,7 @@ export default function TwittTextTooltip() {
     // for devices with touchscreens
     window.addEventListener('touchend', showTwitterTooltip);
 
-    // window.addEventListener('popstate', () => showTwitterTooltip(false));
+    window.addEventListener('popstate', showTwitterTooltip(false));
   }, []);
 
   if (!isTooltipVisible) return null;
