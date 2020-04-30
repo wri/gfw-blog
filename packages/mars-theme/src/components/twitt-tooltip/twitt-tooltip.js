@@ -26,6 +26,8 @@ export default function TwittTextTooltip() {
       setText(selectionText);
       setIsTooltipVisible(true);
       setPosition(coordsToShowRects);
+    } else {
+      setIsTooltipVisible(false);
     }
   }, []);
 
