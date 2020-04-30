@@ -41,9 +41,13 @@ export default function TwittTextTooltip() {
 
   if (!isTooltipVisible) return null;
 
+  function getTwittContent() {
+    return `${TWITT_CREATION_URI}+"${text}" - from ${window.location.href}`;
+  }
+
   return (
     <Container position={position} className="tippy-box">
-      <TwittLink target="_blank" href={TWITT_CREATION_URI + text}>
+      <TwittLink target="_blank" href={getTwittContent()}>
         <TwittIcon size={21} color="#ffffff" />
         <TwittSpan>Twitt this</TwittSpan>
       </TwittLink>
@@ -62,6 +66,7 @@ const Container = styled.div`
   padding: 4px;
   z-index: 9997;
 `;
+
 const TwittLink = styled.a`
   padding-left: 5px;
   position: relative;
@@ -72,12 +77,14 @@ const TwittLink = styled.a`
   color: #777777;
   z-index: 9998;
 `;
+
 const TwittSpan = styled.span`
   position: relative;
   bottom: 5px;
   right: -5px;
   z-index: 9999;
 `;
+
 const Arrow = styled.span`
   width: 13px;
   height: 13px;
