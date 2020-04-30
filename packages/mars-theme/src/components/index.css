@@ -19,6 +19,12 @@ a {
     color: var(--color-darkest-grey);
 }
 
+a.post-link {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
 a.post-link:hover {
     text-decoration: none;
 }
@@ -31,7 +37,8 @@ a.post-title-link {
     color: inherit;
 }
 
-a:hover, .a:hover a.post-title-link
+a:hover, .a:hover a.post-title-link,
+article>.post-link:hover+.feautured-media+.categories-list-wrapper+h1
   {
     text-decoration: underline;
     color: var(--color-primary);
@@ -52,6 +59,11 @@ a:hover, .a:hover a.post-title-link
 .footer-contact-us .subscribe-btn {
     width: 299px;
 }
+
+.feautured-media {
+    width: 100%;
+}
+
 @media screen and (max-width: 768px) {
     .footer-contact-us .subscribe-btn {
         width: 100%;

@@ -5,8 +5,9 @@ import Image from '@frontity/components/image';
 
 const FeaturedMedia = ({ state, id, styles = '' }) => {
   const Container = styled.div`
-    margin-top: 16px;
+    margin-top: 1rem;
     height: 200px;
+    width: 100%;
     ${styles}
   `;
   const media = state.source.attachment[id];

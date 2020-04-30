@@ -82,26 +82,36 @@ const MainPost = ({ post, state }) => {
     font-size: 0.875rem;
   `;
 
+  const CategoriesStyles = `
+    position: relative;
+    margin-top: 2rem;
+    z-index: 2;
+  `;
+
   return (
-    <Link
-      link={item.link}
-      css={css`
-        width: 100%;
-      `}
-    >
-      <Wrapper>
-        <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
-        <ContentWrapper>
-          <div>
-            <CategoryNameList categories={categories} />
-            <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-            <PostExcerpt styles={ExcerptStyles} noHellip>
-              {item.excerpt.rendered}
-            </PostExcerpt>
-          </div>
-        </ContentWrapper>
-      </Wrapper>
-    </Link>
+    <Wrapper>
+      <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
+      <ContentWrapper>
+        <Link
+          link={item.link}
+          css={css`
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+          `}
+        >
+          &nbsp;
+        </Link>
+        <div>
+          <CategoryNameList categories={categories} styles={CategoriesStyles} />
+          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+          <PostExcerpt styles={ExcerptStyles} noHellip>
+            {item.excerpt.rendered}
+          </PostExcerpt>
+        </div>
+      </ContentWrapper>
+    </Wrapper>
   );
 };
 

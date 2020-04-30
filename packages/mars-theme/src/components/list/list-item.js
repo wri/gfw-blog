@@ -33,6 +33,7 @@ const Item = ({
     width: 31.532%;
     flex-wrap: wrap;
     margin-bottom: 2.75rem;
+    position: relative;
     @media screen and (max-width: ${LARGE_ENDPOINT}) {
       width: 49%;
     }
@@ -56,28 +57,25 @@ const Item = ({
        * list of featured posts, we render the media.
        */}
       <Link link={item.link} className="post-link">
-        <div className="feautured-media">
-          {state.theme.featured.showOnList &&
-            media &&
-            media(item.featured_media)}
-          {state.theme.featured.showOnList && !media && (
-            <FeaturedMedia key={item.featured_media} id={item.featured_media} />
-          )}
-        </div>
-
-        {/* Show categories of the post */}
-        <CategoryNameList categories={categories} />
-
-        <Link link={item.link} className="post-title-link">
-          {!title && (
-            <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>
-          )}
-          {title && title(item.title.rendered)}
-        </Link>
-        {/* If the post has an excerpt (short summary text), we render it */}
-        {item.excerpt && excerpt && excerpt(item.excerpt.rendered)}
-        {item.excerpt && !excerpt && <Excerpt>{item.excerpt.rendered}</Excerpt>}
+        &nbsp;
       </Link>
+      <div className="feautured-media">
+        {state.theme.featured.showOnList && media && media(item.featured_media)}
+        {state.theme.featured.showOnList && !media && (
+          <FeaturedMedia key={item.featured_media} id={item.featured_media} />
+        )}
+      </div>
+      {/* Show categories of the post */}
+      <CategoryNameList categories={categories} styles="position:relative;" />
+      {/* <Link link={item.link} className="post-title-link"> */}
+      {!title && (
+        <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>
+      )}
+      {title && title(item.title.rendered)}
+      {/* </Link> */}
+      {/* If the post has an excerpt (short summary text), we render it */}
+      {item.excerpt && excerpt && excerpt(item.excerpt.rendered)}
+      {item.excerpt && !excerpt && <Excerpt>{item.excerpt.rendered}</Excerpt>}
     </Wrapper>
   );
 };

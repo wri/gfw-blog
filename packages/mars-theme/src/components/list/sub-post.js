@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'frontity';
 import Item from './list-item';
 import FeaturedMedia from '../featured-media';
 import Excerpt from '../post/excerpt';
@@ -55,7 +56,7 @@ const SubPost = ({ item }) => {
   );
 };
 
-export default SubPost;
+export default connect(SubPost);
 
 SubPost.propTypes = {
   item: PropTypes.object,
