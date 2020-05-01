@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
+import { Loader } from 'gfw-components';
 import { Item } from './components';
 import Link from '../link';
 
@@ -13,6 +14,7 @@ const CategoryList = ({ state, libraries, handler }) => {
 
   const [page, setPage] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
+  const [isRedy, setIsReady] = useState(false);
 
   const fetchCategories = useCallback(() => {
     setIsFetching(true);
@@ -28,10 +30,10 @@ const CategoryList = ({ state, libraries, handler }) => {
   }, [page, setIsFetching]);
 
   useEffect(() => {
-    if (page && !isFetching) {
+    if (page && !isFetching && !isRedy) {
       fetchCategories(page);
     }
-  }, [page, isFetching]);
+  }, [page, isFetching, isRedy]);
 
   useEffect(() => {
     if (totalNumber < CATEGORIES_PER_PAGE) {
@@ -52,7 +54,15 @@ const CategoryList = ({ state, libraries, handler }) => {
         return next.count - prev.count;
       });
     setCategories(allCategories);
-  }, [totalNumber, setCategories, setPage]);
+    if (page) {
+      setIsFetching(false);
+      setIsReady(true);
+    }
+  }, [totalNumber, setCategories, setPage, setIsFetching, setIsReady]);
+
+  if (isFetching) {
+    return <Loader />;
+  }
 
   return categories.map((cat) => {
     if (!cat.count) {
