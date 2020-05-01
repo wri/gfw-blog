@@ -17,10 +17,12 @@ export default function TwittTextTooltip() {
       const range = selection.getRangeAt(0);
       const rects = range.getBoundingClientRect();
 
+      console.log(rects);
+
       const coordsToShowRects = rects
         ? {
-            top: window.pageYOffset + rects.bottom,
-            left: window.pageXOffset + (rects.left + rects.right) / 2,
+            top: window.pageYOffset + rects.top - 47,
+            left: window.pageXOffset + rects.left + 30,
           }
         : {};
       setText(selectionText);
@@ -48,8 +50,8 @@ export default function TwittTextTooltip() {
   return (
     <Container position={position} className="tippy-box">
       <TwittLink target="_blank" href={getTwittContent()}>
-        <TwittIcon size={21} color="#ffffff" />
-        <TwittSpan>Twitt this</TwittSpan>
+        <TwittIcon size={25} color="#ffffff" />
+        <TwittSpan>Tweet this</TwittSpan>
       </TwittLink>
       <Arrow />
     </Container>
@@ -58,8 +60,8 @@ export default function TwittTextTooltip() {
 
 const Container = styled.div`
   background-color: #333333;
-  width: 110px;
-  height: 30px;
+  width: 130px;
+  height: 40px;
   position: absolute !important;
   top: ${(props) => props.position.top}px;
   left: ${(props) => props.position.left}px;
@@ -68,30 +70,30 @@ const Container = styled.div`
 `;
 
 const TwittLink = styled.a`
-  padding-left: 5px;
+  padding: 3px 0px 0px 10px;
   position: relative;
   width: auto;
   display: inline-block;
   text-decoration: none;
-  pointer-events: auto !important;
   color: #777777;
   z-index: 9998;
 `;
 
 const TwittSpan = styled.span`
   position: relative;
-  bottom: 5px;
-  right: -5px;
+  bottom: 7px;
+  right: -11px;
   z-index: 9999;
+  font-size: 95%;
 `;
 
 const Arrow = styled.span`
-  width: 13px;
-  height: 13px;
+  width: 12px;
+  height: 12px;
   transform: rotate(45deg);
   display: block;
   position: relative;
-  top: -36px;
-  left: 9px;
+  top: -5px;
+  left: 54px;
   background: #333333;
 `;
