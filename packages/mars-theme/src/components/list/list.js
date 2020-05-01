@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled, decode } from 'frontity';
+import { connect, styled } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -9,6 +9,7 @@ import LoadMore from './load-more';
 import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
 import Breadcrumbs from '../breadcrumbs';
+import EntityInfo from '../entity-info';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
@@ -92,16 +93,8 @@ const List = ({ state }) => {
     <Wrapper>
       <Container>
         <Breadcrumbs />
+        <EntityInfo />
         {isBlogHomePage() && <BlogHeader />}
-        {/* If the list is a taxonomy, we render a title. */}
-        {data.isTaxonomy && (
-          <Header>
-            {data.taxonomy}
-            :
-            {' '}
-            <b>{decode(state.source[data.taxonomy][data.id].name)}</b>
-          </Header>
-        )}
         {isBlogHomePage() && (
           <CategoryNameList
             categories={categories}
@@ -175,12 +168,6 @@ const Container = styled.section`
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
     padding: 0 1.5rem;
   }
-`;
-
-const Header = styled.h3`
-  font-weight: 300;
-  text-transform: capitalize;
-  color: rgba(12, 17, 43, 0.9);
 `;
 
 const Title = styled.h3`
