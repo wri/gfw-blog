@@ -17,12 +17,13 @@ export default function TwittTextTooltip() {
       const range = selection.getRangeAt(0);
       const rects = range.getBoundingClientRect();
 
-      console.log(rects);
-
       const coordsToShowRects = rects
         ? {
             top: window.pageYOffset + rects.top - 47,
-            left: window.pageXOffset + rects.left + 30,
+            left:
+              selectionText.length > 25
+                ? window.pageXOffset + rects.left + 75
+                : window.pageXOffset + rects.left + 15,
           }
         : {};
       setText(selectionText);
