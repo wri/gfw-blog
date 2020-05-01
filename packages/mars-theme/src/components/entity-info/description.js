@@ -11,7 +11,7 @@ const EntityDescription = ({ state }) => {
         <>
           {description && <Title>{description}</Title>}
           <NumberInfo>
-            {`${state.source[data.taxonomy][data.id].count}
+            {`${data.total}
             articles under the
             ${decode(state.source[data.taxonomy][data.id].name)}
             category`}
