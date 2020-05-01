@@ -48,9 +48,9 @@ CategoryNameList.propTypes = {
 
 const TitleWrapper = styled.span`
   margin-right: 1rem;
-  color: #777;
+  color: var(--color-medium-grey);
   text-transform: uppercase;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: block;
   }
