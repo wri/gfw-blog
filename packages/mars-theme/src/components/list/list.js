@@ -125,6 +125,7 @@ const List = ({ state }) => {
             // Render one Item component for each one.
             return <Item key={item.id + item.date + item.name} item={item} />;
           })}
+        {posts[state.router.link].length % 3 === 2 && <Plug />}
         {page < totalPages && (
           <LoadMore
             isFetching={isFetching}
@@ -181,6 +182,16 @@ const Title = styled.h3`
   }
   @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
     padding: 0 1rem;
+  }
+`;
+
+const Plug = styled.i`
+  width: 31.532%;
+  @media screen and (max-width: ${LARGE_ENDPOINT}) {
+    width: 49%;
+  }
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    width: 100%;
   }
 `;
 
