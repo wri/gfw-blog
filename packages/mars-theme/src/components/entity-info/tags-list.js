@@ -10,7 +10,8 @@ const TAGS_PER_PAGE = 10;
 const TagList = ({ state, libraries, handler, fetched, fetchedHandler }) => {
   const data = state.source.get(state.router.link);
   const { api } = libraries.source;
-  const totalNumber = Object.values(state.source.tag).length;
+  const totalNumber = Object.values(state.source.tag).filter((tag) => tag.count)
+    .length;
 
   const [page, setPage] = useState(0);
   const [isFetching, setIsFetching] = useState(false);
@@ -43,9 +44,11 @@ const TagList = ({ state, libraries, handler, fetched, fetchedHandler }) => {
   }, []);
 
   const [tags, setTags] = useState(
-    Object.values(state.source.tag).sort((prev, next) => {
-      return next.count - prev.count;
-    })
+    Object.values(state.source.tag)
+      .filter((tag) => tag.count)
+      .sort((prev, next) => {
+        return next.count - prev.count;
+      })
   );
 
   useEffect(() => {
