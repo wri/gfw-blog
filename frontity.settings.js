@@ -31,11 +31,14 @@ const settings = {
             per_page: POSTS_PER_PAGE,
             type: ['post'],
           },
+          categoryBase: 'category',
+          tagBase: 'tags',
         },
       },
     },
     '@frontity/tiny-router',
     '@frontity/html2react',
+    '@frontity/head-tags',
   ],
 };
 
