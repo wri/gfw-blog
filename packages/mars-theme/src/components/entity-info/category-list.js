@@ -7,7 +7,13 @@ import Link from '../link';
 
 const CATEGORIES_PER_PAGE = 10;
 
-const CategoryList = ({ state, libraries, handler }) => {
+const CategoryList = ({
+  state,
+  libraries,
+  handler,
+  fetched,
+  fetchedHandler,
+}) => {
   const data = state.source.get(state.router.link);
   const { api } = libraries.source;
   const totalNumber = Object.values(state.source.category).length;
@@ -25,6 +31,7 @@ const CategoryList = ({ state, libraries, handler }) => {
       });
       result.then((response) => {
         libraries.source.populate({ response, state, force: true });
+        fetchedHandler(true);
       });
     }
   }, [page, setIsFetching]);
@@ -36,7 +43,7 @@ const CategoryList = ({ state, libraries, handler }) => {
   }, [page, isFetching, isRedy]);
 
   useEffect(() => {
-    if (totalNumber < CATEGORIES_PER_PAGE) {
+    if (totalNumber < CATEGORIES_PER_PAGE && !fetched) {
       setPage(page + 1);
     }
   }, []);
