@@ -18,6 +18,12 @@ const Breadcrumbs = ({ state }) => {
       <Item clickable>
         <Link link="/">Blog home</Link>
       </Item>
+      {data.isAuthor && (
+        <>
+          <Divider />
+          <Item>{decode(state.source.author[data.id].name)}</Item>
+        </>
+      )}
       {data.isCategory && (
         <>
           <Divider />
