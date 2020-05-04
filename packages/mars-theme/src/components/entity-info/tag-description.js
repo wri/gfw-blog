@@ -12,7 +12,7 @@ const TagDescription = ({ state }) => {
       {description && <Title>{description}</Title>}
       <NumberInfo>
         {`${data.total}
-        article${data.total > 1 && `s`} tagged
+        article${data.total > 1 ? `s` : ''} tagged
         ${decode(state.source[data.taxonomy][data.id].name)}`}
       </NumberInfo>
     </>

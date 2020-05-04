@@ -11,35 +11,26 @@ const AuthorDescription = ({ state }) => {
   const description = decode(state.source.author[data.id].description);
   const lessDescription = getLessContnet(description);
 
-  const getAvatar = () => {
-    return (
-      <Avatar>
-        <img
-          css={css`
-            border-radius: 48px;
-          `}
-          alt={state.source.author[data.id].name}
-          src={state.source.author[data.id].avatar_urls[96]}
-        />
-      </Avatar>
-    );
-  };
-
   return (
     <>
-      {!description && getAvatar()}
-      {description && (
-        <div>
-          {getAvatar()}
-          <Title>
-            <Head>Editor</Head>
-            <ExpendedDescription less={lessDescription} full={description} />
-          </Title>
-        </div>
-      )}
+      <div>
+        <Avatar>
+          <img
+            css={css`
+              border-radius: 48px;
+            `}
+            alt={state.source.author[data.id].name}
+            src={state.source.author[data.id].avatar_urls[96]}
+          />
+        </Avatar>
+        <Title>
+          <Head>Editor</Head>
+          <ExpendedDescription less={lessDescription} full={description} />
+        </Title>
+      </div>
       <NumberInfo styles="margin-top:2.1875rem;">
         {`${data.total}
-        article${data.total > 1 && `s`} written by
+        article${data.total > 1 ? `s` : ''} written by
         ${decode(state.source.author[data.id].name)}
         `}
       </NumberInfo>
