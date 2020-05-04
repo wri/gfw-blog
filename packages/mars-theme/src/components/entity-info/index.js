@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 import EntityDescription from './description';
 import CategoryList from './category-list';
 import AuthorList from './authors-list';
+import TagList from './tags-list';
 import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const EntityInfo = ({ state }) => {
   const data = state.source.get(state.router.link);
   const [isOpen, setIsOpen] = useState(false);
   const [authorsFetched, setAuthorsFetched] = useState(false);
-  const [categoriesFeetched, setCategoriesFetched] = useState(false);
+  const [categoriesFetched, setCategoriesFetched] = useState(false);
+  const [tagsFetched, setTagsFetched] = useState(false);
 
   const toggleHandler = () => {
     // eslint-disable-next-line no-shadow
@@ -27,6 +29,7 @@ const EntityInfo = ({ state }) => {
         {data.isAuthor && (
           <Title>{decode(state.source.author[data.id].name)}</Title>
         )}
+        {data.isTag && <Title>{decode(state.source.tag[data.id].name)}</Title>}
         {data.isCategory && (
           <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
         )}
@@ -48,7 +51,14 @@ const EntityInfo = ({ state }) => {
               <CategoryList
                 handler={toggleHandler}
                 fetchedHandler={setCategoriesFetched}
-                fetched={categoriesFeetched}
+                fetched={categoriesFetched}
+              />
+            )}
+            {data.isTag && (
+              <TagList
+                handler={toggleHandler}
+                fetchedHandler={setTagsFetched}
+                fetched={tagsFetched}
               />
             )}
           </List>
@@ -77,6 +87,10 @@ const Title = styled.div`
   line-height: 3.75rem;
   font-weight: 200;
   color: #333;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    font-size: 1.875rem;
+    line-height: 1.25;
+  }
 `;
 
 const DropDownWrapper = styled.div`

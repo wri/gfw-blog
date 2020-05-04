@@ -12,7 +12,7 @@ const CategoryDescription = ({ state }) => {
       {description && <Title>{description}</Title>}
       <NumberInfo>
         {`${data.total}
-        articles under the
+        article${data.total > 1 && `s`} under the
         ${decode(state.source[data.taxonomy][data.id].name)}
         category`}
       </NumberInfo>
