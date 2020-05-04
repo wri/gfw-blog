@@ -30,6 +30,12 @@ const Breadcrumbs = ({ state }) => {
           <Item>{decode(state.source[data.taxonomy][data.id].name)}</Item>
         </>
       )}
+      {data.isTag && (
+        <>
+          <Divider />
+          <Item>Tags</Item>
+        </>
+      )}
       {data.isPostType && (
         <>
           <Divider />
