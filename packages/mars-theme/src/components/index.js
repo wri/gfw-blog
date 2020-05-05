@@ -35,6 +35,10 @@ const Theme = ({ state, actions }) => {
           href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
           rel="stylesheet"
         />
+        <script type="text/javascript">
+          {"window.liveSettings={api_key:'8e47889f7d5c4c6ba7b7b3e9453864e1'};"}
+        </script>
+        <script type="text/javascript" src="//cdn.transifex.com/live.js" />
         <html lang="en" />
       </Head>
 
