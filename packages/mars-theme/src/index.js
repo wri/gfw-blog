@@ -23,6 +23,9 @@ const marsTheme = {
         showOnPost: true,
       },
     },
+    googleAnalytics: {
+      trackingId: process.env.GOOGLE_ANALYTICS,
+    },
   },
   /**
    * Actions are functions that modify the state or deal with other parts of

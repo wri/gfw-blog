@@ -3,6 +3,7 @@ import { connect, styled } from "frontity";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
+import Breadcrumbs from "./breadcrumbs"
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -13,6 +14,7 @@ const Post = ({ state, actions, libraries }) => {
   const author = state.source.author[post.author];
   // Get a human readable date.
   const date = new Date(post.date);
+
 
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
@@ -30,6 +32,7 @@ const Post = ({ state, actions, libraries }) => {
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container>
+      <Breadcrumbs />
       <div>
         <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
 
