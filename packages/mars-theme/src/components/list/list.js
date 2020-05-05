@@ -125,7 +125,8 @@ const List = ({ state }) => {
             // Render one Item component for each one.
             return <Item key={item.id + item.date + item.name} item={item} />;
           })}
-        {posts[state.router.link].length % 3 === 2 && <Plug />}
+        {posts[state.router.link] &&
+          posts[state.router.link].length % 3 === 2 && <Plug />}
         {page < totalPages && (
           <LoadMore
             isFetching={isFetching}
