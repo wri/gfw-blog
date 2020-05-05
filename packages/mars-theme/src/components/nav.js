@@ -9,7 +9,7 @@ import Link from "./link";
  */
 const Nav = ({ state }) => (
   <NavContainer>
-    {state.theme.menu.map(([name, link]) => {
+    {state.theme.menu && state.theme.menu.map(([name, link]) => {
       // Check if the link matched the current page url
       const isCurrentPage = state.router.link === link;
       return (

@@ -12,6 +12,7 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
+import mainGlobalCss from './index.css';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
@@ -41,12 +42,16 @@ const Theme = ({ state, actions }) => {
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <SSRStyles />
       <GFWComponenentsStyles />
+      <Global styles={css(mainGlobalCss)} />
 
       {/* Add the header of the site. */}
-      <Header
-        pathname="https://blog.globalforestwatch.org"
-        openContactUsModal={actions.theme.toggleContactUsModal}
-      />
+      <HeaderWrapper>
+        <Header
+          relative
+          pathname="https://blog.globalforestwatch.org"
+          openContactUsModal={actions.theme.toggleContactUsModal}
+        />
+      </HeaderWrapper>
 
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
@@ -78,4 +83,11 @@ export default connect(Theme);
 const Main = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 3.5rem;
+`;
+
+const HeaderWrapper = styled.div`
+  position: fixed;
+  z-index: 9;
+  width: 100%;
 `;

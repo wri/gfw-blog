@@ -1,7 +1,12 @@
-import React from "react";
-import { connect, styled } from "frontity";
-import Link from "../link";
-import FeaturedMedia from "../featured-media";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled } from 'frontity';
+import Link from '../link';
+import FeaturedMedia from '../featured-media';
+import CategoryNameList from '../category/list-name';
+import PostTitle from '../post/title';
+import Excerpt from '../post/excerpt';
+import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 /**
  * Item Component
@@ -11,74 +16,78 @@ import FeaturedMedia from "../featured-media";
  * - Author: name of author and published date
  * - FeaturedMedia: the featured image/video of the post
  */
-const Item = ({ state, item }) => {
-  const author = state.source.author[item.author];
-  const date = new Date(item.date);
+const Item = ({
+  state,
+  item,
+  styles,
+  media = null,
+  excerpt = null,
+  title = null,
+}) => {
+  const categories = item.categories.map((id) => {
+    const { link, name } = state.source.category[id];
+    return { link, name };
+  });
+
+  const Wrapper = styled.article`
+    width: 31.532%;
+    flex-wrap: wrap;
+    margin-bottom: 2.75rem;
+    position: relative;
+    @media screen and (max-width: ${LARGE_ENDPOINT}) {
+      width: 49%;
+    }
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      width: 100%;
+      padding: 0 1rem;
+    }
+    ${styles}
+  `;
+
+  const titleStyles = `
+    padding-top: 0;
+    padding-bottom: 1.25rem;
+    line-height: 1.25;
+  `;
 
   return (
-    <article>
-      <Link link={item.link}>
-        <Title dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
-      </Link>
-
-      <div>
-        {/* If the post has an author, we render a clickable author text. */}
-        {author && (
-          <StyledLink link={author.link}>
-            <AuthorName>
-              By <b>{author.name}</b>
-            </AuthorName>
-          </StyledLink>
-        )}
-        <PublishDate>
-          {" "}
-          on <b>{date.toDateString()}</b>
-        </PublishDate>
-      </div>
-
+    <Wrapper>
       {/*
        * If the want to show featured media in the
        * list of featured posts, we render the media.
        */}
-      {state.theme.featured.showOnList && (
-        <FeaturedMedia id={item.featured_media} />
+      <Link link={item.link} className="post-link">
+        &nbsp;
+      </Link>
+      <div className="feautured-media">
+        {state.theme.featured.showOnList && media && media(item.featured_media)}
+        {state.theme.featured.showOnList && !media && (
+          <FeaturedMedia key={item.featured_media} id={item.featured_media} />
+        )}
+      </div>
+      {/* Show categories of the post */}
+      <CategoryNameList categories={categories} styles="position:relative;" />
+      {/* <Link link={item.link} className="post-title-link"> */}
+      {!title && (
+        <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>
       )}
-
+      {title && title(item.title.rendered)}
+      {/* </Link> */}
       {/* If the post has an excerpt (short summary text), we render it */}
-      {item.excerpt && (
-        <Excerpt dangerouslySetInnerHTML={{ __html: item.excerpt.rendered }} />
-      )}
-    </article>
+      {item.excerpt && excerpt && excerpt(item.excerpt.rendered)}
+      {item.excerpt && !excerpt && <Excerpt>{item.excerpt.rendered}</Excerpt>}
+    </Wrapper>
   );
 };
 
 // Connect the Item to gain access to `state` as a prop
 export default connect(Item);
 
-const Title = styled.h1`
-  font-size: 2rem;
-  color: rgba(12, 17, 43);
-  margin: 0;
-  padding-top: 24px;
-  padding-bottom: 8px;
-  box-sizing: border-box;
-`;
-
-const AuthorName = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-`;
-
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const PublishDate = styled.span`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-`;
-
-const Excerpt = styled.div`
-  line-height: 1.6em;
-  color: rgba(12, 17, 43, 0.8);
-`;
+Item.propTypes = {
+  state: PropTypes.object,
+  item: PropTypes.object,
+  styles: PropTypes.string,
+  media: PropTypes.node,
+  excerpt: PropTypes.node,
+  title: PropTypes.node,
+};

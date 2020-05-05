@@ -1011,15 +1011,23 @@
     frontity "^1.5.2"
     react-intersection-observer "8.25.2"
 
-"@frontity/connect@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@frontity/connect/-/connect-1.0.4.tgz#4f9d31e056ac4f74650c5d9fd9f854d50ad00ee3"
-  integrity sha512-nZDE8bDHOvkZ6WseLk3eOegTOOsKXoK5p1+jOQcW2J5vLxfDthQA+Y2fqfyvERg/2fezQUvnYbys+YqBRbgzyg==
+"@frontity/components@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@frontity/components/-/components-1.3.1.tgz#e3497a9329abcdc02198e9034814f28de9c62545"
+  integrity sha512-ztOBH9+ZFiQYeqv5FtUUs4WJb2pdRkppUKw4I1MBWs4XkeKyh6A79fgulHuMp+BAyIj/ZZn1jjzo5x1fJ/yoLw==
+  dependencies:
+    frontity "^1.5.3"
+    react-intersection-observer "^8.25.2"
 
-"@frontity/core@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@frontity/core/-/core-1.5.1.tgz#e51d611a1dcba8a4eb9b46d886ff91de7c5768cf"
-  integrity sha512-phai0FOeTeV6eWjy08FRVtKJJRjNQHZ2/xWUxXx4bTxrskveVZ6ANgSzRy06fVOLC/a4QM/m0yPkb1X7UKFhdg==
+"@frontity/connect@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@frontity/connect/-/connect-1.0.5.tgz#dfe2d22f29b19545832e3d1344ecc0c743a134bd"
+  integrity sha512-mmCdjH/Uft9RytZl5QxDfd+vsoqszCpB+IX2CsiaABANArNGlaPMpMjKlhtRtGN8YsoRAiereH05S+iSkUREwQ==
+
+"@frontity/core@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@frontity/core/-/core-1.5.2.tgz#c428ee2914030793af8ad89cd1797cf8d1150f57"
+  integrity sha512-jn843NPOIwhdFyG0Eh0IYAlO4BYX/caxkawmmH32QxA8qIrgcJbgMzTwdQZWJoAjoKCftvrKZfFJAcdwo9b2zA==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/plugin-proposal-class-properties" "^7.3.4"
@@ -1030,7 +1038,7 @@
     "@babel/preset-typescript" "^7.3.3"
     "@emotion/babel-preset-css-prop" "^10.0.9"
     "@emotion/core" "^10.0.22"
-    "@frontity/connect" "^1.0.4"
+    "@frontity/connect" "^1.0.5"
     "@frontity/file-settings" "^1.1.5"
     "@loadable/babel-plugin" "^5.10.0"
     "@loadable/component" "^5.10.1"
@@ -1053,13 +1061,13 @@
     koa-route "^3.2.0"
     koa-static "^5.0.0"
     lodash-es "^4.17.11"
-    minimist "^1.2.0"
+    minimist "^1.2.5"
     open "^6.3.0"
     promise-monofill "^1.0.1"
     raw-loader "^3.0.0"
     react "^16.8.3"
     react-dom "^16.8.3"
-    react-helmet-async "^1.0.2"
+    react-helmet-async "1.0.4"
     require-from-string "^2.0.2"
     ts-node "^8.0.3"
     url-loader "^2.1.0"
@@ -1073,6 +1081,11 @@
   resolved "https://registry.yarnpkg.com/@frontity/error/-/error-0.0.1.tgz#1ad38797824d759450edb5734a2b6334dd214e48"
   integrity sha512-rv0IcV7TG2oj8B3oK32CDsZc5WpHVlr/Qb5e0CXrLryh66n125tnBuKFGqdKRpPsdxTHefHJK9slRTMwb0g/yw==
 
+"@frontity/error@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@frontity/error/-/error-0.1.0.tgz#dea1f8f8c48dd20b0d17ae5c1e233f402b0fbe16"
+  integrity sha512-Imw0kgYUIOskYQhdYK0SxsFDowEqhIZDsoY+k2cVDgn+y0ThujARG5Bg4NZxalKdCwM7HZbSVl+vTSLex8EUMw==
+
 "@frontity/file-settings@^1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@frontity/file-settings/-/file-settings-1.1.5.tgz#7355f2c884898afbc58a4232f5f41ccb28c979ed"
@@ -1080,13 +1093,31 @@
   dependencies:
     ramda "^0.26.1"
 
-"@frontity/html2react@^1.3.0", "@frontity/html2react@^1.3.1":
+"@frontity/head-tags@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@frontity/head-tags/-/head-tags-1.0.2.tgz#995982a0af9216874e04d7d8bac1be0f8cb08e11"
+  integrity sha512-SZDEe9kSjqoJgZUl3qrdOFNg+sZ1rQX9u+1LYoz31mEWrdD0fWD4RiYDdzxeKeqgl466PV6NbKtsQg/xIqhH3g==
+  dependencies:
+    "@frontity/router" "^1.0.19"
+    "@frontity/source" "^1.1.0"
+    frontity "^1.5.0"
+
+"@frontity/html2react@^1.3.0":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@frontity/html2react/-/html2react-1.3.1.tgz#ef4ca3bee9192a0afa378adeff38b1d8fa372eaf"
   integrity sha512-KMW5A2PUspFpExDpHHQ4TcK3FSwAX7SssHjVp+Mo9KTU+A3nCp5YPgXAS7qa4Fv/HGXEyQivUN8yvo3SRNGcdA==
   dependencies:
     "@frontity/components" "^1.3.0"
     frontity "^1.5.2"
+    himalaya "^1.1.0"
+
+"@frontity/html2react@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@frontity/html2react/-/html2react-1.3.2.tgz#0c2d760658254acd415aa72da71806a07695cb99"
+  integrity sha512-JGXwwaOpOk+40zKvW9Ac2k/SnT7MZOofObvR/Bbu4rxlHfZwKdalDvFmOpXXearRRnsvtPTffpqVcvGaw7875A==
+  dependencies:
+    "@frontity/components" "^1.3.1"
+    frontity "^1.5.3"
     himalaya "^1.1.0"
 
 "@frontity/mars-theme@./packages/mars-theme":
@@ -1097,26 +1128,26 @@
     frontity "^1.5.2"
     react-spinners "^0.5.4"
 
-"@frontity/router@^1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@frontity/router/-/router-1.0.19.tgz#8c94192482e00ffba439193f0da833529da18974"
-  integrity sha512-VxjSZK4VSUHHR6HUczDKQNK/pbQN9iEs4AnWoi1EGZein2z4KiKt/iOc7NAoB6/jo6KLl+AhjDatjj5yg7KKnA==
+"@frontity/router@^1.0.19", "@frontity/router@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@frontity/router/-/router-1.1.0.tgz#57a12ea90273879d5c05b21c1ecd6af009476d2c"
+  integrity sha512-Xc9L+c7yCHUKXWCTFroEQhUg8ijj4ZT348xaEZoLOvLDghB1hMcOOVoaidVJ88Z1V3w28WKhKuQQJVyMlu4NXQ==
   dependencies:
     frontity "^1.4.3"
 
-"@frontity/source@^1.0.17", "@frontity/source@^1.2.0":
+"@frontity/source@^1.0.17", "@frontity/source@^1.1.0", "@frontity/source@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@frontity/source/-/source-1.2.0.tgz#7c822c4bc50e3ec2049e751fa431079888d3d386"
   integrity sha512-tFcWXd1vrz+8R9UaKCzHAys1Dr2RDPbJYmwXcDwQlQ8+1oBMBk0GkhuvGa1JDkgJZXM0heTHGPSKa/8oRj92xA==
   dependencies:
     frontity "^1.5.2"
 
-"@frontity/tiny-router@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@frontity/tiny-router/-/tiny-router-1.1.1.tgz#4e84e29eae636d3b11d9ff4c8bff4b052b79ed03"
-  integrity sha512-8q1nqpkBw9zHWo86pU/l6cy5anaJe10/+IUsctrWG0TWmce6OlP+a7ZdL2xzlpXnZbqoNpvQcpZj3wY+cd3R2Q==
+"@frontity/tiny-router@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@frontity/tiny-router/-/tiny-router-1.2.0.tgz#2310d07dc5cf7eb4b9fb2355d1f6ee2a1e4398e2"
+  integrity sha512-+Dz4POq6IpJAkBE6zHEBfPm0Fy1Zwbp74pnDDgiWb6D7jZGpMAuN2unrHZDv2Rm0gp4f8PhhSLyO+iUcVh8eEw==
   dependencies:
-    "@frontity/router" "^1.0.19"
+    "@frontity/router" "^1.1.0"
     "@frontity/source" "^1.0.17"
     frontity "^1.5.0"
 
@@ -1133,13 +1164,13 @@
     "@types/koa" "^2.11.2"
     ts-essentials "^6.0.0"
 
-"@frontity/wp-source@^1.6.2":
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/@frontity/wp-source/-/wp-source-1.6.2.tgz#f9769e9889e8aa2019f40a1b6af1846b494df114"
-  integrity sha512-vipvrhEVz0v9RK1eKJZOoVJLlV0DmOB5GLwuO6H6WUEcLahZKogbFesSFSkpVcSkcc/w4BRk5AfixL7d4b49Aw==
+"@frontity/wp-source@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@frontity/wp-source/-/wp-source-1.7.0.tgz#f80ab36ce7f13db6c153a5ca35b85275b927268e"
+  integrity sha512-Kfqvy8PKzav4DUNYAvJqruwR0+7yPHrqVYeXVKyiVuPO2uN+fSKuq5GdMyV+6Mp4MzuzIuJJneHs1nJdcBGeFw==
   dependencies:
     "@frontity/source" "^1.2.0"
-    frontity "^1.5.2"
+    frontity "^1.5.3"
     normalizr "^3.3.0"
     path-to-regexp "^3.0.0"
     query-string "^6.8.3"
@@ -4310,6 +4341,37 @@ frontity@^1.4.3, frontity@^1.5.0, frontity@^1.5.2:
     typed-emitter "^0.2.0"
     typescript "^3.8.2"
 
+frontity@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/frontity/-/frontity-1.5.3.tgz#8793f3fc043460675877842fb45f5534c9c54e45"
+  integrity sha512-/F3yEkXFZPBwW73ZdlZilUAvei8vlhFbgkUj+xUw7lGJZNOlKrxqU5T5kTWmz1X8HNYRXexyrXmXI21TTlCm4w==
+  dependencies:
+    "@emotion/core" "^10.0.22"
+    "@emotion/styled" "^10.0.22"
+    "@frontity/error" "^0.1.0"
+    "@frontity/type-declarations" "^1.1.0"
+    "@frontity/types" "^1.3.0"
+    "@loadable/component" "^5.10.1"
+    chalk "^2.4.2"
+    clipboardy "^2.1.0"
+    commander "^2.20.0"
+    detect-port-alt "^1.1.6"
+    didyoumean "^1.2.1"
+    envinfo "^7.3.1"
+    fs-extra "^7.0.1"
+    he "^1.2.0"
+    inquirer "^6.3.1"
+    is-root "^2.1.0"
+    node-fetch "^2.6.0"
+    ora "^3.4.0"
+    ramda "^0.26.1"
+    react-helmet-async "1.0.4"
+    simple-entity-decode "^0.0.3"
+    tar "^4.4.8"
+    ts-node "^8.0.3"
+    typed-emitter "^0.2.0"
+    typescript "^3.8.2"
+
 fs-exists-sync@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/fs-exists-sync/-/fs-exists-sync-0.1.0.tgz#982d6893af918e72d08dec9e8673ff2b5a8d6add"
@@ -5292,7 +5354,7 @@ is-retry-allowed@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-retry-allowed/-/is-retry-allowed-1.2.0.tgz#d778488bd0a4666a3be8a1482b9f2baafedea8b4"
   integrity sha512-RUbUeKwvm3XG2VYamhJL1xFktgjvPzL0Hq8C+6yrWIswDy3BIXGqCxhxkc30N9jqK311gVU137K8Ei55/zVJRg==
 
-is-root@2.1.0:
+is-root@2.1.0, is-root@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-root/-/is-root-2.1.0.tgz#809e18129cf1129644302a4f8544035d51984a9c"
   integrity sha512-AGOriNp96vNBd3HtU+RzFEc75FfR5ymiYv8E553I71SCeXBiMsVDUtdio1OEFvrPyLIQ9tVR5RxXIFe5PUFjMg==
@@ -7501,7 +7563,7 @@ react-final-form@^6.4.0:
     "@babel/runtime" "^7.9.2"
     ts-essentials "^6.0.3"
 
-react-helmet-async@^1.0.2:
+react-helmet-async@1.0.4, react-helmet-async@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.0.4.tgz#079ef10b7fefcaee6240fefd150711e62463cc97"
   integrity sha512-KTGHE9sz8N7+fCkZ2a3vzXH9eIkiTNhL2NhKR7XzzQl3WsGlCHh76arauJUIiGdfhjeMp7DY7PkASAmYFXeJYg==
@@ -7525,6 +7587,13 @@ react-intersection-observer@8.25.2:
   integrity sha512-KymKTOQK0TxQFW/Km80oS8VVOZAX8nt74fsYEGw6pqBLSJlqBXEhdFpyPcBa08GiGnup8lrFRkSY4JioP+pqww==
   dependencies:
     tiny-invariant "^1.0.6"
+
+react-intersection-observer@^8.25.2:
+  version "8.26.2"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-8.26.2.tgz#0562ff0c06b2b10e809190c2fa9b6ded656e6e16"
+  integrity sha512-GmSjLNK+oV7kS+BHfrJSaA4wF61ELA33gizKHmN+tk59UT6/aW8kkqvlrFGPwxGoaIzLKS2evfG5fgkw5MIIsg==
+  dependencies:
+    tiny-invariant "^1.1.0"
 
 react-is@^16.7.0, react-is@^16.8.1, react-is@^16.9.0:
   version "16.13.1"
@@ -8828,7 +8897,7 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tiny-invariant@^1.0.6:
+tiny-invariant@^1.0.6, tiny-invariant@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
   integrity sha512-ytxQvrb1cPc9WBEI/HSeYYoGD0kWnGEOR8RY6KomWLBVhqz0RgTwVO9dLrGz7dC+nN9llyI7OKAgRq8Vq4ZBSw==
