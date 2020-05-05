@@ -1,4 +1,7 @@
+import { config } from 'dotenv';
 import { WORDPRESS_GFW_API, POSTS_PER_PAGE } from './constants';
+
+config();
 
 const settings = {
   name: 'gfw-blog',
@@ -39,6 +42,7 @@ const settings = {
     '@frontity/tiny-router',
     '@frontity/html2react',
     '@frontity/head-tags',
+    '@frontity/google-analytics',
   ],
 };
 
