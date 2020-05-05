@@ -1,4 +1,7 @@
-import { WORDPRESS_GFW_API } from './constants';
+import { config } from 'dotenv';
+import { WORDPRESS_GFW_API, POSTS_PER_PAGE } from './constants';
+
+config();
 
 const settings = {
   name: 'gfw-blog',
@@ -27,11 +30,19 @@ const settings = {
       state: {
         source: {
           api: WORDPRESS_GFW_API,
+          params: {
+            per_page: POSTS_PER_PAGE,
+            type: ['post'],
+          },
+          categoryBase: 'category',
+          tagBase: 'tags',
         },
       },
     },
     '@frontity/tiny-router',
     '@frontity/html2react',
+    '@frontity/head-tags',
+    '@frontity/google-analytics',
   ],
 };
 
