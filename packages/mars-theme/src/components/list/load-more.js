@@ -27,7 +27,8 @@ const LoadMore = ({
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (page && page > 1) {
-      const res = actions.source.fetch(`${state.router.link}page/${page}`);
+      const fetchLink = state.router.link[1] === '?' ? `page/${page}${state.router.link}` : `${state.router.link}page/${page}`
+      const res = actions.source.fetch(fetchLink);
       res.then(() => {
         setIsFetching(true);
       });

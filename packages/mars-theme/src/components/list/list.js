@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled } from 'frontity';
+import { connect, styled, css } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -10,6 +10,7 @@ import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
 import Breadcrumbs from '../breadcrumbs';
 import EntityInfo from '../entity-info';
+import Search, { SearchContainer } from '../search';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
@@ -44,7 +45,8 @@ const List = ({ state }) => {
     let lastLoadedPage = 1;
     const loadedPosts = [];
     while (fetchingAllData) {
-      const pageData = state.source.get(`${link}page/${lastLoadedPage + 1}`);
+      const getLink = link[1] === '?' ? `page/${(lastLoadedPage + 1)}${link}` : `${link}page/${(lastLoadedPage + 1)}`
+      const pageData = state.source.get(getLink);
       if (pageData && pageData.items) {
         lastLoadedPage++;
         loadedPosts.push(...pageData.items);
@@ -66,7 +68,8 @@ const List = ({ state }) => {
       if (pagesNumber < page) {
         for (let i = page - 1; i < page; i++) {
           const nextPage = i + 1;
-          const nextData = state.source.get(`${link}page/${nextPage}`);
+          const getLink = link[1] === '?' ? `page/${nextPage}${link}` : `${link}page/${nextPage}`
+          const nextData = state.source.get(getLink);
           const accPosts = posts[state.router.link].concat([]);
           if (nextData && nextData.items) {
             accPosts.push(
@@ -96,11 +99,14 @@ const List = ({ state }) => {
         <EntityInfo />
         {isBlogHomePage() && <BlogHeader />}
         {isBlogHomePage() && (
-          <CategoryNameList
-            categories={categories}
-            title="Categories"
-            styles={categoriesStyles}
-          />
+          <SearchContainer>
+            <CategoryNameList
+              categories={categories}
+              title="Categories"
+              styles={categoriesStyles}
+            />
+            <Search />
+          </SearchContainer>
         )}
         {mainPosts &&
           mainPosts.map(({ type, id }) => {
