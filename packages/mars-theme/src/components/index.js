@@ -12,6 +12,7 @@ import Post from './post';
 import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
+import { EntitiesProvider } from './heplers/context';
 import mainGlobalCss from './index.css';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
@@ -60,12 +61,14 @@ const Theme = ({ state, actions }) => {
       {/* Add the main section. It renders a different component depending
       on the type of URL we are in. */}
       <Main>
-        <Switch>
-          <Loading when={data.isFetching} />
-          <List when={data.isArchive} />
-          <Post when={data.isPostType} />
-          <PageError when={data.isError} />
-        </Switch>
+        <EntitiesProvider>
+          <Switch>
+            <Loading when={data.isFetching} />
+            <List when={data.isArchive} />
+            <Post when={data.isPostType} />
+            <PageError when={data.isError} />
+          </Switch>
+        </EntitiesProvider>
       </Main>
 
       <Footer openContactUsModal={actions.theme.toggleContactUsModal} />

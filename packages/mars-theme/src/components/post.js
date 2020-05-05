@@ -26,7 +26,6 @@ const Post = ({ state, actions, libraries }) => {
    */
   useEffect(() => {
     actions.source.fetch("/");
-    actions.source.fetch("/fires");
     List.preload();
   }, []);
 
