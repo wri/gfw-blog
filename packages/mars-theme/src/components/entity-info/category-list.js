@@ -1,29 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
 import { Loader } from 'gfw-components';
 import { Item } from './components';
 import Link from '../link';
+import TopEntitiesContext from '../heplers/context';
 
-const CATEGORIES_PER_PAGE = 10;
-
-const CategoryList = ({
-  state,
-  libraries,
-  handler,
-  fetched,
-  fetchedHandler,
-}) => {
+const CategoryList = ({ state, libraries, handler }) => {
   const data = state.source.get(state.router.link);
   const { api } = libraries.source;
   const totalNumber = Object.values(state.source.category).length;
 
+  const context = useContext(TopEntitiesContext);
   const [page, setPage] = useState(0);
-  const [isFetching, setIsFetching] = useState(false);
   const [isRedy, setIsReady] = useState(false);
 
   const fetchCategories = useCallback(() => {
-    setIsFetching(true);
     if (page) {
       const result = api.get({
         endpoint: 'categories',
@@ -31,19 +23,19 @@ const CategoryList = ({
       });
       result.then((response) => {
         libraries.source.populate({ response, state, force: true });
-        fetchedHandler(true);
+        context.setEntity('categories');
       });
     }
-  }, [page, setIsFetching]);
+  }, [page]);
 
   useEffect(() => {
-    if (page && !isFetching && !isRedy) {
+    if (page && !isRedy) {
       fetchCategories(page);
     }
-  }, [page, isFetching, isRedy]);
+  }, [page, isRedy]);
 
   useEffect(() => {
-    if (totalNumber < CATEGORIES_PER_PAGE && !fetched) {
+    if (!context.data.categories) {
       setPage(page + 1);
     }
   }, []);
@@ -55,19 +47,18 @@ const CategoryList = ({
   );
 
   useEffect(() => {
-    const allCategories = Object.values(state.source.category)
-      .filter((cat) => cat.count)
-      .sort((prev, next) => {
-        return next.count - prev.count;
-      });
-    setCategories(allCategories);
     if (page) {
-      setIsFetching(false);
+      const allCategories = Object.values(state.source.category)
+        .filter((cat) => cat.count)
+        .sort((prev, next) => {
+          return next.count - prev.count;
+        });
+      setCategories(allCategories);
       setIsReady(true);
     }
-  }, [totalNumber, setCategories, setPage, setIsFetching, setIsReady]);
+  }, [totalNumber, setCategories, setPage, setIsReady]);
 
-  if (isFetching) {
+  if (!context.data.categories) {
     return <Loader />;
   }
 

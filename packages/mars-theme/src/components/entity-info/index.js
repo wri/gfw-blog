@@ -10,9 +10,6 @@ import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 const EntityInfo = ({ state }) => {
   const data = state.source.get(state.router.link);
   const [isOpen, setIsOpen] = useState(false);
-  const [authorsFetched, setAuthorsFetched] = useState(false);
-  const [categoriesFetched, setCategoriesFetched] = useState(false);
-  const [tagsFetched, setTagsFetched] = useState(false);
 
   const toggleHandler = () => {
     // eslint-disable-next-line no-shadow
@@ -25,7 +22,10 @@ const EntityInfo = ({ state }) => {
 
   return (
     <Wrapper>
-      <DropDownWrapper className="drop-down-select-wrapper">
+      <DropDownWrapper
+        onClick={toggleHandler}
+        className="drop-down-select-wrapper"
+      >
         {data.isAuthor && (
           <Title>{decode(state.source.author[data.id].name)}</Title>
         )}
@@ -33,34 +33,14 @@ const EntityInfo = ({ state }) => {
         {data.isCategory && (
           <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
         )}
-        <TogglerBox onClick={toggleHandler}>
-          {isOpen ? <ArrowUp /> : <ArrowDown />}
-        </TogglerBox>
+        <TogglerBox>{isOpen ? <ArrowUp /> : <ArrowDown />}</TogglerBox>
       </DropDownWrapper>
       <ListWrapper>
         {isOpen && (
           <List>
-            {data.isAuthor && (
-              <AuthorList
-                handler={toggleHandler}
-                fetchedHandler={setAuthorsFetched}
-                fetched={authorsFetched}
-              />
-            )}
-            {data.isCategory && (
-              <CategoryList
-                handler={toggleHandler}
-                fetchedHandler={setCategoriesFetched}
-                fetched={categoriesFetched}
-              />
-            )}
-            {data.isTag && (
-              <TagList
-                handler={toggleHandler}
-                fetchedHandler={setTagsFetched}
-                fetched={tagsFetched}
-              />
-            )}
+            {data.isAuthor && <AuthorList handler={toggleHandler} />}
+            {data.isCategory && <CategoryList handler={toggleHandler} />}
+            {data.isTag && <TagList handler={toggleHandler} />}
           </List>
         )}
       </ListWrapper>
@@ -98,6 +78,7 @@ const DropDownWrapper = styled.div`
   border-bottom: 1px solid var(--color-grey);
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -187,4 +168,7 @@ const List = styled.div`
   width: 100%;
   z-index: 1;
   background: #fff;
+  min-height: 23.75rem;
+  max-height: 43rem;
+  overflow-y: auto;
 `;

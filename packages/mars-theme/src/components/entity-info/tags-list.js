@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
 import { Loader } from 'gfw-components';
 import { Item } from './components';
 import Link from '../link';
+import TopEntitiesContext from '../heplers/context';
 
-const TAGS_PER_PAGE = 10;
-
-const TagList = ({ state, libraries, handler, fetched, fetchedHandler }) => {
+const TagList = ({ state, libraries, handler }) => {
   const data = state.source.get(state.router.link);
   const { api } = libraries.source;
   const totalNumber = Object.values(state.source.tag).filter((tag) => tag.count)
     .length;
 
+  const context = useContext(TopEntitiesContext);
   const [page, setPage] = useState(0);
-  const [isFetching, setIsFetching] = useState(false);
   const [isRedy, setIsReady] = useState(false);
 
   const fetchTags = useCallback(() => {
-    setIsFetching(true);
     if (page) {
       const result = api.get({
         endpoint: 'tags',
@@ -26,19 +24,19 @@ const TagList = ({ state, libraries, handler, fetched, fetchedHandler }) => {
       });
       result.then((response) => {
         libraries.source.populate({ response, state, force: true });
-        fetchedHandler(true);
+        context.setEntity('tags');
       });
     }
-  }, [page, setIsFetching]);
+  }, [page]);
 
   useEffect(() => {
-    if (page && !isFetching && !isRedy) {
+    if (page && !isRedy) {
       fetchTags(page);
     }
-  }, [page, isFetching, isRedy]);
+  }, [page, isRedy]);
 
   useEffect(() => {
-    if (totalNumber < TAGS_PER_PAGE && !fetched) {
+    if (!context.data.tags) {
       setPage(page + 1);
     }
   }, []);
@@ -52,19 +50,18 @@ const TagList = ({ state, libraries, handler, fetched, fetchedHandler }) => {
   );
 
   useEffect(() => {
-    const allTags = Object.values(state.source.tag)
-      .filter((tag) => tag.count)
-      .sort((prev, next) => {
-        return next.count - prev.count;
-      });
-    setTags(allTags);
     if (page) {
-      setIsFetching(false);
+      const allTags = Object.values(state.source.tag)
+        .filter((tag) => tag.count)
+        .sort((prev, next) => {
+          return next.count - prev.count;
+        });
+      setTags(allTags);
       setIsReady(true);
     }
-  }, [totalNumber, setTags, setPage, setIsFetching, setIsReady]);
+  }, [totalNumber, setTags, page, setIsReady]);
 
-  if (isFetching) {
+  if (!context.data.tags) {
     return <Loader />;
   }
 

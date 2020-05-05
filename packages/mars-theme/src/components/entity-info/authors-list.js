@@ -1,30 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
 import { Loader } from 'gfw-components';
 import { Item } from './components';
 import Link from '../link';
+import TopEntitiesContext from '../heplers/context';
 
-const AUTHORS_PER_PAGE = 10;
-
-const AuthorList = ({
-  state,
-  libraries,
-  actions,
-  handler,
-  fetched,
-  fetchedHandler,
-}) => {
+const AuthorList = ({ state, libraries, actions, handler }) => {
   const data = state.source.get(state.router.link);
   const { api } = libraries.source;
   const totalNumber = Object.values(state.source.author).length;
 
+  const context = useContext(TopEntitiesContext);
   const [page, setPage] = useState(0);
-  const [isFetching, setIsFetching] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   const fetchAuthors = useCallback(() => {
-    setIsFetching(true);
     if (page) {
       const result = api.get({
         endpoint: 'users',
@@ -41,21 +32,21 @@ const AuthorList = ({
             });
             Promise.all(fetches).then(() => {
               setIsReady(true);
-              fetchedHandler(true);
+              context.setEntity('authors');
             });
           });
       });
     }
-  }, [page, setIsFetching, setIsReady]);
+  }, [page, setIsReady]);
 
   useEffect(() => {
-    if (page && !isFetching && !isReady) {
+    if (page && !isReady) {
       fetchAuthors();
     }
-  }, [page, isFetching, isReady]);
+  }, [page, isReady]);
 
   useEffect(() => {
-    if (totalNumber < AUTHORS_PER_PAGE && !fetched) {
+    if (!context.data.authors) {
       setPage(page + 1);
     }
   }, []);
@@ -65,14 +56,13 @@ const AuthorList = ({
   );
 
   useEffect(() => {
-    const allAuthors = Object.values(state.source.author).map(({ id }) => id);
-    setAuthors(allAuthors);
     if (page && isReady) {
-      setIsFetching(false);
+      const allAuthors = Object.values(state.source.author).map(({ id }) => id);
+      setAuthors(allAuthors);
     }
-  }, [totalNumber, page, setAuthors, setPage, setIsFetching, isReady]);
+  }, [totalNumber, page, setAuthors, setPage, isReady]);
 
-  if (isFetching) {
+  if (!context.data.authors) {
     return <Loader />;
   }
 
