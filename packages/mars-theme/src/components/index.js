@@ -13,12 +13,10 @@ import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
 
-import TwittTooltipCss from './twitt-tooltip/tooltip.css';
 import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
-const TwittTooltipStyles = () => <Global styles={css(TwittTooltipCss)} />;
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -45,7 +43,6 @@ const Theme = ({ state, actions }) => {
       Not classes here because we use CSS-in-JS. Only global HTML tags. */}
       <SSRStyles />
       <GFWComponenentsStyles />
-      <TwittTooltipStyles />
 
       {/* Add the header of the site. */}
       <Header
@@ -82,6 +79,10 @@ Theme.propTypes = {
 export default connect(Theme);
 
 const Main = styled.div`
+  *::selection {
+    color: #fff;
+    background-color: rgb(151, 190, 50);
+  }
   display: flex;
   justify-content: center;
 `;
