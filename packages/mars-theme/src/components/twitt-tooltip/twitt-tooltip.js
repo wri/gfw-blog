@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { styled } from 'frontity';
 
-import TwittIcon from './twitt-icon';
+import TwittIcon from '../../assets/icons/social/twitter.svg';
 
 const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
 
@@ -51,7 +51,7 @@ export default function TwittTextTooltip() {
   return (
     <Container position={position} className="tippy-box">
       <TwittLink target="_blank" href={getTwittContent()}>
-        <TwittIcon size={25} color="#ffffff" />
+        <img src={TwittIcon} width="25px" height="25px" alt="" />
         <TwittSpan>Tweet this</TwittSpan>
       </TwittLink>
       <Arrow />
@@ -82,7 +82,7 @@ const TwittLink = styled.a`
 
 const TwittSpan = styled.span`
   position: relative;
-  bottom: 7px;
+  top: 2px;
   right: -11px;
   z-index: 9999;
   font-size: 95%;
@@ -94,7 +94,6 @@ const Arrow = styled.span`
   transform: rotate(45deg);
   display: block;
   position: relative;
-  top: -5px;
-  left: 54px;
+  left: 53px;
   background: #333333;
 `;
