@@ -11,8 +11,6 @@ export default function AddCommentForm({postId}) {
   const [name, setName] = useState('');
   const [isAgree, setIsAgree] = useState(true);
 
-  const [isError, setIsError] = useState(false);
-
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -25,8 +23,6 @@ export default function AddCommentForm({postId}) {
         author_email: elements.commentEmail.value,
         author_name: elements.commentName.value
       };
-
-      console.log(body);
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
         method: 'post',
@@ -44,8 +40,6 @@ export default function AddCommentForm({postId}) {
           console.log(object.message);
         })
         .catch(error => console.error('Error:', error));
-    } else {
-      setIsError(true);
     }
   }
 
@@ -108,21 +102,16 @@ export default function AddCommentForm({postId}) {
         </FieldArea>
 
         <FieldArea>
-          <InputLabel
-            htmlFor="commentCheckbox"
-          >
-            <Input
-              id="commentCheckbox"
-              name="commentCheckbox"
-              type="checkbox"
-              disabled={false}
-              style={{width: '25px', height: '25px', marginLeft: '14%'}}
-              defaultChecked
-              checked={isAgree}
-              onChange={() => {setIsAgree(!isAgree)}}
-            />
-          </InputLabel>
-
+          <Input
+            id="commentCheckbox"
+            name="commentCheckbox"
+            type="checkbox"
+            disabled={false}
+            style={{width: '25px', height: '25px', marginLeft: '14%'}}
+            defaultChecked
+            checked={isAgree}
+            onChange={() => {setIsAgree(!isAgree)}}
+          />
           <CheckboxDescr>
             I have read and agree with&nbsp;
             <a href={GFW_PRIVACY_POLICY_PAGE}>
@@ -145,10 +134,6 @@ export default function AddCommentForm({postId}) {
           />
         </FieldArea>
       </Form>
-
-      <ValidationWarning isError={isError}>
-        Please, check fields once again
-      </ValidationWarning>
 
     </Container>
   );
@@ -206,17 +191,4 @@ const CheckboxDescr = styled.p`
     color: '#97BD3D';
     text-decoration: none;
   }
-`;
-
-const ValidationWarning = styled.div`
-  display: ${(props) => props.isError ? 'block' : 'none'};
-  padding: 10px;
-  margin-top: 10px;
-  background: #D62027;
-  text-align: center;
-  color: white;
-  font-size: 12px;
-  border-radius: 80px 80px 80px 80px;
-  min-width: 150px;
-  max-width: 300px; 
 `;
