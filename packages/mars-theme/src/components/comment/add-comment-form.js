@@ -2,17 +2,51 @@ import React, { useState } from 'react';
 import { styled } from "frontity";
 
 const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+const COMMENTS_URI = '/wp/v2/comments';
+const GFW_PRIVACY_POLICY_PAGE = 'https://www.globalforestwatch.org/privacy-policy';
 
-export default function AddCommentForm() {
-
-  const [comment, setComment] = useState('');
+export default function AddCommentForm({postId}) {
+  const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [isAgree, setIsAgree] = useState(false);
+  const [isAgree, setIsAgree] = useState(true);
+
+  const [isError, setIsError] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+
+    if (isAgree || name || email) {
+      const elements = document.getElementById("commentForm").elements;
+
+      const body = {
+        postId,
+        content: elements.commentContent.value,
+        author_email: elements.commentEmail.value,
+        author_name: elements.commentName.value
+      };
+
+      console.log(body);
+
+      fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+      })
+        .then((response) => {
+          if (response.ok === true) {
+          }
+          return response.json();
+        })
+        .then((object) => {
+          console.log(object.message);
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+      setIsError(true);
+    }
   }
 
   return (
@@ -20,74 +54,100 @@ export default function AddCommentForm() {
       <Title>POST A COMMENT</Title>
       <Subtitle>Your email address will not be published. Required fields are marked *</Subtitle>
 
-      <Form method="POST" onSubmit={(event) => {handleSubmit(event)}}>
+      <Form
+        id="commentForm"
+        method="POST"
+        onSubmit={(event) => {handleSubmit(event)}}
+      >
         <FieldArea>
-          <InputLabel>COMMENT</InputLabel>
+          <InputLabel
+            hrmlFor="commentContent"
+          >
+            COMMENT
+          </InputLabel>
           <Textarea
-            value={comment}
-            onChange={(event) => setComment(event.target.value)}
+            id="commentContent"
+            name="commentContent"
+            value={content}
+            onChange={(event) => setContent(event.target.value)}
           />
         </FieldArea>
 
         <FieldArea>
           <InputLabel
-            htmlFor="comment-textarea"
+            htmlFor="commentEmail"
             style={{marginLeft: '3%'}}
           >
             EMAIL *
           </InputLabel>
           <Input
-            id="comment-email"
-            name="comment-email"
+            id="commentEmail"
+            name="commentEmail"
             type="email"
             value={email}
+            required
             onChange={(event) => setEmail(event.target.value)}
           />
         </FieldArea>
 
         <FieldArea>
           <InputLabel
-            htmlFor="comment-textarea"
+            htmlFor="commentName"
             style={{marginLeft: '3%'}}
           >
             NAME *
           </InputLabel>
           <Input
-            id="comment-name"
-            name="comment-name"
+            id="commentName"
+            name="commentName"
             type="text"
             value={name}
+            required
             onChange={(event) => setName(event.target.value)}
           />
         </FieldArea>
 
         <FieldArea>
-          <Input
-            id="comment-checkbox"
-            name="comment-checkbox"
-            type="checkbox"
-            style={{width: '25px', height: '25px', marginLeft: '14%'}}
-            value={isAgree}
-            onChange={(event) => {setIsAgree(event.target.value)}}
-          />
+          <InputLabel
+            htmlFor="commentCheckbox"
+          >
+            <Input
+              id="commentCheckbox"
+              name="commentCheckbox"
+              type="checkbox"
+              disabled={false}
+              style={{width: '25px', height: '25px', marginLeft: '14%'}}
+              defaultChecked
+              checked={isAgree}
+              onChange={() => {setIsAgree(!isAgree)}}
+            />
+          </InputLabel>
+
           <CheckboxDescr>
-            I have read and agree with <a href="#">GWF's Privacy Policy</a>
+            I have read and agree with&nbsp;
+            <a href={GFW_PRIVACY_POLICY_PAGE}>
+              GWF's Privacy Policy
+            </a>
           </CheckboxDescr>
         </FieldArea>
 
         <FieldArea>
           <Input
-            style={{borderRadius: '80px 80px 80px 80px', width: '160px', color: '#97BD3D', marginLeft: 'auto'}}
-            id="comment-submit"
-            name="comment-submit"
+            style={{
+              borderRadius: '80px 80px 80px 80px',
+              width: '160px',
+              color: '#97BD3D',
+              marginLeft: 'auto',
+              cursor: 'pointer'
+            }}
             type="submit"
             value="POST COMMENT"
           />
         </FieldArea>
       </Form>
 
-      <ValidationWarning>
-        Value is not correct
+      <ValidationWarning isError={isError}>
+        Please, check fields once again
       </ValidationWarning>
 
     </Container>
@@ -149,6 +209,7 @@ const CheckboxDescr = styled.p`
 `;
 
 const ValidationWarning = styled.div`
+  display: ${(props) => props.isError ? 'block' : 'none'};
   padding: 10px;
   margin-top: 10px;
   background: #D62027;

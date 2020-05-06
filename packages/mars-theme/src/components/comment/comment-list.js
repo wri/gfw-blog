@@ -4,14 +4,14 @@ import { styled } from "frontity";
 import Comment from './comment';
 import AddCommentForm from "./add-comment-form";
 
-export default function CommentList () {
+export default function CommentList ({postId}) {
   return (
     <Container>
       <Comment />
       <Comment />
       <Comment />
 
-      <AddCommentForm />
+      <AddCommentForm postId={postId}/>
     </Container>
   );
 }

@@ -66,7 +66,7 @@ const Post = ({ state, actions, libraries }) => {
         <Html2React html={post.content.rendered} />
       </Content>
 
-      <Comments />
+      <Comments postId={post.id} />
     </Container>
   ) : null;
 };
