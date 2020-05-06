@@ -15,6 +15,8 @@ import PageError from './page-error';
 import { EntitiesProvider } from './heplers/context';
 import mainGlobalCss from './index.css';
 
+import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
+
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
 
@@ -37,7 +39,7 @@ const Theme = ({ state, actions }) => {
           rel="stylesheet"
         />
         <script type="text/javascript">
-          {"window.liveSettings={api_key:'8e47889f7d5c4c6ba7b7b3e9453864e1'};"}
+          {"window.liveSettings={api_key:'9eda410a7db74687ba40771c56abd357'};"}
         </script>
         <script type="text/javascript" src="//cdn.transifex.com/live.js" />
         <html lang="en" />
@@ -52,7 +54,6 @@ const Theme = ({ state, actions }) => {
       {/* Add the header of the site. */}
       <HeaderWrapper>
         <Header
-          relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={actions.theme.toggleContactUsModal}
         />
@@ -76,6 +77,7 @@ const Theme = ({ state, actions }) => {
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
       />
+      <TwittTextTooltip />
     </>
   );
 };
@@ -88,6 +90,10 @@ Theme.propTypes = {
 export default connect(Theme);
 
 const Main = styled.div`
+  *::selection {
+    color: #fff;
+    background-color: rgb(151, 190, 50);
+  }
   display: flex;
   justify-content: center;
   padding-top: 3.5rem;
