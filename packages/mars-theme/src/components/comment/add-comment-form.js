@@ -1,30 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from "frontity";
 
+const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+
 export default function AddCommentForm() {
+
+  const [comment, setComment] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [isAgree, setIsAgree] = useState(false);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(event);
+  }
+
   return (
     <Container>
       <Title>POST A COMMENT</Title>
       <Subtitle>Your email address will not be published. Required fields are marked *</Subtitle>
 
-      <Form method="POST">
+      <Form method="POST" onSubmit={(event) => {handleSubmit(event)}}>
         <FieldArea>
           <InputLabel>COMMENT</InputLabel>
-          <Textarea />
+          <Textarea
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+          />
         </FieldArea>
 
         <FieldArea>
-          <InputLabel htmlFor="comment-textarea" style={{marginLeft: '3%'}}>EMAIL *</InputLabel>
-          <Input id="comment-email" name="comment-email" type="email" />
+          <InputLabel
+            htmlFor="comment-textarea"
+            style={{marginLeft: '3%'}}
+          >
+            EMAIL *
+          </InputLabel>
+          <Input
+            id="comment-email"
+            name="comment-email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
         </FieldArea>
 
         <FieldArea>
-          <InputLabel htmlFor="comment-textarea" style={{marginLeft: '3%'}}>NAME *</InputLabel>
-          <Input id="comment-name" name="comment-name" type="text" />
+          <InputLabel
+            htmlFor="comment-textarea"
+            style={{marginLeft: '3%'}}
+          >
+            NAME *
+          </InputLabel>
+          <Input
+            id="comment-name"
+            name="comment-name"
+            type="text"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </FieldArea>
 
         <FieldArea>
-          <Input id="comment-checkbox" name="comment-checkbox" type="checkbox" style={{width: '25px', height: '25px', marginLeft: '14%'}} />
+          <Input
+            id="comment-checkbox"
+            name="comment-checkbox"
+            type="checkbox"
+            style={{width: '25px', height: '25px', marginLeft: '14%'}}
+            value={isAgree}
+            onChange={(event) => {setIsAgree(event.target.value)}}
+          />
           <CheckboxDescr>
             I have read and agree with <a href="#">GWF's Privacy Policy</a>
           </CheckboxDescr>
@@ -32,7 +77,7 @@ export default function AddCommentForm() {
 
         <FieldArea>
           <Input
-            style={{ borderRadius: '80px 80px 80px 80px', width: '160px', color: '#97BD3D', marginLeft: 'auto' }}
+            style={{borderRadius: '80px 80px 80px 80px', width: '160px', color: '#97BD3D', marginLeft: 'auto'}}
             id="comment-submit"
             name="comment-submit"
             type="submit"
@@ -40,6 +85,11 @@ export default function AddCommentForm() {
           />
         </FieldArea>
       </Form>
+
+      <ValidationWarning>
+        Value is not correct
+      </ValidationWarning>
+
     </Container>
   );
 }
@@ -96,4 +146,16 @@ const CheckboxDescr = styled.p`
     color: '#97BD3D';
     text-decoration: none;
   }
+`;
+
+const ValidationWarning = styled.div`
+  padding: 10px;
+  margin-top: 10px;
+  background: #D62027;
+  text-align: center;
+  color: white;
+  font-size: 12px;
+  border-radius: 80px 80px 80px 80px;
+  min-width: 150px;
+  max-width: 300px; 
 `;
