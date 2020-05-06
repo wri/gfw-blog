@@ -1,30 +1,32 @@
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, styled, css } from 'frontity';
-import Item from './list-item';
-import SubPost from './sub-post';
-import MainPost from './main-post';
-import LoadMore from './load-more';
-import BlogHeader from '../blog-header';
-import CategoryNameList from '../category/list-name';
-import Breadcrumbs from '../breadcrumbs';
-import EntityInfo from '../entity-info';
-import Search, { SearchContainer } from '../search';
+import React, { useState, useEffect, useContext } from "react";
+import PropTypes from "prop-types";
+import { connect, styled } from "frontity";
+import Item from "./list-item";
+import SubPost from "./sub-post";
+import MainPost from "./main-post";
+import LoadMore from "./load-more";
+import BlogHeader from "../blog-header";
+import CategoryNameList from "../category/list-name";
+import Breadcrumbs from "../breadcrumbs";
+import EntityInfo from "../entity-info";
+import Search from "../search";
+import SearchResults from "../search/results";
+import SearchExpanded from "../search/expanded";
+import TopEntitiesContext from "../heplers/context";
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
   LARGE_ENDPOINT,
-} from '../heplers/css-endpoints';
+} from "../heplers/css-endpoints";
+import { isSearchLink, isBlogHomePage } from "../heplers/content";
 
 const POSTS_PER_PAGE = 9;
 
 const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
+  const context = useContext(TopEntitiesContext);
   const { link } = state.router;
-  const isBlogHomePage = () => {
-    return link === '/';
-  };
 
   const data = state.source.get(state.router.link);
   const categories = Object.values(
@@ -32,8 +34,8 @@ const List = ({ state }) => {
     // eslint-disable-next-line no-shadow
   ).map(({ name, link }) => ({ name, link }));
   const initialPosts = [...data.items];
-  const mainPosts = isBlogHomePage() ? initialPosts.splice(0, 1) : [];
-  const subPosts = isBlogHomePage() ? initialPosts.splice(0, 2) : [];
+  const mainPosts = isBlogHomePage(link) ? initialPosts.splice(0, 1) : [];
+  const subPosts = isBlogHomePage(link) ? initialPosts.splice(0, 2) : [];
   const [posts, setPosts] = useState({
     [state.router.link]: initialPosts.map(({ id, type }) => ({ id, type })),
   });
@@ -45,7 +47,10 @@ const List = ({ state }) => {
     let lastLoadedPage = 1;
     const loadedPosts = [];
     while (fetchingAllData) {
-      const getLink = link[1] === '?' ? `page/${(lastLoadedPage + 1)}${link}` : `${link}page/${(lastLoadedPage + 1)}`
+      const getLink =
+        link[1] === "?"
+          ? `page/${lastLoadedPage + 1}${link}`
+          : `${link}page/${lastLoadedPage + 1}`;
       const pageData = state.source.get(getLink);
       if (pageData && pageData.items) {
         lastLoadedPage++;
@@ -68,7 +73,10 @@ const List = ({ state }) => {
       if (pagesNumber < page) {
         for (let i = page - 1; i < page; i++) {
           const nextPage = i + 1;
-          const getLink = link[1] === '?' ? `page/${nextPage}${link}` : `${link}page/${nextPage}`
+          const getLink =
+            link[1] === "?"
+              ? `page/${nextPage}${link}`
+              : `${link}page/${nextPage}`;
           const nextData = state.source.get(getLink);
           const accPosts = posts[state.router.link].concat([]);
           if (nextData && nextData.items) {
@@ -95,19 +103,41 @@ const List = ({ state }) => {
   return (
     <Wrapper>
       <Container>
-        <Breadcrumbs />
-        <EntityInfo />
-        {isBlogHomePage() && <BlogHeader />}
-        {isBlogHomePage() && (
-          <SearchContainer>
-            <CategoryNameList
-              categories={categories}
-              title="Categories"
-              styles={categoriesStyles}
-            />
-            <Search />
-          </SearchContainer>
+        <BreadcrumbsContainer>
+          <Breadcrumbs />
+          {!isBlogHomePage(link) && <Search mobile title="" />}
+        </BreadcrumbsContainer>
+        {!isBlogHomePage(link) && <SearchExpanded />}
+        {!isBlogHomePage(link) && (
+          <FlexContainer>
+            <EntityInfo />
+            {!data.searchQuery && <Search />}
+          </FlexContainer>
         )}
+
+        {isSearchLink(link) && <SearchResults />}
+        <HomeTopSection className={context.search.active ? `reverse` : ``}>
+          {isBlogHomePage(link) && <Search mobile title="" />}
+          <div>
+            {isBlogHomePage(link) && <BlogHeader />}
+            {isBlogHomePage(link) && (
+              <>
+                <FlexContainer
+                  className={context.search.active ? `hidden` : ``}
+                >
+                  <CategoryNameList
+                    categories={categories}
+                    title="Categories"
+                    styles={categoriesStyles}
+                  />
+                  <Search />
+                </FlexContainer>
+              </>
+            )}
+          </div>
+          {isBlogHomePage(link) && <SearchExpanded />}
+        </HomeTopSection>
+
         {mainPosts &&
           mainPosts.map(({ type, id }) => {
             const item = state.source[type][id];
@@ -119,9 +149,9 @@ const List = ({ state }) => {
             return <SubPost key={item.id} item={item} />;
           })}
       </Container>
-      {isBlogHomePage() && <Divider />}
+      {isBlogHomePage(link) && <Divider />}
       <Container>
-        {isBlogHomePage() && <Title>latest articles</Title>}
+        {isBlogHomePage(link) && <Title>latest articles</Title>}
         {/* Iterate over the items of the list. */}
         {posts[state.router.link] &&
           posts[state.router.link].map((el) => {
@@ -201,6 +231,36 @@ const Plug = styled.i`
     width: 100%;
   }
 `;
+
+const FlexContainer = styled.div`
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    &.hidden {
+      display: none;
+    }
+  }
+`;
+
+const HomeTopSection = styled.div`
+  width: 100%;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    display: flex;
+    flex-wrap: wrap;
+    &.reverse {
+      flex-direction: column-reverse;
+    }
+  }
+`;
+
+const BreadcrumbsContainer = styled.div`
+  width: 100%;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    display:flex;
+    justify-content: space-between;
+  }
+`
 
 List.propTypes = {
   state: PropTypes.object,

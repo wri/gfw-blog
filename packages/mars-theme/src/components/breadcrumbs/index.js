@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect, styled, decode } from 'frontity';
-import Link from '../link';
-import Item from './item';
-import Divider from './divider';
-import List from './list';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect, styled, decode } from "frontity";
+import Link from "../link";
+import Item from "./item";
+import Divider from "./divider";
+import List from "./list";
+import { MEDIUM_ENDPOINT } from "../heplers/css-endpoints";
+import { isSearchLink } from "../heplers/content";
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
-  if (state.router.link === '/') {
+  if (state.router.link === "/") {
     return null;
   }
 
@@ -18,6 +19,12 @@ const Breadcrumbs = ({ state }) => {
       <Item clickable>
         <Link link="/">Blog home</Link>
       </Item>
+      {isSearchLink(state.router.link) && (
+        <>
+          <Divider />
+          <Item>Search results</Item>
+        </>
+      )}
       {data.isAuthor && (
         <>
           <Divider />
@@ -52,7 +59,7 @@ export default connect(Breadcrumbs);
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-top: 1.25rem;
+  // margin-top: 1.25rem;
   font-size: 0.75rem;
   line-height: 1.3125rem;
   padding: 0;

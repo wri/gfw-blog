@@ -39,7 +39,7 @@ const Item = ({
     }
     @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
       width: 100%;
-      padding: 0 1rem;
+      margin: 0 1rem;
     }
     ${styles}
   `;

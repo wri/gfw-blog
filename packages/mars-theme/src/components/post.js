@@ -4,6 +4,9 @@ import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
 import Breadcrumbs from "./breadcrumbs"
+import Search from "./search";
+import SearchExpanded from "./search/expanded";
+import { MEDIUM_ENDPOINT } from "./heplers/css-endpoints";
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -32,7 +35,12 @@ const Post = ({ state, actions, libraries }) => {
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container id="post-content">
-      <Breadcrumbs />
+      <BreadcrumbsContainer>
+        <Breadcrumbs />
+        <Search mobile title="" />
+        <Search />
+      </BreadcrumbsContainer>
+      <SearchExpanded />
       <div>
         <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
 
@@ -223,3 +231,11 @@ const Content = styled.div`
     }
   }
 `;
+
+const BreadcrumbsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 1.25rem;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    justify-content: space-between;
+}`;

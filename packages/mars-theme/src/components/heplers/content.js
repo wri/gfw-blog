@@ -20,3 +20,11 @@ export const getLessContnet = (str) => {
 
   return null;
 };
+
+export const isSearchLink = (link) => {
+  return link.includes('?s=');
+}
+
+export const isBlogHomePage = (link) => {
+  return link === '/';
+};
