@@ -47,19 +47,31 @@ const MainPost = ({ post, state }) => {
   `;
 
   const ContentWrapper = styled.div`
+    width: 100%;
+    padding: 0 1rem;
     height: 100%;
     position: absolute;
     display: flex;
     align-items: flex-end;
     flex-flow: wrap;
     top: 0;
-    padding: 0 1rem;
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
       padding: 0 4.375rem;
       width: 67%;
       align-items: center;
     }
   `;
+
+  const MiddleWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      padding-bottom: 1rem;
+      display: flex;
+      align-items: flex-end;
+    }
+  `;
+
   const TitleStyles = `
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
       padding-bottom: 2rem;
@@ -92,24 +104,29 @@ const MainPost = ({ post, state }) => {
     <Wrapper>
       <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
       <ContentWrapper>
-        <Link
-          link={item.link}
-          css={css`
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: 1;
-          `}
-        >
-          &nbsp;
-        </Link>
-        <div>
-          <CategoryNameList categories={categories} styles={CategoriesStyles} />
-          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-          <PostExcerpt styles={ExcerptStyles} noHellip>
-            {item.excerpt.rendered}
-          </PostExcerpt>
-        </div>
+        <MiddleWrapper>
+          <Link
+            link={item.link}
+            css={css`
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              z-index: 1;
+            `}
+          >
+            &nbsp;
+          </Link>
+          <div>
+            <CategoryNameList
+              categories={categories}
+              styles={CategoriesStyles}
+            />
+            <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+            <PostExcerpt styles={ExcerptStyles} noHellip>
+              {item.excerpt.rendered}
+            </PostExcerpt>
+          </div>
+        </MiddleWrapper>
       </ContentWrapper>
     </Wrapper>
   );
