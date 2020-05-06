@@ -5,7 +5,7 @@ import EntityDescription from './description';
 import CategoryList from './category-list';
 import AuthorList from './authors-list';
 import TagList from './tags-list';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const EntityInfo = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -160,7 +160,7 @@ const ArrowDown = styled.div`
 `;
 
 const List = styled.div`
-  padding: 1.75rem 2.5rem;
+  padding: 1.25rem 2rem;
   border: 1px solid #aaa;
   position: absolute;
   width: 100%;
@@ -169,4 +169,7 @@ const List = styled.div`
   min-height: 23.75rem;
   max-height: 43rem;
   overflow-y: auto;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    padding: 1.75rem 2.5rem;
+  }
 `;
