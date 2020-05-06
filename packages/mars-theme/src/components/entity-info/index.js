@@ -160,6 +160,7 @@ const ArrowDown = styled.div`
 `;
 
 const List = styled.div`
+  padding: 1.75rem 2.5rem;
   border: 1px solid #aaa;
   position: absolute;
   width: 100%;
