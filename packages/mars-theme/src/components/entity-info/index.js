@@ -85,9 +85,7 @@ const Wrapper = styled.div`
   margin-top: 1.1875rem;
   margin-bottom: 1.1875rem;
   width: 100%;
-  padding: 0 1rem;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0;
     width: 635px;
   }
 `;
@@ -162,7 +160,6 @@ const ArrowDown = styled.div`
 `;
 
 const List = styled.div`
-  padding: 1.75rem 2.5rem;
   border: 1px solid #aaa;
   position: absolute;
   width: 100%;
