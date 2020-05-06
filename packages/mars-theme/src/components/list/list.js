@@ -114,8 +114,8 @@ const List = ({ state }) => {
           subPosts.map(({ type, id }) => {
             const item = state.source[type][id];
             return (
-              <div className="column small-12 medium-6">
-                <SubPost key={item.id} item={item} />
+              <div key={item.id} className="column small-12 medium-6">
+                <SubPost item={item} />
               </div>
             );
           })}
@@ -137,8 +137,11 @@ const List = ({ state }) => {
             const item = state.source[type][id];
             // Render one Item component for each one.
             return (
-              <div className="column small-12 medium-6 large-4">
-                <Item key={item.id + item.date + item.name} item={item} />
+              <div
+                key={item.id + item.date + item.name}
+                className="column small-12 medium-6 large-4"
+              >
+                <Item item={item} />
               </div>
             );
           })}
