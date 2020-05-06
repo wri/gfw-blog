@@ -1,18 +1,62 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect, styled } from "frontity";
-import Image from "@frontity/components/image";
-import path from "./Search.png";
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints'
+import React, { useContext, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, css } from 'frontity';
+import { SearchIcon } from './components';
+import TopEntitiesContext from '../heplers/context';
+import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
-const Search = () => {
+const Search = ({
+  libraries,
+  state,
+  title = 'Search th GFW blog',
+  ready,
+  fullWidth,
+  mobile = false,
+  ...props
+}) => {
+  const ref = useRef();
+  const context = useContext(TopEntitiesContext);
+  const handler = () => {
+    context.search.setElementRects(ref.current.getClientRects()[0]);
+    context.search.toggleSearch();
+  };
+
+  const wrapCss = fullWidth ? `width: 100%; height: auto;` : '';
+  const baseCss = mobile
+    ? `
+  ${wrapCss}
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    display:none;
+  };
+  width: 100%;
+  justify-content: flex-end;
+  `
+    : `${wrapCss}
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      display:none;
+    };
+  `;
+
+  if (context.search.active) {
+    return null;
+  }
   return (
-    <Wrapper>
-      <SearchBox>
-        <Title>Search th GFW blog</Title>
-        <IconWrapper>
-          <Image src={path} />
-        </IconWrapper>
+    <Wrapper
+      css={css`
+        ${baseCss}
+      `}
+      ref={ref}
+      onClick={handler}
+      {...props}
+    >
+      <SearchBox
+        css={css`
+          ${wrapCss}
+        `}
+      >
+        {title && !ready && <Title>{title}</Title>}
+        {title && ready && <ReadyTitle>{title}</ReadyTitle>}
+        <SearchIcon />
       </SearchBox>
     </Wrapper>
   );
@@ -21,7 +65,12 @@ const Search = () => {
 export default connect(Search);
 
 Search.propTypes = {
-  
+  libraries: PropTypes.object,
+  state: PropTypes.object,
+  title: PropTypes.string,
+  ready: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+  mobile: PropTypes.bool,
 };
 
 const Title = styled.div`
@@ -34,6 +83,17 @@ const Title = styled.div`
   max-width: 150px;
 `;
 
+const ReadyTitle = styled.div`
+  width: 100%;
+  font-size: 3rem;
+  line-height: 3.75rem;
+  font-weight: 200;
+  color: #333;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    margin: 0 1rem;
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
   align-items: baseline;
@@ -42,19 +102,8 @@ const Wrapper = styled.div`
   }
 `;
 
-const IconWrapper = styled.div`
-  width: 24px;
-`;
-
 const SearchBox = styled.div`
   display: flex;
-  margin-top 1rem;
   align-items: center;
   height: 1.5rem;
-`;
-
-export const SearchContainer = styled.div`
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    display: flex;
-  }
 `;
