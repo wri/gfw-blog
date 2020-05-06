@@ -19,11 +19,13 @@ a {
     color: var(--color-darkest-grey);
 }
 
-/* a.post-link {
+a.post-link {
     height: 100%;
     width: 100%;
     position: absolute;
-} */
+    top: 0;
+    left: 0;
+}
 
 a.post-link:hover {
     text-decoration: none;

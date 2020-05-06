@@ -89,23 +89,21 @@ const MainPost = ({ post, state }) => {
 
   return (
     <Wrapper>
+      <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
       <Link
         link={item.link}
+        className="post-link"
         css={css`
-          width: 100%;
-          height: 100%;
           z-index: 1;
         `}
-      >
-        <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
-        <ContentWrapper>
-          <CategoryNameList categories={categories} styles={CategoriesStyles} />
-          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-          <PostExcerpt styles={ExcerptStyles} noHellip>
-            {item.excerpt.rendered}
-          </PostExcerpt>
-        </ContentWrapper>
-      </Link>
+      />
+      <ContentWrapper>
+        <CategoryNameList categories={categories} styles={CategoriesStyles} />
+        <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+        <PostExcerpt styles={ExcerptStyles} noHellip>
+          {item.excerpt.rendered}
+        </PostExcerpt>
+      </ContentWrapper>
     </Wrapper>
   );
 };

@@ -165,7 +165,7 @@ const Wrapper = styled.div`
   padding-bottom: 3.75rem;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
-    padding-top: 70px;
+    padding-top: 60px;
   }
 `;
 
