@@ -54,7 +54,6 @@ const Theme = ({ state, actions }) => {
       {/* Add the header of the site. */}
       <HeaderWrapper>
         <Header
-          relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={actions.theme.toggleContactUsModal}
         />
