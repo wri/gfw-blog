@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { styled } from "frontity";
+import PropTypes from 'prop-types';
 
 const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
 const COMMENTS_URI = '/wp/v2/comments';
@@ -15,13 +16,13 @@ export default function AddCommentForm({postId}) {
     event.preventDefault();
 
     if (isAgree || name || email) {
-      const elements = document.getElementById("commentForm").elements;
+      const [commentContent, commentEmail, commentName] = document.getElementById("commentForm").elements;
 
       const body = {
         postId,
-        content: elements.commentContent.value,
-        author_email: elements.commentEmail.value,
-        author_name: elements.commentName.value
+        content: commentContent.value,
+        author_email: commentEmail.value,
+        author_name: commentName.value
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -32,14 +33,12 @@ export default function AddCommentForm({postId}) {
         body: JSON.stringify(body)
       })
         .then((response) => {
-          if (response.ok === true) {
-          }
           return response.json();
         })
         .then((object) => {
-          console.log(object.message);
+          // console.log(object.message);
         })
-        .catch(error => console.error('Error:', error));
+        // .catch(error => console.error('Error:', error));
     }
   }
 
@@ -109,13 +108,12 @@ export default function AddCommentForm({postId}) {
             disabled={false}
             style={{width: '25px', height: '25px', marginLeft: '14%'}}
             defaultChecked
-            checked={isAgree}
             onChange={() => {setIsAgree(!isAgree)}}
           />
           <CheckboxDescr>
             I have read and agree with&nbsp;
             <a href={GFW_PRIVACY_POLICY_PAGE}>
-              GWF's Privacy Policy
+              GWF`&apos;`s Privacy Policy
             </a>
           </CheckboxDescr>
         </FieldArea>
@@ -138,6 +136,10 @@ export default function AddCommentForm({postId}) {
     </Container>
   );
 }
+
+AddCommentForm.propTypes = {
+  postId: PropTypes.number
+};
 
 const Container = styled.div`
   width: 640px;
@@ -192,3 +194,4 @@ const CheckboxDescr = styled.p`
     text-decoration: none;
   }
 `;
+
