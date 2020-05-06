@@ -1,25 +1,25 @@
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
-import { connect, styled } from "frontity";
-import Item from "./list-item";
-import SubPost from "./sub-post";
-import MainPost from "./main-post";
-import LoadMore from "./load-more";
-import BlogHeader from "../blog-header";
-import CategoryNameList from "../category/list-name";
-import Breadcrumbs from "../breadcrumbs";
-import EntityInfo from "../entity-info";
-import Search from "../search";
-import SearchResults from "../search/results";
-import SearchExpanded from "../search/expanded";
-import TopEntitiesContext from "../heplers/context";
+import React, { useState, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, css } from 'frontity';
+import Item from './list-item';
+import SubPost from './sub-post';
+import MainPost from './main-post';
+import LoadMore from './load-more';
+import BlogHeader from '../blog-header';
+import CategoryNameList from '../category/list-name';
+import Breadcrumbs from '../breadcrumbs';
+import EntityInfo from '../entity-info';
+import Search from '../search';
+import SearchResults from '../search/results';
+import SearchExpanded from '../search/expanded';
+import TopEntitiesContext from '../heplers/context';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
   LARGE_ENDPOINT,
-} from "../heplers/css-endpoints";
-import { isSearchLink, isBlogHomePage } from "../heplers/content";
+} from '../heplers/css-endpoints';
+import { isSearchLink, isBlogHomePage } from '../heplers/content';
 
 const POSTS_PER_PAGE = 9;
 
@@ -48,7 +48,7 @@ const List = ({ state }) => {
     const loadedPosts = [];
     while (fetchingAllData) {
       const getLink =
-        link[1] === "?"
+        link[1] === '?'
           ? `page/${lastLoadedPage + 1}${link}`
           : `${link}page/${lastLoadedPage + 1}`;
       const pageData = state.source.get(getLink);
@@ -74,7 +74,7 @@ const List = ({ state }) => {
         for (let i = page - 1; i < page; i++) {
           const nextPage = i + 1;
           const getLink =
-            link[1] === "?"
+            link[1] === '?'
               ? `page/${nextPage}${link}`
               : `${link}page/${nextPage}`;
           const nextData = state.source.get(getLink);
@@ -117,7 +117,15 @@ const List = ({ state }) => {
 
         {isSearchLink(link) && <SearchResults />}
         <HomeTopSection className={context.search.active ? `reverse` : ``}>
-          {isBlogHomePage(link) && <Search mobile title="" />}
+          {isBlogHomePage(link) && (
+            <Search
+              mobile
+              title=""
+              css={css`
+                margin-top: 1rem;
+              `}
+            />
+          )}
           <div>
             {isBlogHomePage(link) && <BlogHeader />}
             {isBlogHomePage(link) && (
@@ -236,6 +244,7 @@ const FlexContainer = styled.div`
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
     display: flex;
     width: 100%;
+    align-items: baseline;
     justify-content: space-between;
     &.hidden {
       display: none;
@@ -256,11 +265,9 @@ const HomeTopSection = styled.div`
 
 const BreadcrumbsContainer = styled.div`
   width: 100%;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    display:flex;
-    justify-content: space-between;
-  }
-`
+  display: flex;
+  justify-content: space-between;
+`;
 
 List.propTypes = {
   state: PropTypes.object,
