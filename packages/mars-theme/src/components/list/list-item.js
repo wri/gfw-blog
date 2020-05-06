@@ -58,7 +58,10 @@ const Item = ({
           )}
         </div>
         {/* Show categories of the post */}
-        <CategoryNameList categories={categories} styles="position:relative;" />
+        <CategoryNameList
+          categories={categories}
+          styles="position:relative; margin-top: 20px;"
+        />
         {/* <Link link={item.link} className="post-title-link"> */}
         {!title && (
           <PostTitle styles={titleStyles}>{item.title.rendered}</PostTitle>

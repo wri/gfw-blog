@@ -29,14 +29,17 @@ const Title = styled.h1`
   font-size: 1.875rem;
   font-weight: 200;
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
 `;
 
 const Description = styled.h4`
-  margin: 0;
+  margin-bottom: 30px;
   color: var(--color-dark-grey);
   font-size: 1.125rem;
   line-height: 1.875rem;
   font-weight: 200;
   text-transform: initial;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-bottom: 60px;
+  }
 `;

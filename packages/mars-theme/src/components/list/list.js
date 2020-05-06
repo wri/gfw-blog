@@ -84,7 +84,7 @@ const List = ({ state }) => {
     }
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
-  const categoriesStyles = `margin-bottom: 0.25rem;`;
+  const categoriesStyles = `margin-bottom: 20px;`;
 
   return (
     <Wrapper>
@@ -163,8 +163,9 @@ const Wrapper = styled.div`
   width: 100%;
   padding-top: 3.125rem;
   padding-bottom: 3.75rem;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
+    padding-top: 70px;
   }
 `;
 
@@ -178,6 +179,8 @@ const Divider = styled.div`
 `;
 
 const MainPostWrapper = styled.div`
+  max-width: 1120px;
+  margin: auto;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding: 0 20px;
   }

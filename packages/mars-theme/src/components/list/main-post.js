@@ -33,10 +33,14 @@ const MainPost = ({ post, state }) => {
     }`;
 
   const mediaStyles = `
-    height: 500px;
+    height: 440px;
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+      height: 420px;
+    }
     @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
       height: 400px;
-    }`;
+    }
+  `;
 
   const Wrapper = styled.article`
     margin-bottom: 40px;
@@ -51,9 +55,10 @@ const MainPost = ({ post, state }) => {
     top: 0;
     padding: 30px 16px;
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
-      padding: 50px 70px;
+      padding: 40px 50px;
     }
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+      padding: 50px 70px;
       width: 67%;
     }
     ${mediaStyles}

@@ -47,11 +47,13 @@ CategoryNameList.propTypes = {
 };
 
 const TitleWrapper = styled.span`
-  margin-right: 1rem;
+  margin-bottom: 25px;
   color: var(--color-medium-grey);
   text-transform: uppercase;
   font-size: 0.75rem;
-  @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    display: block;
+  display: block;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-right: 20px;
+    display: inline;
   }
 `;
