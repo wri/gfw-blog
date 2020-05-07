@@ -38,7 +38,7 @@ export default function AddCommentForm({postId}) {
         .then((object) => {
           // console.log(object.message);
         })
-        // .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error:', error));
     }
   }
 
@@ -101,15 +101,12 @@ export default function AddCommentForm({postId}) {
         </FieldArea>
 
         <FieldArea>
-          <Input
-            id="commentCheckbox"
-            name="commentCheckbox"
-            type="checkbox"
-            disabled={false}
-            style={{width: '25px', height: '25px', marginLeft: '14%'}}
-            defaultChecked
-            onChange={() => {setIsAgree(!isAgree)}}
-          />
+          <Checkbox checked={isAgree} onClick={() => setIsAgree(!isAgree)}>
+            <Icon viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </Icon>
+          </Checkbox>
+
           <CheckboxDescr>
             I have read and agree with&nbsp;
             <a href={GFW_PRIVACY_POLICY_PAGE}>
@@ -187,11 +184,31 @@ const Input = styled.input`
   ${(props) => props.style}
 `;
 
+const Icon = styled.svg`
+  fill: none;
+  stroke: white;
+  stroke-width: 2px;
+`;
+
+const Checkbox = styled.div`
+  border: ${props => (props.checked ? 'none' : '1px solid #808080;')};
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: ${props => (props.checked ? '#97BD3D' : '#ffffff')};
+  border-radius: 3px;
+  transition: all 150ms;
+  margin-left: 14%;
+  
+  ${Icon} {
+    visibility: ${props => (props.checked ? 'visible' : 'hidden')}
+  }
+`;
+
 const CheckboxDescr = styled.p`
-  margin-right: 25%;
+  margin-right: 24%;
   a {
     color: '#97BD3D';
     text-decoration: none;
   }
 `;
-
