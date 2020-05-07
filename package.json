@@ -34,7 +34,7 @@
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
     "frontity": "^1.5.3",
-    "gfw-components": "^0.5.1",
+    "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
     "prop-types": "^15.7.2"
