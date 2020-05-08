@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect }from 'react';
 import PropTypes from 'prop-types';
-import { connect, decode, styled, css } from 'frontity';
+import {connect, decode, styled, css, fetch} from 'frontity';
 import { NumberInfo, Title } from './components';
 import { getLessContnet } from '../heplers/content';
 import ExpendedDescription from './expanded-description';
 
+const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+
+function useAsyncHook(url, defaultPic) {
+  const [jobTitle, setJobTitle] = useState('Author');
+  const [profilePicture, setProfilePicture] = useState(defaultPic);
+
+  useEffect(() => {
+    async function retrieveAcfData() {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
+
+        console.log(json);
+        setJobTitle(json.acf.job_title);
+        setProfilePicture(json.acf.profile_picture);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    if (url.length !== 0) {
+      retrieveAcfData();
+    }
+  }, []);
+
+  return [jobTitle, profilePicture];
+}
+
 const AuthorDescription = ({ state }) => {
   const data = state.source.get(state.router.link);
 
+  const url = `${WORDPRESS_GFW_API}/wp/v2/users/${data.id}`;
+
+  const [jobTitle, profilePicture] = useAsyncHook(url, state.source.author[data.id].avatar_urls[96]);
+
   const description = decode(state.source.author[data.id].description);
+
   const lessDescription = getLessContnet(description);
 
   return (
@@ -20,11 +53,11 @@ const AuthorDescription = ({ state }) => {
               border-radius: 48px;
             `}
             alt={state.source.author[data.id].name}
-            src={state.source.author[data.id].avatar_urls[96]}
+            src={profilePicture}
           />
         </Avatar>
         <Title>
-          <Head>Editor</Head>
+          <Head>{jobTitle}</Head>
           <ExpendedDescription less={lessDescription} full={description} />
         </Title>
       </div>
