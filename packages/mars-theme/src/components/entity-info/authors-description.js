@@ -2,8 +2,8 @@ import React, { useState, useEffect }from 'react';
 import PropTypes from 'prop-types';
 import {connect, decode, styled, css, fetch} from 'frontity';
 import { NumberInfo, Title } from './components';
-import { getLessContnet } from '../heplers/content';
-import ExpendedDescription from './expanded-description';
+import { getLessContent } from '../heplers/content';
+import ExpandedDescription from './expanded-description';
 
 const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
 
@@ -17,7 +17,6 @@ function useAsyncHook(url, defaultPic) {
         const response = await fetch(url);
         const json = await response.json();
 
-        console.log(json);
         setJobTitle(json.acf.job_title);
         setProfilePicture(json.acf.profile_picture);
       } catch (error) {
@@ -42,7 +41,7 @@ const AuthorDescription = ({ state }) => {
 
   const description = decode(state.source.author[data.id].description);
 
-  const lessDescription = getLessContnet(description);
+  const lessDescription = getLessContent(description);
 
   return (
     <>
@@ -58,7 +57,7 @@ const AuthorDescription = ({ state }) => {
         </Avatar>
         <Title>
           <Head>{jobTitle}</Head>
-          <ExpendedDescription less={lessDescription} full={description} />
+          <ExpandedDescription less={lessDescription} full={description} />
         </Title>
       </div>
       <NumberInfo styles="margin-top:2.1875rem;">
