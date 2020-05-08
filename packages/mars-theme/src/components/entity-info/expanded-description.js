@@ -19,7 +19,7 @@ const ExpendedDescription = ({ less, full }) => {
         {expended && <Toggler onClick={expendToggler}>Collapse bio</Toggler>}
         {!expended && <ShadowLayer />}
       </Wrapper>
-      {!expended && <Toggler onClick={expendToggler}>Expend bio</Toggler>}
+      {!expended && <Toggler onClick={expendToggler}>Expand bio</Toggler>}
     </>
   );
 };
