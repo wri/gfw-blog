@@ -13,13 +13,7 @@ const List = ({ state }) => {
 
   return (
     <Wrapper>
-      {categories.map((item) => {
-        return (
-          <li key={item.name}>
-            <Link link={item.link}>{item.name}</Link>
-          </li>
-        );
-      })}
+      <Link link={categories[0].link}>{categories[0].name}</Link>
     </Wrapper>
   );
 };
