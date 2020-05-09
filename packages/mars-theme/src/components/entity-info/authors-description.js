@@ -49,7 +49,9 @@ const AuthorDescription = ({ state }) => {
         <Avatar>
           <img
             css={css`
-              border-radius: 48px;
+              border-radius: 90px;
+              width: 100px;
+              height: 100px;
             `}
             alt={state.source.author[data.id].name}
             src={profilePicture}
@@ -81,7 +83,7 @@ const Avatar = styled.div`
   border-radius: 96px;
   padding-top: 2.5rem;
   padding-right: 2rem;
-  padding-bottom: 1.625rem;
+  padding-bottom: 0rem;
 `;
 
 const Head = styled.div`
