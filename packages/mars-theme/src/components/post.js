@@ -4,6 +4,7 @@ import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
 import Breadcrumbs from "./breadcrumbs"
+import TwittTextTooltip from "./twitt-tooltip/twitt-tooltip";
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -64,6 +65,8 @@ const Post = ({ state, actions, libraries }) => {
       <Content>
         <Html2React html={post.content.rendered} />
       </Content>
+
+      <TwittTextTooltip />
     </Container>
   ) : null;
 };
