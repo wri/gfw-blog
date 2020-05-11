@@ -77,6 +77,7 @@ const Container = styled.div`
   width: 800px;
   margin: 0;
   padding: 24px;
+  user-select: none;
 `;
 
 const Title = styled.h1`
@@ -84,26 +85,22 @@ const Title = styled.h1`
   margin-top: 24px;
   margin-bottom: 8px;
   color: rgba(12, 17, 43);
-  user-select: none;
 `;
 
 const StyledLink = styled(Link)`
   padding: 15px 0;
-  user-select: none;
 `;
 
 const Author = styled.p`
   color: rgba(12, 17, 43, 0.9);
   font-size: 0.9em;
   display: inline;
-  user-select: none;
 `;
 
 const Fecha = styled.p`
   color: rgba(12, 17, 43, 0.9);
   font-size: 0.9em;
   display: inline;
-  user-select: none;
 `;
 
 /**
@@ -113,6 +110,7 @@ const Fecha = styled.p`
 const Content = styled.div`
   color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
+  user-select: text;
 
   * {
     max-width: 100%;
