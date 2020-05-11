@@ -10,7 +10,7 @@ export default function AddCommentForm({postId}) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [isAgree, setIsAgree] = useState(true);
+  const [isAgree, setIsAgree] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -116,14 +116,7 @@ export default function AddCommentForm({postId}) {
         </FieldArea>
 
         <FieldArea>
-          <Input
-            style={{
-              borderRadius: '80px 80px 80px 80px',
-              width: '160px',
-              color: '#97BD3D',
-              marginLeft: 'auto',
-              cursor: 'pointer'
-            }}
+          <SubmitButton
             type="submit"
             value="POST COMMENT"
           />
@@ -182,6 +175,17 @@ const Input = styled.input`
   border: 1px solid #808080;
   width: 540px;
   ${(props) => props.style}
+`;
+
+const SubmitButton = styled.input`
+  border-radius: 22.5px;
+  border: 1px solid #97BD3D;
+  background-color: #ffffff;
+  color: #333333;
+  width: 160px;
+  font-weight: 500;
+  margin-left: auto;
+  cursor: pointer;
 `;
 
 const Icon = styled.svg`
