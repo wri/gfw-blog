@@ -1,11 +1,13 @@
 import React from 'react';
-import { styled } from "frontity";
+import { styled } from 'frontity';
 import PropTypes from 'prop-types';
 
 import Comment from './comment';
-import AddCommentForm from "./add-comment-form";
+import AddCommentForm from './add-comment-form';
 
-function CommentList({postId}) {
+import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+
+function CommentList({ postId }) {
   return (
     <Container>
       <Divider />
@@ -23,7 +25,13 @@ function CommentList({postId}) {
 const Container = styled.div`
   width: 770px;
   height: auto;
-  margin: 50px 0 100px 0; 
+  margin: 50px 0 100px 0;
+  @media screen and (max-width: ${LARGE_ENDPOINT}) {
+    display: none;
+  }
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    display: none;
+  }
 `;
 
 const Title = styled.h4`
@@ -35,14 +43,14 @@ const Title = styled.h4`
 const Divider = styled.hr`
   width: auto;
   height: 1px;
-  background-color: #E5E5DF;
+  background-color: #e5e5df;
   margin-top: 65px;
   margin-bottom: 65px;
   border: none;
 `;
 
 CommentList.propTypes = {
-  postId: PropTypes.number
+  postId: PropTypes.number,
 };
 
 export default CommentList;
