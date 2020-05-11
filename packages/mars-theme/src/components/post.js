@@ -64,9 +64,9 @@ const Post = ({ state, actions, libraries }) => {
        by the processors we included in the libraries.html2react.processors array. */}
       <Content>
         <Html2React html={post.content.rendered} />
+        <TwittTextTooltip />
       </Content>
 
-      <TwittTextTooltip />
     </Container>
   ) : null;
 };
@@ -84,22 +84,26 @@ const Title = styled.h1`
   margin-top: 24px;
   margin-bottom: 8px;
   color: rgba(12, 17, 43);
+  user-select: none;
 `;
 
 const StyledLink = styled(Link)`
   padding: 15px 0;
+  user-select: none;
 `;
 
 const Author = styled.p`
   color: rgba(12, 17, 43, 0.9);
   font-size: 0.9em;
   display: inline;
+  user-select: none;
 `;
 
 const Fecha = styled.p`
   color: rgba(12, 17, 43, 0.9);
   font-size: 0.9em;
   display: inline;
+  user-select: none;
 `;
 
 /**
