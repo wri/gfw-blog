@@ -12,7 +12,6 @@ const CategoryName = ({ children, styles = '' }) => {
     text-transform: uppercase;
     display: inline-flex;
     margin-right: 1.25rem;
-    margin-bottom: 1.25rem;
     margin-top: 1rem;
     height: 1.5rem;
     :hover {

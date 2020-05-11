@@ -85,7 +85,7 @@ const List = ({ state }) => {
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
   const categoriesStyles = `
-  margin-bottom: 0.25rem;
+  margin-bottom: 1rem;
   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
     padding: 0 1rem;
   }`;
