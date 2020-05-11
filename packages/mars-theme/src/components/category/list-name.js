@@ -5,7 +5,12 @@ import CategoryName from './name';
 import Link from '../link';
 import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
-const CategoryNameList = ({ categories, styles = '', title }) => {
+const CategoryNameList = ({
+  categories,
+  styles = '',
+  itemStyles = '',
+  title,
+}) => {
   const Wrapper = styled.p`
     ${styles}
   `;
@@ -22,15 +27,16 @@ const CategoryNameList = ({ categories, styles = '', title }) => {
       {title && <TitleWrapper>{title}</TitleWrapper>}
       {categories.map(({ name, link }) => {
         return (
-          <Link
-            css={css`
-              ${linkCss}
-            `}
-            link={link}
-            key={name + link}
-          >
-            <CategoryName>{name}</CategoryName>
-          </Link>
+          <CategoryName key={name + link} styles={itemStyles}>
+            <Link
+              css={css`
+                ${linkCss}
+              `}
+              link={link}
+            >
+              {name}
+            </Link>
+          </CategoryName>
         );
       })}
     </Wrapper>
@@ -42,6 +48,7 @@ export default CategoryNameList;
 CategoryNameList.propTypes = {
   categories: PropTypes.array,
   styles: PropTypes.string,
+  itemStyles: PropTypes.string,
   title: PropTypes.string,
 };
 
