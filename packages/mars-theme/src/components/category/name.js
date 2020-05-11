@@ -15,6 +15,10 @@ const CategoryName = ({ children, styles = '' }) => {
     margin-bottom: 1.25rem;
     margin-top: 1rem;
     height: 1.5rem;
+    align-items: center;
+    a {
+      color: inherit;
+    }
     :hover {
       background-color: var(--color-primary);
     }
