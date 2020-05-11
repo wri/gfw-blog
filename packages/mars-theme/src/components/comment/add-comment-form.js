@@ -16,17 +16,17 @@ export default function AddCommentForm({postId}) {
     event.preventDefault();
 
     if (isAgree || name || email) {
-      const [commentContent, commentEmail, commentName] = document.getElementById("commentForm").elements;
+      const [commentContent, commentName, commentEmail] = document.getElementById("commentForm").elements;
 
       const body = {
-        postId,
+        post: postId,
         content: commentContent.value,
-        author_email: commentEmail.value,
-        author_name: commentName.value
+        author_name: commentName.value,
+        author_email: commentEmail.value
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
-        method: 'post',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -69,7 +69,7 @@ export default function AddCommentForm({postId}) {
         <FieldArea>
           <InputLabel
             htmlFor="commentName"
-            style={{marginLeft: '3%'}}
+            style={{marginLeft: '2.25%'}}
           >
             NAME *
           </InputLabel>
@@ -77,6 +77,7 @@ export default function AddCommentForm({postId}) {
             id="commentName"
             name="commentName"
             type="text"
+            style={{marginRight: '1%'}}
             value={name}
             required
             onChange={(event) => setName(event.target.value)}
@@ -86,7 +87,7 @@ export default function AddCommentForm({postId}) {
         <FieldArea>
           <InputLabel
             htmlFor="commentEmail"
-            style={{marginLeft: '3%'}}
+            style={{marginLeft: '2.25%'}}
           >
             EMAIL *
           </InputLabel>
@@ -94,6 +95,7 @@ export default function AddCommentForm({postId}) {
             id="commentEmail"
             name="commentEmail"
             type="email"
+            style={{marginRight: '1%'}}
             value={email}
             required
             onChange={(event) => setEmail(event.target.value)}
@@ -115,7 +117,7 @@ export default function AddCommentForm({postId}) {
           </CheckboxDescr>
         </FieldArea>
 
-        <FieldArea>
+        <FieldArea style={{marginTop: '50px'}}>
           <SubmitButton
             type="submit"
             value="POST COMMENT"
@@ -147,6 +149,7 @@ const Subtitle = styled.p`
 
 const Form = styled.form`
   margin: 45px 0px 0px 10px;
+  width: auto;
 `;
 
 const FieldArea = styled.div`
@@ -155,6 +158,7 @@ const FieldArea = styled.div`
   justify-content: space-between;
   flex-direction: row;
   margin-top: 25px;
+  ${(props) => props.style}
 `;
 
 const Textarea = styled.textarea`
@@ -162,6 +166,7 @@ const Textarea = styled.textarea`
   width: 540px;
   height: 200px;
   padding: 10px;
+  margin-right: 1%;
 `;
 
 const InputLabel = styled.label`
@@ -178,17 +183,6 @@ const Input = styled.input`
   ${(props) => props.style}
 `;
 
-const SubmitButton = styled.input`
-  border-radius: 22.5px;
-  border: 1px solid #97BD3D;
-  background-color: #ffffff;
-  color: #333333;
-  width: 160px;
-  font-weight: 500;
-  margin-left: auto;
-  cursor: pointer;
-`;
-
 const Icon = styled.svg`
   fill: none;
   stroke: white;
@@ -203,7 +197,7 @@ const Checkbox = styled.div`
   background: ${props => (props.checked ? '#97BD3D' : '#ffffff')};
   border-radius: 3px;
   transition: all 150ms;
-  margin-left: 14.5%;
+  margin-left: 13%;
   
   ${Icon} {
     visibility: ${props => (props.checked ? 'visible' : 'hidden')}
@@ -211,11 +205,22 @@ const Checkbox = styled.div`
 `;
 
 const CheckboxDescr = styled.p`
-  margin-right: 31%;
+  margin-right: 32%;
   font-size: 14px;
   a {
     font-size: 14px;
     color: '#97BD3D';
     text-decoration: none;
   }
+`;
+
+const SubmitButton = styled.input`
+  border-radius: 22.5px;
+  border: 1px solid #97BD3D;
+  background-color: #ffffff;
+  color: #333333;
+  width: 160px;
+  font-weight: 500;
+  margin-left: auto;
+  cursor: pointer;
 `;
