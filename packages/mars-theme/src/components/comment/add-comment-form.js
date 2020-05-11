@@ -110,7 +110,7 @@ export default function AddCommentForm({postId}) {
           <CheckboxDescr>
             I have read and agree with&nbsp;
             <a href={GFW_PRIVACY_POLICY_PAGE}>
-              GWF`&apos;`s Privacy Policy
+              GWF&prime;s Privacy Policy
             </a>
           </CheckboxDescr>
         </FieldArea>
