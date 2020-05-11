@@ -68,23 +68,6 @@ export default function AddCommentForm({postId}) {
 
         <FieldArea>
           <InputLabel
-            htmlFor="commentEmail"
-            style={{marginLeft: '3%'}}
-          >
-            EMAIL *
-          </InputLabel>
-          <Input
-            id="commentEmail"
-            name="commentEmail"
-            type="email"
-            value={email}
-            required
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </FieldArea>
-
-        <FieldArea>
-          <InputLabel
             htmlFor="commentName"
             style={{marginLeft: '3%'}}
           >
@@ -97,6 +80,23 @@ export default function AddCommentForm({postId}) {
             value={name}
             required
             onChange={(event) => setName(event.target.value)}
+          />
+        </FieldArea>
+
+        <FieldArea>
+          <InputLabel
+            htmlFor="commentEmail"
+            style={{marginLeft: '3%'}}
+          >
+            EMAIL *
+          </InputLabel>
+          <Input
+            id="commentEmail"
+            name="commentEmail"
+            type="email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
           />
         </FieldArea>
 
@@ -158,9 +158,10 @@ const FieldArea = styled.div`
 `;
 
 const Textarea = styled.textarea`
-  border: 1px solid #808080;
+  border: 1px solid #DEDEDD;
   width: 540px;
   height: 200px;
+  padding: 10px;
 `;
 
 const InputLabel = styled.label`
@@ -172,7 +173,7 @@ const InputLabel = styled.label`
 `;
 
 const Input = styled.input`
-  border: 1px solid #808080;
+  border: 1px solid #DEDEDD;
   width: 540px;
   ${(props) => props.style}
 `;
@@ -195,14 +196,14 @@ const Icon = styled.svg`
 `;
 
 const Checkbox = styled.div`
-  border: ${props => (props.checked ? 'none' : '1px solid #808080;')};
+  border: ${props => (props.checked ? 'none' : '1px solid #E5E5DF;')};
   display: inline-block;
   width: 25px;
   height: 25px;
   background: ${props => (props.checked ? '#97BD3D' : '#ffffff')};
   border-radius: 3px;
   transition: all 150ms;
-  margin-left: 14%;
+  margin-left: 14.5%;
   
   ${Icon} {
     visibility: ${props => (props.checked ? 'visible' : 'hidden')}
@@ -210,8 +211,10 @@ const Checkbox = styled.div`
 `;
 
 const CheckboxDescr = styled.p`
-  margin-right: 24%;
+  margin-right: 31%;
+  font-size: 14px;
   a {
+    font-size: 14px;
     color: '#97BD3D';
     text-decoration: none;
   }
