@@ -16,6 +16,11 @@ const CategoryName = ({ children, styles = '' }) => {
     margin-bottom: 1.25rem;
     height: 1.5rem;
     align-items: center;
+    b {
+      display: inline-flex;
+      height: 1.5rem;
+      align-items: center;
+    }
     a {
       color: inherit;
     }

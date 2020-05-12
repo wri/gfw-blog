@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled } from 'frontity';
 import { Button } from 'gfw-components';
@@ -9,6 +9,7 @@ import Breadcrumbs from './breadcrumbs';
 import FacebookIcon from '../assets/icons/social/facebook.svg';
 import TwitterIcon from '../assets/icons/social/twitter-1.svg';
 import NewsletterIcon from '../assets/icons/social/newsletter.svg';
+import ChatIcon from '../assets/icons/social/chat.svg';
 import CategoryNameList from './category/list-name';
 import {
   SMALL_ENDPOINT,
@@ -21,6 +22,9 @@ const Post = ({ state, actions, libraries }) => {
   const data = state.source.get(state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
+
+  const [feauturedImgDescription, setFeauturedImgDescription] = useState('');
+
   // Get the data of the author.
   const author = state.source.author[post.author];
   // Get a human readable date.
@@ -50,6 +54,25 @@ const Post = ({ state, actions, libraries }) => {
     List.preload();
   }, []);
 
+  useEffect(() => {
+    const { api } = libraries.source;
+    const result = api.get({
+      endpoint: 'media',
+      params: { _embed: true, include: post.featured_media },
+    });
+    result.then((response) => {
+      libraries.source.populate({ response, state, force: true }).then(() => {
+        const description = state.source.attachment[
+          post.featured_media
+        ].description.rendered.replace(
+          /<p\s+class="attachment">.+<\/p>/gim,
+          ''
+        );
+        setFeauturedImgDescription(description);
+      });
+    });
+  }, []);
+
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container id="post-content">
@@ -58,9 +81,10 @@ const Post = ({ state, actions, libraries }) => {
       </BreadCrumbsWrapper>
       {/* Look at the settings to see if we should include the featured image */}
       {state.theme.featured.showOnPost && (
-        <FeaturedMedia
-          id={post.featured_media}
-          styles={`
+        <>
+          <FeaturedMedia
+            id={post.featured_media}
+            styles={`
             max-width: 1110px;
             margin: 0 auto;
             height: 500px;
@@ -68,7 +92,11 @@ const Post = ({ state, actions, libraries }) => {
               height: 320px
             }
         `}
-        />
+          />
+          <MediaDescriptionWrapper>
+            <Html2React html={feauturedImgDescription} />
+          </MediaDescriptionWrapper>
+        </>
       )}
       <TopInfoWrapper>
         <ContentWrapper>
@@ -80,7 +108,8 @@ const Post = ({ state, actions, libraries }) => {
                   <p>
                     <StyledLink link={author.link}>
                       <Author>
-                        By&nbsp;
+                        By
+                        <br />
                         <b>{author.name}</b>
                       </Author>
                     </StyledLink>
@@ -88,7 +117,8 @@ const Post = ({ state, actions, libraries }) => {
                 )}
                 <Fecha>
                   {' '}
-                  Posted on&nbsp;
+                  Posted on
+                  <br />
                   <b>{dateStr}</b>
                 </Fecha>
               </InfoContainer>
@@ -116,9 +146,19 @@ const Post = ({ state, actions, libraries }) => {
               </a>
               <a href="#">
                 <Button theme="button-light round big">
+                  <img src={ChatIcon} alt="" />
+                </Button>
+              </a>
+              <a href="#">
+                <Button theme="button-light round big">
                   <img src={NewsletterIcon} alt="" />
                 </Button>
               </a>
+              <Label>
+                Subscribe to the
+                <br />
+                GFW newsletter
+              </Label>
             </ButtonsContainer>
           </SideBar>
         </ContentWrapper>
@@ -140,18 +180,28 @@ const Post = ({ state, actions, libraries }) => {
        by the processors we included in the libraries.html2react.processors array. */}
       <Content>
         <Html2React html={post.content.rendered} />
-        <CategoriesWrapper>
+        <TagsWrapper>
           <CategoryNameList
             categories={tags}
             styles={`
-                margin-top: 1.25rem;
+                margin-top: 0;
+                line-height: 1.25rem !important;
             `}
             itemStyles={`
+              margin-bottom: 1.25rem;
+              margin-top: 0;
               background-color: #E5E5DF;
               color: #333 !important;
+              a {
+                color: #333 !important;
+                font-weight: normal;
+              }
+              a:visited {
+                color: #333 !important;
+              }
           `}
           />
-        </CategoriesWrapper>
+        </TagsWrapper>
       </Content>
     </Container>
   ) : null;
@@ -165,6 +215,21 @@ Post.propTypes = {
   libraries: PropTypes.object,
 };
 
+const MediaDescriptionWrapper = styled.div`
+  color: #555;
+  font-size: 0.75rem;
+  line-height: 1.75;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    max-width: 1110px;
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  padding-top: 0.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+`;
+
 const ButtonsContainer = styled.div`
   a {
     display: inline-block;
@@ -175,6 +240,15 @@ const ButtonsContainer = styled.div`
       margin-bottom: 1.25rem;
       display: block;
     }
+  }
+`;
+
+const Label = styled.span`
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #777;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    display: none;
   }
 `;
 
@@ -192,7 +266,7 @@ const Container = styled.div`
 const Title = styled.h1`
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   color: #333;
   max-width: 1110px;
   font-size: 1.875rem;
@@ -255,11 +329,25 @@ const CategoriesWrapper = styled.div`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 4rem;
+  margin-top: 3.875rem;
   margin-bottom: 1rem;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    margin-top: 5.625rem;
-    margin-bottom: 1.875rem;
+    margin-top: 3.625rem;
+    margin-bottom: 0.5rem;
+    padding-left: 17.8125rem;
+    padding-right: 11.875rem;
+  }
+`;
+
+const TagsWrapper = styled.div`
+  max-width: 1110px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    margin-bottom: 0.5rem;
     padding-left: 17.8125rem;
     padding-right: 11.875rem;
   }
@@ -314,29 +402,35 @@ const Content = styled.div`
     font-style: italic;
     font-size: 1.25rem;
     line-height: 2.25rem;
-    padding-top: 2.625rem;
-    padding-bottom: 2.625rem;
+    padding-top: 1.375rem;
+    padding-bottom: 1.375rem;
+
+    a {
+      color: #97bd3d;
+      &:hover {
+        text-decoration: underline;
+        color: #658022;
+      }
+    }
 
     @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
       font-size: 1.125rem;
     }
 
     &::after {
-      height: 1px;
+      height: 2px;
       display: block;
-      width: 100px;
-      background-color: #aaa;
-      border-right: 1px white;
+      width: 65px;
+      background-color: #e5e5df;
       content: '';
       margin-top: 2.625rem;
     }
 
     &::before {
-      height: 1px;
+      height: 2px;
       display: block;
-      width: 100px;
-      background-color: #aaa;
-      border-right: 1px white;
+      width: 65px;
+      background-color: #e5e5df;
       content: '';
       margin-bottom: 2.625rem;
     }
@@ -389,10 +483,10 @@ const Content = styled.div`
 
   .c-carousel {
     margin-top: 1.25rem;
-    margin-bottom: 3.25rem;
+    margin-bottom: 1.25rem;
     @media screen and (min-width: ${LARGE_ENDPOINT}) {
       margin-top: 3.75rem;
-      margin-bottom: 3.75rem;
+      margin-bottom: 2.25rem;
       .slick-prev {
         left: -143px;
       }
@@ -416,6 +510,10 @@ const Content = styled.div`
       border-radius: 22px;
       z-index: 7;
     }
+    .slick-prev:hover,
+    .slick-next:hover {
+      background-color: #97bd3d;
+    }
   }
 
   position: relative;
@@ -423,6 +521,7 @@ const Content = styled.div`
   line-height: 2.25rem;
   color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
+  padding-top: 1rem;
 
   * {
     max-width: 100%;
@@ -448,7 +547,9 @@ const Content = styled.div`
     // width: 100% !important;
 
     figcaption {
-      font-size: 0.7em;
+      font-size: 0.75rem;
+      line-height: 1.75;
+      padding-top: 0.75rem;
     }
   }
 
@@ -459,7 +560,14 @@ const Content = styled.div`
 
   a {
     color: #97bd3d;
-    text-decoration: underline;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    font-weight: 800;
   }
 
   /* Input fields styles */
