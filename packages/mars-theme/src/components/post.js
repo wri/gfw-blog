@@ -11,6 +11,7 @@ import TwitterIcon from '../assets/icons/social/twitter-1.svg';
 import NewsletterIcon from '../assets/icons/social/newsletter.svg';
 import ChatIcon from '../assets/icons/social/chat.svg';
 import CategoryNameList from './category/list-name';
+import Item from './list/list-item';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
@@ -24,6 +25,7 @@ const Post = ({ state, actions, libraries }) => {
   const post = state.source[data.type][data.id];
 
   const [feauturedImgDescription, setFeauturedImgDescription] = useState('');
+  const [relatedPosts, setRelatedPosts] = useState([]);
 
   // Get the data of the author.
   const author = state.source.author[post.author];
@@ -70,6 +72,27 @@ const Post = ({ state, actions, libraries }) => {
         );
         setFeauturedImgDescription(description);
       });
+    });
+  }, []);
+
+  useEffect(() => {
+    const { api } = libraries.source;
+    const result = api.get({
+      endpoint: 'posts',
+      params: {
+        _embed: true,
+        orderby: 'date',
+        exclude: post.id,
+        categories: post.categories.join(),
+        per_page: 3,
+      },
+    });
+    result.then((response) => {
+      libraries.source
+        .populate({ response, state, force: true })
+        .then((posts) => {
+          setRelatedPosts(posts.map((p) => p.id));
+        });
     });
   }, []);
 
@@ -185,6 +208,7 @@ const Post = ({ state, actions, libraries }) => {
             categories={tags}
             styles={`
                 margin-top: 0;
+                margin-bottom: 0;
                 line-height: 1.25rem !important;
             `}
             itemStyles={`
@@ -203,6 +227,18 @@ const Post = ({ state, actions, libraries }) => {
           />
         </TagsWrapper>
       </Content>
+      {relatedPosts && (
+        <>
+          <Divider />
+          <RelatedPostsTitle>Related articles</RelatedPostsTitle>
+          <RelatedPostsContainer>
+            {relatedPosts.map((id) => {
+              const item = state.source.post[id];
+              return <Item key={item.id + item.date + item.name} item={item} />;
+            })}
+          </RelatedPostsContainer>
+        </>
+      )}
     </Container>
   ) : null;
 };
@@ -214,6 +250,35 @@ Post.propTypes = {
   actions: PropTypes.object,
   libraries: PropTypes.object,
 };
+
+const RelatedPostsContainer = styled.div`
+  max-width: 1110px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  list-style: none;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
+    padding: 0 1.5rem;
+  }
+`;
+
+const RelatedPostsTitle = styled.h3`
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3333;
+  max-width: 1110px;
+  margin: 0 auto;
+  margin-bottom: 2.75rem;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+  }
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
+    padding: 0 1.5rem;
+  }
+`;
 
 const MediaDescriptionWrapper = styled.div`
   color: #555;
@@ -345,7 +410,7 @@ const TagsWrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
     margin-bottom: 0.5rem;
     padding-left: 17.8125rem;
@@ -361,6 +426,16 @@ const TopInfoWrapper = styled.div`
     flex-flow: column-reverse;
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+`;
+
+const Divider = styled.div`
+  border-top: 1px solid #e5e5df;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
   }
 `;
 
