@@ -37,6 +37,7 @@
     "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
+    "moment": "^2.25.3",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {

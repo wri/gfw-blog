@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled, connect } from 'frontity';
 import PropTypes from 'prop-types';
 
-import {Loader} from "gfw-components";
+import { Loader } from 'gfw-components';
 
 import Comment from './comment';
 import AddCommentForm from './add-comment-form';
 import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
-function CommentList({libraries, state}) {
+function CommentList({ libraries, state }) {
   const data = state.source.get(state.router.link);
   const postId = state.source[data.type][data.id].id;
 
@@ -16,17 +16,17 @@ function CommentList({libraries, state}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    libraries.source.api.get({
-      endpoint: "comments",
-      params: { post: postId, _embed: false, per_page: 100 }
-    })
-      .then(response => {
-        response.json().then( data => {
-          setComments(data);
-          setLoading(false)
+    libraries.source.api
+      .get({
+        endpoint: 'comments',
+        params: { post: postId, _embed: false, per_page: 100 },
+      })
+      .then((response) => {
+        response.json().then((content) => {
+          setComments(content);
+          setLoading(false);
         });
       });
-
   }, []);
 
   return (
@@ -35,7 +35,6 @@ function CommentList({libraries, state}) {
 
       <Title>
         THERE IS
-        {' '}
         {comments.length}
         {' '}
         COMMENT FOR THIS ARTICLE
@@ -51,10 +50,15 @@ function CommentList({libraries, state}) {
           {comments.length === 0}
           {comments.length > 0 && (
             <>
-              {comments.map(item => {
+              {comments.map((item) => {
                 return (
-                  <Comment key={item.id} author={item.author_name} content={item.content.rendered} date={item.date} />
-                )
+                  <Comment
+                    key={item.id}
+                    author={item.author_name}
+                    content={item.content.rendered}
+                    date={item.date}
+                  />
+                );
               })}
             </>
           )}
@@ -63,8 +67,11 @@ function CommentList({libraries, state}) {
 
       <Divider />
 
-      <AddCommentForm postId={postId} />
-
+      {state.source[data.type][data.id].comment_status !== 'closed' ? (
+        <AddCommentForm postId={postId} />
+      ) : (
+        <h5>Comments for this article were closed.</h5>
+      )}
     </Container>
   );
 }
