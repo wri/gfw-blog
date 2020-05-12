@@ -65,6 +65,7 @@ const Wrapper = styled.div`
   padding: 0;
   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
     margin-top: 0;
+    padding-left: 1rem;
   }
 `;
 

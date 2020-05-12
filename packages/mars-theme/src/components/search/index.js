@@ -16,9 +16,16 @@ const Search = ({
 }) => {
   const ref = useRef();
   const context = useContext(TopEntitiesContext);
+
   const handler = () => {
     context.search.setElementRects(ref.current.getClientRects()[0]);
     context.search.toggleSearch();
+  };
+
+  const parentHandler = () => {
+    if (!ready) {
+      handler();
+    }
   };
 
   const wrapCss = fullWidth ? `width: 100%; height: auto;` : '';
@@ -46,7 +53,7 @@ const Search = ({
         ${baseCss}
       `}
       ref={ref}
-      onClick={handler}
+      onClick={parentHandler}
       {...props}
     >
       <SearchBox
@@ -55,7 +62,14 @@ const Search = ({
         `}
       >
         {title && !ready && <Title>{title}</Title>}
-        {title && ready && <ReadyTitle>{title}</ReadyTitle>}
+        {title && ready && (
+          <ReadyTitle>
+            <ReadyContent>
+              {title}
+              <RemoveIcon onClick={handler} />
+            </ReadyContent>
+          </ReadyTitle>
+        )}
         <SearchIcon />
       </SearchBox>
     </Wrapper>
@@ -73,6 +87,30 @@ Search.propTypes = {
   mobile: PropTypes.bool,
 };
 
+const RemoveIcon = styled.div`
+  position: relative;
+  cursor: pointer;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  margin-left: 1rem;
+  &:before,
+  &:after {
+    position: absolute;
+    right: 5px;
+    content: ' ';
+    height: 12px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+`;
+
 const Title = styled.div`
   text-transform: uppercase;
   color: #777;
@@ -81,6 +119,12 @@ const Title = styled.div`
   height: 1.5rem;
   min-width: 130px;
   max-width: 150px;
+`;
+
+const ReadyContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 `;
 
 const ReadyTitle = styled.div`
