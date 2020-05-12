@@ -48,6 +48,7 @@ const Item = ({
     padding-top: 0;
     padding-bottom: 1.25rem;
     line-height: 1.25;
+    margin-top: 0.5rem;
   `;
 
   return (
