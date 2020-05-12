@@ -1,28 +1,43 @@
 import React, { useState } from 'react';
-import { styled } from "frontity";
+import { styled, connect } from 'frontity';
 import PropTypes from 'prop-types';
 
-const WORDPRESS_GFW_API = 'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+const WORDPRESS_GFW_API =
+  'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
 const COMMENTS_URI = '/wp/v2/comments';
-const GFW_PRIVACY_POLICY_PAGE = 'https://www.globalforestwatch.org/privacy-policy';
+const GFW_PRIVACY_POLICY_PAGE =
+  'https://www.globalforestwatch.org/privacy-policy';
 
-export default function AddCommentForm({postId}) {
+function AddCommentForm({ state }) {
+  const data = state.source.get(state.router.link);
+  const postId = state.source[data.type][data.id].id;
+
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isAgree, setIsAgree] = useState(false);
 
+  const [isError, setIsError] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+
   function handleSubmit(event) {
     event.preventDefault();
 
-    if (isAgree || name || email) {
-      const [commentContent, commentName, commentEmail] = document.getElementById("commentForm").elements;
+    if (!isAgree) {
+      setIsError(true);
+      setResponseMessage('You must agree to the Privacy Policy!');
+    } else {
+      const [
+        commentContent,
+        commentName,
+        commentEmail,
+      ] = document.getElementById('commentForm').elements;
 
       const body = {
         post: postId,
         content: commentContent.value,
         author_name: commentName.value,
-        author_email: commentEmail.value
+        author_email: commentEmail.value,
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -30,34 +45,35 @@ export default function AddCommentForm({postId}) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       })
         .then((response) => {
           return response.json();
         })
         .then((object) => {
-          console.log(object.message);
+          setIsError(true);
+          setResponseMessage(object.message);
         })
-        .catch(error => console.error('Error:', error));
+        .catch((error) => console.error('Error:', error));
     }
   }
 
   return (
     <Container>
       <Title>POST A COMMENT</Title>
-      <Subtitle>Your email address will not be published. Required fields are marked *</Subtitle>
+      <Subtitle>
+        Your email address will not be published. Required fields are marked *
+      </Subtitle>
 
       <Form
         id="commentForm"
         method="POST"
-        onSubmit={(event) => {handleSubmit(event)}}
+        onSubmit={(event) => {
+          handleSubmit(event);
+        }}
       >
         <FieldArea>
-          <InputLabel
-            hrmlFor="commentContent"
-          >
-            COMMENT
-          </InputLabel>
+          <InputLabel hrmlFor="commentContent">COMMENT</InputLabel>
           <Textarea
             id="commentContent"
             name="commentContent"
@@ -67,37 +83,30 @@ export default function AddCommentForm({postId}) {
         </FieldArea>
 
         <FieldArea>
-          <InputLabel
-            htmlFor="commentName"
-            style={{marginLeft: '2.25%'}}
-          >
+          <InputLabel htmlFor="commentName" style={{ marginLeft: '2.25%' }}>
             NAME *
           </InputLabel>
           <Input
             id="commentName"
             name="commentName"
             type="text"
-            style={{marginRight: '1%'}}
+            style={{ marginRight: '1%' }}
             value={name}
-            required
             onChange={(event) => setName(event.target.value)}
           />
         </FieldArea>
 
         <FieldArea>
-          <InputLabel
-            htmlFor="commentEmail"
-            style={{marginLeft: '2.25%'}}
-          >
+          <InputLabel htmlFor="commentEmail" style={{ marginLeft: '2.25%' }}>
             EMAIL *
           </InputLabel>
           <Input
             id="commentEmail"
             name="commentEmail"
             type="email"
-            style={{marginRight: '1%'}}
-            value={email}
+            style={{ marginRight: '1%' }}
             required
+            value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
         </FieldArea>
@@ -111,27 +120,28 @@ export default function AddCommentForm({postId}) {
 
           <CheckboxDescr>
             I have read and agree with&nbsp;
-            <a href={GFW_PRIVACY_POLICY_PAGE}>
-              GWF&prime;s Privacy Policy
-            </a>
+            <a href={GFW_PRIVACY_POLICY_PAGE}>GWF&prime;s Privacy Policy</a>
           </CheckboxDescr>
         </FieldArea>
 
-        <FieldArea style={{marginTop: '50px'}}>
-          <SubmitButton
-            type="submit"
-            value="POST COMMENT"
+        <FieldArea style={{ marginTop: '3.1rem' }}>
+          <Response
+            isError={isError}
+            dangerouslySetInnerHTML={{ __html: responseMessage }}
           />
+
+          <SubmitButton type="submit" value="POST COMMENT" />
         </FieldArea>
       </Form>
-
     </Container>
   );
 }
 
 AddCommentForm.propTypes = {
-  postId: PropTypes.number
+  state: PropTypes.object,
 };
+
+export default connect(AddCommentForm);
 
 const Container = styled.div`
   width: 640px;
@@ -162,7 +172,7 @@ const FieldArea = styled.div`
 `;
 
 const Textarea = styled.textarea`
-  border: 1px solid #DEDEDD;
+  border: 1px solid #dededd;
   width: 540px;
   height: 200px;
   padding: 10px;
@@ -178,7 +188,7 @@ const InputLabel = styled.label`
 `;
 
 const Input = styled.input`
-  border: 1px solid #DEDEDD;
+  border: 1px solid #dededd;
   width: 540px;
   ${(props) => props.style}
 `;
@@ -190,17 +200,17 @@ const Icon = styled.svg`
 `;
 
 const Checkbox = styled.div`
-  border: ${props => (props.checked ? 'none' : '1px solid #E5E5DF;')};
+  border: ${(props) => (props.checked ? 'none' : '1px solid #E5E5DF;')};
   display: inline-block;
   width: 25px;
   height: 25px;
-  background: ${props => (props.checked ? '#97BD3D' : '#ffffff')};
+  background: ${(props) => (props.checked ? '#97BD3D' : '#ffffff')};
   border-radius: 3px;
   transition: all 150ms;
   margin-left: 13%;
-  
+
   ${Icon} {
-    visibility: ${props => (props.checked ? 'visible' : 'hidden')}
+    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
   }
 `;
 
@@ -214,9 +224,19 @@ const CheckboxDescr = styled.p`
   }
 `;
 
+const Response = styled.p`
+  display: ${(props) => (props.isError ? 'block' : 'none')};
+  font-size: 14px;
+  font-weight: bold;
+  width: auto;
+  color: #d85656;
+  max-width: 70%;
+  margin-left: 1rem;
+`;
+
 const SubmitButton = styled.input`
   border-radius: 22.5px;
-  border: 1px solid #97BD3D;
+  border: 1px solid #97bd3d;
   background-color: #ffffff;
   color: #333333;
   width: 160px;

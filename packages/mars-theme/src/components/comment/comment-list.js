@@ -19,7 +19,7 @@ function CommentList({ libraries, state }) {
     libraries.source.api
       .get({
         endpoint: 'comments',
-        params: { post: postId, _embed: false, per_page: 100 },
+        params: { post: postId, _embed: false, per_page: 10 },
       })
       .then((response) => {
         response.json().then((content) => {
@@ -34,10 +34,9 @@ function CommentList({ libraries, state }) {
       <Divider />
 
       <Title>
-        THERE IS
+        THERE IS&nbsp;
         {comments.length}
-        {' '}
-        COMMENT FOR THIS ARTICLE
+&nbsp;COMMENTS FOR THIS ARTICLE
       </Title>
 
       {loading && (
@@ -68,7 +67,7 @@ function CommentList({ libraries, state }) {
       <Divider />
 
       {state.source[data.type][data.id].comment_status !== 'closed' ? (
-        <AddCommentForm postId={postId} />
+        <AddCommentForm />
       ) : (
         <h5>Comments for this article were closed.</h5>
       )}
