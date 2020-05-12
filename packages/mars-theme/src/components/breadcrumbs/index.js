@@ -1,16 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect, styled, decode } from "frontity";
-import Link from "../link";
-import Item from "./item";
-import Divider from "./divider";
-import List from "./list";
-import { MEDIUM_ENDPOINT } from "../heplers/css-endpoints";
-import { isSearchLink } from "../heplers/content";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled, decode } from 'frontity';
+import Link from '../link';
+import Item from './item';
+import Divider from './divider';
+import List from './list';
+import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { isSearchLink } from '../heplers/content';
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
-  if (state.router.link === "/") {
+  if (state.router.link === '/') {
     return null;
   }
 
@@ -64,7 +64,6 @@ const Wrapper = styled.div`
   line-height: 1.3125rem;
   padding: 0;
   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
     margin-top: 0;
   }
 `;
