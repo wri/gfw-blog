@@ -95,7 +95,7 @@ const MainPost = ({ post, state }) => {
         <Link
           link={item.link}
           css={css`
-            width: 96%;
+            width: 95%;
             height: 100%;
             position: absolute;
             z-index: 1;
