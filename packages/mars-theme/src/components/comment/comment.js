@@ -1,23 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { styled } from "frontity";
 
-export default function Comment() {
+function Comment({author, date, content}) {
   return (
     <Container>
       <div style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row'}}>
-        <Author>Jane Doe</Author>
+        <Author>{author}</Author>
         <ReplyButon
           type="submit"
           value="REPLY"
         />
       </div>
-      <CreationDate>October 11, 2019 at 12:00pm CET</CreationDate>
-      <Content>
-        I love the blog redesign! Butcher sustainable direct trade kickstarter. Paleo sustainable single-origin coffee kogi art party. Master cleanse farm-to-table four loko, taiyaki selvage banh mi forage YOLO church-key chia shaman VHS hoodie. Pok pok fashion axe trust fund street art sartorial bushwick letterpress iceland mixtape literally portland VHS williamsburg. Authentic truffaut banjo, tilde literally biodiesel hammock fanny pack humblebrag succulents ethical shoreditch waistcoat man braid portland. XOXO next level thundercats, synth brooklyn kinfolk everyday carry iPhone banh mi keffiyeh truffaut deep v post-ironic. Yr banjo narwhal air plant hell of beard coloring book austin shabby chic jianbing vape paleo biodiesel blue bottle semiotics.
-      </Content>
+      <CreationDate>{date}</CreationDate>
+      <Content dangerouslySetInnerHTML={{__html: content}} />
     </Container>
   );
 }
+
+export default Comment;
+
+Comment.propTypes = {
+  author: PropTypes.string,
+  date: PropTypes.string,
+  content: PropTypes.string
+};
 
 const Container = styled.div`
   width: auto;

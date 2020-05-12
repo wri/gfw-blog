@@ -36,7 +36,7 @@ export default function AddCommentForm({postId}) {
           return response.json();
         })
         .then((object) => {
-          // console.log(object.message);
+          console.log(object.message);
         })
         .catch(error => console.error('Error:', error));
     }
