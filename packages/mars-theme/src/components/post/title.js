@@ -8,6 +8,7 @@ const PostTitle = ({ children, styles = '' }) => {
     margin: 0;
     box-sizing: border-box;
     width: 100%;
+    margin-top: 0.5rem;
     ${styles}
   `;
 
