@@ -15,7 +15,7 @@ const AuthorDescription = ({ state }) => {
       ? acf.profile_picture
       : state.source.author[data.id].avatar_urls[96];
 
-  const description = decode(state.source.author[data.id].description);
+  const description = acf.gfw_description !== undefined ? decode(acf.gfw_description) : decode(state.source.author[data.id].description);
   const lessDescription = getLessContent(description);
 
   return (
@@ -34,7 +34,7 @@ const AuthorDescription = ({ state }) => {
         </Avatar>
         <Title>
           <Head>{jobTitle}</Head>
-          <ExpandedDescription less={lessDescription} full={description} />
+          <p dangerouslySetInnerHTML={{ __html: lessDescription ? lessDescription : description }} />
         </Title>
       </div>
       <NumberInfo styles="margin-top:2.1875rem;">
