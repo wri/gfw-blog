@@ -15,7 +15,10 @@ const ExpandedDescription = ({ less, full }) => {
   return (
     <>
       <Wrapper>
-        {expanded ? full : less}
+        <div
+          style={{ whiteSpace: 'pre-wrap' }}
+          dangerouslySetInnerHTML={{ __html: expanded ? full : less }}
+        />
         {expanded && <Toggler onClick={expandToggler}>Collapse bio</Toggler>}
         {!expanded && <ShadowLayer />}
       </Wrapper>
