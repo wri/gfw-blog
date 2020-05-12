@@ -19,7 +19,7 @@ function CommentList({ libraries, state }) {
     libraries.source.api
       .get({
         endpoint: 'comments',
-        params: { post: postId, _embed: false, per_page: 10 },
+        params: { post: postId, _embed: false, per_page: 10, orderby: 'date' , order: 'desc'},
       })
       .then((response) => {
         response.json().then((content) => {
@@ -27,7 +27,7 @@ function CommentList({ libraries, state }) {
           setLoading(false);
         });
       });
-  }, []);
+  }, [comments.length]);
 
   return (
     <Container>

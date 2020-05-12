@@ -8,7 +8,7 @@ const COMMENTS_URI = '/wp/v2/comments';
 const GFW_PRIVACY_POLICY_PAGE =
   'https://www.globalforestwatch.org/privacy-policy';
 
-function AddCommentForm({ state }) {
+function AddCommentForm({ libraries, state }) {
   const data = state.source.get(state.router.link);
   const postId = state.source[data.type][data.id].id;
 
@@ -48,6 +48,7 @@ function AddCommentForm({ state }) {
         body: JSON.stringify(body),
       })
         .then((response) => {
+          window.location.reload();
           return response.json();
         })
         .then((object) => {
@@ -139,6 +140,7 @@ function AddCommentForm({ state }) {
 
 AddCommentForm.propTypes = {
   state: PropTypes.object,
+  libraries: PropTypes.object
 };
 
 export default connect(AddCommentForm);
