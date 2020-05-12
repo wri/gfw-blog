@@ -1,6 +1,7 @@
 import image from '@frontity/html2react/processors/image';
 import iframe from '@frontity/html2react/processors/iframe';
 import { Carousel } from 'gfw-components';
+import Blockquote from './components/blockqoute';
 import Theme from './components';
 
 const gutenbergGallery = {
@@ -16,6 +17,15 @@ const gutenbergGallery = {
           lazyLoad: true,
         },
       },
+    };
+  },
+};
+
+const blockquote = {
+  test: ({ component }) => component === 'blockquote',
+  processor: () => {
+    return {
+      component: Blockquote,
     };
   },
 };
@@ -62,7 +72,7 @@ const marsTheme = {
        * Add a processor to `html2react` so it processes the `<img>` tags
        * inside the content HTML. You can add your own processors too
        */
-      processors: [image, iframe, gutenbergGallery],
+      processors: [image, iframe, gutenbergGallery, blockquote],
     },
   },
 };
