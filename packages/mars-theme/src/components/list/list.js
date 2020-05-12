@@ -171,14 +171,13 @@ const List = ({ state }) => {
           })}
         {posts[state.router.link] &&
           posts[state.router.link].length % 3 === 2 && <Plug />}
-        {page < totalPages && (
-          <LoadMore
-            isFetching={isFetching}
-            setIsFetching={setIsFetching}
-            setPage={setPage}
-            page={page}
-          />
-        )}
+        <LoadMore
+          isFetching={isFetching}
+          setIsFetching={setIsFetching}
+          setPage={setPage}
+          page={page}
+          limit={totalPages}
+        />
       </Container>
     </Wrapper>
   );

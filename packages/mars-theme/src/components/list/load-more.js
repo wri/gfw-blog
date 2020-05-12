@@ -14,6 +14,7 @@ const LoadMore = ({
   state,
   setPage,
   page,
+  limit,
   isFetching,
   setIsFetching,
 }) => {
@@ -27,13 +28,16 @@ const LoadMore = ({
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (page && page > 1) {
-      const fetchLink = state.router.link[1] === '?' ? `page/${page}${state.router.link}` : `${state.router.link}page/${page}`
+      const fetchLink =
+        state.router.link[1] === '?'
+          ? `page/${page}${state.router.link}`
+          : `${state.router.link}page/${page}`;
       const res = actions.source.fetch(fetchLink);
       res.then(() => {
         setIsFetching(true);
       });
     }
-  }, [page]);
+  }, [page, setIsFetching]);
 
   useLayoutEffect(() => {
     if (!isFetching) {
@@ -44,7 +48,11 @@ const LoadMore = ({
   const loadHandler = useCallback(() => {
     setIsLoading(true);
     setPage(page + 1);
-  }, [page]);
+  }, [page, setPage, setIsLoading]);
+
+  if (limit <= page && !isLoading) {
+    return null;
+  }
 
   return (
     <Wrapper>
@@ -75,6 +83,7 @@ LoadMore.propTypes = {
   setPage: PropTypes.func,
   setIsFetching: PropTypes.func,
   page: PropTypes.number,
+  limit: PropTypes.number,
   isFetching: PropTypes.bool,
 };
 
