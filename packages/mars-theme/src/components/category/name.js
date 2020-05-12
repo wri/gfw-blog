@@ -11,7 +11,7 @@ const CategoryName = ({ children, styles = '' }) => {
     font-weight: 200;
     text-transform: uppercase;
     display: inline-flex;
-    margin: 1.25rem 1.25rem 1.25rem 0;
+    margin: 1.25rem 1.25rem 0.25rem 0;
     height: 1.5rem;
     :hover {
       background-color: var(--color-primary);

@@ -62,7 +62,7 @@ const MainPost = ({ post, state }) => {
   `;
   const TitleStyles = `
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      padding-bottom: 2rem;
+      padding-bottom: 1.25rem;
     }
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
       font-size: 2rem;
