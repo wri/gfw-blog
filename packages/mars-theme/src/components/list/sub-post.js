@@ -5,22 +5,12 @@ import Item from './list-item';
 import FeaturedMedia from '../featured-media';
 import Excerpt from '../post/excerpt';
 import PostTitle from '../post/title';
-import {
-  LARGE_ENDPOINT,
-  MEDIUM_ENDPOINT,
-  SMALL_ENDPOINT,
-} from '../heplers/css-endpoints';
+import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const SubPost = ({ item }) => {
   const styles = `
-    width: 48.74%;
     flex-wrap: wrap;
-    @media screen and (max-width: ${LARGE_ENDPOINT}) {
-      width: 100%;
-    }
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
-      width: 100%;
-    }`;
+    width: 100%;`;
 
   const mediaStyles = `
     height: 300px;

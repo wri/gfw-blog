@@ -33,45 +33,45 @@ const MainPost = ({ post, state }) => {
     }`;
 
   const mediaStyles = `
-    height: 400px;
-    @media screen and (max-width: ${LARGE_ENDPOINT}) {
-        height: 300px;
+    height: 440px;
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+      height: 420px;
     }
     @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      height: 500px;
-    }`;
+      height: 400px;
+    }
+  `;
 
   const Wrapper = styled.article`
-    margin-bottom: 1.5rem;
+    margin-bottom: 40px;
     ${styles}
   `;
 
   const ContentWrapper = styled.div`
-    height: 100%;
     position: absolute;
     display: flex;
-    align-items: flex-end;
-    flex-flow: wrap;
+    justify-content: flex-end;
+    flex-direction: column;
     top: 0;
-    padding: 0 1rem;
+    padding: 30px 16px;
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      padding: 40px 50px;
+    }
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      padding: 0 4.375rem;
+      padding: 50px 70px;
       width: 67%;
-      align-items: center;
     }
+    ${mediaStyles}
   `;
+
   const TitleStyles = `
-    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      padding-bottom: 2rem;
-    }
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
       font-size: 2rem;
     }
     font-size: 1.875rem;
-    padding-top: 0;
-    padding-bottom: 1.875rem;
     line-height: 1.25;
     color: var(--color-white);
+    margin-bottom: 20px;
   `;
 
   const ExcerptStyles = `
@@ -84,32 +84,25 @@ const MainPost = ({ post, state }) => {
 
   const CategoriesStyles = `
     position: relative;
-    margin-top: 2rem;
     z-index: 2;
   `;
 
   return (
     <Wrapper>
       <FeaturedMedia id={item.featured_media} styles={mediaStyles} />
+      <Link
+        link={item.link}
+        className="post-link"
+        css={css`
+          z-index: 1;
+        `}
+      />
       <ContentWrapper>
-        <Link
-          link={item.link}
-          css={css`
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            z-index: 1;
-          `}
-        >
-          &nbsp;
-        </Link>
-        <div>
-          <CategoryNameList categories={categories} styles={CategoriesStyles} />
-          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-          <PostExcerpt styles={ExcerptStyles} noHellip>
-            {item.excerpt.rendered}
-          </PostExcerpt>
-        </div>
+        <CategoryNameList categories={categories} styles={CategoriesStyles} />
+        <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+        <PostExcerpt styles={ExcerptStyles} noHellip>
+          {item.excerpt.rendered}
+        </PostExcerpt>
       </ContentWrapper>
     </Wrapper>
   );

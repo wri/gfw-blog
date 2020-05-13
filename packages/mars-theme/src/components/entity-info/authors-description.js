@@ -2,14 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, decode, styled, css } from 'frontity';
 import { NumberInfo, Title } from './components';
-import { getLessContnet } from '../heplers/content';
-import ExpendedDescription from './expanded-description';
+import { getLessContent } from '../heplers/content';
+import ExpandedDescription from './expanded-description';
 
 const AuthorDescription = ({ state }) => {
   const data = state.source.get(state.router.link);
 
-  const description = decode(state.source.author[data.id].description);
-  const lessDescription = getLessContnet(description);
+  const { acf } = state.source.author[data.id];
+  const jobTitle = acf.job_title !== undefined ? acf.job_title : 'Author';
+  const profilePicture =
+    acf.profile_picture !== undefined
+      ? acf.profile_picture
+      : state.source.author[data.id].avatar_urls[96];
+
+  const description =
+    acf.gfw_description !== undefined
+      ? decode(acf.gfw_description)
+      : decode(state.source.author[data.id].description);
+  const lessDescription = getLessContent(description);
 
   return (
     <>
@@ -17,15 +27,17 @@ const AuthorDescription = ({ state }) => {
         <Avatar>
           <img
             css={css`
-              border-radius: 48px;
+              border-radius: 90px;
+              width: 100px;
+              height: 100px;
             `}
             alt={state.source.author[data.id].name}
-            src={state.source.author[data.id].avatar_urls[96]}
+            src={profilePicture}
           />
         </Avatar>
         <Title>
-          <Head>Editor</Head>
-          <ExpendedDescription less={lessDescription} full={description} />
+          <Head>{jobTitle}</Head>
+          <ExpandedDescription less={lessDescription} full={description} />
         </Title>
       </div>
       <NumberInfo styles="margin-top:2.1875rem;">
@@ -49,7 +61,7 @@ const Avatar = styled.div`
   border-radius: 96px;
   padding-top: 2.5rem;
   padding-right: 2rem;
-  padding-bottom: 1.625rem;
+  padding-bottom: 0rem;
 `;
 
 const Head = styled.div`

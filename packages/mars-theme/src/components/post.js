@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { connect, styled } from "frontity";
-import Link from "./link";
-import List from "./list";
-import FeaturedMedia from "./featured-media";
-import Breadcrumbs from "./breadcrumbs"
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled } from 'frontity';
+import Link from './link';
+import List from './list';
+import FeaturedMedia from './featured-media';
+import Breadcrumbs from './breadcrumbs';
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -15,7 +16,6 @@ const Post = ({ state, actions, libraries }) => {
   // Get a human readable date.
   const date = new Date(post.date);
 
-
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
@@ -25,55 +25,68 @@ const Post = ({ state, actions, libraries }) => {
    * the home page, everything is ready and it loads instantly.
    */
   useEffect(() => {
-    actions.source.fetch("/");
+    actions.source.fetch('/');
     List.preload();
   }, []);
 
   // Load the post, but only if the data is ready.
   return data.isReady ? (
-    <Container id="post-content">
-      <Breadcrumbs />
-      <div>
-        <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-
-        {/* Only display author and date on posts */}
-        {data.isPost && (
+    <Container>
+      <div className="row" id="post-content">
+        <div className="column small-12">
+          <Breadcrumbs />
           <div>
-            {author && (
-              <StyledLink link={author.link}>
-                <Author>
-                  By <b>{author.name}</b>
-                </Author>
-              </StyledLink>
+            <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+
+            {/* Only display author and date on posts */}
+            {data.isPost && (
+              <div>
+                {author && (
+                  <StyledLink link={author.link}>
+                    <Author>
+                      By 
+                      {' '}
+                      <b>{author.name}</b>
+                    </Author>
+                  </StyledLink>
+                )}
+                <Fecha>
+                  {' '}
+                  on 
+                  {' '}
+                  <b>{date.toDateString()}</b>
+                </Fecha>
+              </div>
             )}
-            <Fecha>
-              {" "}
-              on <b>{date.toDateString()}</b>
-            </Fecha>
           </div>
-        )}
+
+          {/* Look at the settings to see if we should include the featured image */}
+          {state.theme.featured.showOnPost && (
+            <FeaturedMedia id={post.featured_media} />
+          )}
+
+          {/* Render the content using the Html2React component so the HTML is processed
+          by the processors we included in the libraries.html2react.processors array. */}
+          <Content>
+            <Html2React html={post.content.rendered} />
+          </Content>
+        </div>
       </div>
-
-      {/* Look at the settings to see if we should include the featured image */}
-      {state.theme.featured.showOnPost && (
-        <FeaturedMedia id={post.featured_media} />
-      )}
-
-      {/* Render the content using the Html2React component so the HTML is processed
-       by the processors we included in the libraries.html2react.processors array. */}
-      <Content>
-        <Html2React html={post.content.rendered} />
-      </Content>
     </Container>
   ) : null;
+};
+
+Post.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object,
+  libraries: PropTypes.object,
 };
 
 export default connect(Post);
 
 const Container = styled.div`
-  width: 800px;
-  margin: 0;
-  padding: 24px;
+  user-select: none;
+  margin: 40px 0;
 `;
 
 const Title = styled.h1`
@@ -106,6 +119,7 @@ const Fecha = styled.p`
 const Content = styled.div`
   color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
+  user-select: text;
 
   * {
     max-width: 100%;
@@ -150,12 +164,12 @@ const Content = styled.div`
 
   /* Input fields styles */
 
-  input[type="text"],
-  input[type="email"],
-  input[type="url"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="date"],
+  input[type='text'],
+  input[type='email'],
+  input[type='url'],
+  input[type='tel'],
+  input[type='number'],
+  input[type='date'],
   textarea,
   select {
     display: block;
@@ -177,7 +191,7 @@ const Content = styled.div`
     }
   }
 
-  input[type="submit"] {
+  input[type='submit'] {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
