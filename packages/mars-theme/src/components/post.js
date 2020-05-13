@@ -581,15 +581,6 @@ const Content = styled.div`
         right: -150px;
       }
     }
-
-    .slick-slide {
-      @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-        opacity: 0;
-        &.slick-current {
-          opacity: 1;
-        }
-      }
-    }
   }
 
   p {
