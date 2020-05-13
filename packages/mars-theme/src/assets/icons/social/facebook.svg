@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 59.1 (101010) - https://sketch.com -->
-    <title>ABE53154-EB3B-4F7F-A938-35D99018C153</title>
-    <desc>Created with sketchtool.</desc>
+<svg width="14px" height="22px" viewBox="0 0 14 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>DCA66BA9-BD8C-479E-8E5E-DF7548F19D5C</title>
     <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="GFW---Blog---Article-detail" transform="translate(-164.000000, -1040.000000)">
-            <g id="Icons/48px/Social/Facebook" transform="translate(165.000000, 1041.000000)">
-                <circle id="Oval" stroke="#AAAAAA" opacity="0.2" cx="24" cy="24" r="24"></circle>
-                <path d="M21.1565287,35 L21.125,25.375 L17,25.375 L17,21.25 L21.125,21.25 L21.125,18.5 C21.125,14.7886 23.4233262,13 26.7341475,13 C28.3200588,13 29.6830825,13.1180712 30.0802925,13.1708437 L30.0802925,17.0494712 L27.78407,17.0505163 C25.9834662,17.0505163 25.6348212,17.9061375 25.6348212,19.161705 L25.6348212,21.25 L30.75,21.25 L29.375,25.375 L25.6348075,25.375 L25.6348075,35 L21.1565287,35 Z" id="Shape" fill="#555555" fill-rule="nonzero"></path>
+        <g id="GFW---Blog---UI-kit" transform="translate(-393.000000, -2383.000000)" fill="#555555" fill-rule="nonzero">
+            <g id="Icons/48px/Social/Facebook" transform="translate(376.000000, 2370.000000)">
+                <path d="M21.1565287,35 L21.125,25.375 L17,25.375 L17,21.25 L21.125,21.25 L21.125,18.5 C21.125,14.7886 23.4233262,13 26.7341475,13 C28.3200588,13 29.6830825,13.1180712 30.0802925,13.1708437 L30.0802925,17.0494712 L27.78407,17.0505163 C25.9834662,17.0505163 25.6348212,17.9061375 25.6348212,19.161705 L25.6348212,21.25 L30.75,21.25 L29.375,25.375 L25.6348075,25.375 L25.6348075,35 L21.1565287,35 Z" id="Shape"></path>
             </g>
         </g>
     </g>

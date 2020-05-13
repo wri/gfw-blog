@@ -1,22 +1,101 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled } from 'frontity';
-import { Button } from 'gfw-components';
+import { connect, styled, css } from 'frontity';
+import { Button, TwitterIcon, FacebookIcon } from 'gfw-components';
 import Link from './link';
 import List from './list';
 import FeaturedMedia from './featured-media';
 import Breadcrumbs from './breadcrumbs';
-import FacebookIcon from '../assets/icons/social/facebook.svg';
-import TwitterIcon from '../assets/icons/social/twitter-1.svg';
-import NewsletterIcon from '../assets/icons/social/newsletter.svg';
-import ChatIcon from '../assets/icons/social/chat.svg';
+import NewsletterIcon from '../assets/icons/social/envelope.svg';
+import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
-import {
-  SMALL_ENDPOINT,
-  MEDIUM_ENDPOINT,
-  LARGE_ENDPOINT,
-} from './heplers/css-endpoints';
+
+import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
+
+const PostInfo = ({ data, author, dateStr, styles }) => (
+  <div css={styles}>
+    {data.isPost && (
+      <InfoContainer>
+        {author && (
+          <StyledLink link={author.link}>
+            <Author>
+              By 
+              {' '}
+              <b>{author.name}</b>
+            </Author>
+          </StyledLink>
+        )}
+        <Fecha>
+          {' '}
+          Posted on 
+          {' '}
+          <b>{dateStr}</b>
+        </Fecha>
+      </InfoContainer>
+    )}
+    <ButtonsContainer>
+      <a
+        href="https://twitter.com/globalforests"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="twitter"
+      >
+        <Button
+          css={css`
+            border-color: #f0f0f0;
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          `}
+          theme="button-light round big"
+        >
+          <TwitterIcon />
+        </Button>
+      </a>
+      <a
+        href="https://www.facebook.com/globalforests/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="facebook"
+      >
+        <Button
+          css={css`
+            border-color: #f0f0f0;
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          `}
+          theme="button-light round big"
+        >
+          <FacebookIcon />
+        </Button>
+      </a>
+      <a href="#">
+        <Button
+          css={css`
+            border-color: #f0f0f0;
+          `}
+          theme="button-light round big"
+        >
+          <img src={ChatIcon} alt="" />
+        </Button>
+      </a>
+      <a href="#">
+        <Button theme="round big">
+          <img src={NewsletterIcon} alt="" />
+        </Button>
+      </a>
+      <Label>
+        Subscribe to the
+        <br />
+        GFW newsletter
+      </Label>
+    </ButtonsContainer>
+  </div>
+);
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -99,151 +178,126 @@ const Post = ({ state, actions, libraries }) => {
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container id="post-content">
-      <BreadCrumbsWrapper>
-        <Breadcrumbs />
-      </BreadCrumbsWrapper>
+      <div className="row">
+        <div className="column small-12">
+          <BreadCrumbsWrapper>
+            <Breadcrumbs />
+          </BreadCrumbsWrapper>
+        </div>
+      </div>
       {/* Look at the settings to see if we should include the featured image */}
       {state.theme.featured.showOnPost && (
-        <>
-          <FeaturedMedia
-            id={post.featured_media}
-            styles={`
-            max-width: 1110px;
-            margin: 0 auto;
-            height: 500px;
-            @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-              height: 320px
-            }
-        `}
-          />
-          <MediaDescriptionWrapper>
-            <Html2React html={feauturedImgDescription} />
-          </MediaDescriptionWrapper>
-        </>
+        <FeaturedMedia
+          id={post.featured_media}
+          styles={`
+          max-width: 1080px;
+          margin: 0 auto;
+          height: 240px;
+          @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+            height: 500px
+          }
+      `}
+        />
       )}
-      <TopInfoWrapper>
-        <ContentWrapper>
-          <SideBar>
-            {/* Only display author and date on posts */}
-            {data.isPost && (
-              <InfoContainer>
-                {author && (
-                  <p>
-                    <StyledLink link={author.link}>
-                      <Author>
-                        By
-                        <br />
-                        <b>{author.name}</b>
-                      </Author>
-                    </StyledLink>
-                  </p>
-                )}
-                <Fecha>
-                  {' '}
-                  Posted on
-                  <br />
-                  <b>{dateStr}</b>
-                </Fecha>
-              </InfoContainer>
-            )}
-            <ButtonsContainer>
-              <a
-                href="https://twitter.com/globalforests"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="twitter"
-              >
-                <Button theme="button-light round big">
-                  <img src={TwitterIcon} alt="" />
-                </Button>
-              </a>
-              <a
-                href="https://www.facebook.com/globalforests/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="facebook"
-              >
-                <Button theme="button-light round big">
-                  <img src={FacebookIcon} alt="" />
-                </Button>
-              </a>
-              <a href="#">
-                <Button theme="button-light round big">
-                  <img src={ChatIcon} alt="" />
-                </Button>
-              </a>
-              <a href="#">
-                <Button theme="button-light round big">
-                  <img src={NewsletterIcon} alt="" />
-                </Button>
-              </a>
-              <Label>
-                Subscribe to the
-                <br />
-                GFW newsletter
-              </Label>
-            </ButtonsContainer>
-          </SideBar>
-        </ContentWrapper>
-
-        <div>
-          <CategoriesWrapper>
-            <CategoryNameList
-              categories={categories}
-              itemStyles={`
-            margin-top: 0;
-          `}
-            />
-          </CategoriesWrapper>
-          <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+      {state.theme.featured.showOnPost && (
+        <div className="row">
+          <div className="column small-12">
+            <MediaDescriptionWrapper>
+              <Html2React html={feauturedImgDescription} />
+            </MediaDescriptionWrapper>
+          </div>
         </div>
-      </TopInfoWrapper>
+      )}
+      <div className="row">
+        <div className="column small-12 medium-2">
+          <PostInfo
+            author={author}
+            data={data}
+            dateStr={dateStr}
+            styles={css`
+              display: none;
 
-      {/* Render the content using the Html2React component so the HTML is processed
-       by the processors we included in the libraries.html2react.processors array. */}
-      <Content>
-        <Html2React html={post.content.rendered} />
-        <TagsWrapper>
-          <CategoryNameList
-            categories={tags}
-            styles={`
-                margin-top: 0;
-                margin-bottom: 0;
-                line-height: 1.25rem !important;
+              @media screen and (min-width: ${SMALL_ENDPOINT}) {
+                display: block;
+              }
             `}
-            itemStyles={`
-              margin-bottom: 1.25rem;
-              margin-top: 0;
-              background-color: #E5E5DF;
-              color: #333 !important;
-              a {
-                color: #333 !important;
-                font-weight: normal;
-              }
-              a:visited {
-                color: #333 !important;
-              }
-          `}
           />
-        </TagsWrapper>
-      </Content>
+        </div>
+
+        <div className="column small-12 medium-7 medium-offset-1">
+          <CategoryNameList
+            categories={categories}
+            itemStyles={`
+              margin-top: 0;
+            `}
+          />
+          <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+
+          <PostInfo
+            author={author}
+            data={data}
+            dateStr={dateStr}
+            styles={css`
+              display: block;
+
+              @media screen and (min-width: ${SMALL_ENDPOINT}) {
+                display: none;
+              }
+            `}
+          />
+
+          {/* Render the content using the Html2React component so the HTML is processed
+          by the processors we included in the libraries.html2react.processors array. */}
+          <Content>
+            <Html2React html={post.content.rendered} />
+            <CategoryNameList
+              categories={tags}
+              styles={`
+                  margin-top: 0;
+                  margin-bottom: 0;
+                  line-height: 1.25rem !important;
+              `}
+              itemStyles={`
+                margin-bottom: 1.25rem;
+                margin-top: 0;
+                background-color: #E5E5DF;
+                color: #333 !important;
+                a {
+                  color: #333 !important;
+                  font-weight: normal;
+                }
+                a:visited {
+                  color: #333 !important;
+                }
+            `}
+            />
+          </Content>
+        </div>
+      </div>
       {relatedPosts && (
         <>
           <Divider />
-          <RelatedPostsTitle>Related articles</RelatedPostsTitle>
-          <RelatedPostsContainer>
+          <div className="row">
+            <div className="column small-12">
+              <RelatedPostsTitle>Related articles</RelatedPostsTitle>
+            </div>
             {relatedPosts.map((id) => {
               const item = state.source.post[id];
-              return <Item key={item.id + item.date + item.name} item={item} />;
+              return (
+                <div
+                  key={item.id + item.date + item.name}
+                  className="column small-12 medium-6 large-4"
+                >
+                  <Item item={item} />
+                </div>
+              );
             })}
-          </RelatedPostsContainer>
+          </div>
         </>
       )}
     </Container>
   ) : null;
 };
-
-export default connect(Post);
 
 Post.propTypes = {
   state: PropTypes.object,
@@ -251,32 +305,25 @@ Post.propTypes = {
   libraries: PropTypes.object,
 };
 
-const RelatedPostsContainer = styled.div`
-  max-width: 1110px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  list-style: none;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
-    padding: 0 1.5rem;
-  }
-`;
+PostInfo.propTypes = {
+  data: PropTypes.object,
+  author: PropTypes.object,
+  dateStr: PropTypes.object,
+  styles: PropTypes.string,
+};
+
+export default connect(Post);
 
 const RelatedPostsTitle = styled.h3`
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 1.25rem;
   line-height: 1.3333;
-  max-width: 1110px;
-  margin: 0 auto;
-  margin-bottom: 2.75rem;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
-    margin-bottom: 1.5rem;
-  }
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
-    padding: 0 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+  font-size: 14px;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-bottom: 3.5rem;
+    font-size: 18px;
   }
 `;
 
@@ -284,27 +331,23 @@ const MediaDescriptionWrapper = styled.div`
   color: #555;
   font-size: 0.75rem;
   line-height: 1.75;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    max-width: 1110px;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-  }
   padding-top: 0.75rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  margin-bottom: 30px;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-bottom: 60px;
+  }
 `;
 
 const ButtonsContainer = styled.div`
+  display: flex;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    flex-direction: column;
+  }
+
   a {
-    display: inline-block;
-    margin-bottom: 0;
-    margin-right: 1.125rem;
-    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      margin-right: 0;
-      margin-bottom: 1.25rem;
-      display: block;
-    }
+    margin: 0 20px 20px 0;
   }
 `;
 
@@ -312,13 +355,15 @@ const Label = styled.span`
   font-size: 1rem;
   line-height: 1.5;
   color: #777;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    display: none;
+  display: none;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    display: block;
   }
 `;
 
 const InfoContainer = styled.div`
-  margin-bottom: 2.5rem;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.div`
@@ -326,46 +371,31 @@ const Container = styled.div`
   padding: 0;
   padding-top: 3.125rem;
   width: 100%;
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 0;
+  margin-bottom: 20px;
   color: #333;
-  max-width: 1110px;
   font-size: 1.875rem;
   line-height: 1.25;
   font-weight: 200;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
     font-size: 3rem;
     line-height: 3.75rem;
-    padding-left: 17.8125rem;
   }
-`;
-
-const SideBar = styled.div`
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    position: absolute;
-    top: 0;
-    z-index: 2;
-    width: auto;
-  }
-  .button-light {
-    border: 0;
-  }
-  width: 100%;
 `;
 
 const StyledLink = styled(Link)`
-  padding: 15px 0;
+  display: block;
+  margin-bottom: 10px;
 `;
 
 const Author = styled.p`
   color: rgba(12, 17, 43, 0.9);
   font-size: 0.9em;
   display: inline-block;
-  margin-bottom: 1.25rem;
 `;
 
 const Fecha = styled.p`
@@ -374,68 +404,20 @@ const Fecha = styled.p`
   display: inline;
 `;
 
-const ContentWrapper = styled.div`
-  position: relative;
-  max-width: 1110px;
-  margin: 0 auto;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    width: 100%;
-  }
-`;
-
 const BreadCrumbsWrapper = styled.div`
   max-width: 1110px;
   margin: 0 auto;
   margin-bottom: 1.875rem;
 `;
 
-const CategoriesWrapper = styled.div`
-  max-width: 1110px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3.875rem;
-  margin-bottom: 1rem;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    margin-top: 3.625rem;
-    margin-bottom: 0.5rem;
-    padding-left: 17.8125rem;
-    padding-right: 11.875rem;
-  }
-`;
-
-const TagsWrapper = styled.div`
-  max-width: 1110px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    margin-bottom: 0.5rem;
-    padding-left: 17.8125rem;
-    padding-right: 11.875rem;
-  }
-`;
-
-const TopInfoWrapper = styled.div`
-  padding: 0;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    display: flex;
-    flex-wrap: wrap;
-    flex-flow: column-reverse;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-`;
-
 const Divider = styled.div`
   border-top: 1px solid #e5e5df;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -444,27 +426,49 @@ const Divider = styled.div`
  * selectors to style that HTML.
  */
 const Content = styled.div`
-  & > iframe,
-  & > .wp-block-pullquote {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      max-width: 1110px;
-      margin: 0 auto;
-      width: 730px;
-      padding: 0 important;
-      box-sizing: content-box;
+  position: relative;
+  font-size: 1.25rem;
+  line-height: 2.25rem;
+  color: rgba(12, 17, 43, 0.8);
+  word-break: break-word;
+  user-select: text;
+
+  iframe,
+  .wp-block-pullquote,
+  .wp-block-gallery {
+    margin: 0;
+    margin-bottom: 20px;
+    width: 100%;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      width: calc(100% + (100% / 7));
+      margin-left: calc(-100% / 7);
     }
   }
-  & > *:not(.wp-block-gallery):not(iframe):not(.wp-block-pullquote) {
-    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-      max-width: 1110px;
-      margin: 0 auto;
-      padding-left: 17.8125rem;
-      padding-right: 11.875rem;
+
+  blockquote {
+    background-color: #fff;
+    border: 0;
+    font-size: 1.875rem;
+    line-height: 1.5;
+
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
+      font-size: 1.5rem;
     }
-    padding-left: 1rem;
-    padding-right: 1rem;
+  }
+
+  .wp-block-gallery {
+    img {
+      height: 240px;
+
+      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+        height: 480px;
+      }
+    }
+  }
+
+  iframe {
+    display: block;
   }
 
   p {
@@ -488,7 +492,7 @@ const Content = styled.div`
       }
     }
 
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
       font-size: 1.125rem;
     }
 
@@ -516,94 +520,52 @@ const Content = styled.div`
   }
 
   & > * {
-    font-size: 1.25rem;
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      font-size: 1.125rem;
-    }
-  }
+    font-size: 1.125rem;
 
-  blockquote {
-    font-size: 1.875rem;
-    line-height: 1.5;
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      font-size: 1.5rem;
-    }
-  }
-
-  iframe {
-    height: fill-available;
-  }
-
-  .wp-block-pullquote {
-    blockquote {
-      background-color: #fff;
-      border: 0;
-    }
-  }
-
-  .wp-block-gallery {
-    max-width: 779px;
-  }
-
-  .wp-block-gallery figure {
-    width: 729px !important;
-    // max-width: 729px !important;
-    img {
-      height: 486px;
-      @media screen and (max-width: ${SMALL_ENDPOINT}) {
-        height: 230px;
-      }
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 1.25rem;
     }
   }
 
   .c-carousel {
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-    @media screen and (min-width: ${LARGE_ENDPOINT}) {
-      margin-top: 3.75rem;
-      margin-bottom: 2.25rem;
-      .slick-prev {
-        left: -143px;
-      }
-      .slick-next {
-        right: -176px;
-      }
-    }
+    margin: 30px 0;
+    width: 100%;
 
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
-      .slick-prev {
-        left: 0;
-      }
-      .slick-next {
-        right: 0;
-      }
+    figure {
+      margin: 0 auto !important;
+      width: 100% !important;
     }
 
     .slick-prev,
     .slick-next {
+      top: 100px;
       background-color: #333;
-      border-radius: 22px;
-      z-index: 7;
+      z-index: 5;
+
+      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+        top: 220px;
+      }
+
+      &:hover {
+        background-color: #97bd3d;
+      }
     }
-    .slick-prev:hover,
-    .slick-next:hover {
-      background-color: #97bd3d;
+
+    .slick-prev {
+      left: -5px;
+
+      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+        left: -150px;
+      }
     }
-  }
 
-  position: relative;
-  font-size: 1.25rem;
-  line-height: 2.25rem;
-  color: rgba(12, 17, 43, 0.8);
-  word-break: break-word;
-  padding-top: 1rem;
+    .slick-next {
+      right: -5px;
 
-  * {
-    max-width: 100%;
-  }
-
-  .c-carousel .slick-slide {
-    // box-sizing: content-box;
+      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+        right: -150px;
+      }
+    }
   }
 
   p {
@@ -611,26 +573,20 @@ const Content = styled.div`
   }
 
   img {
-    width: 150%;
+    width: 100%;
     object-fit: cover;
     object-position: center;
-  }
 
-  figure {
-    margin: 0 auto;
-    /* next line overrides an inline style of the figure element. */
-    // width: 100% !important;
-
-    figcaption {
-      font-size: 0.75rem;
-      line-height: 1.75;
-      padding-top: 0.75rem;
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      width: calc(100% + (100% / 7));
+      margin-left: calc(-100% / 7);
     }
   }
 
-  iframe {
-    display: block;
-    margin: auto;
+  figcaption {
+    font-size: 0.75rem;
+    line-height: 1.75;
+    padding-top: 0.75rem;
   }
 
   a {
@@ -696,27 +652,34 @@ const Content = styled.div`
 
   /* WordPress Core Align Classes */
 
-  @media (min-width: 420px) {
-    img.aligncenter,
-    img.alignleft,
-    img.alignright {
+  img {
+    &.alignright,
+    &.aligncenter,
+    &.alignleft,
+    &.imageright,
+    &.imagecenter,
+    &.imageleft {
       width: auto;
-    }
+      margin: 0;
 
-    .aligncenter {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+        width: calc(100% + (100% / 7));
+      }
     }
+  }
 
-    .alignright {
-      float: right;
-      margin-left: 24px;
-    }
+  .alignright,
+  .aligncenter,
+  .alignleft,
+  .imageright,
+  .imagecenter,
+  .imageleft {
+    width: auto;
+    margin: 0 0 30px 0;
 
-    .alignleft {
-      float: left;
-      margin-right: 24px;
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      width: calc(100% + (100% / 7));
+      margin-left: calc(-100% / 7);
     }
   }
 `;
