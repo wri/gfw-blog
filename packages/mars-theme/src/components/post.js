@@ -398,16 +398,16 @@ const Author = styled.p`
   display: inline-block;
 `;
 
-const Fecha = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
-`;
-
 const BreadCrumbsWrapper = styled.div`
   max-width: 1110px;
   margin: 0 auto;
   margin-bottom: 1.875rem;
+`;
+
+const Fecha = styled.p`
+  color: rgba(12, 17, 43, 0.9);
+  font-size: 0.9em;
+  display: inline;
 `;
 
 const Divider = styled.div`
@@ -564,6 +564,15 @@ const Content = styled.div`
 
       @media screen and (min-width: ${SMALL_ENDPOINT}) {
         right: -150px;
+      }
+    }
+  }
+
+  .c-carousel .slick-slide {
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      opacity: 0;
+      &.slick-current {
+        opacity: 1;
       }
     }
   }
