@@ -5,12 +5,12 @@ import { styled } from 'frontity';
 import commentsDateFormat from '../heplers/date';
 import AddCommentForm from './add-comment-form';
 
-function Comment({ postId, author, date, content }) {
-  const [visibleForm, setVisibleForm] = useState('false');
-  const Form = AddCommentForm(postId, visibleForm);
+function Comment({ author, postId, date, content }) {
+  const [visible, setVisible] = useState('false');
+  const Form = AddCommentForm(postId, visible);
 
-  const onReply = () => {
-    setVisibleForm(visibleForm === 'true' ? 'false' : 'true');
+  const reply = () => {
+    setVisible(visible === 'false' ? 'true' : 'false');
   };
 
   return (
@@ -23,7 +23,7 @@ function Comment({ postId, author, date, content }) {
         }}
       >
         <Author>{author}</Author>
-        <ReplyButon type="submit" value="REPLY" onClick={onReply()} />
+        <ReplyButon type="submit" value="REPLY" onClick={() => reply()} />
       </div>
       <CreationDate>{commentsDateFormat(date)}</CreationDate>
       <Content dangerouslySetInnerHTML={{ __html: content }} />
