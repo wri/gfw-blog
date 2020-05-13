@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { connect, styled } from "frontity";
-import Link from "./link";
-import List from "./list";
-import FeaturedMedia from "./featured-media";
-import Breadcrumbs from "./breadcrumbs"
-import TwittTextTooltip from "./twitt-tooltip/twitt-tooltip";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect, styled } from 'frontity';
+import Link from './link';
+import List from './list';
+import FeaturedMedia from './featured-media';
+import Breadcrumbs from './breadcrumbs';
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -16,7 +16,6 @@ const Post = ({ state, actions, libraries }) => {
   // Get a human readable date.
   const date = new Date(post.date);
 
-
   // Get the html2react component.
   const Html2React = libraries.html2react.Component;
 
@@ -26,7 +25,7 @@ const Post = ({ state, actions, libraries }) => {
    * the home page, everything is ready and it loads instantly.
    */
   useEffect(() => {
-    actions.source.fetch("/");
+    actions.source.fetch('/');
     List.preload();
   }, []);
 
@@ -45,13 +44,17 @@ const Post = ({ state, actions, libraries }) => {
                 {author && (
                   <StyledLink link={author.link}>
                     <Author>
-                      By <b>{author.name}</b>
+                      By 
+                      {' '}
+                      <b>{author.name}</b>
                     </Author>
                   </StyledLink>
                 )}
                 <Fecha>
-                  {" "}
-                  on <b>{date.toDateString()}</b>
+                  {' '}
+                  on 
+                  {' '}
+                  <b>{date.toDateString()}</b>
                 </Fecha>
               </div>
             )}
@@ -71,6 +74,12 @@ const Post = ({ state, actions, libraries }) => {
       </div>
     </Container>
   ) : null;
+};
+
+Post.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object,
+  libraries: PropTypes.object,
 };
 
 export default connect(Post);
@@ -155,12 +164,12 @@ const Content = styled.div`
 
   /* Input fields styles */
 
-  input[type="text"],
-  input[type="email"],
-  input[type="url"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="date"],
+  input[type='text'],
+  input[type='email'],
+  input[type='url'],
+  input[type='tel'],
+  input[type='number'],
+  input[type='date'],
   textarea,
   select {
     display: block;
@@ -182,7 +191,7 @@ const Content = styled.div`
     }
   }
 
-  input[type="submit"] {
+  input[type='submit'] {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
