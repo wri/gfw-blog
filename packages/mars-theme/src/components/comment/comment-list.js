@@ -104,7 +104,7 @@ const Title = styled.h4`
 `;
 
 const Divider = styled.hr`
-  width: auto;
+  width: ${LARGE_ENDPOINT} !important;
   height: 1px;
   background-color: #e5e5df;
   margin-top: 65px;

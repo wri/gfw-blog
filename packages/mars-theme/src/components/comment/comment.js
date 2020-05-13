@@ -28,7 +28,9 @@ function Comment({ author, postId, date, content }) {
       <CreationDate>{commentsDateFormat(date)}</CreationDate>
       <Content dangerouslySetInnerHTML={{ __html: content }} />
 
-      <div style={{ padding: '2rem 0px 2rem 4.55rem' }}>{Form}</div>
+      {visible === 'true' ? (
+        <div style={{ padding: '2rem 0px 2rem 4.55rem' }}>{Form}</div>
+      ) : null}
     </Container>
   );
 }
