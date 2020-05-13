@@ -128,22 +128,19 @@ const Post = ({ state, actions, libraries }) => {
             {data.isPost && (
               <InfoContainer>
                 {author && (
-                  <p>
-                    <StyledLink link={author.link}>
-                      <Author>
-                        By
-                        <br />
-                        <b>{author.name}</b>
-                      </Author>
-                    </StyledLink>
-                  </p>
+                  <InfoItem>
+                    <BoldTitle>By&nbsp;</BoldTitle>
+                    <Link link={author.link}>{author.name}</Link>
+                  </InfoItem>
                 )}
-                <Fecha>
-                  {' '}
-                  Posted on
-                  <br />
-                  <b>{dateStr}</b>
-                </Fecha>
+                <InfoItem>
+                  <BoldTitle>Posted on&nbsp;</BoldTitle>
+                  <div>{dateStr}</div>
+                </InfoItem>
+                <InfoItem>
+                  <BoldTitle>Languages&nbsp;</BoldTitle>
+                  <div>Léelo en español</div>
+                </InfoItem>
               </InfoContainer>
             )}
             <ButtonsContainer>
@@ -251,6 +248,21 @@ Post.propTypes = {
   libraries: PropTypes.object,
 };
 
+const InfoItem = styled.div`
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding-bottom: 0.5rem;
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    font-size: 0.875rem;
+    display: flex;
+    align-items: baseline;
+  }
+`;
+
+const BoldTitle = styled.div`
+  font-weight: 800;
+`;
+
 const RelatedPostsContainer = styled.div`
   max-width: 1110px;
   display: flex;
@@ -260,6 +272,9 @@ const RelatedPostsContainer = styled.div`
   list-style: none;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
     padding: 0 1.5rem;
+  }
+  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    padding: 0 1rem;
   }
 `;
 
@@ -318,7 +333,7 @@ const Label = styled.span`
 `;
 
 const InfoContainer = styled.div`
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 `;
 
 const Container = styled.div`
@@ -331,7 +346,8 @@ const Container = styled.div`
 const Title = styled.h1`
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0.625rem;
   color: #333;
   max-width: 1110px;
   font-size: 1.875rem;
@@ -357,23 +373,6 @@ const SideBar = styled.div`
   width: 100%;
 `;
 
-const StyledLink = styled(Link)`
-  padding: 15px 0;
-`;
-
-const Author = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline-block;
-  margin-bottom: 1.25rem;
-`;
-
-const Fecha = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
-`;
-
 const ContentWrapper = styled.div`
   position: relative;
   max-width: 1110px;
@@ -394,8 +393,8 @@ const CategoriesWrapper = styled.div`
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3.875rem;
-  margin-bottom: 1rem;
+  margin-top: 1.875rem;
+  margin-bottom: 0;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
     margin-top: 3.625rem;
     margin-bottom: 0.5rem;
@@ -603,7 +602,12 @@ const Content = styled.div`
   }
 
   .c-carousel .slick-slide {
-    // box-sizing: content-box;
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      opacity: 0;
+      &.slick-current {
+        opacity: 1;
+      }
+    }
   }
 
   p {
@@ -634,6 +638,7 @@ const Content = styled.div`
   }
 
   a {
+    font-size: 1.25rem;
     color: #97bd3d;
     text-decoration: none;
     font-weight: 600;
