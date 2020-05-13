@@ -8,9 +8,9 @@ const settings = {
   state: {
     frontity: {
       url: 'https://blog.globalforestwatch.org',
-      title: 'Global Forest Watch Blog',
+      title: 'Blog | Global Forest Watch',
       description:
-        'The GFW blog catalyzes conversations around improved forest management by providing timely, credible analysis on threats to global forests.',
+        'Stay atop the latest forest research and news! The Global Forest Watch blog uses data to illuminate the state of forests worldwide and tells the stories of people dedicated to protecting them. Read about rainforests, deforestation, fires, sustainable agriculture, forest management and other topics critical to the future of forests.',
     },
   },
   packages: [
