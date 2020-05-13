@@ -431,6 +431,17 @@ const Content = styled.div`
   word-break: break-word;
   user-select: text;
 
+  img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      width: calc(100% + (100% / 7));
+      margin-left: calc(-100% / 7);
+    }
+  }
+
   iframe,
   .wp-block-pullquote,
   .wp-block-gallery {
@@ -441,6 +452,11 @@ const Content = styled.div`
     @media screen and (min-width: ${SMALL_ENDPOINT}) {
       width: calc(100% + (100% / 7));
       margin-left: calc(-100% / 7);
+    }
+
+    img {
+      width: 100%;
+      margin-left: 0;
     }
   }
 
@@ -564,30 +580,19 @@ const Content = styled.div`
         right: -150px;
       }
     }
-  }
 
-  .c-carousel .slick-slide {
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      opacity: 0;
-      &.slick-current {
-        opacity: 1;
+    .slick-slide {
+      @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+        opacity: 0;
+        &.slick-current {
+          opacity: 1;
+        }
       }
     }
   }
 
   p {
     line-height: 1.6em;
-  }
-
-  img {
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-
-    @media screen and (min-width: ${SMALL_ENDPOINT}) {
-      width: calc(100% + (100% / 7));
-      margin-left: calc(-100% / 7);
-    }
   }
 
   figcaption {
