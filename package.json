@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "frontity dev",
     "build": "frontity build",
-    "serve": "frontity serve"
+    "serve": "node frontity-serve.js"
   },
   "husky": {
     "hooks": {
@@ -35,7 +35,7 @@
     "debounce": "^1.2.0",
     "dotenv": "^8.2.0",
     "frontity": "^1.5.3",
-    "gfw-components": "^0.5.0",
+    "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
     "prop-types": "^15.7.2"
