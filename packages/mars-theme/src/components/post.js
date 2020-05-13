@@ -4,6 +4,7 @@ import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
 import Breadcrumbs from "./breadcrumbs"
+import TwittTextTooltip from "./twitt-tooltip/twitt-tooltip";
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -75,6 +76,7 @@ const Post = ({ state, actions, libraries }) => {
 export default connect(Post);
 
 const Container = styled.div`
+  user-select: none;
   margin: 40px 0;
 `;
 
@@ -108,6 +110,7 @@ const Fecha = styled.p`
 const Content = styled.div`
   color: rgba(12, 17, 43, 0.8);
   word-break: break-word;
+  user-select: text;
 
   * {
     max-width: 100%;
