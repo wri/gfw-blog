@@ -15,8 +15,6 @@ import PageError from './page-error';
 import { EntitiesProvider } from './heplers/context';
 import mainGlobalCss from './index.css';
 
-import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
-
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
 
@@ -77,7 +75,6 @@ const Theme = ({ state, actions }) => {
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
       />
-      <TwittTextTooltip />
     </>
   );
 };

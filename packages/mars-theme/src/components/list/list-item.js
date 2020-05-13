@@ -6,7 +6,6 @@ import FeaturedMedia from '../featured-media';
 import CategoryNameList from '../category/list-name';
 import PostTitle from '../post/title';
 import Excerpt from '../post/excerpt';
-import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 /**
  * Item Component
@@ -30,17 +29,10 @@ const Item = ({
   });
 
   const Wrapper = styled.article`
-    width: 31.532%;
     flex-wrap: wrap;
-    margin-bottom: 2.75rem;
     position: relative;
-    @media screen and (max-width: ${LARGE_ENDPOINT}) {
-      width: 49%;
-    }
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      width: 100%;
-      padding: 0 1rem;
-    }
+    margin-bottom: 30px;
+    width: 100%;
     ${styles}
   `;
 
@@ -56,9 +48,7 @@ const Item = ({
        * If the want to show featured media in the
        * list of featured posts, we render the media.
        */}
-      <Link link={item.link} className="post-link">
-        &nbsp;
-      </Link>
+      <Link link={item.link} className="post-link" />
       <div className="feautured-media">
         {state.theme.featured.showOnList && media && media(item.featured_media)}
         {state.theme.featured.showOnList && !media && (
@@ -68,7 +58,7 @@ const Item = ({
       {/* Show categories of the post */}
       <CategoryNameList
         categories={categories}
-        styles="position:relative; margin-bottom: 1.5rem;"
+        styles="position:relative; margin-top: 20px;"
       />
       {/* <Link link={item.link} className="post-title-link"> */}
       {!title && (
