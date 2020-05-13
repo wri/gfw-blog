@@ -308,8 +308,8 @@ Post.propTypes = {
 PostInfo.propTypes = {
   data: PropTypes.object,
   author: PropTypes.object,
-  dateStr: PropTypes.object,
-  styles: PropTypes.string,
+  dateStr: PropTypes.string,
+  styles: PropTypes.object,
 };
 
 export default connect(Post);

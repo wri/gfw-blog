@@ -22,22 +22,28 @@ const CategoryNameList = ({
       text-decoration: none;
     }
   `;
+
   return (
     <Wrapper className="categories-list-wrapper">
       {title && <TitleWrapper>{title}</TitleWrapper>}
-      {categories.map(({ name, link }) => {
-        return (
-          <Link
-            key={name + link}
-            css={css`
-              ${linkCss}
-            `}
-            link={link}
-          >
-            <CategoryName styles={itemStyles}>{name}</CategoryName>
-          </Link>
-        );
-      })}
+      {categories &&
+        categories.map(({ name, link } = {}) => {
+          if (name) {
+            return (
+              <Link
+                key={name + link}
+                css={css`
+                  ${linkCss}
+                `}
+                link={link}
+              >
+                <CategoryName styles={itemStyles}>{name}</CategoryName>
+              </Link>
+            );
+          }
+
+          return null;
+        })}
     </Wrapper>
   );
 };
