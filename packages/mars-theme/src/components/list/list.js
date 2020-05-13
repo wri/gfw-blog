@@ -164,7 +164,7 @@ export default connect(List);
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 3.125rem;
+  padding-top: 2.725rem;
   padding-bottom: 3.75rem;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
