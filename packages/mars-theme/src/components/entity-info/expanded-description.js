@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from 'frontity';
 
-const ExpendedDescription = ({ less, full }) => {
-  const [expended, setExpended] = useState(false);
+const ExpandedDescription = ({ less, full }) => {
+  const [expanded, setExpanded] = useState(false);
 
   // eslint-disable-next-line no-shadow
-  const expendToggler = () => setExpended((expended) => !expended);
+  const expandToggler = () => setExpanded((expanded) => !expanded);
 
   if (!less) {
     return full;
@@ -15,21 +15,24 @@ const ExpendedDescription = ({ less, full }) => {
   return (
     <>
       <Wrapper>
-        {expended ? full : less}
-        {expended && <Toggler onClick={expendToggler}>Collapse bio</Toggler>}
-        {!expended && <ShadowLayer />}
+        <div
+          style={{ whiteSpace: 'pre-wrap' }}
+          dangerouslySetInnerHTML={{ __html: expanded ? full : less }}
+        />
+        {expanded && <Toggler onClick={expandToggler}>Collapse bio</Toggler>}
+        {!expanded && <ShadowLayer />}
       </Wrapper>
-      {!expended && <Toggler onClick={expendToggler}>Expend bio</Toggler>}
+      {!expanded && <Toggler onClick={expandToggler}>Expand bio</Toggler>}
     </>
   );
 };
 
-ExpendedDescription.propTypes = {
+ExpandedDescription.propTypes = {
   less: PropTypes.string,
   full: PropTypes.string,
 };
 
-export default ExpendedDescription;
+export default ExpandedDescription;
 
 const Wrapper = styled.div`
   position: relative;

@@ -16,8 +16,6 @@ import { EntitiesProvider } from './heplers/context';
 import SearchOverlayContainer from './search/overlay-container';
 import mainGlobalCss from './index.css';
 
-import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
-
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
 
@@ -78,7 +76,6 @@ const Theme = ({ state, actions }) => {
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
       />
-      <TwittTextTooltip />
     </>
   );
 };
