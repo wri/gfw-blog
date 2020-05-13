@@ -7,6 +7,7 @@ import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 const SearchResults = ({ state }) => {
   const { link } = state.router;
   const { total, searchQuery } = state.source.get(link);
+  const decodedQuery = decodeURI(searchQuery);
 
   return (
     <>
@@ -20,13 +21,13 @@ const SearchResults = ({ state }) => {
             margin: 0 1rem;
           }
         `}
-        title={searchQuery}
+        title={decodedQuery}
       />
       {!total && (
-        <ResultsTite>{`No results for keyword ${searchQuery}`}</ResultsTite>
+        <ResultsTite>{`No results for keyword ${decodedQuery}`}</ResultsTite>
       )}
       <ResultsTite>
-        {`${total} article${total > 1 ? 's' : ''} with keyword ${searchQuery}`}
+        {`${total} article${total > 1 ? 's' : ''} with keyword ${decodedQuery}`}
       </ResultsTite>
     </>
   );
