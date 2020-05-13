@@ -27,16 +27,15 @@ const CategoryNameList = ({
       {title && <TitleWrapper>{title}</TitleWrapper>}
       {categories.map(({ name, link }) => {
         return (
-          <CategoryName key={name + link} styles={itemStyles}>
-            <Link
-              css={css`
-                ${linkCss}
-              `}
-              link={link}
-            >
-              {name}
-            </Link>
-          </CategoryName>
+          <Link
+            key={name + link}
+            css={css`
+              ${linkCss}
+            `}
+            link={link}
+          >
+            <CategoryName styles={itemStyles}>{name}</CategoryName>
+          </Link>
         );
       })}
     </Wrapper>
