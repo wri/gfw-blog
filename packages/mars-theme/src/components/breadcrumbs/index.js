@@ -55,9 +55,7 @@ const Wrapper = styled.div`
   margin-top: 1.25rem;
   font-size: 0.75rem;
   line-height: 1.3125rem;
-  padding: 0;
   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
     margin-top: 0;
   }
 `;
