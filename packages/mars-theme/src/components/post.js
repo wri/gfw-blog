@@ -10,7 +10,7 @@ import NewsletterIcon from '../assets/icons/social/envelope.svg';
 import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
-import CommentList from './comment/comment-list';
+import CommentList from './comment/comments-list';
 
 import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
 
@@ -297,6 +297,8 @@ const Post = ({ state, actions, libraries }) => {
         </>
       )}
 
+      <Divider />
+
       <CommentList />
     </Container>
   ) : null;
@@ -419,8 +421,8 @@ const Divider = styled.div`
   margin-bottom: 2.5rem;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
   }
 `;
 

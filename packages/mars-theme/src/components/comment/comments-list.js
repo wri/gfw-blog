@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { styled, connect } from 'frontity';
+import { connect } from 'frontity';
 import PropTypes from 'prop-types';
 
 import { Loader } from 'gfw-components';
@@ -7,9 +7,9 @@ import { Loader } from 'gfw-components';
 import Comment from './comment';
 import AddCommentForm from './add-comment-form';
 
-import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { CommentsListContainer, CommentsListTitle, Divider } from './styles';
 
-function CommentList({ libraries, state }) {
+function CommentsList({ libraries, state }) {
   const data = state.source.get(state.router.link);
   const postId = state.source[data.type][data.id].id;
 
@@ -23,9 +23,9 @@ function CommentList({ libraries, state }) {
         params: {
           post: postId,
           _embed: false,
-          per_page: 10,
+          per_page: 20,
           orderby: 'date',
-          order: 'desc',
+          order: 'asc',
         },
       })
       .then((response) => {
@@ -39,14 +39,12 @@ function CommentList({ libraries, state }) {
   const Form = AddCommentForm(postId, 'true');
 
   return (
-    <Container>
-      <Divider />
-
-      <Title>
+    <CommentsListContainer>
+      <CommentsListTitle>
         THERE IS&nbsp;
         {comments.length}
         &nbsp;COMMENTS FOR THIS ARTICLE
-      </Title>
+      </CommentsListTitle>
 
       {loading && (
         <div style={{ position: 'relative', width: '50px', height: '50px' }}>
@@ -81,40 +79,13 @@ function CommentList({ libraries, state }) {
       ) : (
         <h5>Comments for this article were closed.</h5>
       )}
-    </Container>
+    </CommentsListContainer>
   );
 }
 
-const Container = styled.div`
-  width: 770px;
-  height: auto;
-  margin: 50px 0 100px 0;
-  @media screen and (max-width: ${LARGE_ENDPOINT}) {
-    display: none;
-  }
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    display: none;
-  }
-`;
-
-const Title = styled.h4`
-  font-size: 18px;
-  color: #333333;
-  margin-bottom: 35px;
-`;
-
-const Divider = styled.hr`
-  width: ${LARGE_ENDPOINT} !important;
-  height: 1px;
-  background-color: #e5e5df;
-  margin-top: 65px;
-  margin-bottom: 65px;
-  border: none;
-`;
-
-CommentList.propTypes = {
+CommentsList.propTypes = {
   libraries: PropTypes.object,
   state: PropTypes.object,
 };
 
-export default connect(CommentList);
+export default connect(CommentsList);

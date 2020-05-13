@@ -1,5 +1,20 @@
 import React, { useState } from 'react';
-import { styled } from 'frontity';
+
+import {
+  AddCommentContainer,
+  AddCommentTitle,
+  AddCommentSubtitle,
+  AddCommentF0rm,
+  AddCommentFieldArea,
+  AddCommentTextarea,
+  AddCommentInputLabel,
+  AddCommentInput,
+  AddCommentCheckbox,
+  AddCommentCheckboxIcon,
+  AddCommentCheckboxDescr,
+  AddCommentResponse,
+  AddCommentSubmitButton,
+} from './styles';
 
 const WORDPRESS_GFW_API =
   'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
@@ -38,11 +53,9 @@ function AddCommentForm(postId, isVisible) {
         body: JSON.stringify(body),
       })
         .then((response) => {
-          window.location.reload();
           return response.json();
         })
         .then((object) => {
-          console.log(object.message);
           setIsError(true);
           setResponseMessage(object.message);
         })
@@ -51,22 +64,24 @@ function AddCommentForm(postId, isVisible) {
   }
 
   return (
-    <Container isVisible={isVisible}>
-      <Title>POST A COMMENT</Title>
-      <Subtitle>
+    <AddCommentContainer isVisible={isVisible}>
+      <AddCommentTitle>POST A COMMENT</AddCommentTitle>
+      <AddCommentSubtitle>
         Your email address will not be published. Required fields are marked *
-      </Subtitle>
+      </AddCommentSubtitle>
 
-      <Form
+      <AddCommentF0rm
         id="commentForm"
         method="POST"
         onSubmit={(event) => {
           handleSubmit(event);
         }}
       >
-        <FieldArea>
-          <InputLabel hrmlFor="commentContent">COMMENT</InputLabel>
-          <Textarea
+        <AddCommentFieldArea>
+          <AddCommentInputLabel hrmlFor="commentContent">
+            COMMENT
+          </AddCommentInputLabel>
+          <AddCommentTextarea
             id="commentContent"
             name="commentContent"
             value={content}
@@ -74,13 +89,16 @@ function AddCommentForm(postId, isVisible) {
               setContent(event.target.value);
             }}
           />
-        </FieldArea>
+        </AddCommentFieldArea>
 
-        <FieldArea>
-          <InputLabel htmlFor="commentName" style={{ marginLeft: '2.25%' }}>
+        <AddCommentFieldArea>
+          <AddCommentInputLabel
+            htmlFor="commentName"
+            style={{ marginLeft: '2.25%' }}
+          >
             NAME *
-          </InputLabel>
-          <Input
+          </AddCommentInputLabel>
+          <AddCommentInput
             id="commentName"
             name="commentName"
             type="text"
@@ -88,13 +106,16 @@ function AddCommentForm(postId, isVisible) {
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
-        </FieldArea>
+        </AddCommentFieldArea>
 
-        <FieldArea>
-          <InputLabel htmlFor="commentEmail" style={{ marginLeft: '2.25%' }}>
+        <AddCommentFieldArea>
+          <AddCommentInputLabel
+            htmlFor="commentEmail"
+            style={{ marginLeft: '2.25%' }}
+          >
             EMAIL *
-          </InputLabel>
-          <Input
+          </AddCommentInputLabel>
+          <AddCommentInput
             id="commentEmail"
             name="commentEmail"
             type="email"
@@ -103,135 +124,35 @@ function AddCommentForm(postId, isVisible) {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </FieldArea>
+        </AddCommentFieldArea>
 
-        <FieldArea>
-          <Checkbox checked={isAgree} onClick={() => setIsAgree(!isAgree)}>
-            <Icon viewBox="0 0 24 24">
+        <AddCommentFieldArea>
+          <AddCommentCheckbox
+            checked={isAgree}
+            onClick={() => setIsAgree(!isAgree)}
+          >
+            <AddCommentCheckboxIcon viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
-            </Icon>
-          </Checkbox>
+            </AddCommentCheckboxIcon>
+          </AddCommentCheckbox>
 
-          <CheckboxDescr>
+          <AddCommentCheckboxDescr>
             I have read and agree with&nbsp;
             <a href={GFW_PRIVACY_POLICY_PAGE}>GWF&prime;s Privacy Policy</a>
-          </CheckboxDescr>
-        </FieldArea>
+          </AddCommentCheckboxDescr>
+        </AddCommentFieldArea>
 
-        <FieldArea style={{ marginTop: '3.1rem' }}>
-          <Response
+        <AddCommentFieldArea style={{ marginTop: '3.1rem' }}>
+          <AddCommentResponse
             isError={isError}
             dangerouslySetInnerHTML={{ __html: responseMessage }}
           />
 
-          <SubmitButton type="submit" value="POST COMMENT" />
-        </FieldArea>
-      </Form>
-    </Container>
+          <AddCommentSubmitButton type="submit" value="POST COMMENT" />
+        </AddCommentFieldArea>
+      </AddCommentF0rm>
+    </AddCommentContainer>
   );
 }
 
 export default AddCommentForm;
-
-const Container = styled.div`
-  width: 640px;
-  display: ${(props) => (props.isVisible === 'true' ? 'block' : 'none')};
-`;
-
-const Title = styled.h3`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-const Subtitle = styled.p`
-  color: #555555;
-  font-size: 14px;
-`;
-
-const Form = styled.form`
-  margin: 45px 0px 0px 10px;
-  width: auto;
-`;
-
-const FieldArea = styled.div`
-  width: auto;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  margin-top: 25px;
-  ${(props) => props.style}
-`;
-
-const Textarea = styled.textarea`
-  border: 1px solid #dededd;
-  width: 540px;
-  height: 200px;
-  padding: 10px;
-  margin-right: 1%;
-`;
-
-const InputLabel = styled.label`
-  font-weight: bold;
-  font-size: 12px;
-  margin-top: 10px;
-  color: #333333;
-  ${(props) => props.style}
-`;
-
-const Input = styled.input`
-  border: 1px solid #dededd;
-  width: 540px;
-  ${(props) => props.style}
-`;
-
-const Icon = styled.svg`
-  fill: none;
-  stroke: white;
-  stroke-width: 2px;
-`;
-
-const Checkbox = styled.div`
-  border: ${(props) => (props.checked ? 'none' : '1px solid #E5E5DF;')};
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  background: ${(props) => (props.checked ? '#97BD3D' : '#ffffff')};
-  border-radius: 3px;
-  transition: all 150ms;
-  margin-left: 13%;
-
-  ${Icon} {
-    visibility: ${(props) => (props.checked ? 'visible' : 'hidden')};
-  }
-`;
-
-const CheckboxDescr = styled.p`
-  margin-right: 32%;
-  font-size: 14px;
-  a {
-    font-size: 14px;
-    color: '#97BD3D';
-    text-decoration: none;
-  }
-`;
-
-const Response = styled.p`
-  display: ${(props) => (props.isError ? 'block' : 'none')};
-  font-size: 14px;
-  font-weight: bold;
-  width: auto;
-  color: #d85656;
-  max-width: 70%;
-  margin-left: 1rem;
-`;
-
-const SubmitButton = styled.input`
-  border-radius: 22.5px;
-  border: 1px solid #97bd3d;
-  background-color: #ffffff;
-  color: #333333;
-  width: 160px;
-  font-weight: 500;
-  margin-left: auto;
-  cursor: pointer;
-`;
