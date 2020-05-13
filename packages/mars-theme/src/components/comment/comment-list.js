@@ -6,6 +6,7 @@ import { Loader } from 'gfw-components';
 
 import Comment from './comment';
 import AddCommentForm from './add-comment-form';
+
 import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 function CommentList({ libraries, state }) {
@@ -19,7 +20,13 @@ function CommentList({ libraries, state }) {
     libraries.source.api
       .get({
         endpoint: 'comments',
-        params: { post: postId, _embed: false, per_page: 10, orderby: 'date' , order: 'desc'},
+        params: {
+          post: postId,
+          _embed: false,
+          per_page: 10,
+          orderby: 'date',
+          order: 'desc',
+        },
       })
       .then((response) => {
         response.json().then((content) => {
@@ -29,6 +36,8 @@ function CommentList({ libraries, state }) {
       });
   }, [comments.length]);
 
+  const Form = AddCommentForm(postId, 'true');
+
   return (
     <Container>
       <Divider />
@@ -36,7 +45,7 @@ function CommentList({ libraries, state }) {
       <Title>
         THERE IS&nbsp;
         {comments.length}
-&nbsp;COMMENTS FOR THIS ARTICLE
+        &nbsp;COMMENTS FOR THIS ARTICLE
       </Title>
 
       {loading && (
@@ -53,6 +62,7 @@ function CommentList({ libraries, state }) {
                 return (
                   <Comment
                     key={item.id}
+                    postId={item.id}
                     author={item.author_name}
                     content={item.content.rendered}
                     date={item.date}
@@ -67,7 +77,7 @@ function CommentList({ libraries, state }) {
       <Divider />
 
       {state.source[data.type][data.id].comment_status !== 'closed' ? (
-        <AddCommentForm />
+        Form
       ) : (
         <h5>Comments for this article were closed.</h5>
       )}

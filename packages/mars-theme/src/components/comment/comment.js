@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from 'frontity';
 
 import commentsDateFormat from '../heplers/date';
+import AddCommentForm from './add-comment-form';
 
-function Comment({ author, date, content }) {
+function Comment({ postId, author, date, content }) {
+  const [visibleForm, setVisibleForm] = useState('false');
+  const Form = AddCommentForm(postId, visibleForm);
+
+  const onReply = () => {
+    setVisibleForm(visibleForm === 'true' ? 'false' : 'true');
+  };
+
   return (
     <Container>
       <div
@@ -15,10 +23,12 @@ function Comment({ author, date, content }) {
         }}
       >
         <Author>{author}</Author>
-        <ReplyButon type="submit" value="REPLY" />
+        <ReplyButon type="submit" value="REPLY" onClick={onReply()} />
       </div>
       <CreationDate>{commentsDateFormat(date)}</CreationDate>
       <Content dangerouslySetInnerHTML={{ __html: content }} />
+
+      <div style={{ padding: '2rem 0px 2rem 4.55rem' }}>{Form}</div>
     </Container>
   );
 }
@@ -29,6 +39,7 @@ Comment.propTypes = {
   author: PropTypes.string,
   date: PropTypes.string,
   content: PropTypes.string,
+  postId: PropTypes.func,
 };
 
 const Container = styled.div`

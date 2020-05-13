@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { styled, connect } from 'frontity';
-import PropTypes from 'prop-types';
+import { styled } from 'frontity';
 
 const WORDPRESS_GFW_API =
   'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
@@ -8,10 +7,7 @@ const COMMENTS_URI = '/wp/v2/comments';
 const GFW_PRIVACY_POLICY_PAGE =
   'https://www.globalforestwatch.org/privacy-policy';
 
-function AddCommentForm({ libraries, state }) {
-  const data = state.source.get(state.router.link);
-  const postId = state.source[data.type][data.id].id;
-
+function AddCommentForm(postId, isVisible) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -27,17 +23,11 @@ function AddCommentForm({ libraries, state }) {
       setIsError(true);
       setResponseMessage('You must agree to the Privacy Policy!');
     } else {
-      const [
-        commentContent,
-        commentName,
-        commentEmail,
-      ] = document.getElementById('commentForm').elements;
-
       const body = {
+        content,
         post: postId,
-        content: commentContent.value,
-        author_name: commentName.value,
-        author_email: commentEmail.value,
+        author_name: name,
+        author_email: email,
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -52,6 +42,7 @@ function AddCommentForm({ libraries, state }) {
           return response.json();
         })
         .then((object) => {
+          console.log(object.message);
           setIsError(true);
           setResponseMessage(object.message);
         })
@@ -60,7 +51,7 @@ function AddCommentForm({ libraries, state }) {
   }
 
   return (
-    <Container>
+    <Container isVisible={isVisible}>
       <Title>POST A COMMENT</Title>
       <Subtitle>
         Your email address will not be published. Required fields are marked *
@@ -79,7 +70,9 @@ function AddCommentForm({ libraries, state }) {
             id="commentContent"
             name="commentContent"
             value={content}
-            onChange={(event) => setContent(event.target.value)}
+            onChange={(event) => {
+              setContent(event.target.value);
+            }}
           />
         </FieldArea>
 
@@ -138,15 +131,11 @@ function AddCommentForm({ libraries, state }) {
   );
 }
 
-AddCommentForm.propTypes = {
-  state: PropTypes.object,
-  libraries: PropTypes.object
-};
-
-export default connect(AddCommentForm);
+export default AddCommentForm;
 
 const Container = styled.div`
   width: 640px;
+  display: ${(props) => (props.isVisible === 'true' ? 'block' : 'none')};
 `;
 
 const Title = styled.h3`
