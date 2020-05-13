@@ -49,17 +49,17 @@ export default function TwittTextTooltip() {
   }
 
   return (
-    <Container position={position} className="tippy-box">
+    <Tooltip position={position}>
       <TwittLink target="_blank" href={getTwittContent()}>
-        <img src={TwittIcon} width="25px" height="25px" alt="" />
+        <img src={TwittIcon} alt="" />
         <TwittSpan>Tweet this</TwittSpan>
       </TwittLink>
       <Arrow />
-    </Container>
+    </Tooltip>
   );
 }
 
-const Container = styled.div`
+const Tooltip = styled.div`
   background-color: #333333;
   width: 130px;
   height: 40px;
@@ -75,9 +75,13 @@ const TwittLink = styled.a`
   position: relative;
   width: auto;
   display: inline-block;
-  text-decoration: none;
-  color: #777777;
+  text-decoration: none !important;
+  color: #777777 !important;
   z-index: 9998;
+  img {
+    width: 25px !important;
+    margin-top: 2px;
+  }
 `;
 
 const TwittSpan = styled.span`

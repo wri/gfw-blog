@@ -11,10 +11,19 @@ const CategoryName = ({ children, styles = '' }) => {
     font-weight: 200;
     text-transform: uppercase;
     display: inline-flex;
+    align-items: center;
     margin-right: 1.25rem;
     margin-bottom: 1.25rem;
-    margin-top: 1rem;
     height: 1.5rem;
+    align-items: center;
+    b {
+      display: inline-flex;
+      height: 1.5rem;
+      align-items: center;
+    }
+    a {
+      color: inherit;
+    }
     :hover {
       background-color: var(--color-primary);
     }

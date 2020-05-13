@@ -1,6 +1,35 @@
 import image from '@frontity/html2react/processors/image';
 import iframe from '@frontity/html2react/processors/iframe';
+import { Carousel } from 'gfw-components';
+import Blockquote from './components/blockqoute';
 import Theme from './components';
+
+const gutenbergGallery = {
+  test: ({ component, props }) =>
+    component === 'ul' && props.className === 'blocks-gallery-grid',
+  processor: () => {
+    return {
+      component: Carousel,
+      props: {
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          lazyLoad: false,
+          infinite: true,
+        },
+      },
+    };
+  },
+};
+
+const blockquote = {
+  test: ({ component }) => component === 'blockquote',
+  processor: () => {
+    return {
+      component: Blockquote,
+    };
+  },
+};
 
 const marsTheme = {
   name: '@frontity/mars-theme',
@@ -44,7 +73,7 @@ const marsTheme = {
        * Add a processor to `html2react` so it processes the `<img>` tags
        * inside the content HTML. You can add your own processors too
        */
-      processors: [image, iframe],
+      processors: [image, iframe, gutenbergGallery, blockquote],
     },
   },
 };
