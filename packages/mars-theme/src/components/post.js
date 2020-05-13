@@ -214,6 +214,7 @@ const Post = ({ state, actions, libraries }) => {
               background-color: #E5E5DF;
               color: #333 !important;
               a {
+                font-size: 0.75rem;
                 color: #333 !important;
                 font-weight: normal;
               }
