@@ -60,6 +60,7 @@ const Wrapper = styled.div`
   width: 100%;
   font-size: 0.75rem;
   line-height: 1.3125rem;
+  margin-bottom: 20px;
 `;
 
 Breadcrumbs.propTypes = {

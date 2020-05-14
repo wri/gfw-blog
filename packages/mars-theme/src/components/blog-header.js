@@ -7,7 +7,7 @@ const BlogHeader = ({ state }) => {
   return (
     <div className="row">
       <div className="column small-12 medium-10 large-8">
-        <Title>{state.frontity.title}</Title>
+        <Title>Global Forest Watch Blog</Title>
         <Description>
           <b>{state.frontity.description}</b>
         </Description>

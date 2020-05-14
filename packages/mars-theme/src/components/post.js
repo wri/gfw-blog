@@ -8,7 +8,7 @@ import FeaturedMedia from './featured-media';
 import Breadcrumbs from './breadcrumbs';
 import Search from './search';
 import SearchExpanded from './search/expanded';
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
+import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 import NewsletterIcon from '../assets/icons/social/envelope.svg';
 import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
@@ -19,20 +19,19 @@ const PostInfo = ({ data, author, dateStr, styles }) => (
     {data.isPost && (
       <InfoContainer>
         {author && (
-          <StyledLink link={author.link}>
-            <Author>
-              By 
-              {' '}
-              <b>{author.name}</b>
-            </Author>
-          </StyledLink>
+          <InfoItem>
+            <BoldTitle>By&nbsp;</BoldTitle>
+            <Link link={author.link}>{author.name}</Link>
+          </InfoItem>
         )}
-        <Fecha>
-          {' '}
-          Posted on 
-          {' '}
-          <b>{dateStr}</b>
-        </Fecha>
+        <InfoItem>
+          <BoldTitle>Posted on&nbsp;</BoldTitle>
+          <div>{dateStr}</div>
+        </InfoItem>
+        <InfoItem>
+          <BoldTitle>Languages&nbsp;</BoldTitle>
+          <div>Léelo en español</div>
+        </InfoItem>
       </InfoContainer>
     )}
     <ButtonsContainer>
@@ -194,11 +193,12 @@ const Post = ({ state, actions, libraries }) => {
         <FeaturedMedia
           id={post.featured_media}
           styles={`
-          max-width: 1080px;
           margin: 0 auto;
           height: 240px;
-          @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-            height: 500px
+          @media screen and (min-width: ${SMALL_ENDPOINT}) {
+            height: 500px;
+            padding: 0 20px;
+            max-width: 1120px;
           }
       `}
         />
@@ -267,6 +267,7 @@ const Post = ({ state, actions, libraries }) => {
                 background-color: #E5E5DF;
                 color: #333 !important;
                 a {
+                  font-size: 0.75rem;
                   color: #333 !important;
                   font-weight: normal;
                 }
@@ -318,6 +319,21 @@ PostInfo.propTypes = {
 
 export default connect(Post);
 
+const InfoItem = styled.div`
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding-bottom: 0.5rem;
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    font-size: 0.875rem;
+    display: flex;
+    align-items: baseline;
+  }
+`;
+
+const BoldTitle = styled.div`
+  font-weight: 800;
+`;
+
 const RelatedPostsTitle = styled.h3`
   text-transform: uppercase;
   line-height: 1.3333;
@@ -367,19 +383,24 @@ const Label = styled.span`
 `;
 
 const InfoContainer = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 `;
 
 const Container = styled.div`
   margin: 0;
   padding: 0;
-  padding-top: 3.125rem;
   width: 100%;
   overflow: hidden;
+  padding-top: 2.725rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    padding-top: 60px;
+  }
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 0.625rem;
   color: #333;
   font-size: 1.875rem;
   line-height: 1.25;
@@ -389,23 +410,6 @@ const Title = styled.h1`
     font-size: 3rem;
     line-height: 3.75rem;
   }
-`;
-
-const StyledLink = styled(Link)`
-  display: block;
-  margin-bottom: 10px;
-`;
-
-const Author = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline-block;
-`;
-
-const Fecha = styled.p`
-  color: rgba(12, 17, 43, 0.9);
-  font-size: 0.9em;
-  display: inline;
 `;
 
 const Divider = styled.div`
@@ -582,11 +586,8 @@ const Content = styled.div`
     }
 
     .slick-slide {
-      @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-        opacity: 0;
-        &.slick-current {
-          opacity: 1;
-        }
+      &:not(.slick-active) {
+        cursor: pointer;
       }
     }
   }
@@ -602,6 +603,7 @@ const Content = styled.div`
   }
 
   a {
+    font-size: 1.25rem;
     color: #97bd3d;
     text-decoration: none;
     font-weight: 600;

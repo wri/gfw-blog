@@ -16,6 +16,7 @@ const gutenbergGallery = {
           slidesToScroll: 1,
           lazyLoad: false,
           infinite: true,
+          focusOnSelect: true,
         },
       },
     };
@@ -28,6 +29,33 @@ const blockquote = {
     return {
       component: Blockquote,
     };
+  },
+};
+
+const allCategoriesHandler = {
+  name: 'allCategories',
+  priority: 10,
+  pattern: 'all-categories',
+  func: async ({ route, state, libraries }) => {
+    const { api } = libraries.source;
+
+    // 1. fetch the data you want from the endpoint page
+    const response = await api.get({
+      endpoint: 'categories',
+      params: {
+        per_page: 100, // To make sure you get all of them
+      },
+    });
+
+    // 2. get an array with each item in json format
+    const items = await response.json();
+
+    // 3. add data to source
+    const currentPageData = state.source.data[route];
+
+    Object.assign(currentPageData, {
+      items,
+    });
   },
 };
 
@@ -75,6 +103,9 @@ const marsTheme = {
       setSearchQuery: ({ state }) => (value) => {
         state.theme.searchQuery = value;
       },
+      beforeSSR: ({ actions }) => async () => {
+        await actions.source.fetch('all-categories');
+      },
     },
   },
   libraries: {
@@ -84,6 +115,9 @@ const marsTheme = {
        * inside the content HTML. You can add your own processors too
        */
       processors: [image, iframe, gutenbergGallery, blockquote],
+    },
+    source: {
+      handlers: [allCategoriesHandler],
     },
   },
 };

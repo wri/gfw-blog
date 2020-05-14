@@ -6,7 +6,7 @@ const CategoryName = ({ children, styles = '' }) => {
   const Wrapper = styled.span`
     background-color: rgba(51, 51, 51, 1);
     color: #fff;
-    padding: 0.1rem 1rem;
+    padding: 0 12px;
     font-size: 0.9em;
     font-weight: 200;
     text-transform: uppercase;

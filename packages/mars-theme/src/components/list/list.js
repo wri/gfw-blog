@@ -21,16 +21,24 @@ import {
 import { isSearchLink, isBlogHomePage } from '../heplers/content';
 
 const POSTS_PER_PAGE = 9;
+const MAIN_CATEGORIES = [
+  'climate',
+  'fires',
+  'data-and-research',
+  'people',
+  'places-to-watch',
+  'commodities',
+];
 
 const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
 
+  const { items: allCategories } = state.source.data['all-categories/'];
+  const categories = allCategories
+    .filter((c) => MAIN_CATEGORIES.includes(c.slug))
+    .map((c) => ({ name: c.name, link: `/category/${c.slug}` }));
   const data = state.source.get(state.router.link);
-  const categories = Object.values(
-    state.source.category
-    // eslint-disable-next-line no-shadow
-  ).map(({ name, link }) => ({ name, link }));
   const initialPosts = [...data.items];
   const mainPosts = isBlogHomePage(link) ? initialPosts.splice(0, 1) : [];
   const subPosts = isBlogHomePage(link) ? initialPosts.splice(0, 2) : [];
