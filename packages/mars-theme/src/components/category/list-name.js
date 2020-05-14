@@ -5,7 +5,12 @@ import CategoryName from './name';
 import Link from '../link';
 import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
-const CategoryNameList = ({ categories, styles = '', title }) => {
+const CategoryNameList = ({
+  categories,
+  styles = '',
+  itemStyles = '',
+  title,
+}) => {
   const Wrapper = styled.p`
     ${styles}
   `;
@@ -17,23 +22,28 @@ const CategoryNameList = ({ categories, styles = '', title }) => {
       text-decoration: none;
     }
   `;
+
   return (
     <Wrapper className="categories-list-wrapper">
       {title && <TitleWrapper>{title}</TitleWrapper>}
-      {categories.map(({ name, link }) => {
-        return (
-          <CategoryName key={name + link}>
-            <Link
-              css={css`
-                ${linkCss}
-              `}
-              link={link}
-            >
-              {name}
-            </Link>
-          </CategoryName>
-        );
-      })}
+      {categories &&
+        categories.map(({ name, link } = {}) => {
+          if (name) {
+            return (
+              <Link
+                key={name + link}
+                css={css`
+                  ${linkCss}
+                `}
+                link={link}
+              >
+                <CategoryName styles={itemStyles}>{name}</CategoryName>
+              </Link>
+            );
+          }
+
+          return null;
+        })}
     </Wrapper>
   );
 };
@@ -43,15 +53,18 @@ export default CategoryNameList;
 CategoryNameList.propTypes = {
   categories: PropTypes.array,
   styles: PropTypes.string,
+  itemStyles: PropTypes.string,
   title: PropTypes.string,
 };
 
 const TitleWrapper = styled.span`
-  margin-right: 1rem;
+  margin-bottom: 25px;
   color: var(--color-medium-grey);
   text-transform: uppercase;
   font-size: 0.75rem;
-  @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    display: block;
+  display: block;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-right: 20px;
+    display: inline;
   }
 `;

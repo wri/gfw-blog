@@ -4,9 +4,8 @@ import { connect, styled, decode } from 'frontity';
 import Link from '../link';
 import Item from './item';
 import Divider from './divider';
-import List from './list';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 import { isSearchLink } from '../heplers/content';
+import CategoryItem from './category-item';
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -46,7 +45,7 @@ const Breadcrumbs = ({ state }) => {
       {data.isPostType && (
         <>
           <Divider />
-          <List />
+          <CategoryItem />
           <Divider />
           <Item>{decode(state.source[data.type][data.id].title.rendered)}</Item>
         </>
@@ -59,14 +58,8 @@ export default connect(Breadcrumbs);
 
 const Wrapper = styled.div`
   width: 100%;
-  // margin-top: 1.25rem;
   font-size: 0.75rem;
   line-height: 1.3125rem;
-  padding: 0;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    margin-top: 0;
-    padding-left: 1rem;
-  }
 `;
 
 Breadcrumbs.propTypes = {

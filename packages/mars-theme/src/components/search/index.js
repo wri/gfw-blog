@@ -140,10 +140,6 @@ const ReadyTitle = styled.div`
 const Wrapper = styled.div`
   display: flex;
   align-items: baseline;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
-    width: min-content;
-  }
 `;
 
 const SearchBox = styled.div`

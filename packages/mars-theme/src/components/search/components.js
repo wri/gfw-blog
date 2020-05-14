@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Image from '@frontity/components/image';
 import { styled, connect } from 'frontity';
 import path from './Search.png';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 export const SearchInputWrapper = (props) => {
   const Element = styled.div`
@@ -16,9 +15,6 @@ export const SearchInputWrapper = (props) => {
     align-items: flex-end;
     display: flex;
     flex-wrap: wrap;
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      margin: 0 1rem;
-    }
   `;
   return <Element {...props} />;
 };
@@ -98,7 +94,7 @@ KeyWordsList.propTypes = {
 };
 
 const KeyWordsListWrapper = styled.ul`
-  position: abolute;
+  position: absolute;
   top: 100%;
   background-color: #fff;
   border: 1px solid #aaa;

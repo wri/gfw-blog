@@ -8,22 +8,13 @@ export const removeExcerptHellip = (str) => {
   return str.replace(/(\[(&hellip;)\])<\/.>/, '');
 };
 
-export const getLessContnet = (str) => {
-  if (str.length < 400) {
-    return null;
-  }
-
-  const result = str.match(/^.{400,800}(\.|\!|\?|\n|\,|\;)/);
-  if (result && result[0]) {
-    return result[0];
-  }
-
-  return null;
+export const getLessContent = (str) => {
+  return str.length < 800 ? str : str.substring(0, 800);
 };
 
 export const isSearchLink = (link) => {
   return link.includes('?s=');
-}
+};
 
 export const isBlogHomePage = (link) => {
   return link === '/';

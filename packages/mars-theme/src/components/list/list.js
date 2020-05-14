@@ -93,82 +93,105 @@ const List = ({ state }) => {
     }
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
-  const categoriesStyles = `
-  margin-bottom: 0.25rem;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
-  }`;
+  const categoriesStyles = `margin-bottom: 20px;`;
+
   return (
     <Wrapper>
-      <Container>
-        <BreadcrumbsContainer>
-          <Breadcrumbs />
-          {!isBlogHomePage(link) && <Search mobile title="" />}
-        </BreadcrumbsContainer>
-        {!isBlogHomePage(link) && <SearchExpanded />}
-        {!isBlogHomePage(link) && (
-          <FlexContainer>
-            <EntityInfo />
-            {!data.searchQuery && <Search />}
-          </FlexContainer>
-        )}
-
-        {isSearchLink(link) && <SearchResults />}
-        <HomeTopSection className={state.theme.searchIsActive ? `reverse` : ``}>
-          {isBlogHomePage(link) && (
-            <Search
-              mobile
-              title=""
-              css={css`
-                margin-top: 1rem;
-              `}
-            />
+      <div className="row">
+        <div className="column small-12">
+          <BreadcrumbsContainer>
+            <Breadcrumbs />
+            {!isBlogHomePage(link) && <Search mobile title="" />}
+          </BreadcrumbsContainer>
+          {!isBlogHomePage(link) && <SearchExpanded />}
+          {!isBlogHomePage(link) && (
+            <FlexContainer>
+              <EntityInfo />
+              {!data.searchQuery && <Search />}
+            </FlexContainer>
           )}
-          <div>
-            {isBlogHomePage(link) && <BlogHeader />}
-            {isBlogHomePage(link) && (
-              <>
-                <FlexContainer
-                  className={state.theme.searchIsActive ? `hidden` : ``}
-                >
-                  <CategoryNameList
-                    categories={categories}
-                    title="Categories"
-                    styles={categoriesStyles}
-                  />
-                  <Search />
-                </FlexContainer>
-              </>
-            )}
-          </div>
-          {isBlogHomePage(link) && <SearchExpanded />}
-        </HomeTopSection>
 
+          {isSearchLink(link) && <SearchResults />}
+          <HomeTopSection
+            className={state.theme.searchIsActive ? `reverse` : ``}
+          >
+            {isBlogHomePage(link) && (
+              <Search
+                mobile
+                title=""
+                css={css`
+                  margin-top: 1rem;
+                `}
+              />
+            )}
+            <div>
+              {isBlogHomePage(link) && <BlogHeader />}
+              {isBlogHomePage(link) && (
+                <>
+                  <FlexContainer
+                    className={state.theme.searchIsActive ? `hidden` : ``}
+                  >
+                    <CategoryNameList
+                      categories={categories}
+                      title="Categories"
+                      styles={categoriesStyles}
+                    />
+                    <Search />
+                  </FlexContainer>
+                </>
+              )}
+            </div>
+            {isBlogHomePage(link) && <SearchExpanded />}
+          </HomeTopSection>
+        </div>
+      </div>
+      <MainPostWrapper>
         {mainPosts &&
           mainPosts.map(({ type, id }) => {
             const item = state.source[type][id];
             return <MainPost key={item.id} post={item} />;
           })}
+      </MainPostWrapper>
+      <div className="row">
         {subPosts &&
           subPosts.map(({ type, id }) => {
             const item = state.source[type][id];
-            return <SubPost key={item.id} item={item} />;
+            return (
+              <div key={item.id} className="column small-12 medium-6">
+                <SubPost item={item} />
+              </div>
+            );
           })}
-      </Container>
-      {isBlogHomePage(link) && <Divider />}
-      <Container>
-        {isBlogHomePage(link) && <Title>latest articles</Title>}
-        {/* Iterate over the items of the list. */}
+      </div>
+      {isBlogHomePage() && <Divider />}
+      {isBlogHomePage() && (
+        <div className="row">
+          <div className="column small-12">
+            <Title>latest articles</Title>
+          </div>
+        </div>
+      )}
+      {/* Iterate over the items of the list. */}
+      <div className="row">
         {posts[state.router.link] &&
           posts[state.router.link].map((el) => {
             if (!el) return null;
             const { type, id } = el;
             const item = state.source[type][id];
             // Render one Item component for each one.
-            return <Item key={item.id + item.date + item.name} item={item} />;
+            return (
+              <div
+                key={item.id + item.date + item.name}
+                className="column small-12 medium-6 large-4"
+              >
+                <Item item={item} />
+              </div>
+            );
           })}
-        {posts[state.router.link] &&
-          posts[state.router.link].length % 3 === 2 && <Plug />}
+      </div>
+      {posts[state.router.link] &&
+        posts[state.router.link].length % 3 === 2 && <Plug />}
+      {page < totalPages && (
         <LoadMore
           isFetching={isFetching}
           setIsFetching={setIsFetching}
@@ -176,7 +199,7 @@ const List = ({ state }) => {
           page={page}
           limit={totalPages}
         />
-      </Container>
+      )}
     </Wrapper>
   );
 };
@@ -185,10 +208,11 @@ export default connect(List);
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 3.125rem;
+  padding-top: 2.725rem;
   padding-bottom: 3.75rem;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
+    padding-top: 60px;
   }
 `;
 
@@ -201,29 +225,22 @@ const Divider = styled.div`
   }
 `;
 
-const Container = styled.section`
-  max-width: 1110px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 0 auto;
-  list-style: none;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) and (max-width: ${LARGE_ENDPOINT}) {
-    padding: 0 1.5rem;
+const MainPostWrapper = styled.div`
+  max-width: 1120px;
+  margin: auto;
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    padding: 0 20px;
   }
 `;
 
 const Title = styled.h3`
   font-size: 1.125rem;
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 50px;
   text-transform: uppercase;
   width: 100%;
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: none;
-  }
-  @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
-    padding: 0 1rem;
   }
 `;
 
