@@ -5,7 +5,6 @@ import Link from '../link';
 import Item from './item';
 import Divider from './divider';
 import CategoryItem from './category-item';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -52,12 +51,9 @@ export default connect(Breadcrumbs);
 
 const Wrapper = styled.div`
   width: 100%;
-  margin-top: 1.25rem;
   font-size: 0.75rem;
   line-height: 1.3125rem;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    margin-top: 0;
-  }
+  margin-bottom: 20px;
 `;
 
 Breadcrumbs.propTypes = {

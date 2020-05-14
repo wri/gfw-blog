@@ -16,6 +16,7 @@ const gutenbergGallery = {
           slidesToScroll: 1,
           lazyLoad: false,
           infinite: true,
+          focusOnSelect: true,
         },
       },
     };

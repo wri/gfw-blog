@@ -11,9 +11,9 @@ import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
 import CommentList from './comment/comments-list';
+import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
 
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
-import TwittTextTooltip from "./twitt-tooltip/twitt-tooltip";
+import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
 const PostInfo = ({ data, author, dateStr, styles }) => (
   <div css={styles}>
@@ -191,11 +191,12 @@ const Post = ({ state, actions, libraries }) => {
         <FeaturedMedia
           id={post.featured_media}
           styles={`
-          max-width: 1080px;
           margin: 0 auto;
           height: 240px;
-          @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-            height: 500px
+          @media screen and (min-width: ${SMALL_ENDPOINT}) {
+            height: 500px;
+            padding: 0 20px;
+            max-width: 1120px;
           }
       `}
         />
@@ -393,9 +394,13 @@ const Container = styled.div`
   user-select: none;
   margin: 0;
   padding: 0;
-  padding-top: 3.125rem;
   width: 100%;
   overflow: hidden;
+  padding-top: 2.725rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    padding-top: 60px;
+  }
 `;
 
 const Title = styled.h1`
@@ -424,8 +429,8 @@ const Divider = styled.div`
   margin-bottom: 2.5rem;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -588,6 +593,12 @@ const Content = styled.div`
 
       @media screen and (min-width: ${SMALL_ENDPOINT}) {
         right: -150px;
+      }
+    }
+
+    .slick-slide {
+      &:not(.slick-active) {
+        cursor: pointer;
       }
     }
   }
