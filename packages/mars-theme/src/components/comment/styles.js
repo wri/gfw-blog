@@ -21,14 +21,6 @@ export const CommentsListTitle = styled.h4`
   margin-bottom: 35px;
 `;
 
-export const Divider = styled.hr`
-  width: auto;
-  height: 1px;
-  background-color: #e5e5df;
-  margin: 3.7rem 0 3.5rem 0;
-  border: none;
-`;
-
 // Comment
 export const CommentContainer = styled.div`
   width: auto;
@@ -68,6 +60,22 @@ export const ReplyButon = styled.input`
 `;
 
 // AddCommentForm
+export const Divider = styled.hr`
+  width: auto;
+  position: relative;
+  top: ${props => props.isCommentInserted === true ? 140 : 0}px;
+  height: 1px;
+  background-color: #e5e5df;
+  margin: 3.7rem 0 3.5rem 0;
+  border: none;
+`;
+
+export const AddCommentFormNewCommentWrapper = styled.div`
+  display: ${(props) => props.success === true ? 'block' : 'none'};
+  position: relative;
+  bottom: 4.5rem;
+`;
+
 export const AddCommentContainer = styled.div`
   width: 640px;
   display: ${(props) => (props.isVisible === 'true' ? 'block' : 'none')};

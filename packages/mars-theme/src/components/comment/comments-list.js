@@ -7,7 +7,7 @@ import { Loader } from 'gfw-components';
 import Comment from './comment';
 import AddCommentForm from './add-comment-form';
 
-import { CommentsListContainer, CommentsListTitle, Divider } from './styles';
+import { CommentsListContainer, CommentsListTitle } from './styles';
 
 function CommentsList({ libraries, state }) {
   const data = state.source.get(state.router.link);
@@ -71,8 +71,6 @@ function CommentsList({ libraries, state }) {
           )}
         </div>
       )}
-
-      <Divider />
 
       {state.source[data.type][data.id].comment_status !== 'closed' ? (
         Form

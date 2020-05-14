@@ -13,6 +13,7 @@ import Item from './list/list-item';
 import CommentList from './comment/comments-list';
 
 import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
+import TwittTextTooltip from "./twitt-tooltip/twitt-tooltip";
 
 const PostInfo = ({ data, author, dateStr, styles }) => (
   <div css={styles}>
@@ -273,6 +274,8 @@ const Post = ({ state, actions, libraries }) => {
             `}
             />
           </Content>
+
+          <TwittTextTooltip />
         </div>
       </div>
       {relatedPosts && (
@@ -387,6 +390,7 @@ const InfoContainer = styled.div`
 `;
 
 const Container = styled.div`
+  user-select: none;
   margin: 0;
   padding: 0;
   padding-top: 3.125rem;
