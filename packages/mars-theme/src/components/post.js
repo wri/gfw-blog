@@ -7,7 +7,6 @@ import List from './list';
 import FeaturedMedia from './featured-media';
 import Breadcrumbs from './breadcrumbs';
 import Search from './search';
-import SearchExpanded from './search/expanded';
 import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 import NewsletterIcon from '../assets/icons/social/envelope.svg';
 import ChatIcon from '../assets/icons/social/comment.svg';
@@ -180,12 +179,13 @@ const Post = ({ state, actions, libraries }) => {
     <Container id="post-content">
       <div className="row">
         <div className="column small-12">
-          <BreadcrumbsContainer>
+          <BreadcrumbsContainer
+            className={state.theme.searchIsActive ? 'row-reverse' : ''}
+          >
             <Breadcrumbs />
             <Search mobile title="" />
             <Search />
           </BreadcrumbsContainer>
-          <SearchExpanded />
         </div>
       </div>
       {/* Look at the settings to see if we should include the featured image */}
@@ -355,7 +355,7 @@ const MediaDescriptionWrapper = styled.div`
   margin-bottom: 30px;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 `;
 
@@ -391,10 +391,10 @@ const Container = styled.div`
   padding: 0;
   width: 100%;
   overflow: hidden;
-  padding-top: 2.725rem;
+  padding-top: 1.525rem;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    padding-top: 60px;
+    padding-top: 40px;
   }
 `;
 
@@ -711,5 +711,10 @@ const BreadcrumbsContainer = styled.div`
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     justify-content: space-between;
+  }
+
+  align-items: baseline;
+  &.row-reverse {
+    flex-wrap: wrap-reverse;
   }
 `;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { styled, connect } from 'frontity';
 import { useDebounce } from 'use-debounce';
 import { KeyWordsList, InputWrapper, SearchIcon } from './components';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const StyledInput = styled.input`
   width: 100%;
@@ -13,6 +14,9 @@ const StyledInput = styled.input`
   font-size: 1.375rem;
   line-height: 1.25;
   padding: 1rem;
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
+    padding-left: 0;
+  }
 `;
 
 const Input = ({

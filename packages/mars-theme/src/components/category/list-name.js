@@ -10,9 +10,15 @@ const CategoryNameList = ({
   styles = '',
   itemStyles = '',
   title,
+  ...props
 }) => {
   const Wrapper = styled.p`
     ${styles}
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      &.hidden {
+        display: none;
+      }
+    }
   `;
   const linkCss = `
     color: #fff;
@@ -24,7 +30,7 @@ const CategoryNameList = ({
   `;
 
   return (
-    <Wrapper className="categories-list-wrapper">
+    <Wrapper className="categories-list-wrapper" {...props}>
       {title && <TitleWrapper>{title}</TitleWrapper>}
       {categories &&
         categories.map(({ name, link } = {}) => {

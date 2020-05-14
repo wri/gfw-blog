@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled, css } from 'frontity';
+import { connect, styled } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -12,7 +12,6 @@ import Breadcrumbs from '../breadcrumbs';
 import EntityInfo from '../entity-info';
 import Search from '../search';
 import SearchResults from '../search/results';
-import SearchExpanded from '../search/expanded';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
@@ -101,45 +100,46 @@ const List = ({ state }) => {
     }
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
-  const categoriesStyles = `margin-bottom: 20px;`;
+  const categoriesStyles = `
+  margin-bottom: 20px; 
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    &.hidden {
+      display: none;
+    }
+  }
+  `;
 
   return (
     <Wrapper>
       <div className="row">
         <div className="column small-12">
-          <BreadcrumbsContainer>
+          <BreadcrumbsContainer
+            className={state.theme.searchIsActive ? 'row-reverse' : ''}
+          >
             <Breadcrumbs />
             {!isBlogHomePage(link) && <Search mobile title="" />}
           </BreadcrumbsContainer>
-          {!isBlogHomePage(link) && <SearchExpanded />}
           {!isBlogHomePage(link) && (
-            <FlexContainer>
-              <EntityInfo />
+            <FlexContainer
+              className={state.theme.searchIsActive ? 'row-reverse' : ''}
+            >
+              {<EntityInfo />}
               {!data.searchQuery && <Search />}
             </FlexContainer>
           )}
 
           {isSearchLink(link) && <SearchResults />}
-          <HomeTopSection
-            className={state.theme.searchIsActive ? `reverse` : ``}
-          >
-            {isBlogHomePage(link) && (
-              <Search
-                mobile
-                title=""
-                css={css`
-                  margin-bottom: 1rem;
-                `}
-              />
-            )}
+          <HomeTopSection>
+            {isBlogHomePage(link) && <Search mobile title="" />}
             <div>
               {isBlogHomePage(link) && <BlogHeader />}
               {isBlogHomePage(link) && (
                 <>
                   <FlexContainer
-                    className={state.theme.searchIsActive ? `hidden` : ``}
+                    className={isBlogHomePage(link) ? 'base-line' : ''}
                   >
                     <CategoryNameList
+                      className={state.theme.searchIsActive ? 'hidden' : ''}
                       categories={categories}
                       title="Categories"
                       styles={categoriesStyles}
@@ -149,7 +149,6 @@ const List = ({ state }) => {
                 </>
               )}
             </div>
-            {isBlogHomePage(link) && <SearchExpanded />}
           </HomeTopSection>
         </div>
       </div>
@@ -263,13 +262,19 @@ const Plug = styled.i`
 `;
 
 const FlexContainer = styled.div`
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
     display: flex;
     width: 100%;
-    align-items: baseline;
+    align-items: flex-start;
     justify-content: space-between;
     &.hidden {
       display: none;
+    }
+    &.row-reverse {
+      flex-wrap: wrap-reverse;
+    }
+    &.base-line {
+      align-items: baseline;
     }
   }
 `;
@@ -289,6 +294,10 @@ const BreadcrumbsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
+  &.row-reverse {
+    flex-wrap: wrap-reverse;
+  }
 `;
 
 List.propTypes = {

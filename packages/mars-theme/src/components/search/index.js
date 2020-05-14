@@ -2,7 +2,8 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { SearchIcon } from './components';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import SearchExpanded from './expanded';
+import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const Search = ({
   libraries,
@@ -30,20 +31,20 @@ const Search = ({
   const baseCss = mobile
     ? `
   ${wrapCss}
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
     display:none;
   };
   width: 100%;
   justify-content: flex-end;
   `
     : `${wrapCss}
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+    @media screen and (max-width: ${SMALL_ENDPOINT}) {
       display:none;
     };
   `;
 
   if (state.theme.searchIsActive) {
-    return null;
+    return <SearchExpanded mobile={mobile} />;
   }
   return (
     <Wrapper
@@ -139,7 +140,8 @@ const ReadyTitle = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  height: 3.75rem;
 `;
 
 const SearchBox = styled.div`
