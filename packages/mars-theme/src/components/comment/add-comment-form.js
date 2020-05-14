@@ -27,7 +27,7 @@ const COMMENTS_URI = '/wp/v2/comments';
 const GFW_PRIVACY_POLICY_PAGE =
   'https://www.globalforestwatch.org/privacy-policy';
 
-function insertComment(postId, name, content) {
+function insertComment(postId, name, content, nested) {
   const now = moment();
   const _date = moment(now).add(17, 'hours');
 
@@ -37,11 +37,12 @@ function insertComment(postId, name, content) {
       author={name}
       content={content}
       date={_date}
+      nested={nested}
     />
   );
 }
 
-function AddCommentForm(postId, isVisible) {
+function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -62,10 +63,11 @@ function AddCommentForm(postId, isVisible) {
       setResponseMessage('You must agree to the Privacy Policy!');
     } else {
       const body = {
-        content,
         post: postId,
         author_name: name,
         author_email: email,
+        content,
+        parent: forNestedComment ? commentId : null
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -91,7 +93,7 @@ function AddCommentForm(postId, isVisible) {
       <Divider isCommentInserted={isSuccess} />
 
       <AddCommentFormNewCommentWrapper success={isSuccess}>
-        {insertComment(postId, name, content)}
+        {insertComment(postId, name, content, forNestedComment ? false : true)}
       </AddCommentFormNewCommentWrapper>
 
       <AddCommentContainer isVisible={isVisible}>

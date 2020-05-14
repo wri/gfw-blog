@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import AddCommentForm from './add-comment-form';
+
 import {
   CommentContainer,
   CommentAuthor,
@@ -12,7 +13,7 @@ import {
 
 import commentsDateFormat from '../heplers/date';
 
-function Comment({ author, postId, date, content }) {
+function Comment({ author, postId, date, content, nested }) {
   const [visible, setVisible] = useState('false');
 
   const Form = AddCommentForm(postId, visible);
