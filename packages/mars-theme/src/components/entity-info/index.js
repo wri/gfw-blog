@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect, styled, decode } from 'frontity';
+import { connect, styled, decode, css } from 'frontity';
 import PropTypes from 'prop-types';
 import EntityDescription from './description';
 import CategoryList from './category-list';
@@ -21,31 +21,40 @@ const EntityInfo = ({ state }) => {
   }
 
   return (
-    <Wrapper>
-      <DropDownWrapper
-        onClick={toggleHandler}
-        className="drop-down-select-wrapper"
-      >
-        {data.isAuthor && (
-          <Title>{decode(state.source.author[data.id].name)}</Title>
-        )}
-        {data.isTag && <Title>{decode(state.source.tag[data.id].name)}</Title>}
-        {data.isCategory && (
-          <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
-        )}
-        <TogglerBox>{isOpen ? <ArrowUp /> : <ArrowDown />}</TogglerBox>
-      </DropDownWrapper>
-      <ListWrapper>
-        {isOpen && (
-          <List>
-            {data.isAuthor && <AuthorList handler={toggleHandler} />}
-            {data.isCategory && <CategoryList handler={toggleHandler} />}
-            {data.isTag && <TagList handler={toggleHandler} />}
-          </List>
-        )}
-      </ListWrapper>
-      <EntityDescription />
-    </Wrapper>
+    <div
+      className="row"
+      css={css`
+        margin-bottom: 30px;
+      `}
+    >
+      <div className="column small-12 medium-7">
+        <DropDownWrapper
+          onClick={toggleHandler}
+          className="drop-down-select-wrapper"
+        >
+          {data.isAuthor && (
+            <Title>{decode(state.source.author[data.id].name)}</Title>
+          )}
+          {data.isTag && (
+            <Title>{decode(state.source.tag[data.id].name)}</Title>
+          )}
+          {data.isCategory && (
+            <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
+          )}
+          <TogglerBox>{isOpen ? <ArrowUp /> : <ArrowDown />}</TogglerBox>
+        </DropDownWrapper>
+        <ListWrapper>
+          {isOpen && (
+            <List>
+              {data.isAuthor && <AuthorList handler={toggleHandler} />}
+              {data.isCategory && <CategoryList handler={toggleHandler} />}
+              {data.isTag && <TagList handler={toggleHandler} />}
+            </List>
+          )}
+        </ListWrapper>
+        <EntityDescription />
+      </div>
+    </div>
   );
 };
 
@@ -79,15 +88,6 @@ const DropDownWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-`;
-
-const Wrapper = styled.div`
-  margin-top: 1.1875rem;
-  margin-bottom: 1.1875rem;
-  width: 100%;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    width: 635px;
-  }
 `;
 
 const ListWrapper = styled.div`
