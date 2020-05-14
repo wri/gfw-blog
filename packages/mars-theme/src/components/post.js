@@ -282,8 +282,13 @@ const Post = ({ state, actions, libraries }) => {
                 margin-top: 0;
                 background-color: #E5E5DF;
                 color: #333 !important;
+                font-size: 0.75rem !important;
+                :hover {
+                  background-color: #777;
+                  color: #fff !important;
+                }
                 a {
-                  font-size: 0.75rem;
+                  font-size: 0.75rem !important;
                   color: #333 !important;
                   font-weight: normal;
                 }
