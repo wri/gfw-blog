@@ -41,9 +41,9 @@ SearchResults.propTypes = {
 
 const ResultsTite = styled.div`
   width: 100%;
-  margin-top: 4.5rem;
   font-size: 0.875rem;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    margin: 3rem 1rem 0;
+  margin: 3rem 0 1.25rem;
+  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+    margin-top: 4.5rem;
   }
 `;

@@ -128,7 +128,7 @@ const List = ({ state }) => {
                 mobile
                 title=""
                 css={css`
-                  margin-top: 1rem;
+                  margin-bottom: 1rem;
                 `}
               />
             )}
