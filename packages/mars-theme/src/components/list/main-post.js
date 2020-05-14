@@ -97,13 +97,15 @@ const MainPost = ({ post, state }) => {
           z-index: 1;
         `}
       />
-      <ContentWrapper>
-        <CategoryNameList categories={categories} styles={CategoriesStyles} />
-        <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-        <PostExcerpt styles={ExcerptStyles} noHellip>
-          {item.excerpt.rendered}
-        </PostExcerpt>
-      </ContentWrapper>
+      <Overlay>
+        <ContentWrapper>
+          <CategoryNameList categories={categories} styles={CategoriesStyles} />
+          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+          <PostExcerpt styles={ExcerptStyles} noHellip>
+            {item.excerpt.rendered}
+          </PostExcerpt>
+        </ContentWrapper>
+      </Overlay>
     </Wrapper>
   );
 };
@@ -114,3 +116,16 @@ MainPost.propTypes = {
   post: PropTypes.object,
   state: PropTypes.object,
 };
+
+const Overlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+`;
