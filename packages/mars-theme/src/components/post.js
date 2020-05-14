@@ -626,7 +626,7 @@ const Content = styled.div`
   }
 
   p {
-    line-height: 1.6em;
+    line-height: 1.75;
   }
 
   figcaption {
@@ -636,7 +636,6 @@ const Content = styled.div`
   }
 
   a {
-    font-size: 1.25rem;
     color: #97bd3d;
     text-decoration: none;
     font-weight: 600;
@@ -646,6 +645,11 @@ const Content = styled.div`
     font-size: 1.25rem;
     line-height: 1.8;
     font-weight: 800;
+    padding-top: 1.25rem;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      padding-top: 2.25rem;
+    }
   }
 
   /* Input fields styles */

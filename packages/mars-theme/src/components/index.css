@@ -23,6 +23,10 @@ a {
     color: var(--color-darkest-grey);
 }
 
+a:hover {
+    color: #658022
+}
+
 a.post-link {
     height: 100%;
     width: 100%;
