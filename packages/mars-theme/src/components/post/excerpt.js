@@ -8,6 +8,12 @@ const Excerpt = ({ children, styles = '', noHellip = false }) => {
     font-size: 14px;
     line-height: 1.75;
     color: rgba(12, 17, 43, 0.8);
+    overflow: hidden;
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
     ${styles}
   `;
   const content = noHellip
