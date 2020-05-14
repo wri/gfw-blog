@@ -11,7 +11,7 @@ import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
 
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from './heplers/css-endpoints';
+import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
 const PostInfo = ({ data, author, dateStr, styles }) => (
   <div css={styles}>
@@ -189,11 +189,12 @@ const Post = ({ state, actions, libraries }) => {
         <FeaturedMedia
           id={post.featured_media}
           styles={`
-          max-width: 1080px;
           margin: 0 auto;
           height: 240px;
-          @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-            height: 500px
+          @media screen and (min-width: ${SMALL_ENDPOINT}) {
+            height: 500px;
+            padding: 0 20px;
+            max-width: 1120px;
           }
       `}
         />
