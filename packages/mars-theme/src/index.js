@@ -22,6 +22,10 @@ const marsTheme = {
         showOnList: false,
         showOnPost: true,
       },
+      searchIsActive: false,
+      searchQuery: '',
+      tags: [],
+      categories: [],
     },
     googleAnalytics: {
       trackingId: process.env.GOOGLE_ANALYTICS,
@@ -35,6 +39,12 @@ const marsTheme = {
     theme: {
       toggleContactUsModal: ({ state }) => {
         state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
+      },
+      toggleSearch: ({ state }) => {
+        state.theme.searchIsActive = !state.theme.searchIsActive;
+      },
+      setSearchQuery: ({ state }) => (value) => {
+        state.theme.searchQuery = value;
       },
     },
   },

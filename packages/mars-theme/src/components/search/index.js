@@ -1,12 +1,12 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { SearchIcon } from './components';
-import TopEntitiesContext from '../heplers/context';
 import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const Search = ({
   libraries,
+  actions,
   state,
   title = 'Search th GFW blog',
   ready,
@@ -15,11 +15,9 @@ const Search = ({
   ...props
 }) => {
   const ref = useRef();
-  const context = useContext(TopEntitiesContext);
 
   const handler = () => {
-    context.search.setElementRects(ref.current.getClientRects()[0]);
-    context.search.toggleSearch();
+    actions.theme.toggleSearch();
   };
 
   const parentHandler = () => {
@@ -44,7 +42,7 @@ const Search = ({
     };
   `;
 
-  if (context.search.active) {
+  if (state.theme.searchIsActive) {
     return null;
   }
   return (
@@ -81,6 +79,7 @@ export default connect(Search);
 Search.propTypes = {
   libraries: PropTypes.object,
   state: PropTypes.object,
+  actions: PropTypes.object,
   title: PropTypes.string,
   ready: PropTypes.bool,
   fullWidth: PropTypes.bool,

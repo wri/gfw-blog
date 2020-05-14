@@ -7,6 +7,7 @@ import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 export const SearchInputWrapper = (props) => {
   const Element = styled.div`
+    position: relative;
     max-width: 1110px;
     width: 100%;
     z-index: 25;
@@ -57,7 +58,7 @@ OverlayWrapper.propTypes = {
 };
 
 export const KeyWordsList = connect(
-  ({ libraries, keywords, search, query }) => {
+  ({ libraries, keywords, search, query, input }) => {
     const clickHandler = (e, str) => {
       e.stopPropagation();
       search(str);
@@ -80,6 +81,11 @@ export const KeyWordsList = connect(
             </KeyWordsItem>
           );
         })}
+        {input && (
+          <KeyWordsItem>
+            <b>{input}</b>
+          </KeyWordsItem>
+        )}
       </KeyWordsListWrapper>
     );
   }
@@ -92,6 +98,8 @@ KeyWordsList.propTypes = {
 };
 
 const KeyWordsListWrapper = styled.ul`
+  position: abolute;
+  top: 100%;
   background-color: #fff;
   border: 1px solid #aaa;
   padding: 1.75rem 2.5rem;
@@ -121,8 +129,8 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const SearchIcon = () => (
+export const SearchIcon = React.memo(() => (
   <IconWrapper>
     <Image src={path} />
   </IconWrapper>
-);
+));

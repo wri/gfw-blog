@@ -1,5 +1,5 @@
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import Item from './list-item';
@@ -13,7 +13,6 @@ import EntityInfo from '../entity-info';
 import Search from '../search';
 import SearchResults from '../search/results';
 import SearchExpanded from '../search/expanded';
-import TopEntitiesContext from '../heplers/context';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
@@ -25,7 +24,6 @@ const POSTS_PER_PAGE = 9;
 
 const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
-  const context = useContext(TopEntitiesContext);
   const { link } = state.router;
 
   const data = state.source.get(state.router.link);
@@ -116,7 +114,7 @@ const List = ({ state }) => {
         )}
 
         {isSearchLink(link) && <SearchResults />}
-        <HomeTopSection className={context.search.active ? `reverse` : ``}>
+        <HomeTopSection className={state.theme.searchIsActive ? `reverse` : ``}>
           {isBlogHomePage(link) && (
             <Search
               mobile
@@ -131,7 +129,7 @@ const List = ({ state }) => {
             {isBlogHomePage(link) && (
               <>
                 <FlexContainer
-                  className={context.search.active ? `hidden` : ``}
+                  className={state.theme.searchIsActive ? `hidden` : ``}
                 >
                   <CategoryNameList
                     categories={categories}

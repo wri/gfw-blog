@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect, styled } from 'frontity';
-import TopEntitiesContext from '../heplers/context';
 import { OverlayWrapper } from './components';
 
-const SearchOverlayContainer = () => {
-  const context = useContext(TopEntitiesContext);
+const SearchOverlayContainer = ({ state, actions }) => {
   const handler = () => {
-    context.search.toggleSearch();
+    actions.theme.toggleSearch();
   };
 
-  if (!context.search.active) {
+  if (!state.theme.searchIsActive) {
     return null;
   }
   return (
@@ -20,6 +19,11 @@ const SearchOverlayContainer = () => {
 };
 
 export default connect(SearchOverlayContainer);
+
+SearchOverlayContainer.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object,
+};
 
 const Wrapper = styled.div`
   margin: 0;
