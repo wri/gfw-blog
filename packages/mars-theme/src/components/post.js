@@ -385,9 +385,13 @@ const InfoContainer = styled.div`
 const Container = styled.div`
   margin: 0;
   padding: 0;
-  padding-top: 3.125rem;
   width: 100%;
   overflow: hidden;
+  padding-top: 2.725rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    padding-top: 60px;
+  }
 `;
 
 const Title = styled.h1`
