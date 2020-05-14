@@ -36,7 +36,7 @@ const List = ({ state }) => {
   const { items: allCategories } = state.source.data['all-categories/'];
   const categories = allCategories
     .filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    .map((c) => ({ name: c.name, link: `/category/${c.slug}` }));
+    .map((c) => ({ name: c.name, link: `/${c.slug}` }));
   const data = state.source.get(state.router.link);
   const initialPosts = [...data.items];
   const mainPosts = isBlogHomePage() ? initialPosts.splice(0, 1) : [];
