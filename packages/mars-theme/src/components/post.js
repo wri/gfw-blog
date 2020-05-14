@@ -581,6 +581,12 @@ const Content = styled.div`
         right: -150px;
       }
     }
+
+    .slick-slide {
+      &:not(.slick-active) {
+        cursor: pointer;
+      }
+    }
   }
 
   p {
