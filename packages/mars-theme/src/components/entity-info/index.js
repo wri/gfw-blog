@@ -95,6 +95,7 @@ const ListWrapper = styled.div`
   width: 100%;
   margin-top: -1px;
   position: relative;
+  z-index: 3;
 `;
 
 const ArrowUp = styled.div`
