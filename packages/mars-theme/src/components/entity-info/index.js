@@ -114,7 +114,7 @@ const List = styled.div`
   z-index: 1;
   background: #fff;
   min-height: 23.75rem;
-  max-height: 43rem;
+  max-height: 360px;
   overflow-y: auto;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding: 1.75rem 2.5rem;
