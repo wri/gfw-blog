@@ -4,6 +4,7 @@ import { connect, styled, decode } from 'frontity';
 import Link from '../link';
 import Item from './item';
 import Divider from './divider';
+import { isSearchLink } from '../heplers/content';
 import CategoryItem from './category-item';
 
 const Breadcrumbs = ({ state }) => {
@@ -17,6 +18,12 @@ const Breadcrumbs = ({ state }) => {
       <Item clickable>
         <Link link="/">Blog Home</Link>
       </Item>
+      {isSearchLink(state.router.link) && (
+        <>
+          <Divider />
+          <Item>Search results</Item>
+        </>
+      )}
       {data.isAuthor && (
         <>
           <Divider />

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { connect, styled, decode, css } from 'frontity';
+import { connect, styled, decode } from 'frontity';
 import PropTypes from 'prop-types';
 import EntityDescription from './description';
 import CategoryList from './category-list';
 import AuthorList from './authors-list';
 import TagList from './tags-list';
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 import ChevronDown from '../../assets/icons/chevron-down.svg';
 import ChevronUp from '../../assets/icons/chevron-up.svg';
 
@@ -23,46 +23,37 @@ const EntityInfo = ({ state }) => {
   }
 
   return (
-    <div
-      className="row"
-      css={css`
-        margin-bottom: 30px;
-      `}
-    >
-      <div className="column small-12 medium-7">
-        <DropDownWrapper
-          onClick={toggleHandler}
-          className="drop-down-select-wrapper"
-        >
-          {data.isAuthor && (
-            <Title>{decode(state.source.author[data.id].name)}</Title>
+    <>
+      <DropDownWrapper
+        onClick={toggleHandler}
+        className="drop-down-select-wrapper"
+      >
+        {data.isAuthor && (
+          <Title>{decode(state.source.author[data.id].name)}</Title>
+        )}
+        {data.isTag && <Title>{decode(state.source.tag[data.id].name)}</Title>}
+        {data.isCategory && (
+          <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
+        )}
+        <TogglerBox>
+          {isOpen ? (
+            <img src={ChevronUp} alt="" />
+          ) : (
+            <img src={ChevronDown} alt="" />
           )}
-          {data.isTag && (
-            <Title>{decode(state.source.tag[data.id].name)}</Title>
-          )}
-          {data.isCategory && (
-            <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
-          )}
-          <TogglerBox>
-            {isOpen ? (
-              <img src={ChevronUp} alt="" />
-            ) : (
-              <img src={ChevronDown} alt="" />
-            )}
-          </TogglerBox>
-        </DropDownWrapper>
-        <ListWrapper>
-          {isOpen && (
-            <List>
-              {data.isAuthor && <AuthorList handler={toggleHandler} />}
-              {data.isCategory && <CategoryList handler={toggleHandler} />}
-              {data.isTag && <TagList handler={toggleHandler} />}
-            </List>
-          )}
-        </ListWrapper>
-        <EntityDescription />
-      </div>
-    </div>
+        </TogglerBox>
+      </DropDownWrapper>
+      <ListWrapper>
+        {isOpen && (
+          <List>
+            {data.isAuthor && <AuthorList handler={toggleHandler} />}
+            {data.isCategory && <CategoryList handler={toggleHandler} />}
+            {data.isTag && <TagList handler={toggleHandler} />}
+          </List>
+        )}
+      </ListWrapper>
+      <EntityDescription />
+    </>
   );
 };
 
@@ -84,7 +75,7 @@ const Title = styled.div`
   line-height: 3.75rem;
   font-weight: 200;
   color: #333;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
     font-size: 1.875rem;
     line-height: 1.25;
   }
