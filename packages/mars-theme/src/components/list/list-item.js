@@ -33,6 +33,15 @@ const Item = ({
     position: relative;
     margin-bottom: 30px;
     width: 100%;
+    .feautured-media {
+      transition: all 0.2s ease-in-out;
+      position: relative;
+      cursor: pointer;
+      z-index: 2;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
     ${styles}
   `;
 
@@ -50,9 +59,13 @@ const Item = ({
        */}
       <Link link={item.link} className="post-link" />
       <div className="feautured-media">
-        {state.theme.featured.showOnList && media && media(item.featured_media)}
+        {state.theme.featured.showOnList && media && (
+          <Link link={item.link}>{media(item.featured_media)}</Link>
+        )}
         {state.theme.featured.showOnList && !media && (
-          <FeaturedMedia key={item.featured_media} id={item.featured_media} />
+          <Link link={item.link}>
+            <FeaturedMedia key={item.featured_media} id={item.featured_media} />
+          </Link>
         )}
       </div>
       {/* Show categories of the post */}
