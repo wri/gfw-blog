@@ -99,6 +99,6 @@ const Main = styled.div`
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  z-index: 9;
+  z-index: 100;
   width: 100%;
 `;
