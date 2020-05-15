@@ -6,12 +6,12 @@ import Link from './link';
 import List from './list';
 import FeaturedMedia from './featured-media';
 import Breadcrumbs from './breadcrumbs';
+import Search from './search';
+import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 import NewsletterIcon from '../assets/icons/social/envelope.svg';
 import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
-
-import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
 const TWITT_SHARE_URL = 'https://twitter.com/share';
@@ -200,11 +200,24 @@ const Post = ({ state, actions, libraries }) => {
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container id="post-content">
-      <div className="row">
-        <div className="column small-12">
-          <BreadCrumbsWrapper>
+      <div
+        className="row"
+        css={css`
+          margin-bottom: 20px;
+        `}
+      >
+        <div className="column small-10">
+          <div
+            css={css`
+              margin-top: 20px;
+            `}
+          >
             <Breadcrumbs />
-          </BreadCrumbsWrapper>
+          </div>
+        </div>
+        <div className="column small-2">
+          <Search mobile title="" />
+          <Search />
         </div>
       </div>
       {/* Look at the settings to see if we should include the featured image */}
@@ -396,7 +409,7 @@ const MediaDescriptionWrapper = styled.div`
   margin-bottom: 30px;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 `;
 
@@ -436,10 +449,10 @@ const Container = styled.div`
   padding: 0;
   width: 100%;
   overflow: hidden;
-  padding-top: 2.725rem;
+  padding-top: 1.525rem;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    padding-top: 60px;
+    padding-top: 40px;
   }
 `;
 
@@ -455,12 +468,6 @@ const Title = styled.h1`
     font-size: 3rem;
     line-height: 3.75rem;
   }
-`;
-
-const BreadCrumbsWrapper = styled.div`
-  max-width: 1110px;
-  margin: 0 auto;
-  margin-bottom: 1.875rem;
 `;
 
 const Divider = styled.div`
@@ -770,3 +777,9 @@ const Content = styled.div`
     }
   }
 `;
+
+Post.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object,
+  libraries: PropTypes.object,
+};

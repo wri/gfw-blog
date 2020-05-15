@@ -13,6 +13,7 @@ import Loading from './loading';
 import Title from './title';
 import PageError from './page-error';
 import { EntitiesProvider } from './heplers/context';
+import SearchOverlayContainer from './search/overlay-container';
 import mainGlobalCss from './index.css';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
@@ -50,27 +51,27 @@ const Theme = ({ state, actions }) => {
       <Global styles={css(mainGlobalCss)} />
 
       {/* Add the header of the site. */}
-      <HeaderWrapper>
-        <Header
-          pathname="https://blog.globalforestwatch.org"
-          openContactUsModal={actions.theme.toggleContactUsModal}
-        />
-      </HeaderWrapper>
+      <EntitiesProvider>
+        <SearchOverlayContainer />
+        <HeaderWrapper>
+          <Header
+            relative
+            pathname="https://blog.globalforestwatch.org"
+            openContactUsModal={actions.theme.toggleContactUsModal}
+          />
+        </HeaderWrapper>
 
-      {/* Add the main section. It renders a different component depending
-      on the type of URL we are in. */}
-      <Main>
-        <EntitiesProvider>
+        {/* Add the main section. It renders a different component depending on the type of URL we are in. */}
+        <Main>
           <Switch>
             <Loading when={data.isFetching} />
             <List when={data.isArchive} />
             <Post when={data.isPostType} />
             <PageError when={data.isError} />
           </Switch>
-        </EntitiesProvider>
-      </Main>
-
-      <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
+        </Main>
+        <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
+      </EntitiesProvider>
       <ContactUsModal
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
@@ -98,6 +99,6 @@ const Main = styled.div`
 
 const HeaderWrapper = styled.div`
   position: fixed;
-  z-index: 9;
+  z-index: 100;
   width: 100%;
 `;

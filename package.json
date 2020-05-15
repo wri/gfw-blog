@@ -37,7 +37,8 @@
     "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "use-debounce": "^3.4.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
