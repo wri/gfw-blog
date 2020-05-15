@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { connect, styled, decode, css } from 'frontity';
+import { connect, styled, decode } from 'frontity';
 import PropTypes from 'prop-types';
 import EntityDescription from './description';
 import CategoryList from './category-list';
 import AuthorList from './authors-list';
 import TagList from './tags-list';
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import ChevronDown from '../../assets/icons/chevron-down.svg';
+import ChevronUp from '../../assets/icons/chevron-up.svg';
 
 const EntityInfo = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -21,40 +23,37 @@ const EntityInfo = ({ state }) => {
   }
 
   return (
-    <div
-      className="row"
-      css={css`
-        margin-bottom: 30px;
-      `}
-    >
-      <div className="column small-12 medium-7">
-        <DropDownWrapper
-          onClick={toggleHandler}
-          className="drop-down-select-wrapper"
-        >
-          {data.isAuthor && (
-            <Title>{decode(state.source.author[data.id].name)}</Title>
+    <>
+      <DropDownWrapper
+        onClick={toggleHandler}
+        className="drop-down-select-wrapper"
+      >
+        {data.isAuthor && (
+          <Title>{decode(state.source.author[data.id].name)}</Title>
+        )}
+        {data.isTag && <Title>{decode(state.source.tag[data.id].name)}</Title>}
+        {data.isCategory && (
+          <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
+        )}
+        <TogglerBox>
+          {isOpen ? (
+            <img src={ChevronUp} alt="" />
+          ) : (
+            <img src={ChevronDown} alt="" />
           )}
-          {data.isTag && (
-            <Title>{decode(state.source.tag[data.id].name)}</Title>
-          )}
-          {data.isCategory && (
-            <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
-          )}
-          <TogglerBox>{isOpen ? <ArrowUp /> : <ArrowDown />}</TogglerBox>
-        </DropDownWrapper>
-        <ListWrapper>
-          {isOpen && (
-            <List>
-              {data.isAuthor && <AuthorList handler={toggleHandler} />}
-              {data.isCategory && <CategoryList handler={toggleHandler} />}
-              {data.isTag && <TagList handler={toggleHandler} />}
-            </List>
-          )}
-        </ListWrapper>
-        <EntityDescription />
-      </div>
-    </div>
+        </TogglerBox>
+      </DropDownWrapper>
+      <ListWrapper>
+        {isOpen && (
+          <List>
+            {data.isAuthor && <AuthorList handler={toggleHandler} />}
+            {data.isCategory && <CategoryList handler={toggleHandler} />}
+            {data.isTag && <TagList handler={toggleHandler} />}
+          </List>
+        )}
+      </ListWrapper>
+      <EntityDescription />
+    </>
   );
 };
 
@@ -76,7 +75,7 @@ const Title = styled.div`
   line-height: 3.75rem;
   font-weight: 200;
   color: #333;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+  @media screen and (max-width: ${SMALL_ENDPOINT}) {
     font-size: 1.875rem;
     line-height: 1.25;
   }
@@ -95,68 +94,7 @@ const ListWrapper = styled.div`
   width: 100%;
   margin-top: -1px;
   position: relative;
-`;
-
-const ArrowUp = styled.div`
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  position: relative;
-  :after,
-  :before {
-    bottom: 0%;
-    left: 100%;
-    border: solid transparent;
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-
-  :after {
-    border-color: rgba(241, 241, 241, 0);
-    border-bottom-color: #fff;
-    border-width: 5px;
-    margin-left: -12px;
-  }
-  :before {
-    border-color: rgba(221, 221, 221, 0);
-    border-bottom-color: var(--color-darkest-grey);
-    border-width: 7px;
-    margin-left: -14px;
-  }
-`;
-
-const ArrowDown = styled.div`
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  position: relative;
-  :after,
-  :before {
-    top: 50%;
-    left: 100%;
-    border: solid transparent;
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-
-  :after {
-    border-color: rgba(241, 241, 241, 0);
-    border-top-color: #fff;
-    border-width: 5px;
-    margin-left: -12px;
-  }
-  :before {
-    border-color: rgba(221, 221, 221, 0);
-    border-top-color: var(--color-darkest-grey);
-    border-width: 7px;
-    margin-left: -14px;
-  }
+  z-index: 3;
 `;
 
 const List = styled.div`
@@ -167,7 +105,7 @@ const List = styled.div`
   z-index: 1;
   background: #fff;
   min-height: 23.75rem;
-  max-height: 43rem;
+  max-height: 360px;
   overflow-y: auto;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding: 1.75rem 2.5rem;

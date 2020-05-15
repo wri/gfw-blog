@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled } from 'frontity';
+import { connect, styled, css } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -10,11 +10,14 @@ import BlogHeader from '../blog-header';
 import CategoryNameList from '../category/list-name';
 import Breadcrumbs from '../breadcrumbs';
 import EntityInfo from '../entity-info';
+import Search from '../search';
+import SearchResults from '../search/results';
 import {
   SMALL_ENDPOINT,
   MEDIUM_ENDPOINT,
   LARGE_ENDPOINT,
 } from '../heplers/css-endpoints';
+import { isSearchLink, isBlogHomePage } from '../heplers/content';
 
 const POSTS_PER_PAGE = 9;
 const MAIN_CATEGORIES = [
@@ -29,9 +32,6 @@ const MAIN_CATEGORIES = [
 const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
-  const isBlogHomePage = () => {
-    return link === '/';
-  };
 
   const { items: allCategories } = state.source.data['all-categories/'];
   const categories = allCategories
@@ -39,8 +39,8 @@ const List = ({ state }) => {
     .map((c) => ({ name: c.name, link: `/category/${c.slug}` }));
   const data = state.source.get(state.router.link);
   const initialPosts = [...data.items];
-  const mainPosts = isBlogHomePage() ? initialPosts.splice(0, 1) : [];
-  const subPosts = isBlogHomePage() ? initialPosts.splice(0, 2) : [];
+  const mainPosts = isBlogHomePage(link) ? initialPosts.splice(0, 1) : [];
+  const subPosts = isBlogHomePage(link) ? initialPosts.splice(0, 2) : [];
   const [posts, setPosts] = useState({
     [state.router.link]: initialPosts.map(({ id, type }) => ({ id, type })),
   });
@@ -52,7 +52,11 @@ const List = ({ state }) => {
     let lastLoadedPage = 1;
     const loadedPosts = [];
     while (fetchingAllData) {
-      const pageData = state.source.get(`${link}page/${lastLoadedPage + 1}`);
+      const getLink =
+        link[1] === '?'
+          ? `page/${lastLoadedPage + 1}${link}`
+          : `${link}page/${lastLoadedPage + 1}`;
+      const pageData = state.source.get(getLink);
       if (pageData && pageData.items) {
         lastLoadedPage++;
         loadedPosts.push(...pageData.items);
@@ -74,7 +78,11 @@ const List = ({ state }) => {
       if (pagesNumber < page) {
         for (let i = page - 1; i < page; i++) {
           const nextPage = i + 1;
-          const nextData = state.source.get(`${link}page/${nextPage}`);
+          const getLink =
+            link[1] === '?'
+              ? `page/${nextPage}${link}`
+              : `${link}page/${nextPage}`;
+          const nextData = state.source.get(getLink);
           const accPosts = posts[state.router.link].concat([]);
           if (nextData && nextData.items) {
             accPosts.push(
@@ -92,22 +100,69 @@ const List = ({ state }) => {
     }
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
-  const categoriesStyles = `margin-bottom: 20px;`;
+  const categoriesStyles = `
+    margin-top: 1.25rem;
+  `;
 
   return (
     <Wrapper>
       <div className="row">
+        {!isBlogHomePage(link) && (
+          <>
+            <div
+              className="column small-12"
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <BreadcrumbsContainer>
+                <Breadcrumbs />
+                <Search mobile title="" />
+              </BreadcrumbsContainer>
+            </div>
+            <div className="column small-12 medium-7">
+              <EntityInfo />
+            </div>
+            <div className="column small-12 medium-5">
+              {!data.searchQuery && <Search />}
+            </div>
+          </>
+        )}
+      </div>
+      <div
+        className="row"
+        css={css`
+          margin-bottom: 20px;
+          position: relative;
+        `}
+      >
+        {isBlogHomePage(link) && (
+          <>
+            <div
+              className="column small-12 medium-10 large-8"
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <Search mobile title="" />
+            </div>
+            <div className="column small-12 medium-10 large-8">
+              <BlogHeader />
+            </div>
+            <div className="column small-12 medium-9">
+              <CategoryNameList
+                categories={categories}
+                title="Categories"
+                styles={categoriesStyles}
+              />
+            </div>
+            <div className="column small-12 medium-3">
+              <Search />
+            </div>
+          </>
+        )}
         <div className="column small-12">
-          <Breadcrumbs />
-          <EntityInfo />
-          {isBlogHomePage() && <BlogHeader />}
-          {isBlogHomePage() && (
-            <CategoryNameList
-              categories={categories}
-              title="Categories"
-              styles={categoriesStyles}
-            />
-          )}
+          {isSearchLink(link) && <SearchResults />}
         </div>
       </div>
       <MainPostWrapper>
@@ -162,6 +217,7 @@ const List = ({ state }) => {
           setIsFetching={setIsFetching}
           setPage={setPage}
           page={page}
+          limit={totalPages}
         />
       )}
     </Wrapper>
@@ -172,7 +228,7 @@ export default connect(List);
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 2.725rem;
+  padding-top: 1.725rem;
   padding-bottom: 3.75rem;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
@@ -216,6 +272,14 @@ const Plug = styled.i`
   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
     width: 100%;
   }
+`;
+
+const BreadcrumbsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  height: 3.75rem;
 `;
 
 List.propTypes = {

@@ -23,6 +23,10 @@ a {
     color: var(--color-darkest-grey);
 }
 
+a:hover {
+    color: #658022
+}
+
 a.post-link {
     height: 100%;
     width: 100%;
@@ -44,10 +48,11 @@ a.post-title-link {
 }
 
 a:hover, .a:hover a.post-title-link,
-article>.post-link:hover+.feautured-media+.categories-list-wrapper+h1
+article>.post-link:hover+.feautured-media+.categories-list-wrapper+h1,
+.feautured-media:hover+.categories-list-wrapper+h1
   {
     text-decoration: underline;
-    color: var(--color-primary);
+    color: #658022;
 }
 
 .categories-list-wrapper a, .categories-list-wrapper a:hover {
