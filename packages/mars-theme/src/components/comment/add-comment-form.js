@@ -42,7 +42,7 @@ function insertComment(postId, name, content, parent) {
   );
 }
 
-function AddCommentForm(postId, isVisible, parent, forNestedComment) {
+function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -67,7 +67,7 @@ function AddCommentForm(postId, isVisible, parent, forNestedComment) {
         author_name: name,
         author_email: email,
         content,
-        parent: forNestedComment ? parent : null
+        parent: forNestedComment ? commentId : null
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -89,7 +89,7 @@ function AddCommentForm(postId, isVisible, parent, forNestedComment) {
       <Divider isCommentInserted={isSuccess} />
 
       <AddCommentFormNewCommentWrapper success={isSuccess}>
-        {insertComment(postId, name, content, parent)}
+        {insertComment(postId, name, content, commentId)}
       </AddCommentFormNewCommentWrapper>
 
       <AddCommentContainer id="add-comment-container" isVisible={isVisible}>

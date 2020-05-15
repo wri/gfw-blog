@@ -65,6 +65,7 @@ function CommentsList({ libraries, state }) {
                     content={item.content.rendered}
                     date={item.date}
                     parent={item.parent}
+                    commentId={item.id}
                   />
                 );
               })}

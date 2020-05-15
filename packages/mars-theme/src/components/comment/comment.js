@@ -13,10 +13,10 @@ import {
 
 import commentsDateFormat from '../heplers/date';
 
-function Comment({ author, postId, date, content, parent }) {
+function Comment({ author, postId, date, content, commentId }) {
   const [visible, setVisible] = useState('false');
 
-  const Form = AddCommentForm(postId, visible, parent, true);
+  const Form = AddCommentForm(postId, visible, commentId, true);
 
   const reply = () => {
     setVisible(visible === 'false' ? 'true' : 'false');
@@ -51,7 +51,7 @@ Comment.propTypes = {
   date: PropTypes.string,
   content: PropTypes.string,
   postId: PropTypes.number,
-  parent: PropTypes.number
+  commentId: PropTypes.number
 };
 
 export default Comment;
