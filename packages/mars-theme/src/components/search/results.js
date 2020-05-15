@@ -41,6 +41,7 @@ SearchResults.propTypes = {
 
 const ResultsTite = styled.div`
   width: 100%;
+  color: #777;
   font-size: 0.875rem;
   margin: 3rem 0 1.25rem;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
