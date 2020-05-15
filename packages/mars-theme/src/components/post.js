@@ -521,6 +521,20 @@ const Content = styled.div`
   p {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+
+    font-size: 18px;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 20px;
+    }
+  }
+
+  a {
+    font-size: 18px;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 20px;
+    }
   }
 
   .button-light {
