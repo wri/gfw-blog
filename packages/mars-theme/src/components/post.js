@@ -15,88 +15,111 @@ import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
 
 import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
-const PostInfo = ({ data, author, dateStr, styles }) => (
-  <div css={styles}>
-    {data.isPost && (
-      <InfoContainer>
-        {author && (
+const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
+const TWITT_SHARE_URL = 'https://twitter.com/share';
+
+const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
+  const scrollTocomment = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('comments-section-id'); // id will change in future
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  return (
+    <div css={styles}>
+      {data.isPost && (
+        <InfoContainer>
+          {author && (
+            <InfoItem>
+              <BoldTitle>By&nbsp;</BoldTitle>
+              <Link link={author.link}>{author.name}</Link>
+            </InfoItem>
+          )}
           <InfoItem>
-            <BoldTitle>By&nbsp;</BoldTitle>
-            <Link link={author.link}>{author.name}</Link>
+            <BoldTitle>Posted on&nbsp;</BoldTitle>
+            <div>{dateStr}</div>
           </InfoItem>
-        )}
-        <InfoItem>
-          <BoldTitle>Posted on&nbsp;</BoldTitle>
-          <div>{dateStr}</div>
-        </InfoItem>
-        <InfoItem>
-          <BoldTitle>Languages&nbsp;</BoldTitle>
-          <div>Léelo en español</div>
-        </InfoItem>
-      </InfoContainer>
-    )}
-    <ButtonsContainer>
-      <a
-        href="https://twitter.com/globalforests"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="twitter"
-      >
-        <Button
-          css={css`
-            border-color: #f0f0f0;
-            svg {
-              width: 20px;
-              height: 20px;
-            }
-          `}
-          theme="button-light round big"
+          <InfoItem>
+            <BoldTitle>Languages&nbsp;</BoldTitle>
+            <div>Léelo en español</div>
+          </InfoItem>
+        </InfoContainer>
+      )}
+      <ButtonsContainer>
+        <a
+          href={`${TWITT_SHARE_URL}?url=${fullUrl}&text=${title}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="twitter"
         >
-          <TwitterIcon />
-        </Button>
-      </a>
-      <a
-        href="https://www.facebook.com/globalforests/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="facebook"
-      >
-        <Button
-          css={css`
-            border-color: #f0f0f0;
-            svg {
-              width: 20px;
-              height: 20px;
-            }
-          `}
-          theme="button-light round big"
+          <Button
+            css={css`
+              border-color: #f0f0f0;
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            `}
+            theme="button-light round big"
+          >
+            <TwitterIcon />
+          </Button>
+        </a>
+        <a
+          href={`${FB_SHARE_URL}${fullUrl}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="facebook"
         >
-          <FacebookIcon />
-        </Button>
-      </a>
-      <a href="#">
-        <Button
-          css={css`
-            border-color: #f0f0f0;
-          `}
-          theme="button-light round big"
+          <Button
+            css={css`
+              border-color: #f0f0f0;
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            `}
+            theme="button-light round big"
+          >
+            <FacebookIcon />
+          </Button>
+        </a>
+        <a href="#" onClick={scrollTocomment}>
+          <Button
+            css={css`
+              border-color: #f0f0f0;
+            `}
+            theme="button-light round big"
+          >
+            <img src={ChatIcon} alt="" />
+          </Button>
+        </a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.globalforestwatch.org/subscribe"
         >
-          <img src={ChatIcon} alt="" />
-        </Button>
-      </a>
-      <a href="#">
-        <Button theme="round big">
-          <img src={NewsletterIcon} alt="" />
-        </Button>
-      </a>
-      <Label>
-        Subscribe to the
-        <br />
-        GFW newsletter
-      </Label>
-    </ButtonsContainer>
-  </div>
-);
+          <Button
+            theme="round big"
+            css={css`
+              @media screen and (min-width: ${SMALL_ENDPOINT}) {
+                margin-top: 20px;
+              }
+            `}
+          >
+            <img src={NewsletterIcon} alt="" />
+          </Button>
+        </a>
+        <Label>
+          Subscribe to the
+          <br />
+          GFW newsletter
+        </Label>
+      </ButtonsContainer>
+    </div>
+  );
+};
 
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
@@ -216,6 +239,8 @@ const Post = ({ state, actions, libraries }) => {
             author={author}
             data={data}
             dateStr={dateStr}
+            fullUrl={`${state.frontity.url}${state.router.link}`}
+            title={post.title.rendered}
             styles={css`
               display: none;
 
@@ -238,6 +263,8 @@ const Post = ({ state, actions, libraries }) => {
           <PostInfo
             author={author}
             data={data}
+            fullUrl={`${state.frontity.url}${state.router.link}`}
+            title={post.title.rendered}
             dateStr={dateStr}
             styles={css`
               display: block;
@@ -264,8 +291,13 @@ const Post = ({ state, actions, libraries }) => {
                 margin-top: 0;
                 background-color: #E5E5DF;
                 color: #333 !important;
+                font-size: 0.75rem !important;
+                :hover {
+                  background-color: #777;
+                  color: #fff !important;
+                }
                 a {
-                  font-size: 0.75rem;
+                  font-size: 0.75rem !important;
                   color: #333 !important;
                   font-weight: normal;
                 }
@@ -316,6 +348,8 @@ Post.propTypes = {
 
 PostInfo.propTypes = {
   data: PropTypes.object,
+  fullUrl: PropTypes.string,
+  title: PropTypes.string,
   author: PropTypes.object,
   dateStr: PropTypes.string,
   styles: PropTypes.object,
@@ -326,16 +360,27 @@ export default connect(Post);
 const InfoItem = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
-  padding-bottom: 0.5rem;
+  color: #777;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+
+  a {
+    color: #777;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    font-size: 0.875rem;
     display: flex;
     align-items: baseline;
+    margin-bottom: 10px;
   }
 `;
 
 const BoldTitle = styled.div`
-  font-weight: 800;
+  font-weight: 500;
 `;
 
 const RelatedPostsTitle = styled.h3`
@@ -387,7 +432,11 @@ const Label = styled.span`
 `;
 
 const InfoContainer = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const Container = styled.div`
@@ -503,6 +552,24 @@ const Content = styled.div`
   p {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+
+    font-size: 18px;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 20px;
+    }
+  }
+
+  a {
+    font-size: 18px;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      font-size: 20px;
+    }
+  }
+
+  .button-light {
+    border-color: #e5e5df;
   }
 
   & > .attribute {
@@ -604,7 +671,7 @@ const Content = styled.div`
   }
 
   p {
-    line-height: 1.6em;
+    line-height: 1.75;
   }
 
   figcaption {
@@ -614,7 +681,6 @@ const Content = styled.div`
   }
 
   a {
-    font-size: 1.25rem;
     color: #97bd3d;
     text-decoration: none;
     font-weight: 600;
@@ -624,6 +690,11 @@ const Content = styled.div`
     font-size: 1.25rem;
     line-height: 1.8;
     font-weight: 800;
+    padding-top: 1.25rem;
+
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      padding-top: 2.25rem;
+    }
   }
 
   /* Input fields styles */
