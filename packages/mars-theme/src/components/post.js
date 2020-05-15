@@ -7,11 +7,15 @@ import List from './list';
 import FeaturedMedia from './featured-media';
 import Breadcrumbs from './breadcrumbs';
 import Search from './search';
-import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 import NewsletterIcon from '../assets/icons/social/envelope.svg';
 import ChatIcon from '../assets/icons/social/comment.svg';
 import CategoryNameList from './category/list-name';
 import Item from './list/list-item';
+import {
+  SMALL_ENDPOINT,
+  MEDIUM_ENDPOINT,
+  LARGE_ENDPOINT,
+} from './heplers/css-endpoints';
 
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
 const TWITT_SHARE_URL = 'https://twitter.com/share';
@@ -373,7 +377,7 @@ const InfoItem = styled.div`
     color: #777;
 
     &:hover {
-      color: #333;
+      color: #658022;
     }
   }
 
@@ -493,6 +497,12 @@ const Content = styled.div`
   word-break: break-word;
   user-select: text;
 
+  .wp-block-gallery {
+    @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
+      width: 769px !important;
+    }
+  }
+
   img {
     width: 100%;
     object-fit: cover;
@@ -527,6 +537,13 @@ const Content = styled.div`
     border: 0;
     font-size: 1.875rem;
     line-height: 1.5;
+    p {
+      font-size: 1.875rem;
+      line-height: 1.5;
+      @media screen and (max-width: ${SMALL_ENDPOINT}) {
+        font-size: 1.5rem;
+      }
+    }
 
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       font-size: 1.5rem;
@@ -538,7 +555,7 @@ const Content = styled.div`
       height: 240px;
 
       @media screen and (min-width: ${SMALL_ENDPOINT}) {
-        height: 480px;
+        height: 486px;
       }
     }
   }
@@ -623,6 +640,9 @@ const Content = styled.div`
 
   .c-carousel {
     margin: 30px 0;
+    @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      margin-left: -2rem;
+    }
     width: 100%;
 
     figure {
@@ -648,22 +668,33 @@ const Content = styled.div`
     .slick-prev {
       left: -5px;
 
-      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      @media screen and (min-width: ${LARGE_ENDPOINT}) {
         left: -150px;
+      }
+
+      @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
+        left: -10px;
       }
     }
 
     .slick-next {
       right: -5px;
 
-      @media screen and (min-width: ${SMALL_ENDPOINT}) {
+      @media screen and (min-width: ${LARGE_ENDPOINT}) {
         right: -150px;
+      }
+
+      @media screen and (min-width: ${SMALL_ENDPOINT}) and (max-width: ${MEDIUM_ENDPOINT}) {
+        right: -10px;
       }
     }
 
     .slick-slide {
       &:not(.slick-active) {
         cursor: pointer;
+        @media screen and (max-width: ${SMALL_ENDPOINT}) {
+          opacity: 0;
+        }
       }
     }
   }
