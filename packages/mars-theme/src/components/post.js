@@ -346,15 +346,25 @@ const InfoItem = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
   padding-bottom: 0.5rem;
+  color: #777;
+  font-size: 0.875rem;
+
+  a {
+    color: #777;
+
+    &:hover {
+      color: #333;
+    }
+  }
+
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    font-size: 0.875rem;
     display: flex;
     align-items: baseline;
   }
 `;
 
 const BoldTitle = styled.div`
-  font-weight: 800;
+  font-weight: 500;
 `;
 
 const RelatedPostsTitle = styled.h3`
