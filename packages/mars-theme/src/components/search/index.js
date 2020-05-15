@@ -4,6 +4,7 @@ import { connect, styled, css } from 'frontity';
 import { SearchIcon } from './components';
 import SearchExpanded from './expanded';
 import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import CloseIcon from '../../assets/icons/close.svg';
 
 const Search = ({
   libraries,
@@ -65,7 +66,9 @@ const Search = ({
           <ReadyTitle>
             <ReadyContent>
               {title}
-              <RemoveIcon onClick={handler} />
+              <RemoveIcon onClick={handler}>
+                <img alt="" src={CloseIcon} />
+              </RemoveIcon>
             </ReadyContent>
           </ReadyTitle>
         )}
@@ -88,27 +91,8 @@ Search.propTypes = {
 };
 
 const RemoveIcon = styled.div`
-  position: relative;
   cursor: pointer;
-  right: 0;
-  width: 12px;
-  height: 12px;
   margin-left: 1rem;
-  &:before,
-  &:after {
-    position: absolute;
-    right: 5px;
-    content: ' ';
-    height: 12px;
-    width: 2px;
-    background-color: #333;
-  }
-  &:before {
-    transform: rotate(45deg);
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
 `;
 
 const Title = styled.div`
