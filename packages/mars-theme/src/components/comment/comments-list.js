@@ -36,7 +36,7 @@ function CommentsList({ libraries, state }) {
       });
   }, [comments.length]);
 
-  const Form = AddCommentForm(postId, 'true');
+  const Form = AddCommentForm(postId, 'true', null, false);
 
   return (
     <CommentsListContainer>
@@ -60,10 +60,11 @@ function CommentsList({ libraries, state }) {
                 return (
                   <Comment
                     key={item.id}
-                    postId={item.id}
+                    postId={postId}
                     author={item.author_name}
                     content={item.content.rendered}
                     date={item.date}
+                    parent={item.parent}
                   />
                 );
               })}

@@ -27,7 +27,7 @@ const COMMENTS_URI = '/wp/v2/comments';
 const GFW_PRIVACY_POLICY_PAGE =
   'https://www.globalforestwatch.org/privacy-policy';
 
-function insertComment(postId, name, content, nested) {
+function insertComment(postId, name, content, parent) {
   const now = moment();
   const _date = moment(now).add(17, 'hours');
 
@@ -37,12 +37,12 @@ function insertComment(postId, name, content, nested) {
       author={name}
       content={content}
       date={_date}
-      nested={nested}
+      parent={parent}
     />
   );
 }
 
-function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
+function AddCommentForm(postId, isVisible, parent, forNestedComment) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -67,7 +67,7 @@ function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
         author_name: name,
         author_email: email,
         content,
-        parent: forNestedComment ? commentId : null
+        parent: forNestedComment ? parent : null
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -80,10 +80,6 @@ function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
         .then(() => {
           setIsSuccess(true);
         })
-        .then((object) => {
-          setIsError(true);
-          setResponseMessage(object.message);
-        })
         .catch((error) => console.error('Error:', error));
     }
   }
@@ -93,7 +89,7 @@ function AddCommentForm(postId, isVisible, commentId, forNestedComment) {
       <Divider isCommentInserted={isSuccess} />
 
       <AddCommentFormNewCommentWrapper success={isSuccess}>
-        {insertComment(postId, name, content, forNestedComment ? false : true)}
+        {insertComment(postId, name, content, parent)}
       </AddCommentFormNewCommentWrapper>
 
       <AddCommentContainer isVisible={isVisible}>
