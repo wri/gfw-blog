@@ -100,7 +100,7 @@ const KeyWordsListWrapper = styled.ul`
   border: 1px solid #aaa;
   padding: 1.75rem 2.5rem;
   width: 100%;
-  max-height: 43rem;
+  max-height: 360px;
   overflow-y: auto;
 `;
 

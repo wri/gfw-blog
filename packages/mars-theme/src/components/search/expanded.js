@@ -57,20 +57,20 @@ SearchExpanded.propTypes = {
 const Wrapper = styled.div`
   margin: 0;
   padding: 0;
+  margin-bottom: 20px;
+  min-height: 3.75rem;
+`;
+
+const MiddleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
   position: absolute;
   right: 16px;
   left: 16px;
-  margin-bottom: 20px;
 
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     right: 20px;
     left: 20px;
   }
-`;
-
-const MiddleWrapper = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
 `;

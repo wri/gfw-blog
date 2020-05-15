@@ -5,14 +5,12 @@ import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
 const BlogHeader = ({ state }) => {
   return (
-    <Wrapper className="row">
-      <div className="column small-12 medium-10 large-8">
-        <Title>Global Forest Watch Blog</Title>
-        <Description>
-          <b>{state.frontity.description}</b>
-        </Description>
-      </div>
-    </Wrapper>
+    <>
+      <Title>Global Forest Watch Blog</Title>
+      <Description>
+        <b>{state.frontity.description}</b>
+      </Description>
+    </>
   );
 };
 
@@ -40,12 +38,6 @@ const Description = styled.h4`
   font-weight: 200;
   text-transform: initial;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    margin-bottom: 60px;
-  }
-`;
-
-const Wrapper = styled.div`
-  @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    margin-top: 1rem;
+    margin-bottom: 40px;
   }
 `;

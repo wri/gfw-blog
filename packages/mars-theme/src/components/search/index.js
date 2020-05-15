@@ -143,7 +143,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   height: 3.75rem;
-  margin-bottom: 20px;
 `;
 
 const SearchBox = styled.div`

@@ -202,9 +202,7 @@ const Post = ({ state, actions, libraries }) => {
     <Container id="post-content">
       <div className="row">
         <div className="column small-12">
-          <BreadcrumbsContainer
-            className={state.theme.searchIsActive ? 'row-reverse' : ''}
-          >
+          <BreadcrumbsContainer>
             <Breadcrumbs />
             <Search mobile title="" />
             <Search />
@@ -785,7 +783,4 @@ const BreadcrumbsContainer = styled.div`
   }
 
   align-items: baseline;
-  &.row-reverse {
-    flex-wrap: wrap-reverse;
-  }
 `;
