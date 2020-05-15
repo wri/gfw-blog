@@ -6,6 +6,8 @@ import CategoryList from './category-list';
 import AuthorList from './authors-list';
 import TagList from './tags-list';
 import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import ChevronDown from '../../assets/icons/chevron-down.svg';
+import ChevronUp from '../../assets/icons/chevron-up.svg';
 
 const EntityInfo = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -41,7 +43,13 @@ const EntityInfo = ({ state }) => {
           {data.isCategory && (
             <Title>{decode(state.source[data.taxonomy][data.id].name)}</Title>
           )}
-          <TogglerBox>{isOpen ? <ArrowUp /> : <ArrowDown />}</TogglerBox>
+          <TogglerBox>
+            {isOpen ? (
+              <img src={ChevronUp} alt="" />
+            ) : (
+              <img src={ChevronDown} alt="" />
+            )}
+          </TogglerBox>
         </DropDownWrapper>
         <ListWrapper>
           {isOpen && (
@@ -95,68 +103,7 @@ const ListWrapper = styled.div`
   width: 100%;
   margin-top: -1px;
   position: relative;
-`;
-
-const ArrowUp = styled.div`
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  position: relative;
-  :after,
-  :before {
-    bottom: 0%;
-    left: 100%;
-    border: solid transparent;
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-
-  :after {
-    border-color: rgba(241, 241, 241, 0);
-    border-bottom-color: #fff;
-    border-width: 5px;
-    margin-left: -12px;
-  }
-  :before {
-    border-color: rgba(221, 221, 221, 0);
-    border-bottom-color: var(--color-darkest-grey);
-    border-width: 7px;
-    margin-left: -14px;
-  }
-`;
-
-const ArrowDown = styled.div`
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-  position: relative;
-  :after,
-  :before {
-    top: 50%;
-    left: 100%;
-    border: solid transparent;
-    content: ' ';
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
-
-  :after {
-    border-color: rgba(241, 241, 241, 0);
-    border-top-color: #fff;
-    border-width: 5px;
-    margin-left: -12px;
-  }
-  :before {
-    border-color: rgba(221, 221, 221, 0);
-    border-top-color: var(--color-darkest-grey);
-    border-width: 7px;
-    margin-left: -14px;
-  }
+  z-index: 3;
 `;
 
 const List = styled.div`
@@ -167,7 +114,7 @@ const List = styled.div`
   z-index: 1;
   background: #fff;
   min-height: 23.75rem;
-  max-height: 43rem;
+  max-height: 360px;
   overflow-y: auto;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding: 1.75rem 2.5rem;
