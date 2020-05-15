@@ -14,7 +14,7 @@ import Item from './list/list-item';
 import { SMALL_ENDPOINT } from './heplers/css-endpoints';
 
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
-const TWITT_SHARE_URL = 'https://twitter.com/home?status=';
+const TWITT_SHARE_URL = 'https://twitter.com/share';
 
 const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
   const scrollTocomment = (e) => {
@@ -46,7 +46,7 @@ const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
       )}
       <ButtonsContainer>
         <a
-          href={`${TWITT_SHARE_URL}${fullUrl} ${title}`}
+          href={`${TWITT_SHARE_URL}?url=${fullUrl}&text=${title}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="twitter"
