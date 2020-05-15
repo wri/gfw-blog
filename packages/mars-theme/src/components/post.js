@@ -98,7 +98,14 @@ const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
           rel="noopener noreferrer"
           href="https://www.globalforestwatch.org/subscribe"
         >
-          <Button theme="round big">
+          <Button
+            theme="round big"
+            css={css`
+              @media screen and (min-width: ${SMALL_ENDPOINT}) {
+                margin-top: 20px;
+              }
+            `}
+          >
             <img src={NewsletterIcon} alt="" />
           </Button>
         </a>
@@ -345,9 +352,9 @@ export default connect(Post);
 const InfoItem = styled.div`
   font-size: 1rem;
   line-height: 1.5rem;
-  padding-bottom: 0.5rem;
   color: #777;
   font-size: 0.875rem;
+  margin-bottom: 20px;
 
   a {
     color: #777;
@@ -360,6 +367,7 @@ const InfoItem = styled.div`
   @media screen and (max-width: ${SMALL_ENDPOINT}) {
     display: flex;
     align-items: baseline;
+    margin-bottom: 10px;
   }
 `;
 
@@ -416,7 +424,11 @@ const Label = styled.span`
 `;
 
 const InfoContainer = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+
+  @media screen and (min-width: ${SMALL_ENDPOINT}) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const Container = styled.div`
