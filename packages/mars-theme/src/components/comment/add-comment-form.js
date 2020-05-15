@@ -92,7 +92,7 @@ function AddCommentForm(postId, isVisible, parent, forNestedComment) {
         {insertComment(postId, name, content, parent)}
       </AddCommentFormNewCommentWrapper>
 
-      <AddCommentContainer isVisible={isVisible}>
+      <AddCommentContainer id="add-comment-container" isVisible={isVisible}>
         <AddCommentTitle>POST A COMMENT</AddCommentTitle>
         <AddCommentSubtitle>
           Your email address will not be published. Required fields are marked *

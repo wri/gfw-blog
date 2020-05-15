@@ -21,7 +21,7 @@ const TWITT_SHARE_URL = 'https://twitter.com/share';
 const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
   const scrollTocomment = (e) => {
     e.preventDefault();
-    const el = document.getElementById('comments-section-id'); // id will change in future
+    const el = document.getElementById('add-comment-container');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
