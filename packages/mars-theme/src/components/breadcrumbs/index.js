@@ -30,7 +30,7 @@ const Breadcrumbs = ({ state }) => {
       className="breadcrumbs-wrapper"
     >
       <Item clickable>
-        <Link link="/">Blog home</Link>
+        <Link link="/">Blog Home</Link>
       </Item>
       {isSearchLink(state.router.link) && (
         <>
@@ -75,6 +75,11 @@ const Wrapper = styled.div`
   font-size: 0.75rem;
   line-height: 1.3125rem;
   margin-bottom: 20px;
+  a {
+    &:hover {
+      color: #658022;
+    }
+  }
 `;
 
 Breadcrumbs.propTypes = {

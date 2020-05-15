@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="9px" viewBox="0 0 13 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>5D51657D-B4A9-4660-83E5-843F82F9C44E</title>
+    <defs>
+        <polygon id="path-1" points="6.23715414 5.19583185 11 0 12.4743083 1.35144926 6.23715414 8.15561741 0 1.35144926 1.47430828 0"></polygon>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="GFW---Blog---UI-kit" transform="translate(-146.000000, -2390.000000)">
+            <g id="Icons/16px/Chevron-down" transform="translate(146.000000, 2390.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="chevron-left" fill="#333333" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
