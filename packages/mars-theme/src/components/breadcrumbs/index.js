@@ -15,7 +15,7 @@ const Breadcrumbs = ({ state }) => {
   return (
     <Wrapper className="breadcrumbs-wrapper">
       <Item clickable>
-        <Link link="/">Blog home</Link>
+        <Link link="/">Blog Home</Link>
       </Item>
       {data.isAuthor && (
         <>
