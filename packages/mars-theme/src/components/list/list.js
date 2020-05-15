@@ -133,6 +133,7 @@ const List = ({ state }) => {
         className="row"
         css={css`
           margin-bottom: 20px;
+          position: relative;
         `}
       >
         {isBlogHomePage(link) && (
