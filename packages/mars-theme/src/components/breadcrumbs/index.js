@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled, decode, css } from 'frontity';
+import { connect, styled, decode } from 'frontity';
 import Link from '../link';
 import Item from './item';
 import Divider from './divider';
 import { isSearchLink } from '../heplers/content';
 import CategoryItem from './category-item';
-import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -14,21 +13,8 @@ const Breadcrumbs = ({ state }) => {
     return null;
   }
 
-  const extraCss = state.theme.searchIsActive
-    ? `
-  @media screen and (max-width: ${SMALL_ENDPOINT}) {
-    display: none;
-  } 
-  `
-    : '';
-
   return (
-    <Wrapper
-      css={css`
-        ${extraCss}
-      `}
-      className="breadcrumbs-wrapper"
-    >
+    <Wrapper className="breadcrumbs-wrapper">
       <Item clickable>
         <Link link="/">Blog Home</Link>
       </Item>

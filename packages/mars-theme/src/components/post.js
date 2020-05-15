@@ -200,13 +200,24 @@ const Post = ({ state, actions, libraries }) => {
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container id="post-content">
-      <div className="row">
-        <div className="column small-12">
-          <BreadcrumbsContainer>
+      <div
+        className="row"
+        css={css`
+          margin-bottom: 20px;
+        `}
+      >
+        <div className="column small-10">
+          <div
+            css={css`
+              margin-top: 20px;
+            `}
+          >
             <Breadcrumbs />
-            <Search mobile title="" />
-            <Search />
-          </BreadcrumbsContainer>
+          </div>
+        </div>
+        <div className="column small-2">
+          <Search mobile title="" />
+          <Search />
         </div>
       </div>
       {/* Look at the settings to see if we should include the featured image */}
@@ -772,15 +783,3 @@ Post.propTypes = {
   actions: PropTypes.object,
   libraries: PropTypes.object,
 };
-
-const BreadcrumbsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  margin-bottom: 30px;
-
-  @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    justify-content: space-between;
-  }
-
-  align-items: baseline;
-`;

@@ -107,27 +107,27 @@ const List = ({ state }) => {
   return (
     <Wrapper>
       <div className="row">
-        <div className="column small-12">
-          <BreadcrumbsContainer>
-            <Breadcrumbs />
-            {!isBlogHomePage(link) && <Search mobile title="" />}
-          </BreadcrumbsContainer>
-          {!isBlogHomePage(link) && (
+        {!isBlogHomePage(link) && (
+          <>
             <div
-              className="row"
+              className="column small-12"
               css={css`
-                margin-bottom: 30px;
+                margin-bottom: 20px;
               `}
             >
-              <div className="column small-12 medium-7">
-                <EntityInfo />
-              </div>
-              <div className="column small-12 medium-5">
-                {!data.searchQuery && <Search />}
-              </div>
+              <BreadcrumbsContainer>
+                <Breadcrumbs />
+                <Search mobile title="" />
+              </BreadcrumbsContainer>
             </div>
-          )}
-        </div>
+            <div className="column small-12 medium-7">
+              <EntityInfo />
+            </div>
+            <div className="column small-12 medium-5">
+              {!data.searchQuery && <Search />}
+            </div>
+          </>
+        )}
       </div>
       <div
         className="row"
@@ -135,24 +135,31 @@ const List = ({ state }) => {
           margin-bottom: 20px;
         `}
       >
-        <div className="column small-12 medium-10 large-8">
-          {isBlogHomePage(link) && <Search mobile title="" />}
-        </div>
-        <div className="column small-12 medium-10 large-8">
-          {isBlogHomePage(link) && <BlogHeader />}
-        </div>
-        <div className="column small-12 medium-9">
-          {isBlogHomePage(link) && (
-            <CategoryNameList
-              categories={categories}
-              title="Categories"
-              styles={categoriesStyles}
-            />
-          )}
-        </div>
-        <div className="column small-12 medium-3">
-          {isBlogHomePage(link) && <Search />}
-        </div>
+        {isBlogHomePage(link) && (
+          <>
+            <div
+              className="column small-12 medium-10 large-8"
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <Search mobile title="" />
+            </div>
+            <div className="column small-12 medium-10 large-8">
+              <BlogHeader />
+            </div>
+            <div className="column small-12 medium-9">
+              <CategoryNameList
+                categories={categories}
+                title="Categories"
+                styles={categoriesStyles}
+              />
+            </div>
+            <div className="column small-12 medium-3">
+              <Search />
+            </div>
+          </>
+        )}
         <div className="column small-12">
           {isSearchLink(link) && <SearchResults />}
         </div>
@@ -220,7 +227,7 @@ export default connect(List);
 
 const Wrapper = styled.div`
   width: 100%;
-  padding-top: 2.725rem;
+  padding-top: 1.725rem;
   padding-bottom: 3.75rem;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding-bottom: 6.25rem;
