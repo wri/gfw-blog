@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled } from 'frontity';
+import { connect, styled, css } from 'frontity';
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -101,7 +101,7 @@ const List = ({ state }) => {
   }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
   const categoriesStyles = `
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     &.hidden {
       display: none;
@@ -120,12 +120,19 @@ const List = ({ state }) => {
             {!isBlogHomePage(link) && <Search mobile title="" />}
           </BreadcrumbsContainer>
           {!isBlogHomePage(link) && (
-            <FlexContainer
-              className={state.theme.searchIsActive ? 'row-reverse' : ''}
+            <div
+              className="row"
+              css={css`
+                margin-bottom: 30px;
+              `}
             >
-              {<EntityInfo />}
-              {!data.searchQuery && <Search />}
-            </FlexContainer>
+              <div className="column small-12 medium-7">
+                <EntityInfo />
+              </div>
+              <div className="column small-12 medium-5">
+                {!data.searchQuery && <Search />}
+              </div>
+            </div>
           )}
 
           {isSearchLink(link) && <SearchResults />}

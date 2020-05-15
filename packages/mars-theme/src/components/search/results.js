@@ -17,9 +17,6 @@ const SearchResults = ({ state }) => {
         css={css`
           width: 100%;
           border-bottom: 1px solid #aaa;
-          @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-            margin: 0 1rem;
-          }
         `}
         title={decodedQuery}
       />
