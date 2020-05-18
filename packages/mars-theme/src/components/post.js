@@ -16,6 +16,8 @@ import {
   MEDIUM_ENDPOINT,
   LARGE_ENDPOINT,
 } from './heplers/css-endpoints';
+import CommentList from './comment/comments-list';
+import TwittTextTooltip from './twitt-tooltip/twitt-tooltip';
 
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
 const TWITT_SHARE_URL = 'https://twitter.com/share';
@@ -23,7 +25,7 @@ const TWITT_SHARE_URL = 'https://twitter.com/share';
 const PostInfo = ({ data, author, dateStr, styles, fullUrl, title }) => {
   const scrollTocomment = (e) => {
     e.preventDefault();
-    const el = document.getElementById('comments-section-id'); // id will change in future
+    const el = document.getElementById('add-comment-container');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -322,6 +324,8 @@ const Post = ({ state, actions, libraries }) => {
             `}
             />
           </Content>
+
+          <TwittTextTooltip />
         </div>
       </div>
       {relatedPosts && (
@@ -345,6 +349,10 @@ const Post = ({ state, actions, libraries }) => {
           </div>
         </>
       )}
+
+      <Divider />
+
+      <CommentList />
     </Container>
   ) : null;
 };
@@ -449,6 +457,7 @@ const InfoContainer = styled.div`
 `;
 
 const Container = styled.div`
+  user-select: none;
   margin: 0;
   padding: 0;
   width: 100%;
