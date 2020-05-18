@@ -88,9 +88,8 @@ export const Divider = styled.hr`
 `;
 
 export const AddCommentFormNewCommentWrapper = styled.div`
-  display: ${(props) => props.success === true ? 'block' : 'none'};
+  display: ${(props) => props.commentAdded === true ? 'block' : 'none'};
   position: relative;
-  bottom: 4.5rem;
 `;
 
 export const AddCommentContainer = styled.div`

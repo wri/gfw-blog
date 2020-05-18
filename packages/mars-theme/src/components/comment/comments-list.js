@@ -43,7 +43,7 @@ function CommentsList({ libraries, state }) {
           _embed: false,
           orderby: 'date',
           order: 'asc',
-          parent: 0 // with 0 value we fetched only top level comments
+          parent: 0 // with 0 value we fetch only top level comments
         },
       })
       .then((response) => {
