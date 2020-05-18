@@ -7,14 +7,32 @@ import { Loader } from 'gfw-components';
 import Comment from './comment';
 import AddCommentForm from './add-comment-form';
 
-import { CommentsListContainer, CommentsListTitle } from './styles';
+import {CommentsListContainer, CommentsListTitle, Divider} from './styles';
 
 function CommentsList({ libraries, state }) {
   const data = state.source.get(state.router.link);
   const postId = state.source[data.type][data.id].id;
 
+  const [commentsCount, setCommentsCount] = useState(0);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // get comments count
+  useEffect(() => {
+    libraries.source.api
+      .get({
+        endpoint: 'comments',
+        params: {
+          post: postId,
+          _embed: false,
+        },
+      })
+      .then((response) => {
+        response.json().then((content) => {
+          setCommentsCount(content.length);
+        });
+      });
+  }, []);
 
   useEffect(() => {
     libraries.source.api
@@ -23,9 +41,9 @@ function CommentsList({ libraries, state }) {
         params: {
           post: postId,
           _embed: false,
-          per_page: 20,
           orderby: 'date',
           order: 'asc',
+          parent: 0 // with 0 value we fetched only top level comments
         },
       })
       .then((response) => {
@@ -34,15 +52,13 @@ function CommentsList({ libraries, state }) {
           setLoading(false);
         });
       });
-  }, [comments.length]);
-
-  const Form = AddCommentForm(postId, 'true', null, false);
+  }, []);
 
   return (
     <CommentsListContainer>
       <CommentsListTitle>
         THERE IS&nbsp;
-        {comments.length}
+        {commentsCount}
         &nbsp;COMMENTS FOR THIS ARTICLE
       </CommentsListTitle>
 
@@ -58,15 +74,17 @@ function CommentsList({ libraries, state }) {
             <>
               {comments.map((item) => {
                 return (
-                  <Comment
-                    key={item.id}
-                    postId={postId}
-                    author={item.author_name}
-                    content={item.content.rendered}
-                    date={item.date}
-                    parent={item.parent}
-                    commentId={item.id}
-                  />
+                  <>
+                    <Comment
+                      key={item.id}
+                      postId={postId}
+                      author={item.author_name}
+                      content={item.content.rendered}
+                      date={item.date}
+                      parent={item.parent}
+                      commentId={item.id}
+                    />
+                  </>
                 );
               })}
             </>
@@ -75,7 +93,7 @@ function CommentsList({ libraries, state }) {
       )}
 
       {state.source[data.type][data.id].comment_status !== 'closed' ? (
-        Form
+        <AddCommentForm />
       ) : (
         <h5>Comments for this article were closed.</h5>
       )}

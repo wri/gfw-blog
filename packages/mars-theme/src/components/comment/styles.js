@@ -18,13 +18,31 @@ export const CommentsListContainer = styled.div`
 export const CommentsListTitle = styled.h4`
   font-size: 18px;
   color: #333333;
-  margin-bottom: 35px;
+  margin-bottom: 2.5rem;
 `;
 
 // Comment
 export const CommentContainer = styled.div`
   width: auto;
-  margin-bottom: 3rem;
+  margin: 0 0 3rem 0;
+`;
+
+export const ChildCommentContainer = styled.div`
+  width: auto;
+  margin: 3.8rem 0 3rem 0;
+`;
+
+export const ChildCommentContent = styled.p`
+  padding: 0 0 3.6rem 4.25rem;
+  font-size: 16px;
+  line-height: 28px;
+  color: #555;
+  border-left: 1px solid #e5e5df;
+  text-align: left;
+  margin-top: 1rem;
+  position: relative;
+  left: 4%;
+  width: fit-content;
 `;
 
 export const CommentAuthor = styled.p`
@@ -40,11 +58,12 @@ export const CommentCreationDate = styled.p`
 `;
 
 export const CommentContent = styled.p`
-  margin: 1rem 0 0 4.6rem;
+  margin: 1rem 0 0 6.25em;
   font-size: 16px;
   line-height: 28px;
   color: #555;
-  align: left;
+  text-align: left;
+  width: fit-content;
 `;
 
 export const ReplyButon = styled.input`
@@ -62,8 +81,6 @@ export const ReplyButon = styled.input`
 // AddCommentForm
 export const Divider = styled.hr`
   width: auto;
-  position: relative;
-  top: ${props => props.isCommentInserted === true ? 140 : 0}px;
   height: 1px;
   background-color: #e5e5df;
   margin: 3.7rem 0 3.5rem 0;
@@ -78,7 +95,7 @@ export const AddCommentFormNewCommentWrapper = styled.div`
 
 export const AddCommentContainer = styled.div`
   width: 640px;
-  display: ${(props) => (props.isVisible === 'true' ? 'block' : 'none')};
+  display: block;
 `;
 
 export const AddCommentTitle = styled.h3`

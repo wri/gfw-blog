@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'frontity';
+import {connect} from 'frontity';
 
 import {
   AddCommentContainer,
@@ -23,10 +23,7 @@ const COMMENTS_URI = '/wp/v2/comments';
 const GFW_PRIVACY_POLICY_PAGE =
   'https://www.globalforestwatch.org/privacy-policy';
 
-function AddCommentForm({ libraries, state }) {
-  const data = state.source.get(state.router.link);
-  const postId = state.source[data.type][data.id].id;
-
+function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -51,40 +48,41 @@ function AddCommentForm({ libraries, state }) {
         author_name: name,
         author_email: email,
         content,
+        parent: parentCommentId
       };
 
-       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-       })
-       .then((response) => {
-         libraries.source.populate({ response, state, force: true })
-           .then((comment) => {
-             libraries.source.api
-               .get({
-                 endpoint: 'comments',
-                 params: {
-                   _embed: false,
-                   per_page: 1,
-                   id: comment[0].id
-                 },
-               })
-               .then((_response) => {
-                 _response.json().
-                 then((_data) => {
-                   setPopulatedComment(_data);
-                 });
-               });
-         });
-       });
+      fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => {
+          libraries.source.populate({ response, state, force: true })
+            .then((comment) => {
+              libraries.source.api
+                .get({
+                  endpoint: 'comments',
+                  params: {
+                    _embed: false,
+                    per_page: 1,
+                    id: comment[0].id
+                  },
+                })
+                .then((_response) => {
+                  _response.json().
+                  then((_data) => {
+                    setPopulatedComment(_data);
+                  });
+                });
+            });
+        });
     }
   }
 
   return (
-    <AddCommentContainer id="add-comment-container">
+    <AddCommentContainer id="reply-comment-container">
       <AddCommentTitle>POST A COMMENT</AddCommentTitle>
       <AddCommentSubtitle>
         Your email address will not be published. Required fields are marked *
@@ -114,7 +112,7 @@ function AddCommentForm({ libraries, state }) {
         <AddCommentFieldArea>
           <AddCommentInputLabel
             htmlFor="commentName"
-            style={{marginLeft: '2.25%'}}
+            style={{ marginLeft: '2.25%' }}
           >
             NAME *
           </AddCommentInputLabel>
@@ -122,7 +120,7 @@ function AddCommentForm({ libraries, state }) {
             id="commentName"
             name="commentName"
             type="text"
-            style={{marginRight: '1%'}}
+            style={{ marginRight: '1%' }}
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
@@ -131,7 +129,7 @@ function AddCommentForm({ libraries, state }) {
         <AddCommentFieldArea>
           <AddCommentInputLabel
             htmlFor="commentEmail"
-            style={{marginLeft: '2.25%'}}
+            style={{ marginLeft: '2.25%' }}
           >
             EMAIL *
           </AddCommentInputLabel>
@@ -139,7 +137,7 @@ function AddCommentForm({ libraries, state }) {
             id="commentEmail"
             name="commentEmail"
             type="email"
-            style={{marginRight: '1%'}}
+            style={{ marginRight: '1%' }}
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -162,10 +160,10 @@ function AddCommentForm({ libraries, state }) {
           </AddCommentCheckboxDescr>
         </AddCommentFieldArea>
 
-        <AddCommentFieldArea style={{marginTop: '3.1rem'}}>
+        <AddCommentFieldArea style={{ marginTop: '3.1rem' }}>
           <AddCommentResponse
             isError={isError}
-            dangerouslySetInnerHTML={{__html: responseMessage}}
+            dangerouslySetInnerHTML={{ __html: responseMessage }}
           />
 
           <AddCommentSubmitButton type="submit" value="POST COMMENT" />
@@ -176,4 +174,4 @@ function AddCommentForm({ libraries, state }) {
   );
 }
 
-export default connect(AddCommentForm);
+export default connect(ReplyCommentForm);
