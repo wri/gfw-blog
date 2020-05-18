@@ -1,12 +1,6 @@
 import { styled } from 'frontity';
 
 // Comments list
-export const CommentsListContainer = styled.div`
-  width: 770px;
-  height: auto;
-  margin: 0 auto 7.5rem auto;
-`;
-
 export const CommentsListTitle = styled.h4`
   font-size: 18px;
   color: #333333;
