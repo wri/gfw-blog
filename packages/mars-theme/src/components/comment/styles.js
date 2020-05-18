@@ -1,20 +1,6 @@
 import { styled } from 'frontity';
 
-import { LARGE_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
-
 // Comments list
-export const CommentsListContainer = styled.div`
-  width: 770px;
-  height: auto;
-  margin: 0 auto 7.5rem auto;
-  @media screen and (max-width: ${LARGE_ENDPOINT}) {
-    display: none;
-  }
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    display: none;
-  }
-`;
-
 export const CommentsListTitle = styled.h4`
   font-size: 18px;
   color: #333333;
@@ -88,7 +74,7 @@ export const Divider = styled.hr`
 `;
 
 export const AddCommentFormNewCommentWrapper = styled.div`
-  display: ${(props) => props.commentAdded === true ? 'block' : 'none'};
+  display: ${(props) => (props.commentAdded === true ? 'block' : 'none')};
   position: relative;
 `;
 

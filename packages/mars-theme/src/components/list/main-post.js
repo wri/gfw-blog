@@ -60,7 +60,7 @@ const MainPost = ({ post, state }) => {
     }
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
       padding: 50px 70px;
-      width: 67%;
+      width: 50%;
     }
     ${mediaStyles}
   `;
@@ -72,6 +72,7 @@ const MainPost = ({ post, state }) => {
     font-size: 1.875rem;
     line-height: 1.25;
     color: var(--color-white);
+    text-shadow: 0px 0px 4px #000000;
     margin-bottom: 20px;
   `;
 
@@ -80,6 +81,7 @@ const MainPost = ({ post, state }) => {
       font-size: 1rem;
     }
     color: var(--color-white);
+    text-shadow: 0px 0px 4px #000000;
     font-size: 0.875rem;
   `;
 

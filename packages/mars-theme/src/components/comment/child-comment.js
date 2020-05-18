@@ -5,7 +5,7 @@ import {
   ChildCommentContainer,
   CommentAuthor,
   CommentCreationDate,
-  ChildCommentContent
+  ChildCommentContent,
 } from './styles';
 
 import commentsDateFormat from '../heplers/date';
@@ -26,9 +26,8 @@ function ChildComment({ author, date, content }) {
       <CommentCreationDate>{commentsDateFormat(date)}</CommentCreationDate>
 
       <ChildCommentContent dangerouslySetInnerHTML={{ __html: content }} />
-
     </ChildCommentContainer>
-  )
+  );
 }
 
 ChildComment.propTypes = {
@@ -37,4 +36,4 @@ ChildComment.propTypes = {
   content: PropTypes.string,
 };
 
-export default ChildComment
+export default ChildComment;

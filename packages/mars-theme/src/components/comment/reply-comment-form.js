@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import * as moment from "moment";
-import {connect} from 'frontity';
+import PropTypes from 'prop-types';
+import * as moment from 'moment';
+import { connect } from 'frontity';
 
-import ChildComment from "./child-comment";
+import ChildComment from './child-comment';
 
 import {
   AddCommentFormNewCommentWrapper,
@@ -31,16 +32,10 @@ function insertComment(name, content) {
   const now = moment();
   const _date = moment(now).add(17, 'hours');
 
-  return (
-    <ChildComment
-      author={name}
-      content={content}
-      date={_date}
-    />
-  );
+  return <ChildComment author={name} content={content} date={_date} />;
 }
 
-function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
+function ReplyCommentForm({ libraries, state, parentCommentId, postId }) {
   const [content, setContent] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -50,20 +45,18 @@ function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
   const [responseMessage, setResponseMessage] = useState('');
 
   const [commentAdded, setCommentAdded] = useState(false);
-  const [populatedComment, setPopulatedComment] = useState([]);
 
   useEffect(() => {
-    libraries.source.api
-      .get({
-        endpoint: 'comments',
-        params: {
-          post: postId,
-          _embed: false,
-          orderby: 'date',
-          order: 'asc',
-          parent: 0
-        },
-      })
+    libraries.source.api.get({
+      endpoint: 'comments',
+      params: {
+        post: postId,
+        _embed: false,
+        orderby: 'date',
+        order: 'asc',
+        parent: 0,
+      },
+    });
   }, [commentAdded]);
 
   function handleSubmit(event) {
@@ -78,7 +71,7 @@ function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
         author_name: name,
         author_email: email,
         content,
-        parent: parentCommentId
+        parent: parentCommentId,
       };
 
       fetch(`${WORDPRESS_GFW_API}${COMMENTS_URI}`, {
@@ -87,28 +80,26 @@ function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
-      })
-        .then((response) => {
-          libraries.source.populate({ response, state, force: true })
-            .then((comment) => {
-              libraries.source.api
-                .get({
-                  endpoint: 'comments',
-                  params: {
-                    _embed: false,
-                    per_page: 1,
-                    id: comment[0].id
-                  },
-                })
-                .then((_response) => {
-                  _response.json().
-                  then((_data) => {
-                    setCommentAdded(true);
-                    setPopulatedComment(_data);
-                  });
+      }).then((response) => {
+        libraries.source
+          .populate({ response, state, force: true })
+          .then((comment) => {
+            libraries.source.api
+              .get({
+                endpoint: 'comments',
+                params: {
+                  _embed: false,
+                  per_page: 1,
+                  id: comment[0].id,
+                },
+              })
+              .then((_response) => {
+                _response.json().then(() => {
+                  setCommentAdded(true);
                 });
-            });
-        });
+              });
+          });
+      });
     }
   }
 
@@ -204,11 +195,17 @@ function ReplyCommentForm({libraries, state, parentCommentId, postId}) {
 
             <AddCommentSubmitButton type="submit" value="POST COMMENT" />
           </AddCommentFieldArea>
-
         </AddCommentF0rm>
       </AddCommentContainer>
     </>
   );
 }
+
+ReplyCommentForm.propTypes = {
+  state: PropTypes.object,
+  postId: PropTypes.number,
+  parentCommentId: PropTypes.number,
+  libraries: PropTypes.object,
+};
 
 export default connect(ReplyCommentForm);

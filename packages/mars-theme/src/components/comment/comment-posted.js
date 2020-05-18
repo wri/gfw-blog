@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'frontity';
+import { connect } from 'frontity';
 
 import ReplyCommentForm from './reply-comment-form';
 
@@ -9,12 +9,20 @@ import {
   CommentAuthor,
   CommentCreationDate,
   CommentContent,
-  ReplyButon, Divider,
+  ReplyButon,
+  Divider,
 } from './styles';
 import commentsDateFormat from '../heplers/date';
-import ChildComment from "./child-comment";
 
-function CommentPosted({ libraries, state, author, postId, date, content, commentId }) {
+function CommentPosted({
+  libraries,
+  state,
+  author,
+  postId,
+  date,
+  content,
+  commentId,
+}) {
   const [isReplyFormVisible, setIsReplyFormVisible] = useState(false);
 
   const onReply = () => {
@@ -51,7 +59,7 @@ function CommentPosted({ libraries, state, author, postId, date, content, commen
 
       <Divider />
     </CommentContainer>
-  )
+  );
 }
 
 CommentPosted.propTypes = {
@@ -61,7 +69,7 @@ CommentPosted.propTypes = {
   date: PropTypes.string,
   content: PropTypes.string,
   postId: PropTypes.number,
-  commentId: PropTypes.number
+  commentId: PropTypes.number,
 };
 
 export default connect(CommentPosted);
