@@ -34,12 +34,17 @@ const Item = ({
     margin-bottom: 30px;
     width: 100%;
     .feautured-media {
-      transition: all 0.2s ease-in-out;
       position: relative;
       cursor: pointer;
       z-index: 2;
-      &:hover {
-        transform: scale(1.05);
+      overflow: hidden;
+
+      img {
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          transform: scale(1.05);
+        }
       }
     }
     ${styles}

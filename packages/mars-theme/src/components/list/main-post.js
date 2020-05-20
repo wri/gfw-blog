@@ -21,10 +21,17 @@ const MainPost = ({ post, state }) => {
     width: 100%;
     flex-wrap: wrap;
     position: relative;
-    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+
+    img {
+      transition: all 0.2s ease-in-out;
+    }
 
     &:hover {
-      transform: scale(1.05);
+      img {
+        transition: all 0.2s ease-in-out;
+        transform: scale(1.05);
+      }
 
       h1 {
         text-decoration: underline;

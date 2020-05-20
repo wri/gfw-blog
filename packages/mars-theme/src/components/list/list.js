@@ -248,6 +248,7 @@ const Divider = styled.div`
 const MainPostWrapper = styled.div`
   max-width: 1120px;
   margin: auto;
+
   @media screen and (min-width: ${SMALL_ENDPOINT}) {
     padding: 0 20px;
   }
