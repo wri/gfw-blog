@@ -83,6 +83,42 @@ const allCategoriesHandler = {
   },
 };
 
+const topTagsHandler = {
+  name: 'topTags',
+  priority: 1,
+  pattern: 'top-tags',
+  func: async ({ route, state, libraries }) => {
+    const { api } = libraries.source;
+
+    // 1. fetch the data you want from the endpoint page
+    const response = await api.get({
+      endpoint: 'tags',
+      params: {
+        per_page: 20, // To make sure you get all of them
+        orderby: 'count',
+        order: 'desc',
+      },
+    });
+
+    // 2. get an array with each item in json format
+    const items = await response.json();
+
+    const tags = items.map((tag) => ({
+      name: tag.name,
+      link: `/tag/${tag.slug}`,
+      slug: tag.slug,
+      count: tag.count,
+      id: tag.id,
+    }));
+    // 3. add data to source
+    const currentPageData = state.source.data[route];
+
+    Object.assign(currentPageData, {
+      tags,
+    });
+  },
+};
+
 const categoryOrPostHandler = {
   name: 'categoryOrPostType',
   priority: 30,
@@ -150,6 +186,7 @@ const marsTheme = {
       },
       beforeSSR: ({ actions }) => async () => {
         await actions.source.fetch('all-categories');
+        await actions.source.fetch('top-tags');
       },
     },
   },
@@ -162,7 +199,7 @@ const marsTheme = {
       processors: [image, iframe, gutenbergGallery, blockquote],
     },
     source: {
-      handlers: [allCategoriesHandler, categoryOrPostHandler],
+      handlers: [allCategoriesHandler, topTagsHandler, categoryOrPostHandler],
     },
   },
 };
