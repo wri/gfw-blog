@@ -100,7 +100,13 @@ const List = ({ state }) => {
 
   return (
     <Wrapper>
-      <div className="row">
+      <div
+        className="row"
+        css={css`
+          margin-bottom: 20px;
+          position: relative;
+        `}
+      >
         {!isBlogHomePage(link) && (
           <>
             <div

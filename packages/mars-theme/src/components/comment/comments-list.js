@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'frontity';
+import { connect, css } from 'frontity';
 import PropTypes from 'prop-types';
 
 import { Loader } from 'gfw-components';
@@ -55,7 +55,13 @@ function CommentsList({ libraries, state }) {
   }, []);
 
   return (
-    <div className="row">
+    <div
+      className="row"
+      css={css`
+        margin-bottom: 20px;
+        position: relative;
+      `}
+    >
       <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
         <CommentsListTitle>
           THERE IS&nbsp;

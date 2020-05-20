@@ -210,6 +210,7 @@ const Post = ({ state, actions, libraries }) => {
         className="row"
         css={css`
           margin-bottom: 20px;
+          position: relative;
         `}
       >
         <div className="column small-10">
