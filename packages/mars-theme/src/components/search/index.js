@@ -10,7 +10,7 @@ const Search = ({
   libraries,
   actions,
   state,
-  title = 'Search th GFW blog',
+  title = 'Search the GFW blog',
   ready,
   fullWidth,
   mobile = false,
