@@ -66,7 +66,7 @@ const allCategoriesHandler = {
       .filter((c) => MAIN_CATEGORIES.includes(c.slug))
       .map((c) => ({
         name: c.name,
-        link: `/category/${c.slug}`,
+        link: `/${c.slug}`,
         slug: c.slug,
         count: c.count,
         id: c.id,
@@ -80,6 +80,27 @@ const allCategoriesHandler = {
     Object.assign(currentPageData, {
       categories: sortedCategories,
     });
+  },
+};
+
+const categoryOrPostHandler = {
+  name: 'categoryOrPostType',
+  priority: 30,
+  pattern: '/(.*)?/:slug',
+  func: async ({ route, params, state, libraries }) => {
+    // 1. try with category.
+    try {
+      const category = libraries.source.handlers.find(
+        (handler) => handler.name === 'category'
+      );
+      await category.func({ route, params, state, libraries });
+    } catch (e) {
+      // It's not a category
+      const postType = libraries.source.handlers.find(
+        (handler) => handler.name === 'post type'
+      );
+      await postType.func({ link: route, params, state, libraries });
+    }
   },
 };
 
@@ -141,7 +162,7 @@ const marsTheme = {
       processors: [image, iframe, gutenbergGallery, blockquote],
     },
     source: {
-      handlers: [allCategoriesHandler],
+      handlers: [allCategoriesHandler, categoryOrPostHandler],
     },
   },
 };
