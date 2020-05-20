@@ -66,7 +66,7 @@ const allCategoriesHandler = {
       .filter((c) => MAIN_CATEGORIES.includes(c.slug))
       .map((c) => ({
         name: c.name,
-        link: `/category/${c.slug}`,
+        link: `/${c.slug}`,
         slug: c.slug,
         count: c.count,
         id: c.id,
@@ -85,7 +85,7 @@ const allCategoriesHandler = {
 
 const categoryOrPostHandler = {
   name: 'categoryOrPostType',
-  priority: 19,
+  priority: 30,
   pattern: '/(.*)?/:slug',
   func: async ({ route, params, state, libraries }) => {
     // 1. try with category.
