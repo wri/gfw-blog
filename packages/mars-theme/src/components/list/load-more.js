@@ -9,10 +9,14 @@ const LoadMore = ({
   state,
   setPage,
   page,
+  limit,
   isFetching,
   setIsFetching,
 }) => {
   const buttonCss = `
+    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
+      width: 50% !important;
+    }
     @media screen and (max-width: ${SMALL_ENDPOINT}) {
       width: 100% !important;
       margin: 0 1rem;
@@ -22,12 +26,16 @@ const LoadMore = ({
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (page && page > 1) {
-      const res = actions.source.fetch(`${state.router.link}page/${page}`);
+      const fetchLink =
+        state.router.link[1] === '?'
+          ? `page/${page}${state.router.link}`
+          : `${state.router.link}page/${page}`;
+      const res = actions.source.fetch(fetchLink);
       res.then(() => {
         setIsFetching(true);
       });
     }
-  }, [page]);
+  }, [page, setIsFetching]);
 
   useEffect(() => {
     if (!isFetching) {
@@ -38,7 +46,11 @@ const LoadMore = ({
   const loadHandler = useCallback(() => {
     setIsLoading(true);
     setPage(page + 1);
-  }, [page]);
+  }, [page, setPage, setIsLoading]);
+
+  if (limit <= page && !isLoading) {
+    return null;
+  }
 
   return (
     <Wrapper>
@@ -69,15 +81,19 @@ LoadMore.propTypes = {
   setPage: PropTypes.func,
   setIsFetching: PropTypes.func,
   page: PropTypes.number,
+  limit: PropTypes.number,
   isFetching: PropTypes.bool,
 };
 
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
+  max-width: 1110px;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: center;
-  margin: 0.75rem 0 0 0;
+  margin-top: 0.75rem;
   @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    margin: 3.5rem 0 0 0;
+    margin-top: 3.5rem;
   }
 `;

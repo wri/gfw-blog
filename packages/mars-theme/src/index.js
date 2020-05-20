@@ -1,8 +1,20 @@
 import image from '@frontity/html2react/processors/image';
 import iframe from '@frontity/html2react/processors/iframe';
+import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
+
 import Blockquote from './components/blockqoute';
 import Theme from './components';
+
+const MAIN_CATEGORIES = [
+  'data-and-research',
+  'people',
+  'commodities',
+  'fires',
+  'climate',
+  'places-to-watch',
+  'uncategorized',
+];
 
 const gutenbergGallery = {
   test: ({ component, props }) =>
@@ -50,11 +62,23 @@ const allCategoriesHandler = {
     // 2. get an array with each item in json format
     const items = await response.json();
 
+    const categories = items
+      .filter((c) => MAIN_CATEGORIES.includes(c.slug))
+      .map((c) => ({
+        name: c.name,
+        link: `/category/${c.slug}`,
+        slug: c.slug,
+        count: c.count,
+        id: c.id,
+      }));
+    const sortedCategories = sortBy(categories, (cat) =>
+      MAIN_CATEGORIES.indexOf(cat.slug)
+    );
     // 3. add data to source
     const currentPageData = state.source.data[route];
 
     Object.assign(currentPageData, {
-      items,
+      categories: sortedCategories,
     });
   },
 };
@@ -100,6 +124,10 @@ const marsTheme = {
         showOnList: false,
         showOnPost: true,
       },
+      searchIsActive: false,
+      searchQuery: '',
+      tags: [],
+      categories: [],
     },
     googleAnalytics: {
       trackingId: process.env.GOOGLE_ANALYTICS,
@@ -113,6 +141,12 @@ const marsTheme = {
     theme: {
       toggleContactUsModal: ({ state }) => {
         state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
+      },
+      toggleSearch: ({ state }) => {
+        state.theme.searchIsActive = !state.theme.searchIsActive;
+      },
+      setSearchQuery: ({ state }) => (value) => {
+        state.theme.searchQuery = value;
       },
       beforeSSR: ({ actions }) => async () => {
         await actions.source.fetch('all-categories');

@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import FeaturedMedia from '../featured-media';
-import {
-  LARGE_ENDPOINT,
-  MEDIUM_ENDPOINT,
-  SMALL_ENDPOINT,
-} from '../heplers/css-endpoints';
+import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
 import CategoryNameList from '../category/list-name';
 import PostTitle from '../post/title';
 import PostExcerpt from '../post/excerpt';
@@ -25,12 +21,17 @@ const MainPost = ({ post, state }) => {
     width: 100%;
     flex-wrap: wrap;
     position: relative;
-    @media screen and (max-width: ${LARGE_ENDPOINT}) {
-        width: 100%;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+
+      h1 {
+        text-decoration: underline;
+      }
     }
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
-        width: 100%;
-    }`;
+
+  `;
 
   const mediaStyles = `
     height: 440px;
@@ -59,7 +60,7 @@ const MainPost = ({ post, state }) => {
     }
     @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
       padding: 50px 70px;
-      width: 67%;
+      width: 50%;
     }
     ${mediaStyles}
   `;
@@ -71,6 +72,7 @@ const MainPost = ({ post, state }) => {
     font-size: 1.875rem;
     line-height: 1.25;
     color: var(--color-white);
+    text-shadow: 0px 0px 4px #000000;
     margin-bottom: 20px;
   `;
 
@@ -79,6 +81,7 @@ const MainPost = ({ post, state }) => {
       font-size: 1rem;
     }
     color: var(--color-white);
+    text-shadow: 0px 0px 4px #000000;
     font-size: 0.875rem;
   `;
 
@@ -97,13 +100,15 @@ const MainPost = ({ post, state }) => {
           z-index: 1;
         `}
       />
-      <ContentWrapper>
-        <CategoryNameList categories={categories} styles={CategoriesStyles} />
-        <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
-        <PostExcerpt styles={ExcerptStyles} noHellip>
-          {item.excerpt.rendered}
-        </PostExcerpt>
-      </ContentWrapper>
+      <Overlay>
+        <ContentWrapper>
+          <CategoryNameList categories={categories} styles={CategoriesStyles} />
+          <PostTitle styles={TitleStyles}>{item.title.rendered}</PostTitle>
+          <PostExcerpt styles={ExcerptStyles} noHellip>
+            {item.excerpt.rendered}
+          </PostExcerpt>
+        </ContentWrapper>
+      </Overlay>
     </Wrapper>
   );
 };
@@ -114,3 +119,16 @@ MainPost.propTypes = {
   post: PropTypes.object,
   state: PropTypes.object,
 };
+
+const Overlay = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+`;

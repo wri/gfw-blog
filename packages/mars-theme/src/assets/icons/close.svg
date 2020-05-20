@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>782DD827-D010-4E01-B2B0-131DE5B3B5A7</title>
+    <defs>
+        <polygon id="path-1" points="5 3.63625 1.36375 0 2.77555756e-16 1.36375 3.63625 5 0 8.63625 1.36375 10 5 6.36375 8.63625 10 10 8.63625 6.36375 5 10 1.36375 8.63625 2.77555756e-16"></polygon>
+    </defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="GFW---Blog---UI-kit" transform="translate(-216.000000, -2389.000000)">
+            <g id="Icons/16px/Close" transform="translate(216.000000, 2389.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="X" fill="#333333" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>
