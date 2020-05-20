@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
+
 import Item from './list-item';
 import SubPost from './sub-post';
 import MainPost from './main-post';
@@ -20,23 +21,16 @@ import {
 import { isSearchLink, isBlogHomePage } from '../heplers/content';
 
 const POSTS_PER_PAGE = 9;
-const MAIN_CATEGORIES = [
-  'climate',
-  'fires',
-  'data-and-research',
-  'people',
-  'places-to-watch',
-  'commodities',
-];
 
 const List = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
 
-  const { items: allCategories } = state.source.data['all-categories/'];
-  const categories = allCategories
-    .filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    .map((c) => ({ name: c.name, link: `/category/${c.slug}` }));
+  const { categories } = state.source.data['all-categories/'];
+  const mainCategories = categories.filter(
+    (cat) => cat.slug !== 'uncategorized'
+  );
+
   const data = state.source.get(state.router.link);
   const initialPosts = [...data.items];
   const mainPosts = isBlogHomePage(link) ? initialPosts.splice(0, 1) : [];
@@ -151,7 +145,7 @@ const List = ({ state }) => {
             </div>
             <div className="column small-12 medium-9">
               <CategoryNameList
-                categories={categories}
+                categories={mainCategories}
                 title="Categories"
                 styles={categoriesStyles}
               />
