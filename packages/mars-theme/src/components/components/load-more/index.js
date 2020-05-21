@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
-import { SMALL_ENDPOINT, MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
 
 const LoadMore = ({
   actions,
@@ -13,16 +12,6 @@ const LoadMore = ({
   isFetching,
   setIsFetching,
 }) => {
-  const buttonCss = `
-    @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-      width: 50% !important;
-    }
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
-      width: 100% !important;
-      margin: 0 1rem;
-    }
-    width: 31.532% !important;
-  `;
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (page && page > 1) {
@@ -61,10 +50,10 @@ const LoadMore = ({
       )}
       {!isLoading && (
         <Button
-          css={css`
-            ${buttonCss}
-          `}
           onClick={loadHandler}
+          css={css`
+            width: 100%;
+          `}
         >
           Load more articles
         </Button>
@@ -87,13 +76,6 @@ LoadMore.propTypes = {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 1110px;
-  margin-left: auto;
-  margin-right: auto;
   justify-content: center;
-  margin-top: 0.75rem;
-  @media screen and (min-width: ${MEDIUM_ENDPOINT}) {
-    margin-top: 3.5rem;
-  }
+  width: 100%;
 `;

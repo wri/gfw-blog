@@ -7,8 +7,10 @@ import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
 import Search from '../../components/search';
 import Featured from '../../components/featured';
+import Card from '../../components/card';
+import LoadMore from '../../components/load-more';
 
-import { Wrapper, FeatureWrapper } from './styles';
+import { Wrapper, FeatureWrapper, Divider, LatestTitle } from './styles';
 
 const POSTS_PER_PAGE = 9;
 
@@ -90,7 +92,7 @@ const HomePage = ({ state }) => {
         className="row"
         css={css`
           position: relative;
-          z-index: 2;
+          z-index: 10;
         `}
       >
         <div className="column small-12 medium-10 large-8">
@@ -101,7 +103,9 @@ const HomePage = ({ state }) => {
             title="categories"
             categories={mainCategories}
             css={css`
-              margin-bottom: 15px;
+              margin: 20px 0 15px;
+              min-height: 80px;
+              /* align-items: center; */
             `}
           />
         </div>
@@ -113,10 +117,59 @@ const HomePage = ({ state }) => {
         css={css`
           position: relative;
           z-index: 1;
+          margin-bottom: 40px;
         `}
       >
         <Featured {...mainPosts[0]} />
       </FeatureWrapper>
+      <div
+        className="row"
+        css={css`
+          position: relative;
+          z-index: 1;
+        `}
+      >
+        {subPosts.map((post) => (
+          <div className="column small-12 medium-6">
+            <Card key={post.id} {...post} large />
+          </div>
+        ))}
+      </div>
+      <Divider />
+      <div
+        className="row"
+        css={css`
+          margin-bottom: 60px;
+        `}
+      >
+        <div className="column small-12">
+          <LatestTitle>Latest articles</LatestTitle>
+        </div>
+        {posts[state.router.link].map((post) => (
+          <div
+            className="column small-12 medium-6 large-4"
+            css={css`
+              margin-bottom: 40px;
+            `}
+          >
+            <Card key={post.id} {...post} />
+          </div>
+        ))}
+        <div
+          className="column small-12 medium-4 medium-offset-4"
+          css={css`
+            margin-top: 60px;
+          `}
+        >
+          <LoadMore
+            isFetching={isFetching}
+            setIsFetching={setIsFetching}
+            setPage={setPage}
+            page={page}
+            limit={totalPages}
+          />
+        </div>
+      </div>
     </Wrapper>
   );
 };
@@ -126,50 +179,3 @@ HomePage.propTypes = {
 };
 
 export default connect(HomePage);
-
-// const Divider = styled.div`
-//   border-top: 1px solid #e5e5df;
-//   margin-top: 3.75rem;
-//   margin-bottom: 3.75rem;
-//   @media screen and (max-width: ${SMALL_ENDPOINT}) {
-//     display: none;
-//   }
-// `;
-
-// const MainPostWrapper = styled.div`
-//   max-width: 1120px;
-//   margin: auto;
-
-//   @media screen and (min-width: ${SMALL_ENDPOINT}) {
-//     padding: 0 20px;
-//   }
-// `;
-
-// const Title = styled.h3`
-//   font-size: 1.125rem;
-//   font-weight: 500;
-//   margin-bottom: 50px;
-//   text-transform: uppercase;
-//   width: 100%;
-//   @media screen and (max-width: ${SMALL_ENDPOINT}) {
-//     display: none;
-//   }
-// `;
-
-// const Plug = styled.i`
-//   width: 31.532%;
-//   @media screen and (max-width: ${LARGE_ENDPOINT}) {
-//     width: 49%;
-//   }
-//   @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-//     width: 100%;
-//   }
-// `;
-
-// const BreadcrumbsContainer = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: baseline;
-//   height: 3.75rem;
-// `;
