@@ -4,6 +4,7 @@ import theme from '../../theme';
 export const Wrapper = styled.div`
   height: 60px;
   width: 100%;
+  cursor: pointer;
 
   ${theme.mediaQueries.small} {
     height: 80px;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'frontity';
 import { Button } from 'gfw-components';
-import TwitterIcon from '../../assets/icons/social/twitter-1.svg';
+import TwitterIcon from '../../../assets/icons/social/twitter-1.svg';
 
 const TWITT_SHARE_URL = 'https://twitter.com/share';
 

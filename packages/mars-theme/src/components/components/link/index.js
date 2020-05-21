@@ -1,5 +1,6 @@
-import React from "react";
-import { connect } from "frontity";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'frontity';
 
 const Link = ({
   state,
@@ -7,11 +8,11 @@ const Link = ({
   link,
   className,
   children,
-  "aria-current": ariaCurrent
+  ariaCurrent
 }) => {
   const onClick = event => {
     // Do nothing if it's an external link
-    if (link.startsWith("http")) return;
+    if (link.startsWith('http')) return;
 
     event.preventDefault();
     // Set the router to the new url.
@@ -37,5 +38,14 @@ const Link = ({
     </a>
   );
 };
+
+Link.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object,
+  link: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.node,
+  ariaCurrent: PropTypes.string,
+}
 
 export default connect(Link);
