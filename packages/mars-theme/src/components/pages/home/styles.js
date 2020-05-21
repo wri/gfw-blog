@@ -22,7 +22,7 @@ export const FeatureWrapper = styled.div`
 
 export const Divider = styled.div`
   border-top: 1px solid ${theme.colors.lightGrey};
-  margin-top: 60px;
+  margin-top: 20px;
   margin-bottom: 60px;
   display: none;
 
@@ -37,8 +37,17 @@ export const LatestTitle = styled.h2`
   margin-bottom: 50px;
   text-transform: uppercase;
   font-weight: 500;
+  display: none;
 
   ${theme.mediaQueries.small} {
     display: block;
+  }
+`;
+
+export const LoadMoreWrapper = styled.div`
+  margin-top: 20px;
+
+  ${theme.mediaQueries.small} {
+    margin-top: 60px;
   }
 `;

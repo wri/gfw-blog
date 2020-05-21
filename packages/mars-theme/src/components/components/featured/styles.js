@@ -63,17 +63,27 @@ export const ContentWrapper = styled.div`
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 36px;
-  line-height: 45px;
+  font-size: 30px;
+  line-height: 37px;
   font-weight: 400;
   color: ${theme.colors.white};
   width: 100%;
   margin-bottom: 20px;
+
+  ${theme.mediaQueries.small} {
+    font-size: 36px;
+    line-height: 45px;
+  }
 `;
 
 export const PostExcerpt = styled.p`
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 14px;
+  line-height: 21px;
   color: ${theme.colors.white};
   width: 100%;
+
+  ${theme.mediaQueries.small} {
+    font-size: 16px;
+    line-height: 28px;
+  }
 `;

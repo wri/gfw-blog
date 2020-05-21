@@ -27,11 +27,13 @@ export const Media = styled.div`
   overflow: hidden;
   margin-bottom: 20px;
 
-  ${({ large }) =>
-    large &&
-    `
-      height: 300px;
-  `}
+  ${theme.mediaQueries.small} {
+    ${({ large }) =>
+      large &&
+      `
+        height: 300px;
+    `}
+  }
 `;
 
 export const PostTitle = styled.h3`
@@ -42,12 +44,14 @@ export const PostTitle = styled.h3`
   width: 100%;
   margin-bottom: 20px;
 
-  ${({ large }) =>
-    large &&
-    `
-      font-size: 30px;
-      line-height: 38px;
-  `}
+  ${theme.mediaQueries.small} {
+    ${({ large }) =>
+      large &&
+      `
+        font-size: 30px;
+        line-height: 38px;
+    `}
+  }
 `;
 
 export const PostExcerpt = styled.div`
@@ -56,10 +60,12 @@ export const PostExcerpt = styled.div`
   color: ${theme.colors.darkGrey};
   width: 100%;
 
-  ${({ large }) =>
-    large &&
-    `
-      font-size: 16px;
-      line-height: 28px;
-  `}
+  ${theme.mediaQueries.small} {
+    ${({ large }) =>
+      large &&
+      `
+        font-size: 16px;
+        line-height: 28px;
+    `}
+  }
 `;

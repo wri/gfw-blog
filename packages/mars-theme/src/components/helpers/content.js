@@ -15,7 +15,3 @@ export const getLessContent = (str) => {
 export const isSearchLink = (link) => {
   return link.includes('?s=');
 };
-
-export const isBlogHomePage = (link) => {
-  return link === '/';
-};

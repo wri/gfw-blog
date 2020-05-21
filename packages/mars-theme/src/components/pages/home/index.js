@@ -10,7 +10,13 @@ import Featured from '../../components/featured';
 import Card from '../../components/card';
 import LoadMore from '../../components/load-more';
 
-import { Wrapper, FeatureWrapper, Divider, LatestTitle } from './styles';
+import {
+  Wrapper,
+  FeatureWrapper,
+  Divider,
+  LatestTitle,
+  LoadMoreWrapper,
+} from './styles';
 
 const POSTS_PER_PAGE = 9;
 
@@ -105,7 +111,6 @@ const HomePage = ({ state }) => {
             css={css`
               margin: 20px 0 15px;
               min-height: 80px;
-              /* align-items: center; */
             `}
           />
         </div>
@@ -130,7 +135,12 @@ const HomePage = ({ state }) => {
         `}
       >
         {subPosts.map((post) => (
-          <div className="column small-12 medium-6">
+          <div
+            className="column small-12 medium-6"
+            css={css`
+              margin-bottom: 40px;
+            `}
+          >
             <Card key={post.id} {...post} large />
           </div>
         ))}
@@ -155,12 +165,7 @@ const HomePage = ({ state }) => {
             <Card key={post.id} {...post} />
           </div>
         ))}
-        <div
-          className="column small-12 medium-4 medium-offset-4"
-          css={css`
-            margin-top: 60px;
-          `}
-        >
+        <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">
           <LoadMore
             isFetching={isFetching}
             setIsFetching={setIsFetching}
@@ -168,7 +173,7 @@ const HomePage = ({ state }) => {
             page={page}
             limit={totalPages}
           />
-        </div>
+        </LoadMoreWrapper>
       </div>
     </Wrapper>
   );
