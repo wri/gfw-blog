@@ -21,6 +21,7 @@ export const SearchMobile = styled(Search)`
 
 export const SearchDesktop = styled(Search)`
   display: none;
+  margin-top: -28px;
 
   ${theme.mediaQueries.small} {
     display: block;

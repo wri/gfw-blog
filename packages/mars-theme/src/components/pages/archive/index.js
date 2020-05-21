@@ -3,40 +3,30 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
-import BlogHeader from './intro';
-import CategoryList from '../../components/category-list';
-import Featured from '../../components/featured';
 import Card from '../../components/card';
 import LoadMore from '../../components/load-more';
+import Breadcrumbs from '../../components/breadcrumbs';
 
 import {
   Wrapper,
   SearchMobile,
   SearchDesktop,
-  FeatureWrapper,
-  Divider,
-  LatestTitle,
   LoadMoreWrapper,
 } from './styles';
 
 const POSTS_PER_PAGE = 9;
 
-const HomePage = ({ state }) => {
+const ArchivePage = ({ state }) => {
   const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
 
-  const { categories } = state.source.data['all-categories/'];
-  const mainCategories = categories.filter(
-    (cat) => cat.slug !== 'uncategorized'
-  );
-
   const data = state.source.get(state.router.link);
-  const initialPosts = [...data.items];
-  const mainPosts = initialPosts.splice(0, 1);
-  const subPosts = initialPosts.splice(0, 2);
+  const initialPosts = data.items;
+
   const [posts, setPosts] = useState({
     [state.router.link]: initialPosts.map(({ id, type }) => ({ id, type })),
   });
+
   const { totalPages } = data;
   const [page, setPage] = useState(1);
 
@@ -65,8 +55,7 @@ const HomePage = ({ state }) => {
   useEffect(() => {
     if (page && page > 1 && page <= totalPages && isFetching) {
       const pagesNumber = Math.round(
-        (posts[state.router.link].length + mainPosts.length + subPosts.length) /
-          POSTS_PER_PAGE
+        posts[state.router.link].length / POSTS_PER_PAGE
       );
       if (pagesNumber < page) {
         for (let i = page - 1; i < page; i++) {
@@ -102,63 +91,23 @@ const HomePage = ({ state }) => {
           z-index: 10;
         `}
       >
-        <div className="column small-12">
+        <div className="column small-9">
+          <Breadcrumbs />
+        </div>
+        <div className="column small-3">
           <SearchMobile />
         </div>
-        <div className="column small-12 medium-10 large-8">
-          <BlogHeader />
-        </div>
-        <div className="column small-12 medium-9">
-          <CategoryList
-            title="categories"
-            categories={mainCategories}
-            css={css`
-              margin-bottom: 15px;
-              min-height: 80px;
-            `}
-          />
-        </div>
+        <div className="column small-12 medium-9">Dropdown</div>
         <div className="column small-12 medium-3">
           <SearchDesktop showTitle />
         </div>
       </div>
-      <FeatureWrapper
-        css={css`
-          position: relative;
-          z-index: 1;
-          margin-bottom: 40px;
-        `}
-      >
-        <Featured {...mainPosts[0]} />
-      </FeatureWrapper>
-      <div
-        className="row"
-        css={css`
-          position: relative;
-          z-index: 1;
-        `}
-      >
-        {subPosts.map((post) => (
-          <div
-            className="column small-12 medium-6"
-            css={css`
-              margin-bottom: 40px;
-            `}
-          >
-            <Card key={post.id} {...post} large />
-          </div>
-        ))}
-      </div>
-      <Divider />
       <div
         className="row"
         css={css`
           margin-bottom: 60px;
         `}
       >
-        <div className="column small-12">
-          <LatestTitle>Latest articles</LatestTitle>
-        </div>
         {posts[state.router.link].map((post) => (
           <div
             className="column small-12 medium-6 large-4"
@@ -183,8 +132,8 @@ const HomePage = ({ state }) => {
   );
 };
 
-HomePage.propTypes = {
+ArchivePage.propTypes = {
   state: PropTypes.object,
 };
 
-export default connect(HomePage);
+export default connect(ArchivePage);

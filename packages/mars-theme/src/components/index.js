@@ -11,7 +11,7 @@ import Head from './head';
 
 import Loading from './pages/loading';
 import Home from './pages/home';
-// import List from './pages/list';
+import Archive from './pages/archive';
 // import Post from './pages/post';
 // import PageError from './pages/page-error';
 
@@ -37,8 +37,8 @@ const Theme = ({ state, actions }) => {
         <Switch>
           <Loading when={data.isFetching} />
           <Home when={data.isHome} />
-          {/* <List when={data.isArchive} />
-          <Post when={data.isPostType} />
+          <Archive when={data.isArchive} />
+          {/* <Post when={data.isPostType} />
           <PageError when={data.isError} /> */}
         </Switch>
       </Main>
