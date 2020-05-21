@@ -33,6 +33,7 @@
     "@frontity/wp-source": "^1.7.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
+    "emotion-rgba": "^0.0.8",
     "frontity": "^1.6.0",
     "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
@@ -40,6 +41,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.25.3",
     "prop-types": "^15.7.2",
+    "react-outside-click-handler": "^1.3.0",
     "use-debounce": "^3.4.2"
   },
   "devDependencies": {

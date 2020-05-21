@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import Search from './index';
-import { MEDIUM_ENDPOINT } from '../heplers/css-endpoints';
+import { MEDIUM_ENDPOINT } from '../../heplers/css-endpoints';
 
 const SearchResults = ({ state }) => {
   const { link } = state.router;

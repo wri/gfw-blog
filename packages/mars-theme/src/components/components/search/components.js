@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Image from '@frontity/components/image';
 import { styled, connect } from 'frontity';
-import path from './Search.png';
+import path from '../../../assets/Search.png';
 
 export const SearchInputWrapper = (props) => {
   const Element = styled.div`

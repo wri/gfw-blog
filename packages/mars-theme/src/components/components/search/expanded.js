@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import Input from './input';
 import { SearchInputWrapper } from './components';
-import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../../heplers/css-endpoints';
 
 const SearchExpanded = ({ state, actions, libraries, mobile, ...props }) => {
   const handler = () => {

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { SearchIcon } from './components';
 import SearchExpanded from './expanded';
-import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
-import CloseIcon from '../../assets/icons/close.svg';
+import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../../heplers/css-endpoints';
+import CloseIcon from '../../../assets/icons/close.svg';
 
 const Search = ({
   libraries,

@@ -178,8 +178,8 @@ const marsTheme = {
       toggleContactUsModal: ({ state }) => {
         state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
       },
-      toggleSearch: ({ state }) => {
-        state.theme.searchIsActive = !state.theme.searchIsActive;
+      setSearchOpen: ({ state }) => (open) => {
+        state.theme.searchIsActive = open;
       },
       setSearchQuery: ({ state }) => (value) => {
         state.theme.searchQuery = value;

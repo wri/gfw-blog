@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { styled, connect } from 'frontity';
 import { useDebounce } from 'use-debounce';
 import { KeyWordsList, InputWrapper, SearchIcon } from './components';
-import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../../heplers/css-endpoints';
 
 const StyledInput = styled.input`
   width: 100%;
