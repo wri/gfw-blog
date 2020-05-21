@@ -5,7 +5,7 @@ import { connect } from 'frontity';
 
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
-import Search from '../../components/search-new';
+import Search from '../../components/search';
 
 import { Wrapper } from './styles';
 

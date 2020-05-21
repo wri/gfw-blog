@@ -94,7 +94,7 @@ const topTagsHandler = {
     const response = await api.get({
       endpoint: 'tags',
       params: {
-        per_page: 20, // To make sure you get all of them
+        per_page: 100, // To make sure you get all of them
         orderby: 'count',
         order: 'desc',
       },
