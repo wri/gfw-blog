@@ -61,11 +61,12 @@ export default connect(Theme);
 const Main = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: 3.5rem;
+  padding-top: 76px;
 `;
 
 const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 100;
   width: 100%;
+  margin-bottom: 20px;
 `;

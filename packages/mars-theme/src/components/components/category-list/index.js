@@ -1,28 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { decode } from 'frontity';
-import { Button } from 'gfw-components';
 
 import Link from '../link';
 
-import { Wrapper, buttonStyles } from './styles';
+import { Wrapper, CategoryPill, H5 } from './styles';
 
 const CategoryList = ({
   categories = [],
+  light,
+  title,
   ...props
 }) => (
   <Wrapper {...props}>
+    <H5>{title}</H5>
     {categories.map(({ name, link } = {}) => (
       <Link
         key={name + link}
         link={link}
       >
-        <Button
-          theme="square theme-dark"
-          css={buttonStyles}
-        >
+        <CategoryPill light={light}>
           {decode(name)}
-        </Button>
+        </CategoryPill>
       </Link>
     ))}
   </Wrapper>
@@ -32,7 +31,6 @@ export default CategoryList;
 
 CategoryList.propTypes = {
   categories: PropTypes.array.isRequired,
-  styles: PropTypes.string,
-  itemStyles: PropTypes.string,
-  title: PropTypes.string,
+  light: PropTypes.bool,
+  title: PropTypes.string
 };
