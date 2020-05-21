@@ -42,7 +42,9 @@ const Theme = ({ state, actions }) => {
           <PageError when={data.isError} /> */}
         </Switch>
       </Main>
-      <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
+      <FooterWrapper>
+        <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
+      </FooterWrapper>
       <ContactUsModal
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
@@ -58,15 +60,22 @@ Theme.propTypes = {
 
 export default connect(Theme);
 
-const Main = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: 76px;
-`;
-
 const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 100;
   width: 100%;
   margin-bottom: 20px;
+`;
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 76px;
+  z-index: 50;
+  position: relative;
+`;
+
+const FooterWrapper = styled.div`
+  position: relative;
+  z-index: 1;
 `;
