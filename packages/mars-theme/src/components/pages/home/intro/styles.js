@@ -20,6 +20,6 @@ export const Description = styled.p`
   font-weight: 300;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 `;

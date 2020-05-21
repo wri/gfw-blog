@@ -113,7 +113,7 @@ const HomePage = ({ state }) => {
             title="categories"
             categories={mainCategories}
             css={css`
-              margin: 20px 0 15px;
+              margin: 28px 0 15px;
               min-height: 80px;
             `}
           />
