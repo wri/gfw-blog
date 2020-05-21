@@ -63,42 +63,6 @@ export const Input = styled.input`
   background: ${theme.colors.white};
   border: none;
   border-radius: 0;
+  font-size: 22px;
+  color: ${theme.colors.darkestGrey};
 `;
-
-// const RemoveIcon = styled.div`
-// cursor: pointer;
-// margin-left: 1rem;
-// `;
-
-// const Title = styled.div`
-// text-transform: uppercase;
-// color: #777;
-// font-size: 0.75rem;
-// line-height: 1.5rem;
-// height: 1.5rem;
-// min-width: 130px;
-// max-width: 150px;
-// `;
-
-// const ReadyContent = styled.div`
-// display: flex;
-// flex-wrap: wrap;
-// align-items: center;
-// `;
-
-// const ReadyTitle = styled.div`
-// width: 100%;
-// font-size: 3rem;
-// line-height: 3.75rem;
-// font-weight: 200;
-// color: #333;
-// @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-//   margin: 0 1rem;
-// }
-// `;
-
-// const SearchBox = styled.div`
-// display: flex;
-// align-items: center;
-// height: 1.5rem;
-// `;

@@ -28,4 +28,10 @@ export const ListItem = styled.li`
   &:last-child {
     margin-bottom: 0;
   }
+
+  &:hover {
+    a {
+      color: ${theme.colors.darkGrey};
+    }
+  }
 `;
