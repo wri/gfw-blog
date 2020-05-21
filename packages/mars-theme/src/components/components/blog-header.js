@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled } from 'frontity';
-import { SMALL_ENDPOINT } from './heplers/css-endpoints';
+import { SMALL_ENDPOINT } from '../heplers/css-endpoints';
 
 const BlogHeader = ({ state }) => {
   return (

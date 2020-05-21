@@ -1,10 +1,12 @@
-import React from "react";
-import { styled, connect } from "frontity";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { styled, connect } from 'frontity';
 
 const description404 = (
   <>
-    That page can’t be found{" "}
-    <span role="img" aria-label="confused face">
+    That page can’t be found
+    {' '}
+    <span role='img' aria-label='confused face'>
       😕
     </span>
   </>
@@ -13,7 +15,9 @@ const description404 = (
 const description = (
   <>
     Don&apos;t panic! Seems like you encountered an error. If this persists,
-    <a href="https://community.frontity.org"> let us know </a> or try refreshing
+    <a href='https://community.frontity.org'> let us know </a>
+    {' '}
+    or try refreshing
     your browser.
   </>
 );
@@ -22,8 +26,8 @@ const description = (
 const Page404 = ({ state }) => {
   const data = state.source.get(state.router.link);
 
-  const title = "Oops! Something went wrong";
-  const title404 = "Oops! 404";
+  const title = 'Oops! Something went wrong';
+  const title404 = 'Oops! 404';
 
   return (
     <Container>
@@ -32,6 +36,10 @@ const Page404 = ({ state }) => {
     </Container>
   );
 };
+
+Page404.propTypes = {
+  state: PropTypes.object
+}
 
 export default connect(Page404);
 

@@ -3,7 +3,7 @@ import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
 
-import Blockquote from './components/blockqoute';
+import Blockquote from './components/components/blockqoute';
 import Theme from './components';
 
 const MAIN_CATEGORIES = [
