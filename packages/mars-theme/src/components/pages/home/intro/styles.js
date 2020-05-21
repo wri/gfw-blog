@@ -5,6 +5,7 @@ import theme from '../../../theme';
 export const Title = styled.h1`
   font-size: 1.875rem;
   font-weight: 300;
+  margin: 0;
   margin-bottom: 20px;
 
   ${theme.mediaQueries.small} {

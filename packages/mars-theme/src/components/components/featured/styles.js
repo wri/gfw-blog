@@ -76,7 +76,7 @@ export const PostTitle = styled.h3`
   }
 `;
 
-export const PostExcerpt = styled.p`
+export const PostExcerpt = styled.div`
   font-size: 14px;
   line-height: 21px;
   color: ${theme.colors.white};

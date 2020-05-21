@@ -21,7 +21,7 @@ import {
 
 const deburrUpper = (string) => toUpper(deburr(string));
 
-const Search = ({ actions, state, ...props }) => {
+const Search = ({ actions, state, showTitle, ...props }) => {
   const [search, setSearch] = useState('');
 
   const open = state.theme.searchIsActive;
@@ -94,7 +94,7 @@ const Search = ({ actions, state, ...props }) => {
                 />
               </SearchOpen>
             )}
-            {!open && (
+            {!open && showTitle && (
               <SearchClosed>
                 <OpenMessage>search the GFW blog</OpenMessage>
               </SearchClosed>
@@ -119,4 +119,5 @@ export default connect(Search);
 Search.propTypes = {
   state: PropTypes.object,
   actions: PropTypes.object,
+  showTitle: PropTypes.bool,
 };

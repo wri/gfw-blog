@@ -5,13 +5,14 @@ import { connect, css } from 'frontity';
 
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
-import Search from '../../components/search';
 import Featured from '../../components/featured';
 import Card from '../../components/card';
 import LoadMore from '../../components/load-more';
 
 import {
   Wrapper,
+  SearchMobile,
+  SearchDesktop,
   FeatureWrapper,
   Divider,
   LatestTitle,
@@ -101,6 +102,9 @@ const HomePage = ({ state }) => {
           z-index: 10;
         `}
       >
+        <div className="column small-12">
+          <SearchMobile />
+        </div>
         <div className="column small-12 medium-10 large-8">
           <BlogHeader />
         </div>
@@ -115,7 +119,7 @@ const HomePage = ({ state }) => {
           />
         </div>
         <div className="column small-12 medium-3">
-          <Search />
+          <SearchDesktop showTitle />
         </div>
       </div>
       <FeatureWrapper

@@ -2,8 +2,12 @@ import { styled } from 'frontity';
 import theme from '../../theme';
 
 export const Wrapper = styled.div`
-  height: 80px;
+  height: 60px;
   width: 100%;
+
+  ${theme.mediaQueries.small} {
+    height: 80px;
+  }
 
   ${({ open }) =>
     open &&
@@ -26,8 +30,12 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  height: 80px;
+  height: 60px;
   border-bottom: solid 1px transparent;
+
+  ${theme.mediaQueries.small} {
+    height: 80px;
+  }
 
   ${({ open }) =>
     open &&
@@ -65,4 +73,9 @@ export const Input = styled.input`
   border-radius: 0;
   font-size: 22px;
   color: ${theme.colors.darkestGrey};
+  padding: 0 10px 0 0;
+
+  ${theme.mediaQueries.small} {
+    padding: 0 20px;
+  }
 `;
