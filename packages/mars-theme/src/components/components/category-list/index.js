@@ -6,22 +6,12 @@ import Link from '../link';
 
 import { Wrapper, CategoryPill, H5 } from './styles';
 
-const CategoryList = ({
-  categories = [],
-  light,
-  title,
-  ...props
-}) => (
+const CategoryList = ({ categories = [], light, title, ...props }) => (
   <Wrapper {...props}>
-    <H5>{title}</H5>
+    {title && <H5>{title}</H5>}
     {categories.map(({ name, link } = {}) => (
-      <Link
-        key={name + link}
-        link={link}
-      >
-        <CategoryPill light={light}>
-          {decode(name)}
-        </CategoryPill>
+      <Link key={name + link} link={link}>
+        <CategoryPill light={light}>{decode(name)}</CategoryPill>
       </Link>
     ))}
   </Wrapper>
@@ -32,5 +22,5 @@ export default CategoryList;
 CategoryList.propTypes = {
   categories: PropTypes.array.isRequired,
   light: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
 };

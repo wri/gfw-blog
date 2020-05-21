@@ -10,3 +10,12 @@ export const Wrapper = styled.div`
     padding: 50px 0;
   }
 `;
+
+export const FeatureWrapper = styled.div`
+  max-width: 1120px;
+  margin: auto;
+
+  ${theme.mediaQueries.small} {
+    padding: 0 20px;
+  }
+`;

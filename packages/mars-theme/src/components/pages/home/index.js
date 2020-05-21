@@ -1,13 +1,14 @@
 /* eslint-disable no-plusplus */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'frontity';
+import { connect, css } from 'frontity';
 
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
 import Search from '../../components/search';
+import Featured from '../../components/featured';
 
-import { Wrapper } from './styles';
+import { Wrapper, FeatureWrapper } from './styles';
 
 const POSTS_PER_PAGE = 9;
 
@@ -85,17 +86,37 @@ const HomePage = ({ state }) => {
 
   return (
     <Wrapper>
-      <div className="row">
+      <div
+        className="row"
+        css={css`
+          position: relative;
+          z-index: 2;
+        `}
+      >
         <div className="column small-12 medium-10 large-8">
           <BlogHeader />
         </div>
         <div className="column small-12 medium-9">
-          <CategoryList title="categories" categories={mainCategories} />
+          <CategoryList
+            title="categories"
+            categories={mainCategories}
+            css={css`
+              margin-bottom: 15px;
+            `}
+          />
         </div>
         <div className="column small-12 medium-3">
           <Search />
         </div>
       </div>
+      <FeatureWrapper
+        css={css`
+          position: relative;
+          z-index: 1;
+        `}
+      >
+        <Featured {...mainPosts[0]} />
+      </FeatureWrapper>
     </Wrapper>
   );
 };

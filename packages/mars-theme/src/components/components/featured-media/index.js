@@ -5,7 +5,7 @@ import Image from '@frontity/components/image';
 
 const FeaturedMedia = ({ state, id, styles = '' }) => {
   const Container = styled.div`
-    height: 200px;
+    height: 100%;
     width: 100%;
     ${styles}
   `;
