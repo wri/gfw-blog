@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'frontity';
+import { connect, css } from 'frontity';
 import { format } from 'date-fns';
 
 import { Button } from 'gfw-components';
@@ -43,7 +43,15 @@ const Comment = ({
       <div className="columns small-2">
         <EmptyColumn isLast={isLast} />
       </div>
-      <div className="columns small-10">
+      <div
+        className="columns small-10"
+        css={css`
+          ${isLast &&
+          `
+            background-color: white;
+          `}
+        `}
+      >
         <Body>
           <Html2React html={content.rendered} />
         </Body>

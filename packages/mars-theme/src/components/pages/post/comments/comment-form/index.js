@@ -28,7 +28,7 @@ const CommentForm = ({ title, postId, parent }) => (
           {submitting && <Loader />}
           {title && <CommentTitle>{title}</CommentTitle>}
           <div className="row">
-            <div className="column small-10 small-offset-2">
+            <div className="column small-12 medium-10 medium-offset-2">
               <form onSubmit={handleSubmit}>
                 <FormInput
                   name="comment"

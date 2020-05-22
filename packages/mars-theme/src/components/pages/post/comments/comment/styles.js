@@ -28,7 +28,7 @@ export const Body = styled.div`
 `;
 
 export const EmptyColumn = styled.div`
-  width: 100%;
+  width: 50px;
   height: 100%;
 
   ${({ isLast }) =>

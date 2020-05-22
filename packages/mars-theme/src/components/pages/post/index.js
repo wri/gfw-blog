@@ -23,6 +23,7 @@ import {
   LatestTitle,
   PostMetaMobile,
   PostMetaDesktop,
+  CaptionWrapper,
 } from './styles';
 
 const Post = ({ state, libraries, actions }) => {
@@ -83,11 +84,11 @@ const Post = ({ state, libraries, actions }) => {
       <MediaWrapper>
         <Media {...media} />
       </MediaWrapper>
-      <div className="row">
+      <CaptionWrapper className="row">
         <div className="column small-12">
           <Caption {...media} />
         </div>
-      </div>
+      </CaptionWrapper>
       <div className="row">
         <div className="column small-12 medium-3">
           <PostMetaDesktop>

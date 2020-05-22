@@ -68,3 +68,11 @@ export const Divider = styled.div`
     margin-bottom: 5rem;
   }
 `;
+
+export const CaptionWrapper = styled.div`
+  margin-bottom: 20px;
+
+  ${theme.mediaQueries.small} {
+    margin-bottom: 40px;
+  }
+`;
