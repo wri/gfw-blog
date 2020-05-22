@@ -36,6 +36,20 @@ export const PostTitle = styled.h1`
   }
 `;
 
+export const PostMetaMobile = styled.div`
+  ${theme.mediaQueries.small} {
+    display: none;
+  }
+`;
+
+export const PostMetaDesktop = styled.div`
+  display: none;
+
+  ${theme.mediaQueries.small} {
+    display: block;
+  }
+`;
+
 export const LatestTitle = styled.h2`
   font-size: 18px;
   color: ${theme.colors.darkestGrey};

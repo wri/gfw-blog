@@ -1,7 +1,15 @@
 import { styled } from 'frontity';
 import theme from '../../../theme';
 
-export default styled.div`
+export const MetaWrapper = styled.div`
+  margin-bottom: 20px;
+
+  ${theme.mediaQueries.small} {
+    margin-bottom: 40px;
+  }
+`;
+
+export const MetaItem = styled.div`
   color: ${theme.colors.mediumGrey};
   font-size: 14px;
   line-height: 21px;

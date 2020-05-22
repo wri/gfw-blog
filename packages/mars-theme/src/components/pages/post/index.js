@@ -10,9 +10,9 @@ import Caption from '../../components/caption';
 import CategoryList from '../../components/category-list';
 import Card from '../../components/card';
 
-import PostInfo from './info';
 import PostContent from './content';
 import PostMeta from './meta';
+import ShareLinks from './share-links';
 
 import {
   PostContainer,
@@ -20,6 +20,8 @@ import {
   PostTitle,
   Divider,
   LatestTitle,
+  PostMetaMobile,
+  PostMetaDesktop,
 } from './styles';
 
 const Post = ({ state, libraries, actions }) => {
@@ -87,14 +89,26 @@ const Post = ({ state, libraries, actions }) => {
       </div>
       <div className="row">
         <div className="column small-12 medium-3">
-          <PostInfo />
+          <PostMetaDesktop>
+            <PostMeta author={author} date={post.date} />
+            <ShareLinks
+              url={`${state.frontity.url}${state.router.link}`}
+              title={post.title.rendered}
+            />
+          </PostMetaDesktop>
         </div>
         <div className="column small-12 medium-8">
           <CategoryList categories={categories} />
           <PostTitle>
             <Html2React html={post.title.rendered} />
           </PostTitle>
-          <PostMeta author={author} date={post.date} />
+          <PostMetaMobile>
+            <PostMeta author={author} date={post.date} />
+            <ShareLinks
+              url={`${state.frontity.url}${state.router.link}`}
+              title={post.title.rendered}
+            />
+          </PostMetaMobile>
           <PostContent>
             <Html2React html={post.content.rendered} />
           </PostContent>

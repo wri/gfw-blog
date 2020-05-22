@@ -4,12 +4,12 @@ import { format } from 'date-fns';
 
 import Link from '../../../components/link';
 
-import MetaItem from './styles';
+import { MetaWrapper, MetaItem } from './styles';
 
 const formatDate = (dateStr) => format(new Date(dateStr), 'MMMM d, yyyy');
 
-const PostMeda = ({ author, date }) => (
-  <>
+const PostMeta = ({ author, date }) => (
+  <MetaWrapper>
     {author && (
       <MetaItem>
         <b>By&nbsp;</b>
@@ -24,12 +24,12 @@ const PostMeda = ({ author, date }) => (
       <b>Languages&nbsp;</b>
       <span>Léelo en español</span>
     </MetaItem>
-  </>
+  </MetaWrapper>
 );
 
-PostMeda.propTypes = {
+PostMeta.propTypes = {
   author: PropTypes.object,
   date: PropTypes.string,
 };
 
-export default PostMeda;
+export default PostMeta;
