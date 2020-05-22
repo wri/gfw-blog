@@ -4,8 +4,8 @@ import { css } from 'frontity';
 import { Button, TwitterIcon, FacebookIcon } from 'gfw-components';
 import theme from '../../../theme';
 
-import NewsletterIcon from '../../../../assets/icons/social/envelope.svg';
-import ChatIcon from '../../../../assets/icons/social/comment.svg';
+import NewsletterIcon from '../../../../assets/icons/envelope.svg';
+import ChatIcon from '../../../../assets/icons/comment.svg';
 
 import { ButtonsContainer, Label } from './styles';
 

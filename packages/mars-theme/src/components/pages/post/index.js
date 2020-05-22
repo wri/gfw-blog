@@ -13,6 +13,7 @@ import Card from '../../components/card';
 import PostContent from './content';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
+import Comments from './comments';
 
 import {
   PostContainer,
@@ -133,11 +134,11 @@ const Post = ({ state, libraries, actions }) => {
           ))}
       </div>
       <Divider />
-      {/* <div className="row">
+      <div className="row">
         <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
-          <CommentList />
+          <Comments {...post} />
         </div>
-      </div> */}
+      </div>
     </PostContainer>
   ) : null;
 };

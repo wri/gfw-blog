@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'frontity';
-import { Button } from 'gfw-components';
-import TwitterIcon from '../../../assets/icons/social/twitter-1.svg';
+import { Button, TwitterIcon } from 'gfw-components';
 
 const TWITT_SHARE_URL = 'https://twitter.com/share';
 
@@ -21,7 +20,7 @@ const Blockquote = ({ children }) => (
         `}
         theme="button-light round big"
       >
-        <img src={TwitterIcon} alt="" />
+        <TwitterIcon />
       </Button>
     </a>
   </>
