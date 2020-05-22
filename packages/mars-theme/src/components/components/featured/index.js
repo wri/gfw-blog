@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
-import FeaturedMedia from '../featured-media';
+import Media from '../media';
 import CategoryList from '../category-list';
 import Link from '../link';
 import { clearExcerptHellip } from '../../helpers/content';
@@ -20,10 +20,11 @@ const MainPost = ({ libraries, state, id, type }) => {
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
     state.source[type][id] || {};
   const postCategories = categories.map((cat) => state.source.category[cat]);
+  const media = state.source.attachment[featuredMediaId];
 
   return (
     <Wrapper>
-      <FeaturedMedia id={featuredMediaId} />
+      <Media {...media} />
       <Link
         link={link}
         css={css`

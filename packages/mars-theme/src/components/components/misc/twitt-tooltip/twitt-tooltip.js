@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { styled } from 'frontity';
 
-import TwittTooltipIcon from '../../assets/icons/social/twitt-tooltip.svg';
+import TwittTooltipIcon from '../../../../assets/icons/social/twitt-tooltip.svg';
 
 const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
 

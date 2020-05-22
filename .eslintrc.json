@@ -48,6 +48,7 @@
     "react/no-array-index-key": "off",
     "no-restricted-globals": "off",
     "react/sort-comp": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "no-plusplus": "off"
   }
 }

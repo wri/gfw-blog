@@ -1,14 +1,17 @@
 import { styled } from 'frontity';
 import theme from '../../theme';
 
-export const Wrapper = styled.div`
+export default styled.div`
   width: 100%;
-  font-size: 0.75rem;
-  line-height: 1.3125rem;
-  margin-bottom: 20px;
+  font-size: 12px;
+  line-height: 21px;
+
   a {
+    color: ${theme.colors.green};
+
     &:hover {
-      color: #658022;
+      color: ${theme.colors.darkGreen};
+      text-decoration: underline;
     }
   }
 `;

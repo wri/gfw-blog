@@ -12,8 +12,8 @@ import Head from './head';
 import Loading from './pages/loading';
 import Home from './pages/home';
 import Archive from './pages/archive';
-// import Post from './pages/post';
-// import PageError from './pages/page-error';
+import Post from './pages/post';
+// import Error from './pages/error';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
@@ -38,8 +38,8 @@ const Theme = ({ state, actions }) => {
           <Loading when={data.isFetching} />
           <Home when={data.isHome} />
           <Archive when={data.isArchive} />
-          {/* <Post when={data.isPostType} />
-          <PageError when={data.isError} /> */}
+          <Post when={data.isPostType} />
+          {/* <Error when={data.isError} /> */}
         </Switch>
       </Main>
       <FooterWrapper>

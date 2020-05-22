@@ -1,16 +1,6 @@
-import React from 'react';
 import { styled } from 'frontity';
-import { Loader } from 'gfw-components';
 
-const Loading = () => (
-  <Container>
-    <Loader />
-  </Container>
-);
-
-export default Loading;
-
-const Container = styled.div`
+export default styled.div`
   position: relative;
   min-height: 600px;
   width: 800px;

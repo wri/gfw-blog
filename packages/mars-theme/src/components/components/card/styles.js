@@ -22,7 +22,7 @@ export const CardWrapper = styled.article`
   }
 `;
 
-export const Media = styled.div`
+export const MediaWrapper = styled.div`
   height: 200px;
   overflow: hidden;
   margin-bottom: 20px;

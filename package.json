@@ -32,6 +32,7 @@
     "@frontity/tiny-router": "^1.2.0",
     "@frontity/wp-source": "^1.7.0",
     "classnames": "^2.2.6",
+    "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
     "emotion-rgba": "^0.0.8",
     "frontity": "^1.6.0",

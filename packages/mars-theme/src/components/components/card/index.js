@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
-import FeaturedMedia from '../featured-media';
+import Media from '../media';
 import CategoryList from '../category-list';
 import Link from '../link';
 import { clearExcerptHellip } from '../../helpers/content';
 
-import { CardWrapper, Media, PostTitle, PostExcerpt } from './styles';
+import { CardWrapper, MediaWrapper, PostTitle, PostExcerpt } from './styles';
 
 const Card = ({ libraries, state, id, type, large }) => {
   const Html2React = libraries.html2react.Component;
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
     state.source[type][id] || {};
   const postCategories = categories.map((cat) => state.source.category[cat]);
+  const media = state.source.attachment[featuredMediaId];
 
   return (
     <CardWrapper>
@@ -28,9 +29,9 @@ const Card = ({ libraries, state, id, type, large }) => {
           right: 0;
         `}
       />
-      <Media large={large}>
-        <FeaturedMedia id={featuredMediaId} />
-      </Media>
+      <MediaWrapper large={large}>
+        <Media {...media} />
+      </MediaWrapper>
       <CategoryList
         categories={postCategories}
         css={css`
