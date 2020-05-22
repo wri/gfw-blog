@@ -8,7 +8,8 @@ export const ButtonsContainer = styled.div`
     flex-direction: column;
   }
 
-  a {
+  > a,
+  > button {
     margin: 0 20px 20px 0;
   }
 `;

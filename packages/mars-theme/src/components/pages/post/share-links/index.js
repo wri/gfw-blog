@@ -12,7 +12,7 @@ import { ButtonsContainer, Label } from './styles';
 const TWITT_SHARE_URL = 'https://twitter.com/share';
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
 
-const ShareLinks = ({ url, title, scrollTocomment }) => (
+const ShareLinks = ({ url, title, scrollToComment }) => (
   <ButtonsContainer>
     <a
       href={`${TWITT_SHARE_URL}?url=${url}&text=${title}`}
@@ -52,16 +52,15 @@ const ShareLinks = ({ url, title, scrollTocomment }) => (
         <FacebookIcon />
       </Button>
     </a>
-    <a href="#" onClick={scrollTocomment}>
-      <Button
-        css={css`
-          border-color: #f0f0f0;
-        `}
-        theme="button-light round big"
-      >
-        <img src={ChatIcon} alt="" />
-      </Button>
-    </a>
+    <Button
+      css={css`
+        border-color: #f0f0f0;
+      `}
+      theme="button-light round big"
+      onClick={scrollToComment}
+    >
+      <img src={ChatIcon} alt="" />
+    </Button>
     <a
       target="_blank"
       rel="noopener noreferrer"
@@ -89,7 +88,7 @@ const ShareLinks = ({ url, title, scrollTocomment }) => (
 ShareLinks.propTypes = {
   url: PropTypes.string,
   title: PropTypes.string,
-  scrollTocomment: PropTypes.func,
+  scrollToComment: PropTypes.func,
 };
 
 export default ShareLinks;

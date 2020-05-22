@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
@@ -29,6 +29,7 @@ import {
 const Post = ({ state, libraries, actions }) => {
   const data = state.source.get(state.router.link);
   const Html2React = libraries.html2react.Component;
+  const commentsRef = useRef(null);
 
   const post = state.source[data.type][data.id];
   const media = state.source.attachment[post.featured_media];
@@ -109,6 +110,8 @@ const Post = ({ state, libraries, actions }) => {
             <ShareLinks
               url={`${state.frontity.url}${state.router.link}`}
               title={post.title.rendered}
+              scrollToComment={() =>
+                commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
             />
           </PostMetaMobile>
           <PostContent>
@@ -135,7 +138,13 @@ const Post = ({ state, libraries, actions }) => {
           ))}
       </div>
       <Divider />
-      <div className="row">
+      <div
+        className="row"
+        ref={commentsRef}
+        css={css`
+          scroll-margin: 150px;
+        `}
+      >
         <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
           <Comments {...post} />
         </div>
