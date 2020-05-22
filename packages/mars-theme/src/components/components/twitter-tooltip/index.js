@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { styled } from 'frontity';
 
-import TwittTooltipIcon from '../../../../assets/icons/social/twitt-tooltip.svg';
+import { TwitterIcon } from 'gfw-components';
 
 const TWITT_CREATION_URI = 'https://twitter.com/intent/tweet?text=';
 
@@ -51,7 +51,7 @@ export default function TwittTextTooltip() {
   return (
     <Tooltip position={position}>
       <TwittLink target="_blank" href={getTwittContent()}>
-        <img src={TwittTooltipIcon} alt="" />
+        <TwitterIcon />
         <TwittSpan>Tweet this</TwittSpan>
       </TwittLink>
       <Arrow />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TwittTextTooltip from '../../../components/misc/twitt-tooltip/twitt-tooltip';
+import TwittTextTooltip from '../../../components/twitter-tooltip';
 
 import ContentWrapper from './styles';
 
