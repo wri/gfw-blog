@@ -23,10 +23,17 @@ export const MediaWrapper = styled.div`
 `;
 
 export const PostTitle = styled.h1`
-  font-size: 48px;
-  line-height: 60px;
+  font-size: 30px;
+  line-height: 38px;
   color: ${theme.colors.darkestGrey};
   font-weight: 300;
+  margin-bottom: 15px;
+
+  ${theme.mediaQueries.small} {
+    font-size: 48px;
+    line-height: 60px;
+    margin-bottom: 20px;
+  }
 `;
 
 export const LatestTitle = styled.h2`

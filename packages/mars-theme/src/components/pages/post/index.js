@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-// import { format } from 'date-fns';
 
 import Archive from '../archive';
 
@@ -13,6 +12,7 @@ import Card from '../../components/card';
 
 import PostInfo from './info';
 import PostContent from './content';
+import PostMeta from './meta';
 
 import {
   PostContainer,
@@ -30,8 +30,7 @@ const Post = ({ state, libraries, actions }) => {
   const media = state.source.attachment[post.featured_media];
   const categories = post.categories.map((id) => state.source.category[id]);
   const tags = post.tags.map((id) => state.source.tag[id]);
-  // const author = state.source.author[post.author];
-  // const date = format(new Date(post.date), 'MMMM d, yyyy');
+  const author = state.source.author[post.author];
 
   /**
    * Once the post has loaded in the DOM, prefetch both the
@@ -95,6 +94,7 @@ const Post = ({ state, libraries, actions }) => {
           <PostTitle>
             <Html2React html={post.title.rendered} />
           </PostTitle>
+          <PostMeta author={author} date={post.date} />
           <PostContent>
             <Html2React html={post.content.rendered} />
           </PostContent>
