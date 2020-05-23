@@ -15,7 +15,7 @@ import Loading from '../pages/loading';
 import Home from '../pages/home';
 import Archive from '../pages/archive';
 import Post from '../pages/post';
-// import Error from './pages/error';
+import Error from '../pages/error';
 
 const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
 const SSRStyles = () => <Global styles={css(mediaStyles)} />;
@@ -50,7 +50,7 @@ const Theme = ({ state, actions }) => {
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive} />
           <Post when={data.isPostType} />
-          {/* <Error when={data.isError} /> */}
+          <Error when={data.isError} />
         </Switch>
       </Main>
       <FooterWrapper>
