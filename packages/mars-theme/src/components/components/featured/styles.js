@@ -55,6 +55,7 @@ export const ContentWrapper = styled.div`
 
   ${theme.mediaQueries.small} {
     padding: 40px 50px;
+    width: 75%;
   }
 
   ${theme.mediaQueries.medium} {
@@ -69,6 +70,11 @@ export const PostTitle = styled.h3`
   color: ${theme.colors.white};
   width: 100%;
   margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
     font-size: 36px;
@@ -81,6 +87,11 @@ export const PostExcerpt = styled.div`
   line-height: 21px;
   color: ${theme.colors.white};
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
     font-size: 16px;

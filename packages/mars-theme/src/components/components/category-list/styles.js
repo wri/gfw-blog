@@ -5,6 +5,10 @@ import theme from '../../theme';
 export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  a {
+    margin: 0 20px 20px 0;
+  }
 `;
 
 export const H5 = styled.h5`
@@ -26,14 +30,15 @@ export const CategoryPill = styled(Button)`
   padding: 0 12px;
   font-size: 12px;
   background-color: ${theme.colors.darkestGrey};
-  margin: 0 20px 20px 0;
   border-radius: 0;
 
   &:hover {
     background-color: ${theme.colors.green};
   }
 
-  ${({ light }) => light && `
+  ${({ light }) =>
+    light &&
+    `
     background-color: ${theme.colors.lightGrey};
     color: ${theme.colors.darkestGrey};
 
