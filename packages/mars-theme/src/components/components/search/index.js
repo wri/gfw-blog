@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-import { rgba } from 'emotion-rgba';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
 import { SearchIcon, CloseIcon, Button } from 'gfw-components';
 
-import theme from '../../theme';
 import ResultsList from '../results-list';
 
 import {
@@ -17,6 +15,7 @@ import {
   OpenMessage,
   Input,
   OpenPlaceholder,
+  Overlay,
 } from './styles';
 
 const deburrUpper = (string) => toUpper(deburr(string));
@@ -72,29 +71,20 @@ const Search = ({
   return (
     <>
       {open && (
-        <div
+        <Overlay
           role="button"
           aria-label="close search"
           tabIndex={0}
           onClick={() => actions.theme.setSearchOpen(false)}
-          css={css`
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            background-color: ${rgba(theme.colors.white, 0.8)};
-          `}
         />
       )}
-      <Wrapper
-        onClick={() => actions.theme.setSearchOpen(true)}
-        {...props}
-        open={open}
-      >
-        <Container open={open} expanded={expanded}>
+      {open && <OpenPlaceholder />}
+      <Wrapper {...props} open={open}>
+        <Container
+          open={open}
+          expanded={expanded}
+          onClick={() => actions.theme.setSearchOpen(true)}
+        >
           {(open || expanded) && (
             <SearchOpen>
               <Input
@@ -142,7 +132,6 @@ const Search = ({
           />
         )}
       </Wrapper>
-      {open && <OpenPlaceholder />}
     </>
   );
 };

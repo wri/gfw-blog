@@ -8,9 +8,12 @@ const Link = ({
   link,
   className,
   children,
-  ariaCurrent
+  ariaCurrent,
+  onClick: buttonClick,
 }) => {
-  const onClick = event => {
+  const onClick = (event) => {
+    buttonClick();
+
     // Do nothing if it's an external link
     if (link.startsWith('http')) return;
 
@@ -46,6 +49,7 @@ Link.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   ariaCurrent: PropTypes.string,
-}
+  onClick: PropTypes.func,
+};
 
 export default connect(Link);
