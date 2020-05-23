@@ -14,7 +14,13 @@ const Dropdown = ({ selected, items }) => {
     items && !!items.length && items.find((i) => i.id === selected);
   const selectedLabel = selectedItem && selectedItem.name;
 
-  const handleClickOutside = () => setOpen(false);
+  const handleClickOutside = (e) => {
+    if (wrapperRef.current.contains(e.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
