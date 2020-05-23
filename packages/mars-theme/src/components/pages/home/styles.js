@@ -26,6 +26,22 @@ export const SearchDesktop = styled(Search)`
   ${theme.mediaQueries.small} {
     display: block;
   }
+
+  ${({ open }) =>
+    open &&
+    `
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -28px;
+    max-width: 1120px;
+    padding: 0 16px;
+    margin: 0 auto;
+
+    ${theme.mediaQueries.small} {
+      padding: 0 20px;
+    }
+  `}
 `;
 
 export const FeatureWrapper = styled.div`

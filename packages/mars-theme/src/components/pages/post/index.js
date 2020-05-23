@@ -73,12 +73,18 @@ const Post = ({ state, libraries, actions }) => {
 
   return data.isReady ? (
     <PostContainer>
-      <div className="row">
+      <div
+        className="row"
+        css={css`
+          position: relative;
+          min-height: 60px;
+        `}
+      >
         <div className="column small-10 medium-9">
           <Breadcrumbs />
         </div>
         <div className="column small-2 medium-3">
-          <Search />
+          <Search open={state.theme.searchIsActive} />
         </div>
       </div>
       <MediaWrapper>

@@ -1,43 +1,16 @@
 import { styled } from 'frontity';
-import { rgba } from 'emotion-rgba';
 import theme from '../../theme';
-
-export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${rgba(theme.colors.white, 0.8)};
-  cursor: pointer;
-`;
 
 export const Wrapper = styled.div`
   height: 60px;
   width: 100%;
   cursor: pointer;
+  z-index: 20;
+  position: relative;
 
   ${theme.mediaQueries.small} {
     height: 80px;
   }
-
-  ${({ open }) =>
-    open &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    max-width: 1120px;
-    padding: 0 16px;
-    margin: 0 auto;
-
-    ${theme.mediaQueries.small} {
-      padding: 0 20px;
-    }
-  `}
 `;
 
 export const Container = styled.div`
@@ -57,16 +30,6 @@ export const Container = styled.div`
     `
     border-bottom-color: ${theme.colors.grey};
   `}
-`;
-
-export const OpenPlaceholder = styled.div`
-  width: 100%;
-  height: 60px;
-  position: relative;
-
-  ${theme.mediaQueries.small} {
-    height: 80px;
-  }
 `;
 
 export const SearchClosed = styled.div`

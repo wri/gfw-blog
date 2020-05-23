@@ -95,19 +95,20 @@ const HomePage = ({ state }) => {
 
   return (
     <Wrapper>
-      <div
-        className="row"
-        css={css`
-          position: relative;
-          z-index: 10;
-        `}
-      >
+      <div className="row">
         <div className="column small-12">
           <SearchMobile />
         </div>
         <div className="column small-12 medium-10 large-8">
           <BlogHeader />
         </div>
+      </div>
+      <div
+        className="row"
+        css={css`
+          position: relative;
+        `}
+      >
         <div className="column small-12 medium-9">
           <CategoryList
             title="categories"
@@ -119,7 +120,7 @@ const HomePage = ({ state }) => {
           />
         </div>
         <div className="column small-12 medium-3">
-          <SearchDesktop showTitle />
+          <SearchDesktop showTitle open={state.theme.searchIsActive} />
         </div>
       </div>
       <FeatureWrapper

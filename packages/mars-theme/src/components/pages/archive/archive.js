@@ -126,7 +126,7 @@ const ArchivePage = ({ state }) => {
         className="row"
         css={css`
           position: relative;
-          z-index: 10;
+          min-height: 60px;
         `}
       >
         <div className="column small-9">
@@ -140,7 +140,12 @@ const ArchivePage = ({ state }) => {
             `}
           />
         </div>
-        {isSearch ? (
+        {!isSearch && (
+          <div className="column small-3">
+            <SearchMobile open={state.theme.searchIsActive} />
+          </div>
+        )}
+        {isSearch && (
           <>
             <div
               className="column small-12"
@@ -153,33 +158,42 @@ const ArchivePage = ({ state }) => {
                 }
               `}
             >
-              <SearchDesktop expanded />
+              <SearchDesktop expanded isSearch />
             </div>
           </>
-        ) : (
-          <>
-            <div className="column small-3">
-              <SearchMobile />
-            </div>
-            <div className="column small-12 medium-9">
-              <Dropdown items={taxOptions} selected={taxSelected} />
-            </div>
-            <div className="column small-12 medium-3">
-              <SearchDesktop showTitle />
-            </div>
-          </>
-        )}
-        {(!isSearchEmpty || !isSearch) && (
-          <div
-            className="column small-12"
-            css={css`
-              margin-bottom: 20px;
-            `}
-          >
-            <ResultsStatement>{resultsStatement}</ResultsStatement>
-          </div>
         )}
       </div>
+      {!isSearch && (
+        <div
+          className="row"
+          css={css`
+            position: relative;
+          `}
+        >
+          <div className="column small-12 medium-9">
+            <Dropdown
+              items={taxOptions}
+              selected={taxSelected}
+              css={css`
+                z-index: 3;
+              `}
+            />
+          </div>
+          <div className="column small-12 medium-3">
+            <SearchDesktop showTitle open={state.theme.searchIsActive} />
+          </div>
+          {(!isSearchEmpty || !isSearch) && (
+            <div
+              className="column small-12"
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <ResultsStatement>{resultsStatement}</ResultsStatement>
+            </div>
+          )}
+        </div>
+      )}
       <div
         className="row"
         css={css`

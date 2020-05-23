@@ -17,6 +17,23 @@ export const Search = styled(SearchComponent)`
   ${theme.mediaQueries.small} {
     margin-top: -30px;
   }
+
+  ${({ open }) =>
+    open &&
+    `
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20px;
+    max-width: 1120px;
+    padding: 0 16px;
+    margin: 0 auto;
+
+    ${theme.mediaQueries.small} {
+      padding: 0 20px;
+      top: 0;
+    }
+  `}
 `;
 
 export const MediaWrapper = styled.div`

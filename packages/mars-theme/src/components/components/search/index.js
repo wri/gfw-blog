@@ -14,8 +14,6 @@ import {
   SearchClosed,
   OpenMessage,
   Input,
-  OpenPlaceholder,
-  Overlay,
 } from './styles';
 
 const deburrUpper = (string) => toUpper(deburr(string));
@@ -69,70 +67,56 @@ const Search = ({
   }, [open]);
 
   return (
-    <>
+    <Wrapper {...props} open={open}>
+      <Container
+        open={open}
+        expanded={expanded}
+        onClick={() => actions.theme.setSearchOpen(true)}
+      >
+        {(open || expanded) && (
+          <SearchOpen>
+            <Input
+              ref={inputRef}
+              value={search}
+              expanded={expanded}
+              placeholder="Search the GFW blog  (eg. fires, Brazil, palm oil)"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={keyDownHandler}
+            />
+            {search && (
+              <Button theme="button-clear round" onClick={() => setSearch('')}>
+                <CloseIcon
+                  css={css`
+                    height: 10px;
+                    width: 10px;
+                    max-height: 10px;
+                    max-width: 10px;
+                  `}
+                />
+              </Button>
+            )}
+          </SearchOpen>
+        )}
+        {!open && showTitle && (
+          <SearchClosed>
+            <OpenMessage>search the GFW blog</OpenMessage>
+          </SearchClosed>
+        )}
+        <SearchIcon
+          css={css`
+            min-width: 32px;
+            min-height: 32px;
+            height: 32px;
+          `}
+        />
+      </Container>
       {open && (
-        <Overlay
-          role="button"
-          aria-label="close search"
-          tabIndex={0}
-          onClick={() => actions.theme.setSearchOpen(false)}
+        <ResultsList
+          items={searchResults}
+          onClickResult={() => actions.theme.setSearchOpen(false)}
         />
       )}
-      {open && <OpenPlaceholder />}
-      <Wrapper {...props} open={open}>
-        <Container
-          open={open}
-          expanded={expanded}
-          onClick={() => actions.theme.setSearchOpen(true)}
-        >
-          {(open || expanded) && (
-            <SearchOpen>
-              <Input
-                ref={inputRef}
-                value={search}
-                expanded={expanded}
-                placeholder="Search the GFW blog  (eg. fires, Brazil, palm oil)"
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={keyDownHandler}
-              />
-              {search && (
-                <Button
-                  theme="button-clear round"
-                  onClick={() => setSearch('')}
-                >
-                  <CloseIcon
-                    css={css`
-                      height: 10px;
-                      width: 10px;
-                      max-height: 10px;
-                      max-width: 10px;
-                    `}
-                  />
-                </Button>
-              )}
-            </SearchOpen>
-          )}
-          {!open && showTitle && (
-            <SearchClosed>
-              <OpenMessage>search the GFW blog</OpenMessage>
-            </SearchClosed>
-          )}
-          <SearchIcon
-            css={css`
-              min-width: 32px;
-              min-height: 32px;
-              height: 32px;
-            `}
-          />
-        </Container>
-        {open && (
-          <ResultsList
-            items={searchResults}
-            onClickResult={() => actions.theme.setSearchOpen(false)}
-          />
-        )}
-      </Wrapper>
-    </>
+    </Wrapper>
   );
 };
 

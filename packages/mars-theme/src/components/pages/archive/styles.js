@@ -15,20 +15,56 @@ export const SearchMobile = styled(Search)`
   ${theme.mediaQueries.small} {
     display: none;
   }
+
+  ${({ open }) =>
+    open &&
+    `
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20px;
+    max-width: 1120px;
+    padding: 0 16px;
+    margin: 0 auto;
+
+    ${theme.mediaQueries.small} {
+      padding: 0 20px;
+    }
+  `}
+`;
+
+export const SearchDesktop = styled(Search)`
+  ${({ isSearch }) =>
+    !isSearch &&
+    `
+    display: none;
+
+    ${theme.mediaQueries.small} {
+      display: block;
+    }
+  `}
+
+  ${({ open }) =>
+    open &&
+    `
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    max-width: 1120px;
+    padding: 0 16px;
+    margin: 0 auto;
+
+    ${theme.mediaQueries.small} {
+      padding: 0 20px;
+    }
+  `}
 `;
 
 export const ResultsStatement = styled.p`
   font-size: 14px;
   line-height: 21px;
   color: ${theme.colors.mediumGrey};
-`;
-
-export const SearchDesktop = styled(Search)`
-  display: none;
-
-  ${theme.mediaQueries.small} {
-    display: block;
-  }
 `;
 
 export const LoadMoreWrapper = styled.div`
