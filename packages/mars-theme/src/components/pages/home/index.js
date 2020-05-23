@@ -140,12 +140,13 @@ const HomePage = ({ state }) => {
       >
         {subPosts.map((post) => (
           <div
+            key={post.id}
             className="column small-12 medium-6"
             css={css`
               margin-bottom: 40px;
             `}
           >
-            <Card key={post.id} {...post} large />
+            <Card {...post} large />
           </div>
         ))}
       </div>
@@ -161,12 +162,13 @@ const HomePage = ({ state }) => {
         </div>
         {posts[state.router.link].map((post) => (
           <div
+            key={post.id}
             className="column small-12 medium-6 large-4"
             css={css`
               margin-bottom: 40px;
             `}
           >
-            <Card key={post.id} {...post} />
+            <Card {...post} />
           </div>
         ))}
         <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">

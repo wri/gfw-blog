@@ -122,8 +122,9 @@ const ArchivePage = ({ state }) => {
             css={css`
               margin-bottom: 40px;
             `}
+            key={post.id}
           >
-            <Card key={post.id} {...post} />
+            <Card {...post} />
           </div>
         ))}
         <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">
