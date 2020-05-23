@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   cursor: pointer;
   position: relative;
+  z-index: 3;
 
   ${theme.mediaQueries.small} {
     height: 80px;
@@ -20,12 +21,19 @@ export const Container = styled.div`
   width: 100%;
   height: 60px;
   border-bottom: solid 1px ${theme.colors.grey};
-  font-size: 48px;
+  font-size: 30px;
   font-weight: 300;
   color: ${theme.colors.darkestGrey};
 
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   ${theme.mediaQueries.small} {
     height: 80px;
+    font-size: 48px;
   }
 `;
 
@@ -34,7 +42,7 @@ export const ArrowIcon = styled(ArrowIconComponent)`
   min-height: 15px;
   height: 15px;
   transition: all 0.2s ease-in-out;
-  margin-left: 15px;
+  margin-left: 10px;
 
   ${({ open }) =>
     open &&

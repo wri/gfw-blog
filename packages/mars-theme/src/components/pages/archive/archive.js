@@ -14,6 +14,7 @@ import {
   SearchDesktop,
   LoadMoreWrapper,
   ResultsStatement,
+  CategoryDescription,
 } from './styles';
 
 const POSTS_PER_PAGE = 9;
@@ -66,7 +67,8 @@ const ArchivePage = ({ state }) => {
   const allAuthors = isAuthor && [state.source.author[data.id]];
 
   const taxOptions = allCategories || allTags || allAuthors;
-  const taxSelected = data.id;
+  const taxSelected = taxOptions.find((tax) => tax.id === data.id);
+  const taxId = taxSelected && taxSelected.id;
 
   useEffect(() => {
     let fetchingAllData = true;
@@ -126,7 +128,7 @@ const ArchivePage = ({ state }) => {
         className="row"
         css={css`
           position: relative;
-          min-height: 60px;
+          min-height: 40px;
         `}
       >
         <div className="column small-9">
@@ -171,17 +173,23 @@ const ArchivePage = ({ state }) => {
           `}
         >
           <div className="column small-12 medium-9">
-            <Dropdown
-              items={taxOptions}
-              selected={taxSelected}
-              css={css`
-                z-index: 3;
-              `}
-            />
+            <Dropdown items={taxOptions} selected={taxId} />
           </div>
           <div className="column small-12 medium-3">
             <SearchDesktop showTitle open={state.theme.searchIsActive} />
           </div>
+          {isCategory && taxSelected && (
+            <div
+              className="column small-12 medium-9"
+              css={css`
+                margin-bottom: 20px;
+              `}
+            >
+              <CategoryDescription>
+                {taxSelected.description}
+              </CategoryDescription>
+            </div>
+          )}
           {(!isSearchEmpty || !isSearch) && (
             <div
               className="column small-12"

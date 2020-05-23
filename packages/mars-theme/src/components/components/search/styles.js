@@ -62,10 +62,19 @@ export const Input = styled.input`
   font-size: 22px;
   color: ${theme.colors.darkestGrey};
   padding: 0 10px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   ${theme.mediaQueries.small} {
     padding: 0 20px;
   }
+
+  ${({ value }) =>
+    value &&
+    `
+    padding: 0 !important;
+  `}
 
   ${({ expanded }) =>
     expanded &&

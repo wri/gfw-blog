@@ -11,6 +11,14 @@ export const PostContainer = styled.div`
   }
 `;
 
+export const BreadCrumbsWrapper = styled.div`
+  margin-bottom: 25px;
+
+  ${theme.mediaQueries.small} {
+    margin-bottom: 40px;
+  }
+`;
+
 export const Search = styled(SearchComponent)`
   margin-top: -20px;
 

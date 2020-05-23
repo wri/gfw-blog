@@ -25,6 +25,7 @@ import {
   PostMetaDesktop,
   CaptionWrapper,
   Search,
+  BreadCrumbsWrapper,
 } from './styles';
 
 const Post = ({ state, libraries, actions }) => {
@@ -77,12 +78,12 @@ const Post = ({ state, libraries, actions }) => {
         className="row"
         css={css`
           position: relative;
-          min-height: 60px;
+          min-height: 40px;
         `}
       >
-        <div className="column small-10 medium-9">
+        <BreadCrumbsWrapper className="column small-10 medium-9">
           <Breadcrumbs />
-        </div>
+        </BreadCrumbsWrapper>
         <div className="column small-2 medium-3">
           <Search open={state.theme.searchIsActive} />
         </div>

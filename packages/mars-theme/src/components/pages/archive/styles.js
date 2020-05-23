@@ -61,10 +61,19 @@ export const SearchDesktop = styled(Search)`
   `}
 `;
 
+export const CategoryDescription = styled.p`
+  margin-top: 15px;
+`;
+
 export const ResultsStatement = styled.p`
   font-size: 14px;
   line-height: 21px;
   color: ${theme.colors.mediumGrey};
+  margin-top: 60px;
+
+  ${theme.mediaQueries.small} {
+    margin-top: 75px;
+  }
 `;
 
 export const LoadMoreWrapper = styled.div`
