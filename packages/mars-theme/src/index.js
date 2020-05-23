@@ -3,8 +3,8 @@ import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
 
-import Blockquote from './components/components/blockquote';
-import Theme from './components';
+import Blockquote from './components/blockquote';
+import Theme from './app';
 
 const MAIN_CATEGORIES = [
   'data-and-research',
