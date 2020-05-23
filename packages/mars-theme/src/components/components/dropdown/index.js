@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'gfw-components';
 
 import ResultsList from '../results-list';
 
-import { Wrapper, Container, ArrowIcon, LabelContainer } from './styles';
+import { Wrapper, Container, ArrowIcon } from './styles';
 
 const Dropdown = ({ selected, items }) => {
   const [open, setOpen] = useState(false);
 
-  const selectedItem = items && items.find((i) => i.id === selected);
+  const wrapperRef = useRef(null);
+
+  const selectedItem =
+    items && !!items.length && items.find((i) => i.id === selected);
   const selectedLabel = selectedItem && selectedItem.name;
 
+  const handleClickOutside = () => setOpen(false);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <Wrapper>
-      <Container>
-        <LabelContainer onClick={() => setOpen(true)}>
-          {selectedLabel}
-        </LabelContainer>
-        <Button theme="button-clear round" onClick={() => setOpen(!open)}>
-          <ArrowIcon open={open} />
-        </Button>
+    <Wrapper ref={wrapperRef}>
+      <Container onClick={() => setOpen(!open)}>
+        <span>{selectedLabel}</span>
+        <ArrowIcon open={open} />
       </Container>
       {open && (
         <ResultsList

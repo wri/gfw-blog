@@ -6,7 +6,7 @@ import Link from '../link';
 import { ListWrapper, ListItem } from './styles';
 
 const ResultsList = ({
-  items,
+  items = [],
   libraries,
   onClickResult,
   selected,
@@ -16,15 +16,17 @@ const ResultsList = ({
 
   return (
     <ListWrapper>
-      {items.map((item) => (
-        <ListItem key={item.name} selected={item.id === selected}>
-          <Link link={item.link} onClick={onClickResult}>
-            <Html2React
-              html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
-            />
-          </Link>
-        </ListItem>
-      ))}
+      {items &&
+        !!items.length &&
+        items.map((item) => (
+          <ListItem key={item.name} selected={item.id === selected}>
+            <Link link={item.link} onClick={onClickResult}>
+              <Html2React
+                html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
+              />
+            </Link>
+          </ListItem>
+        ))}
     </ListWrapper>
   );
 };
@@ -32,7 +34,7 @@ const ResultsList = ({
 export default connect(ResultsList);
 
 ResultsList.propTypes = {
-  items: PropTypes.object,
+  items: PropTypes.object.isRequired,
   libraries: PropTypes.object,
   onClickResult: PropTypes.func,
   selected: PropTypes.number,

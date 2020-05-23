@@ -20,18 +20,13 @@ export const Container = styled.div`
   width: 100%;
   height: 60px;
   border-bottom: solid 1px ${theme.colors.grey};
-  ${theme.mediaQueries.small} {
-    height: 80px;
-  }
-`;
-
-export const LabelContainer = styled.span`
   font-size: 48px;
   font-weight: 300;
   color: ${theme.colors.darkestGrey};
-  width: 100%;
-  height: 100%;
-  padding-right: 15px;
+
+  ${theme.mediaQueries.small} {
+    height: 80px;
+  }
 `;
 
 export const ArrowIcon = styled(ArrowIconComponent)`
@@ -39,6 +34,7 @@ export const ArrowIcon = styled(ArrowIconComponent)`
   min-height: 15px;
   height: 15px;
   transition: all 0.2s ease-in-out;
+  margin-left: 15px;
 
   ${({ open }) =>
     open &&

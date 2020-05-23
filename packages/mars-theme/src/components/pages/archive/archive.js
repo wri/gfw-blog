@@ -63,7 +63,9 @@ const ArchivePage = ({ state }) => {
 
   const allCategories = isCategory && categories;
   const allTags = isTag && tags;
-  const taxOptions = allCategories || allTags;
+  const allAuthors = isAuthor && [state.source.author[data.id]];
+
+  const taxOptions = allCategories || allTags || allAuthors;
   const taxSelected = data.id;
 
   useEffect(() => {
