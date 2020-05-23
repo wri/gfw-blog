@@ -65,6 +65,7 @@ export default styled.div`
     padding: 0;
     display: block;
     margin-bottom: 30px;
+    width: 100%;
 
     ${theme.mediaQueries.small} {
       width: calc(100% + (100% / 7));
