@@ -37,22 +37,24 @@ const ArchivePage = ({ state }) => {
   const isSearchEmpty = data.link === '/?s=';
   const isSearch = isSearchEmpty || data.isSearch;
   const { isCategory, isTag, isAuthor, total, searchQuery } = data;
+  const articleText = total === 1 ? 'article' : 'articles';
 
   const searchStatement =
-    isSearch && `${total} articles with the keyword ${decodeURI(searchQuery)}`;
+    isSearch &&
+    `${total} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
   const catStatement =
     isCategory &&
-    `${total} articles under the ${decode(
+    `${total} ${articleText} under the ${decode(
       state.source[data.taxonomy][data.id].name
     )} category`;
   const tagStatement =
     isTag &&
-    `${total} articles tagged with ${decode(
+    `${total} ${articleText} tagged with ${decode(
       state.source[data.taxonomy][data.id].name
     )}`;
   const authorStatement =
     isAuthor &&
-    `${total} articles written by ${decodeURI(
+    `${total} ${articleText} written by ${decodeURI(
       state.source.author[data.id].name
     )}`;
 
@@ -66,10 +68,18 @@ const ArchivePage = ({ state }) => {
   const allTags = isTag && tags;
   const allAuthors = isAuthor && [state.source.author[data.id]];
 
-  const taxOptions = allCategories || allTags || allAuthors;
+  const taxOptions = allCategories || allTags || allAuthors || [];
   const taxSelected =
-    taxOptions && taxOptions.find((tax) => tax.id === data.id);
+    data.taxonomy && data.id && state.source[data.taxonomy][data.id];
+  const hasTaxSelected =
+    taxOptions &&
+    taxSelected &&
+    !!taxOptions.length &&
+    taxOptions.find((tax) => tax.id === taxSelected.id);
   const taxId = taxSelected && taxSelected.id;
+  const allTaxOptions = hasTaxSelected
+    ? taxOptions
+    : [{ ...taxSelected, count: total }, ...taxOptions];
 
   useEffect(() => {
     let fetchingAllData = true;
@@ -174,7 +184,7 @@ const ArchivePage = ({ state }) => {
           `}
         >
           <div className="column small-12 medium-9">
-            <Dropdown items={taxOptions} selected={taxId} />
+            <Dropdown items={allTaxOptions} selected={taxId} />
           </div>
           <div className="column small-12 medium-3">
             <SearchDesktop showTitle open={state.theme.searchIsActive} />

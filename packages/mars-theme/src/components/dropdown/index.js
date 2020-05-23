@@ -11,7 +11,7 @@ const Dropdown = ({ selected, items }) => {
   const wrapperRef = useRef(null);
 
   const selectedItem =
-    items && !!items.length && items.find((i) => i.id === selected);
+    items && !!items.length && items.find((i) => i && i.id === selected);
   const selectedLabel = selectedItem && selectedItem.name;
 
   const handleClickOutside = (e) => {

@@ -18,15 +18,18 @@ const ResultsList = ({
     <ListWrapper>
       {items &&
         !!items.length &&
-        items.map((item) => (
-          <ListItem key={item.name} selected={item.id === selected}>
-            <Link link={item.link} onClick={onClickResult}>
-              <Html2React
-                html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
-              />
-            </Link>
-          </ListItem>
-        ))}
+        items.map(
+          (item) =>
+            item && (
+              <ListItem key={item.name} selected={item.id === selected}>
+                <Link link={item.link} onClick={onClickResult}>
+                  <Html2React
+                    html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
+                  />
+                </Link>
+              </ListItem>
+            )
+        )}
     </ListWrapper>
   );
 };
