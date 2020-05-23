@@ -56,6 +56,8 @@ export default styled.div`
     color: #787878;
     font-style: italic;
     padding: 0;
+    font-size: inherit;
+    line-height: inherit;
   }
 
   figure,
