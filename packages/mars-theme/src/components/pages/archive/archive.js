@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, css } from 'frontity';
+import { connect, css, decode } from 'frontity';
 import theme from '../../theme';
 
 import Card from '../../components/card';
@@ -34,6 +34,28 @@ const ArchivePage = ({ state }) => {
   const listPosts = posts[state.router.link];
   const isSearchEmpty = data.link === '/?s=';
   const isSearch = isSearchEmpty || data.isSearch;
+  const { isCategory, isTag, isAuthor, total, searchQuery } = data;
+
+  const searchStatement =
+    isSearch && `${total} articles with the keyword ${decodeURI(searchQuery)}`;
+  const catStatement =
+    isCategory &&
+    `${total} articles under the ${decode(
+      state.source[data.taxonomy][data.id].name
+    )} category`;
+  const tagStatement =
+    isTag &&
+    `${total} articles tagged with ${decode(
+      state.source[data.taxonomy][data.id].name
+    )}`;
+  const authorStatement =
+    isAuthor &&
+    `${total} articles written by ${decodeURI(
+      state.source.author[data.id].name
+    )}`;
+
+  const resultsStatement =
+    searchStatement || catStatement || tagStatement || authorStatement;
 
   useEffect(() => {
     let fetchingAllData = true;
@@ -113,6 +135,7 @@ const ArchivePage = ({ state }) => {
               className="column small-12"
               css={css`
                 margin-bottom: 60px;
+                position: relative;
 
                 ${theme.mediaQueries.small} {
                   margin-bottom: 70px;
@@ -121,22 +144,6 @@ const ArchivePage = ({ state }) => {
             >
               <SearchDesktop expanded />
             </div>
-            {!isSearchEmpty && (
-              <div
-                className="column small-12"
-                css={css`
-                  margin-bottom: 20px;
-                `}
-              >
-                <ResultsStatement>
-                  {`${
-                  data.total
-                } articles with keyword ${decodeURI(
-                  data.searchQuery
-                )}`}
-                </ResultsStatement>
-              </div>
-            )}
           </>
         ) : (
           <>
@@ -148,6 +155,16 @@ const ArchivePage = ({ state }) => {
               <SearchDesktop showTitle />
             </div>
           </>
+        )}
+        {(!isSearchEmpty || !isSearch) && (
+          <div
+            className="column small-12"
+            css={css`
+              margin-bottom: 20px;
+            `}
+          >
+            <ResultsStatement>{resultsStatement}</ResultsStatement>
+          </div>
         )}
       </div>
       <div

@@ -12,7 +12,9 @@ const Link = ({
   onClick: buttonClick,
 }) => {
   const onClick = (event) => {
-    buttonClick();
+    if (buttonClick) {
+      buttonClick();
+    }
 
     // Do nothing if it's an external link
     if (link.startsWith('http')) return;
