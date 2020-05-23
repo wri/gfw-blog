@@ -17,6 +17,12 @@ export const SearchMobile = styled(Search)`
   }
 `;
 
+export const ResultsStatement = styled.p`
+  font-size: 14px;
+  line-height: 21px;
+  color: ${theme.colors.mediumGrey};
+`;
+
 export const SearchDesktop = styled(Search)`
   display: none;
 

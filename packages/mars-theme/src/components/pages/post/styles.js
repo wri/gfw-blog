@@ -1,5 +1,6 @@
 import { styled } from 'frontity';
 import theme from '../../theme';
+import SearchComponent from '../../components/search';
 
 export const PostContainer = styled.div`
   padding-top: 1.525rem;
@@ -7,6 +8,14 @@ export const PostContainer = styled.div`
 
   ${theme.mediaQueries.small} {
     padding-top: 40px;
+  }
+`;
+
+export const Search = styled(SearchComponent)`
+  margin-top: -20px;
+
+  ${theme.mediaQueries.small} {
+    margin-top: -30px;
   }
 `;
 

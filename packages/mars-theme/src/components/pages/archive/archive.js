@@ -12,6 +12,7 @@ import {
   SearchMobile,
   SearchDesktop,
   LoadMoreWrapper,
+  ResultsStatement,
 } from './styles';
 
 const POSTS_PER_PAGE = 9;
@@ -29,6 +30,10 @@ const ArchivePage = ({ state }) => {
 
   const { totalPages } = data;
   const [page, setPage] = useState(1);
+
+  const listPosts = posts[state.router.link];
+  const isSearchEmpty = data.link === '/?s=';
+  const isSearch = isSearchEmpty || data.isSearch;
 
   useEffect(() => {
     let fetchingAllData = true;
@@ -102,13 +107,48 @@ const ArchivePage = ({ state }) => {
             `}
           />
         </div>
-        <div className="column small-3">
-          <SearchMobile />
-        </div>
-        <div className="column small-12 medium-9">Dropdown</div>
-        <div className="column small-12 medium-3">
-          <SearchDesktop showTitle />
-        </div>
+        {isSearch ? (
+          <>
+            <div
+              className="column small-12"
+              css={css`
+                margin-bottom: 60px;
+
+                ${theme.mediaQueries.small} {
+                  margin-bottom: 70px;
+                }
+              `}
+            >
+              <SearchDesktop expanded />
+            </div>
+            {!isSearchEmpty && (
+              <div
+                className="column small-12"
+                css={css`
+                  margin-bottom: 20px;
+                `}
+              >
+                <ResultsStatement>
+                  {`${
+                  data.total
+                } articles with keyword ${decodeURI(
+                  data.searchQuery
+                )}`}
+                </ResultsStatement>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="column small-3">
+              <SearchMobile />
+            </div>
+            <div className="column small-12 medium-9">Dropdown</div>
+            <div className="column small-12 medium-3">
+              <SearchDesktop showTitle />
+            </div>
+          </>
+        )}
       </div>
       <div
         className="row"
@@ -116,17 +156,18 @@ const ArchivePage = ({ state }) => {
           margin-bottom: 60px;
         `}
       >
-        {posts[state.router.link].map((post) => (
-          <div
-            className="column small-12 medium-6 large-4"
-            css={css`
-              margin-bottom: 40px;
-            `}
-            key={post.id}
-          >
-            <Card {...post} />
-          </div>
-        ))}
+        {listPosts &&
+          listPosts.map((post) => (
+            <div
+              className="column small-12 medium-6 large-4"
+              css={css`
+                margin-bottom: 40px;
+              `}
+              key={post.id}
+            >
+              <Card {...post} />
+            </div>
+          ))}
         <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">
           <LoadMore
             isFetching={isFetching}

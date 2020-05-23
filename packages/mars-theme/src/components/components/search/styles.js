@@ -38,11 +38,21 @@ export const Container = styled.div`
     height: 80px;
   }
 
-  ${({ open }) =>
-    open &&
+  ${({ open, expanded }) =>
+    (open || expanded) &&
     `
     border-bottom-color: ${theme.colors.grey};
   `}
+`;
+
+export const OpenPlaceholder = styled.div`
+  width: 100%;
+  height: 60px;
+  position: relative;
+
+  ${theme.mediaQueries.small} {
+    height: 80px;
+  }
 `;
 
 export const SearchClosed = styled.div`
@@ -79,4 +89,10 @@ export const Input = styled.input`
   ${theme.mediaQueries.small} {
     padding: 0 20px;
   }
+
+  ${({ expanded }) =>
+    expanded &&
+    `
+    padding-left: 0 !important;
+  `}
 `;

@@ -36,8 +36,8 @@ const Theme = ({ state, actions }) => {
       <Main>
         <Switch>
           <Loading when={data.isFetching} />
-          <Home when={data.isHome} />
           <Archive when={data.isArchive} />
+          <Home when={data.isHome} />
           <Post when={data.isPostType} />
           {/* <Error when={data.isError} /> */}
         </Switch>

@@ -24,6 +24,7 @@ import {
   PostMetaMobile,
   PostMetaDesktop,
   CaptionWrapper,
+  Search,
 } from './styles';
 
 const Post = ({ state, libraries, actions }) => {
@@ -73,13 +74,11 @@ const Post = ({ state, libraries, actions }) => {
   return data.isReady ? (
     <PostContainer>
       <div className="row">
-        <div
-          className="column small-12"
-          css={css`
-            margin-bottom: 40px;
-          `}
-        >
+        <div className="column small-10 medium-9">
           <Breadcrumbs />
+        </div>
+        <div className="column small-2 medium-3">
+          <Search />
         </div>
       </div>
       <MediaWrapper>
