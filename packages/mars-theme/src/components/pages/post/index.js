@@ -132,8 +132,9 @@ const Post = ({ state, libraries, actions }) => {
               css={css`
                 margin-bottom: 40px;
               `}
+              key={p}
             >
-              <Card key={p.id} {...state.source.post[p]} />
+              <Card {...state.source.post[p]} />
             </div>
           ))}
       </div>
