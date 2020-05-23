@@ -5,7 +5,13 @@ import Link from '../link';
 
 import { ListWrapper, ListItem } from './styles';
 
-const ResultsList = ({ items, libraries, onClickResult, selected }) => {
+const ResultsList = ({
+  items,
+  libraries,
+  onClickResult,
+  selected,
+  showCount,
+}) => {
   const Html2React = libraries.html2react.Component;
 
   return (
@@ -13,7 +19,9 @@ const ResultsList = ({ items, libraries, onClickResult, selected }) => {
       {items.map((item) => (
         <ListItem key={item.name} selected={item.id === selected}>
           <Link link={item.link} onClick={onClickResult}>
-            <Html2React html={item.name} />
+            <Html2React
+              html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
+            />
           </Link>
         </ListItem>
       ))}
@@ -28,4 +36,5 @@ ResultsList.propTypes = {
   libraries: PropTypes.object,
   onClickResult: PropTypes.func,
   selected: PropTypes.number,
+  showCount: PropTypes.bool,
 };

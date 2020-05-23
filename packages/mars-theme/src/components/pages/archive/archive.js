@@ -58,6 +58,14 @@ const ArchivePage = ({ state }) => {
   const resultsStatement =
     searchStatement || catStatement || tagStatement || authorStatement;
 
+  const { categories } = state.source.data['all-categories/'];
+  const { tags } = state.source.data['top-tags/'];
+
+  const allCategories = isCategory && categories;
+  const allTags = isTag && tags;
+  const taxOptions = allCategories || allTags;
+  const taxSelected = data.id;
+
   useEffect(() => {
     let fetchingAllData = true;
     let lastLoadedPage = 1;
@@ -152,7 +160,7 @@ const ArchivePage = ({ state }) => {
               <SearchMobile />
             </div>
             <div className="column small-12 medium-9">
-              <Dropdown />
+              <Dropdown items={taxOptions} selected={taxSelected} />
             </div>
             <div className="column small-12 medium-3">
               <SearchDesktop showTitle />

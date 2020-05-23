@@ -23,6 +23,10 @@ export const ListItem = styled.li`
     width: 100%;
     display: block;
 
+    &:hover {
+      color: ${theme.colors.darkGrey};
+    }
+
     ${({ selected }) =>
       selected &&
       `
@@ -35,12 +39,8 @@ export const ListItem = styled.li`
   }
 
   &:last-child {
-    margin-bottom: 0;
-  }
-
-  &:hover {
     a {
-      color: ${theme.colors.darkGrey};
+      padding-bottom: 0;
     }
   }
 `;
