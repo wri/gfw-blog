@@ -57,7 +57,7 @@ const ArchivePage = ({ state }) => {
     `${total} ${articleText} written by ${decodeURI(
       state.source.author[data.id].name
     )}`;
-
+  console.log(searchStatement);
   const resultsStatement =
     searchStatement || catStatement || tagStatement || authorStatement;
 
@@ -72,11 +72,10 @@ const ArchivePage = ({ state }) => {
   const taxSelected =
     data.taxonomy && data.id && state.source[data.taxonomy][data.id];
   const hasTaxSelected =
-    taxOptions &&
     taxSelected &&
-    !!taxOptions.length &&
-    taxOptions.find((tax) => tax.id === taxSelected.id);
-  const taxId = taxSelected && taxSelected.id;
+    !!taxOptions?.length &&
+    taxOptions.find((tax) => tax.id === taxSelected?.id);
+  const taxId = taxSelected?.id;
   const allTaxOptions = hasTaxSelected
     ? taxOptions
     : [{ ...taxSelected, count: total }, ...taxOptions];
@@ -160,18 +159,16 @@ const ArchivePage = ({ state }) => {
         )}
         {isSearch && (
           <>
+            <div className="column small-12">
+              <SearchDesktop expanded isSearch />
+            </div>
             <div
               className="column small-12"
               css={css`
-                margin-bottom: 60px;
-                position: relative;
-
-                ${theme.mediaQueries.small} {
-                  margin-bottom: 70px;
-                }
+                margin-bottom: 20px;
               `}
             >
-              <SearchDesktop expanded isSearch />
+              <ResultsStatement>{resultsStatement}</ResultsStatement>
             </div>
           </>
         )}
@@ -201,7 +198,7 @@ const ArchivePage = ({ state }) => {
               </CategoryDescription>
             </div>
           )}
-          {(!isSearchEmpty || !isSearch) && (
+          {resultsStatement && (
             <div
               className="column small-12"
               css={css`
