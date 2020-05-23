@@ -6,6 +6,7 @@ import theme from '../../theme';
 import Card from '../../components/card';
 import LoadMore from '../../components/load-more';
 import Breadcrumbs from '../../components/breadcrumbs';
+import Dropdown from '../../components/dropdown';
 
 import {
   Wrapper,
@@ -150,7 +151,9 @@ const ArchivePage = ({ state }) => {
             <div className="column small-3">
               <SearchMobile />
             </div>
-            <div className="column small-12 medium-9">Dropdown</div>
+            <div className="column small-12 medium-9">
+              <Dropdown />
+            </div>
             <div className="column small-12 medium-3">
               <SearchDesktop showTitle />
             </div>

@@ -5,13 +5,13 @@ import Link from '../link';
 
 import { ListWrapper, ListItem } from './styles';
 
-const ResultsList = ({ items, libraries, onClickResult }) => {
+const ResultsList = ({ items, libraries, onClickResult, selected }) => {
   const Html2React = libraries.html2react.Component;
 
   return (
     <ListWrapper>
       {items.map((item) => (
-        <ListItem key={item.name}>
+        <ListItem key={item.name} selected={item.id === selected}>
           <Link link={item.link} onClick={onClickResult}>
             <Html2React html={item.name} />
           </Link>
@@ -27,4 +27,5 @@ ResultsList.propTypes = {
   items: PropTypes.object,
   libraries: PropTypes.object,
   onClickResult: PropTypes.func,
+  selected: PropTypes.number,
 };

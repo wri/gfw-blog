@@ -15,10 +15,19 @@ export const ListWrapper = styled.ul`
 
 export const ListItem = styled.li`
   font-size: 22px;
-  margin-bottom: 20px;
+  width: 100%;
 
   a {
     color: ${theme.colors.grey};
+    padding-bottom: 20px;
+    width: 100%;
+    display: block;
+
+    ${({ selected }) =>
+      selected &&
+      `
+      color: ${theme.colors.darkestGrey};
+    `}
   }
 
   b {
