@@ -5,6 +5,7 @@ import SearchComponent from '../../components/search';
 export const PostContainer = styled.div`
   padding-top: 1.525rem;
   width: 100%;
+  overflow: hidden;
 
   ${theme.mediaQueries.small} {
     padding-top: 40px;
