@@ -59,6 +59,11 @@ export const PostExcerpt = styled.div`
   line-height: 21px;
   color: ${theme.colors.darkGrey};
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
