@@ -3,8 +3,8 @@ import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
 
-import Blockquote from './components/blockqoute';
-import Theme from './components';
+import Blockquote from './components/blockquote';
+import Theme from './app';
 
 const MAIN_CATEGORIES = [
   'data-and-research',
@@ -61,15 +61,11 @@ const allCategoriesHandler = {
 
     // 2. get an array with each item in json format
     const items = await response.json();
-
     const categories = items
       .filter((c) => MAIN_CATEGORIES.includes(c.slug))
       .map((c) => ({
-        name: c.name,
+        ...c,
         link: `/${c.slug}`,
-        slug: c.slug,
-        count: c.count,
-        id: c.id,
       }));
     const sortedCategories = sortBy(categories, (cat) =>
       MAIN_CATEGORIES.indexOf(cat.slug)
@@ -94,7 +90,7 @@ const topTagsHandler = {
     const response = await api.get({
       endpoint: 'tags',
       params: {
-        per_page: 20, // To make sure you get all of them
+        per_page: 100, // To make sure you get all of them
         orderby: 'count',
         order: 'desc',
       },
@@ -104,11 +100,8 @@ const topTagsHandler = {
     const items = await response.json();
 
     const tags = items.map((tag) => ({
-      name: tag.name,
+      ...tag,
       link: `/tag/${tag.slug}`,
-      slug: tag.slug,
-      count: tag.count,
-      id: tag.id,
     }));
     // 3. add data to source
     const currentPageData = state.source.data[route];
@@ -178,8 +171,8 @@ const marsTheme = {
       toggleContactUsModal: ({ state }) => {
         state.theme.isContactUsOpen = !state.theme.isContactUsOpen;
       },
-      toggleSearch: ({ state }) => {
-        state.theme.searchIsActive = !state.theme.searchIsActive;
+      setSearchOpen: ({ state }) => (open) => {
+        state.theme.searchIsActive = open;
       },
       setSearchQuery: ({ state }) => (value) => {
         state.theme.searchQuery = value;

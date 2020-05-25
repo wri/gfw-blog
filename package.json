@@ -32,15 +32,15 @@
     "@frontity/tiny-router": "^1.2.0",
     "@frontity/wp-source": "^1.7.0",
     "classnames": "^2.2.6",
+    "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
+    "emotion-rgba": "^0.0.8",
     "frontity": "^1.6.0",
     "gfw-components": "^0.5.2",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
     "lodash": "^4.17.15",
-    "moment": "^2.25.3",
-    "prop-types": "^15.7.2",
-    "use-debounce": "^3.4.2"
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

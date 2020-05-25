@@ -1,79 +1,121 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, styled, css } from 'frontity';
-import { SearchIcon } from './components';
-import SearchExpanded from './expanded';
-import { MEDIUM_ENDPOINT, SMALL_ENDPOINT } from '../heplers/css-endpoints';
-import CloseIcon from '../../assets/icons/close.svg';
+import { connect, css } from 'frontity';
+import deburr from 'lodash/deburr';
+import toUpper from 'lodash/toUpper';
+import { SearchIcon, CloseIcon, Button } from 'gfw-components';
+
+import ResultsList from '../results-list';
+
+import {
+  Wrapper,
+  Container,
+  SearchOpen,
+  SearchClosed,
+  OpenMessage,
+  Input,
+} from './styles';
+
+const deburrUpper = (string) => toUpper(deburr(string));
 
 const Search = ({
-  libraries,
   actions,
+  libraries,
   state,
-  title = 'Search the GFW blog',
-  ready,
-  fullWidth,
-  mobile = false,
+  showTitle,
+  expanded,
   ...props
 }) => {
-  const ref = useRef();
+  const parse = libraries.source.parse(state.router.link);
+  const searchQuery = parse.query.s ? decodeURI(parse.query.s) : '';
 
-  const handler = () => {
-    actions.theme.toggleSearch();
-  };
+  const [search, setSearch] = useState(searchQuery);
 
-  const parentHandler = () => {
-    if (!ready) {
-      handler();
+  const open = state.theme.searchIsActive;
+
+  const inputRef = React.createRef();
+
+  const { categories } = state.source.data['all-categories/'];
+  const { tags } = state.source.data['top-tags/'];
+
+  const allMeta = [...categories, ...tags];
+
+  const re = new RegExp(`(${search})`, 'i');
+
+  const keyDownHandler = (e) => {
+    if (e.key === 'Enter') {
+      actions.router.set(`/?s=${search}`);
+      actions.theme.setSearchOpen(false);
     }
   };
 
-  const wrapCss = fullWidth ? `width: 100%; height: auto;` : '';
-  const baseCss = mobile
-    ? `
-  ${wrapCss}
-  @media screen and (min-width: ${SMALL_ENDPOINT}) {
-    display:none;
-  };
-  width: 100%;
-  justify-content: flex-end;
-  `
-    : `${wrapCss}
-    @media screen and (max-width: ${SMALL_ENDPOINT}) {
-      display:none;
-    };
-  `;
+  const filteredMeta = allMeta.filter((meta) =>
+    deburrUpper(meta.name).includes(deburrUpper(search))
+  ) || [{ name: search, link: `/?s=${search}` }];
 
-  if (state.theme.searchIsActive) {
-    return <SearchExpanded mobile={mobile} />;
-  }
+  const filteredResults = filteredMeta?.length
+    ? filteredMeta
+    : [{ name: search, link: `/?s=${search}` }];
+
+  const searchResults = filteredResults.map((meta) => ({
+    ...meta,
+    name: meta.name.replace(re, `<b>$1</b>`),
+  }));
+
+  useEffect(() => {
+    if (open) inputRef.current.focus();
+  }, [open]);
+
   return (
-    <Wrapper
-      css={css`
-        ${baseCss}
-      `}
-      ref={ref}
-      onClick={parentHandler}
-      {...props}
-    >
-      <SearchBox
-        css={css`
-          ${wrapCss}
-        `}
+    <Wrapper {...props} open={open}>
+      <Container
+        open={open}
+        expanded={expanded}
+        onClick={() => actions.theme.setSearchOpen(true)}
       >
-        {title && !ready && <Title>{title}</Title>}
-        {title && ready && (
-          <ReadyTitle>
-            <ReadyContent>
-              {title}
-              <RemoveIcon onClick={handler}>
-                <img alt="" src={CloseIcon} />
-              </RemoveIcon>
-            </ReadyContent>
-          </ReadyTitle>
+        {(open || expanded) && (
+          <SearchOpen>
+            <Input
+              ref={inputRef}
+              value={search}
+              expanded={expanded}
+              placeholder="Search the GFW blog  (eg. fires, Brazil, palm oil)"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={keyDownHandler}
+            />
+            {search && (
+              <Button theme="button-clear round" onClick={() => setSearch('')}>
+                <CloseIcon
+                  css={css`
+                    height: 10px;
+                    width: 10px;
+                    max-height: 10px;
+                    max-width: 10px;
+                  `}
+                />
+              </Button>
+            )}
+          </SearchOpen>
         )}
-        <SearchIcon />
-      </SearchBox>
+        {!open && showTitle && (
+          <SearchClosed>
+            <OpenMessage>search the GFW blog</OpenMessage>
+          </SearchClosed>
+        )}
+        <SearchIcon
+          css={css`
+            min-width: 32px;
+            min-height: 32px;
+            height: 32px;
+          `}
+        />
+      </Container>
+      {open && (
+        <ResultsList
+          items={searchResults}
+          onClickResult={() => actions.theme.setSearchOpen(false)}
+        />
+      )}
     </Wrapper>
   );
 };
@@ -81,56 +123,9 @@ const Search = ({
 export default connect(Search);
 
 Search.propTypes = {
-  libraries: PropTypes.object,
   state: PropTypes.object,
   actions: PropTypes.object,
-  title: PropTypes.string,
-  ready: PropTypes.bool,
-  fullWidth: PropTypes.bool,
-  mobile: PropTypes.bool,
+  showTitle: PropTypes.bool,
+  libraries: PropTypes.object,
+  expanded: PropTypes.bool,
 };
-
-const RemoveIcon = styled.div`
-  cursor: pointer;
-  margin-left: 1rem;
-`;
-
-const Title = styled.div`
-  text-transform: uppercase;
-  color: #777;
-  font-size: 0.75rem;
-  line-height: 1.5rem;
-  height: 1.5rem;
-  min-width: 130px;
-  max-width: 150px;
-`;
-
-const ReadyContent = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-`;
-
-const ReadyTitle = styled.div`
-  width: 100%;
-  font-size: 3rem;
-  line-height: 3.75rem;
-  font-weight: 200;
-  color: #333;
-  @media screen and (max-width: ${MEDIUM_ENDPOINT}) {
-    margin: 0 1rem;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  height: 3.75rem;
-`;
-
-const SearchBox = styled.div`
-  display: flex;
-  align-items: center;
-  height: 1.5rem;
-`;
