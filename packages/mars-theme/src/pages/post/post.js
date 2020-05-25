@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
+import { Loader } from 'gfw-components';
+
 import Archive from '../archive';
 
 import Breadcrumbs from '../../components/breadcrumbs';
@@ -72,92 +74,98 @@ const Post = ({ state, libraries, actions }) => {
     });
   }, []);
 
-  return data.isReady ? (
+  return (
     <PostContainer>
-      <div
-        className="row"
-        css={css`
-          position: relative;
-          min-height: 40px;
-        `}
-      >
-        <BreadCrumbsWrapper className="column small-10 medium-9">
-          <Breadcrumbs />
-        </BreadCrumbsWrapper>
-        <div className="column small-2 medium-3">
-          <Search open={state.theme.searchIsActive} />
-        </div>
-      </div>
-      <MediaWrapper>
-        <Media {...media} />
-      </MediaWrapper>
-      <CaptionWrapper className="row">
-        <div className="column small-12">
-          <Caption {...media} />
-        </div>
-      </CaptionWrapper>
-      <div className="row">
-        <div className="column small-12 medium-3">
-          <PostMetaDesktop>
-            <PostMeta author={author} date={post.date} />
-            <ShareLinks
-              url={`${state.frontity.url}${state.router.link}`}
-              title={post.title.rendered}
-            />
-          </PostMetaDesktop>
-        </div>
-        <div className="column small-12 medium-8">
-          <CategoryList categories={categories} />
-          <PostTitle>
-            <Html2React html={post.title.rendered} />
-          </PostTitle>
-          <PostMetaMobile>
-            <PostMeta author={author} date={post.date} />
-            <ShareLinks
-              url={`${state.frontity.url}${state.router.link}`}
-              title={post.title.rendered}
-              scrollToComment={() =>
-                commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
-            />
-          </PostMetaMobile>
-          <PostContent>
-            <Html2React html={post.content.rendered} />
-          </PostContent>
-          <CategoryList categories={tags} light />
-        </div>
-      </div>
-      <Divider />
-      <div className="row">
-        <div className="column small-12">
-          <LatestTitle>Latest articles</LatestTitle>
-        </div>
-        {relatedPosts &&
-          relatedPosts.map((p) => (
-            <div
-              className="column small-12 medium-6 large-4"
-              css={css`
-                margin-bottom: 40px;
-              `}
-              key={p}
-            >
-              <Card {...state.source.post[p]} />
+      {data.isReady ? (
+        <>
+          <div
+            className="row"
+            css={css`
+              position: relative;
+              min-height: 40px;
+            `}
+          >
+            <BreadCrumbsWrapper className="column small-10 medium-9">
+              <Breadcrumbs />
+            </BreadCrumbsWrapper>
+            <div className="column small-2 medium-3">
+              <Search open={state.theme.searchIsActive} />
             </div>
-          ))}
-      </div>
-      <Divider />
-      <div
-        className="row"
-        ref={commentsRef}
-        css={css`
-          scroll-margin: 150px;
-        `}
-      >
-        <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
-          <Comments {...post} />
-        </div>
-      </div>
+          </div>
+          <MediaWrapper>
+            <Media {...media} />
+          </MediaWrapper>
+          <CaptionWrapper className="row">
+            <div className="column small-12">
+              <Caption {...media} />
+            </div>
+          </CaptionWrapper>
+          <div className="row">
+            <div className="column small-12 medium-3">
+              <PostMetaDesktop>
+                <PostMeta author={author} date={post.date} />
+                <ShareLinks
+                  url={`${state.frontity.url}${state.router.link}`}
+                  title={post.title.rendered}
+                />
+              </PostMetaDesktop>
+            </div>
+            <div className="column small-12 medium-8">
+              <CategoryList categories={categories} />
+              <PostTitle>
+                <Html2React html={post.title.rendered} />
+              </PostTitle>
+              <PostMetaMobile>
+                <PostMeta author={author} date={post.date} />
+                <ShareLinks
+                  url={`${state.frontity.url}${state.router.link}`}
+                  title={post.title.rendered}
+                  scrollToComment={() =>
+                    commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
+                />
+              </PostMetaMobile>
+              <PostContent>
+                <Html2React html={post.content.rendered} />
+              </PostContent>
+              <CategoryList categories={tags} light />
+            </div>
+          </div>
+          <Divider />
+          <div className="row">
+            <div className="column small-12">
+              <LatestTitle>Latest articles</LatestTitle>
+            </div>
+            {relatedPosts &&
+              relatedPosts.map((p) => (
+                <div
+                  className="column small-12 medium-6 large-4"
+                  css={css`
+                    margin-bottom: 40px;
+                  `}
+                  key={p}
+                >
+                  <Card {...state.source.post[p]} />
+                </div>
+              ))}
+          </div>
+          <Divider />
+          <div
+            className="row"
+            ref={commentsRef}
+            css={css`
+              scroll-margin: 150px;
+            `}
+          >
+            <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
+              <Comments {...post} />
+            </div>
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </PostContainer>
-  ) : null;
+  );
 };
 
 Post.propTypes = {
