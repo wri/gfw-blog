@@ -6,6 +6,10 @@ import Search from '../../components/search';
 export const Wrapper = styled.div`
   width: 100%;
   padding: 20px 0;
+
+  ${theme.mediaQueries.small} {
+    padding-top: 40px;
+  }
 `;
 
 export const SearchMobile = styled(Search)`

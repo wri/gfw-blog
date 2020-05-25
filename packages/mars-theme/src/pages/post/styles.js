@@ -3,7 +3,7 @@ import theme from '../../app/theme';
 import SearchComponent from '../../components/search';
 
 export const PostContainer = styled.div`
-  padding-top: 1.525rem;
+  padding-top: 20px;
   width: 100%;
   overflow: hidden;
   min-height: 500px;
