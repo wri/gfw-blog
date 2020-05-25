@@ -54,5 +54,8 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "prettier": "^2.0.2",
     "sass-lint": "^1.13.1"
+  },
+  "resolutions": {
+    "debug": "^2.6.9"
   }
 }
