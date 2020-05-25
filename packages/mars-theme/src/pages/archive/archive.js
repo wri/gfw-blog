@@ -27,7 +27,8 @@ const ArchivePage = ({ state }) => {
   const initialPosts = data.items;
 
   const [posts, setPosts] = useState({
-    [state.router.link]: initialPosts.map(({ id, type }) => ({ id, type })),
+    [state.router.link]:
+      initialPosts && initialPosts.map(({ id, type }) => ({ id, type })),
   });
 
   const { totalPages } = data;
@@ -57,7 +58,7 @@ const ArchivePage = ({ state }) => {
     `${total} ${articleText} written by ${decodeURI(
       state.source.author[data.id].name
     )}`;
-  console.log(searchStatement);
+
   const resultsStatement =
     searchStatement || catStatement || tagStatement || authorStatement;
 
@@ -66,11 +67,14 @@ const ArchivePage = ({ state }) => {
 
   const allCategories = isCategory && categories;
   const allTags = isTag && tags;
-  const allAuthors = isAuthor && [state.source.author[data.id]];
+  const allAuthors = isAuthor && [
+    { ...state.source.author[data.id], count: total },
+  ];
 
   const taxOptions = allCategories || allTags || allAuthors || [];
+
   const taxSelected =
-    data.taxonomy && data.id && state.source[data.taxonomy][data.id];
+    state.source?.[data.taxonomy]?.[data.id] || state.source.author?.[data.id];
   const hasTaxSelected =
     taxSelected &&
     !!taxOptions?.length &&
@@ -118,7 +122,8 @@ const ArchivePage = ({ state }) => {
           const accPosts = posts[state.router.link].concat([]);
           if (nextData && nextData.items) {
             accPosts.push(
-              ...nextData.items.map(({ id, type }) => ({ id, type }))
+              ...(nextData &&
+                nextData.items.map(({ id, type }) => ({ id, type })))
             );
             const newPosts = { ...posts };
             newPosts[link] = accPosts;

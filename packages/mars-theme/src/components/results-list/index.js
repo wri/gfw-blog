@@ -21,7 +21,10 @@ const ResultsList = ({
         items.map(
           (item) =>
             item && (
-              <ListItem key={item.name} selected={item.id === selected}>
+              <ListItem
+                key={item.id || item.name}
+                selected={item.id === selected}
+              >
                 <Link link={item.link} onClick={onClickResult}>
                   <Html2React
                     html={`${item.name}${showCount ? ` (${item.count})` : ''}`}
