@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css, decode } from 'frontity';
+import { Row, Column } from 'gfw-components';
+
 import theme from '../../app/theme';
 
 import Card from '../../components/card';
@@ -139,14 +141,13 @@ const ArchivePage = ({ state }) => {
 
   return (
     <Wrapper>
-      <div
-        className="row"
+      <Row
         css={css`
           position: relative;
           min-height: 40px;
         `}
       >
-        <div className="column small-9">
+        <Column width={[3 / 4]}>
           <Breadcrumbs
             css={css`
               margin-bottom: 25px;
@@ -156,44 +157,42 @@ const ArchivePage = ({ state }) => {
               }
             `}
           />
-        </div>
+        </Column>
         {!isSearch && (
-          <div className="column small-3">
+          <Column width={[1 / 4]}>
             <SearchMobile open={state.theme.searchIsActive} />
-          </div>
+          </Column>
         )}
         {isSearch && (
           <>
-            <div className="column small-12">
+            <Column>
               <SearchDesktop expanded isSearch />
-            </div>
-            <div
-              className="column small-12"
+            </Column>
+            <Column
               css={css`
                 margin-bottom: 20px;
               `}
             >
               <ResultsStatement>{resultsStatement}</ResultsStatement>
-            </div>
+            </Column>
           </>
         )}
-      </div>
+      </Row>
       {!isSearch && (
-        <div
-          className="row"
+        <Row
           css={css`
             position: relative;
           `}
         >
-          <div className="column small-12 medium-9">
+          <Column width={[1, 3 / 4]}>
             <Dropdown items={allTaxOptions} selected={taxId} />
-          </div>
-          <div className="column small-12 medium-3">
+          </Column>
+          <Column width={[1, 1 / 4]}>
             <SearchDesktop showTitle open={state.theme.searchIsActive} />
-          </div>
+          </Column>
           {isCategory && taxSelected && (
-            <div
-              className="column small-12 medium-9"
+            <Column
+              width={[1, 3 / 4]}
               css={css`
                 margin-bottom: 20px;
               `}
@@ -201,39 +200,37 @@ const ArchivePage = ({ state }) => {
               <CategoryDescription>
                 {taxSelected.description}
               </CategoryDescription>
-            </div>
+            </Column>
           )}
           {resultsStatement && (
-            <div
-              className="column small-12"
+            <Column
               css={css`
                 margin-bottom: 20px;
               `}
             >
               <ResultsStatement>{resultsStatement}</ResultsStatement>
-            </div>
+            </Column>
           )}
-        </div>
+        </Row>
       )}
-      <div
-        className="row"
+      <Row
         css={css`
           margin-bottom: 60px;
         `}
       >
         {listPosts &&
           listPosts.map((post) => (
-            <div
-              className="column small-12 medium-6 large-4"
+            <Column
+              width={[1, 1 / 2, 1 / 3]}
               css={css`
                 margin-bottom: 40px;
               `}
               key={post.id}
             >
               <Card {...post} />
-            </div>
+            </Column>
           ))}
-        <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">
+        <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
           <LoadMore
             isFetching={isFetching}
             setIsFetching={setIsFetching}
@@ -242,7 +239,7 @@ const ArchivePage = ({ state }) => {
             limit={totalPages}
           />
         </LoadMoreWrapper>
-      </div>
+      </Row>
     </Wrapper>
   );
 };

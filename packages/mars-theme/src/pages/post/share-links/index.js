@@ -28,7 +28,9 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
             height: 20px;
           }
         `}
-        theme="button-light round big"
+        light
+        round
+        big
       >
         <TwitterIcon />
       </Button>
@@ -47,7 +49,9 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
             height: 20px;
           }
         `}
-        theme="button-light round big"
+        light
+        round
+        big
       >
         <FacebookIcon />
       </Button>
@@ -56,7 +60,9 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
       css={css`
         border-color: #f0f0f0;
       `}
-      theme="button-light round big"
+      light
+      round
+      big
       onClick={scrollToComment}
     >
       <img src={ChatIcon} alt="" />
@@ -67,7 +73,8 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
       href="https://www.globalforestwatch.org/subscribe"
     >
       <Button
-        theme="round big"
+        round
+        big
         css={css`
           ${theme.mediaQueries.small} {
             margin-top: 20px;

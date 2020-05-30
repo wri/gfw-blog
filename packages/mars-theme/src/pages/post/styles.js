@@ -1,4 +1,5 @@
 import { styled } from 'frontity';
+import { Row, Column } from 'gfw-components';
 import theme from '../../app/theme';
 import SearchComponent from '../../components/search';
 
@@ -13,7 +14,7 @@ export const PostContainer = styled.div`
   }
 `;
 
-export const BreadCrumbsWrapper = styled.div`
+export const BreadCrumbsWrapper = styled(Column)`
   margin-bottom: 25px;
 
   ${theme.mediaQueries.small} {
@@ -105,7 +106,7 @@ export const Divider = styled.div`
   }
 `;
 
-export const CaptionWrapper = styled.div`
+export const CaptionWrapper = styled(Row)`
   margin-bottom: 20px;
 
   ${theme.mediaQueries.small} {

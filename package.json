@@ -36,7 +36,7 @@
     "dotenv": "^8.2.0",
     "emotion-rgba": "^0.0.8",
     "frontity": "^1.6.0",
-    "gfw-components": "^0.5.2",
+    "gfw-components": "^1.2.4",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
     "lodash": "^4.17.15",

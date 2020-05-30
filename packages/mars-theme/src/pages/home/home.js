@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
+import { Row, Column } from 'gfw-components';
+
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
 import Featured from '../../components/featured';
@@ -95,21 +97,20 @@ const HomePage = ({ state }) => {
 
   return (
     <Wrapper>
-      <div className="row">
-        <div className="column small-12">
+      <Row>
+        <Column>
           <SearchMobile />
-        </div>
-        <div className="column small-12 medium-10 large-8">
+        </Column>
+        <Column width={[1, 5 / 6, 2 / 3]}>
           <BlogHeader />
-        </div>
-      </div>
-      <div
-        className="row"
+        </Column>
+      </Row>
+      <Row
         css={css`
           position: relative;
         `}
       >
-        <div className="column small-12 medium-9">
+        <Column width={[1, 3 / 4]}>
           <CategoryList
             title="categories"
             categories={mainCategories}
@@ -118,11 +119,11 @@ const HomePage = ({ state }) => {
               min-height: 80px;
             `}
           />
-        </div>
-        <div className="column small-12 medium-3">
+        </Column>
+        <Column width={[1, 1 / 4]}>
           <SearchDesktop showTitle open={state.theme.searchIsActive} />
-        </div>
-      </div>
+        </Column>
+      </Row>
       <FeatureWrapper
         css={css`
           position: relative;
@@ -132,47 +133,45 @@ const HomePage = ({ state }) => {
       >
         <Featured {...mainPosts[0]} />
       </FeatureWrapper>
-      <div
-        className="row"
+      <Row
         css={css`
           position: relative;
           z-index: 1;
         `}
       >
         {subPosts.map((post) => (
-          <div
+          <Column
             key={post.id}
-            className="column small-12 medium-6"
+            width={[1, 1 / 2]}
             css={css`
               margin-bottom: 40px;
             `}
           >
             <Card {...post} large />
-          </div>
+          </Column>
         ))}
-      </div>
+      </Row>
       <Divider />
-      <div
-        className="row"
+      <Row
         css={css`
           margin-bottom: 60px;
         `}
       >
-        <div className="column small-12">
+        <Column>
           <LatestTitle>Latest articles</LatestTitle>
-        </div>
+        </Column>
         {posts[state.router.link].map((post) => (
-          <div
+          <Column
             key={post.id}
-            className="column small-12 medium-6 large-4"
+            width={[1, 1 / 2, 1 / 3]}
             css={css`
               margin-bottom: 40px;
             `}
           >
             <Card {...post} />
-          </div>
+          </Column>
         ))}
-        <LoadMoreWrapper className="column small-10 small-offset-1 medium-4 medium-offset-4">
+        <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
           <LoadMore
             isFetching={isFetching}
             setIsFetching={setIsFetching}
@@ -181,7 +180,7 @@ const HomePage = ({ state }) => {
             limit={totalPages}
           />
         </LoadMoreWrapper>
-      </div>
+      </Row>
     </Wrapper>
   );
 };

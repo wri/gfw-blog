@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
+import { Row, Column } from 'gfw-components';
 import theme from '../../../../app/theme';
 
 import Comment from '../comment';
@@ -18,7 +19,7 @@ const CommentThread = ({ childComments, ...props }) => {
   };
 
   return (
-    <CommentThreadWrapper className="row">
+    <CommentThreadWrapper>
       {childComments && <Timeline />}
       <Comment {...props} onClickReply={handleGoToReply} />
       {childComments &&
@@ -30,22 +31,20 @@ const CommentThread = ({ childComments, ...props }) => {
             isLast={i === childComments.length - 1}
           />
         ))}
-      <div
-        className="columns small-12"
+      <Column
         css={css`
           background-color: ${theme.colors.white};
         `}
       >
-        <div
-          className="row"
+        <Row
           ref={replyFormRef}
+          nested
           css={css`
             scroll-margin: 150px;
           `}
         >
           {reply && (
-            <div
-              className="columns small-12"
+            <Column
               css={css`
                 margin-bottom: 60px;
               `}
@@ -55,13 +54,13 @@ const CommentThread = ({ childComments, ...props }) => {
                 postId={props.postId}
                 title="post a reply"
               />
-            </div>
+            </Column>
           )}
-        </div>
-      </div>
-      <div className="columns small-12">
+        </Row>
+      </Column>
+      <Column>
         <Divider />
-      </div>
+      </Column>
     </CommentThreadWrapper>
   );
 };

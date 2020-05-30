@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { format } from 'date-fns';
 
-import { Button } from 'gfw-components';
+import { Button, Column } from 'gfw-components';
 
 import {
   CommentHeader,
@@ -25,7 +25,7 @@ const Comment = ({
 
   return (
     <>
-      <div className="columns small-12">
+      <Column>
         <CommentHeader>
           <div>
             <AuthorName>{authorName}</AuthorName>
@@ -35,16 +35,17 @@ const Comment = ({
               </DateWrapper>
             )}
           </div>
-          <Button theme="small button-light" onClick={onClickReply}>
+          <Button size="small" light onClick={onClickReply}>
             reply
           </Button>
         </CommentHeader>
-      </div>
-      <div className="columns small-2">
+      </Column>
+      <Column>
         <EmptyColumn isLast={isLast} />
-      </div>
-      <div
-        className="columns small-10"
+      </Column>
+      <Column width={[1 / 8]} />
+      <Column
+        width={[7 / 8]}
         css={css`
           ${isLast &&
           `
@@ -55,7 +56,7 @@ const Comment = ({
         <Body>
           <Html2React html={content.rendered} />
         </Body>
-      </div>
+      </Column>
     </>
   );
 };

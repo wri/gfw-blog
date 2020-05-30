@@ -25,7 +25,9 @@ const Blockquote = ({ children }) => (
             margin: 0;
           }
         `}
-        theme="button-light round big"
+        light
+        big
+        round
       >
         <TwitterIcon />
       </Button>

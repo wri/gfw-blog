@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
-import { Loader } from 'gfw-components';
+import { Row, Column, Loader } from 'gfw-components';
 
 import Archive from '../archive';
 
@@ -78,30 +78,29 @@ const Post = ({ state, libraries, actions }) => {
     <PostContainer>
       {data.isReady ? (
         <>
-          <div
-            className="row"
+          <Row
             css={css`
               position: relative;
               min-height: 40px;
             `}
           >
-            <BreadCrumbsWrapper className="column small-10 medium-9">
+            <BreadCrumbsWrapper width={[5 / 6, 3 / 4]}>
               <Breadcrumbs />
             </BreadCrumbsWrapper>
-            <div className="column small-2 medium-3">
+            <Column width={[1, 1 / 4]}>
               <Search open={state.theme.searchIsActive} />
-            </div>
-          </div>
+            </Column>
+          </Row>
           <MediaWrapper>
             <Media {...media} />
           </MediaWrapper>
-          <CaptionWrapper className="row">
-            <div className="column small-12">
+          <CaptionWrapper>
+            <Column>
               <Caption {...media} />
-            </div>
+            </Column>
           </CaptionWrapper>
-          <div className="row">
-            <div className="column small-12 medium-3">
+          <Row>
+            <Column width={[1, 1 / 4]}>
               <PostMetaDesktop>
                 <PostMeta author={author} date={post.date} />
                 <ShareLinks
@@ -109,8 +108,8 @@ const Post = ({ state, libraries, actions }) => {
                   title={post.title.rendered}
                 />
               </PostMetaDesktop>
-            </div>
-            <div className="column small-12 medium-8">
+            </Column>
+            <Column width={[1, 2 / 3]}>
               <CategoryList categories={categories} />
               <PostTitle>
                 <Html2React html={post.title.rendered} />
@@ -128,38 +127,38 @@ const Post = ({ state, libraries, actions }) => {
                 <Html2React html={post.content.rendered} />
               </PostContent>
               <CategoryList categories={tags} light />
-            </div>
-          </div>
+            </Column>
+          </Row>
           <Divider />
-          <div className="row">
-            <div className="column small-12">
+          <Row>
+            <Column>
               <LatestTitle>Latest articles</LatestTitle>
-            </div>
+            </Column>
             {relatedPosts &&
               relatedPosts.map((p) => (
-                <div
-                  className="column small-12 medium-6 large-4"
+                <Column
+                  width={[1, 1 / 2, 1 / 3]}
                   css={css`
                     margin-bottom: 40px;
                   `}
                   key={p}
                 >
                   <Card {...state.source.post[p]} />
-                </div>
+                </Column>
               ))}
-          </div>
+          </Row>
           <Divider />
-          <div
-            className="row"
+          <Row
             ref={commentsRef}
             css={css`
               scroll-margin: 150px;
             `}
           >
-            <div className="column small-12 medium-10 medium-offset-1 large-8 large-offset-2">
+            <Column width={[0, 1 / 12, 1 / 6]} />
+            <Column width={[1, 5 / 6, 2 / 3]}>
               <Comments {...post} />
-            </div>
-          </div>
+            </Column>
+          </Row>
         </>
       ) : (
         <Loader />

@@ -1,4 +1,5 @@
 import { styled } from 'frontity';
+import { Row } from 'gfw-components';
 
 import theme from '../../app/theme';
 import Search from '../../components/search';
@@ -80,7 +81,7 @@ export const ResultsStatement = styled.p`
   }
 `;
 
-export const LoadMoreWrapper = styled.div`
+export const LoadMoreWrapper = styled(Row)`
   margin-top: 20px;
 
   ${theme.mediaQueries.small} {

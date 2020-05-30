@@ -1,12 +1,11 @@
 import React from 'react';
-import { Global, css, connect, styled } from 'frontity';
+import { connect, styled } from 'frontity';
 import PropTypes from 'prop-types';
 import { rgba } from 'emotion-rgba';
 
 import Switch from '@frontity/components/switch';
 
-import gfwUIStyles from 'gfw-components/dist/main.css';
-import { Header, Footer, ContactUsModal, mediaStyles } from 'gfw-components';
+import { Header, Footer, ContactUsModal, GlobalStyles } from 'gfw-components';
 
 import theme from './theme';
 import Head from './head';
@@ -17,9 +16,6 @@ import Archive from '../pages/archive';
 import Post from '../pages/post';
 import Error from '../pages/error';
 
-const GFWComponenentsStyles = () => <Global styles={css(gfwUIStyles)} />;
-const SSRStyles = () => <Global styles={css(mediaStyles)} />;
-
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const searchOpen = state.theme.searchIsActive;
@@ -27,8 +23,7 @@ const Theme = ({ state, actions }) => {
   return (
     <>
       <Head />
-      <SSRStyles />
-      <GFWComponenentsStyles />
+      <GlobalStyles />
       <HeaderWrapper>
         <Header
           relative
