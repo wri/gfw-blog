@@ -18,6 +18,7 @@ export const H5 = styled.h5`
   margin: 0 20px 20px 0;
   font-size: 12px;
   width: 100%;
+  text-transform: uppercase;
 
   ${theme.mediaQueries.small} {
     width: auto;
