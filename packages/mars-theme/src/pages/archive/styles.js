@@ -82,9 +82,9 @@ export const ResultsStatement = styled.p`
 `;
 
 export const LoadMoreWrapper = styled(Row)`
-  margin-top: 20px;
+  margin: 20px 0 50px !important;
 
   ${theme.mediaQueries.small} {
-    margin-top: 60px;
+    margin-top: 60px !important;
   }
 `;

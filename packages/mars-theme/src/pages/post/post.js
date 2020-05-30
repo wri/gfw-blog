@@ -139,7 +139,7 @@ const Post = ({ state, libraries, actions }) => {
                 <Column
                   width={[1, 1 / 2, 1 / 3]}
                   css={css`
-                    margin-bottom: 40px;
+                    margin-bottom: 40px !important;
                   `}
                   key={p}
                 >

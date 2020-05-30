@@ -66,6 +66,10 @@ export const Input = styled.input`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  &:focus {
+    outline: none;
+  }
+
   ${theme.mediaQueries.small} {
     padding: 0 20px;
   }

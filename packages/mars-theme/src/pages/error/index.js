@@ -34,7 +34,7 @@ Page404.propTypes = {
 export default connect(Page404);
 
 const Container = styled(Row)`
-  padding: 70px 0 100px;
+  padding: 70px 0 100px !important;
 `;
 
 const ErrorImage = styled.img`

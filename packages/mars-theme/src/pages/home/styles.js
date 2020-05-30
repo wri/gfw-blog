@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    padding: 50px 0;
+    padding: 50px 0 !important;
   }
 `;
 
@@ -79,9 +79,9 @@ export const LatestTitle = styled.h2`
 `;
 
 export const LoadMoreWrapper = styled(Row)`
-  margin-top: 20px;
+  margin: 20px 0 50px !important;
 
   ${theme.mediaQueries.small} {
-    margin-top: 60px;
+    margin-top: 60px !important;
   }
 `;

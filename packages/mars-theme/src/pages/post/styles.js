@@ -15,10 +15,10 @@ export const PostContainer = styled.div`
 `;
 
 export const BreadCrumbsWrapper = styled(Column)`
-  margin-bottom: 25px;
+  margin-bottom: 25px !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
   }
 `;
 
@@ -107,9 +107,9 @@ export const Divider = styled.div`
 `;
 
 export const CaptionWrapper = styled(Row)`
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
   }
 `;

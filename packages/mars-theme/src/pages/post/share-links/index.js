@@ -22,10 +22,10 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         css={css`
-          border-color: #f0f0f0;
+          border-color: #f0f0f0 !important;
           svg {
-            width: 20px;
-            height: 20px;
+            width: 20px !important;
+            height: 20px !important;
           }
         `}
         light
@@ -43,10 +43,10 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         css={css`
-          border-color: #f0f0f0;
+          border-color: #f0f0f0 !important;
           svg {
-            width: 20px;
-            height: 20px;
+            width: 20px !important;
+            height: 20px !important;
           }
         `}
         light
@@ -58,7 +58,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     </a>
     <Button
       css={css`
-        border-color: #f0f0f0;
+        border-color: #f0f0f0 !important;
       `}
       light
       round

@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-
 import { Row, Column } from 'gfw-components';
 
+import theme from '../../app/theme';
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
 import Featured from '../../components/featured';
@@ -115,8 +115,10 @@ const HomePage = ({ state }) => {
             title="categories"
             categories={mainCategories}
             css={css`
-              margin-bottom: 15px;
-              min-height: 80px;
+              ${theme.mediaQueries.small} {
+                margin-bottom: 15px;
+                min-height: 80px;
+              }
             `}
           />
         </Column>
@@ -144,7 +146,7 @@ const HomePage = ({ state }) => {
             key={post.id}
             width={[1, 1 / 2]}
             css={css`
-              margin-bottom: 40px;
+              margin-bottom: 40px !important;
             `}
           >
             <Card {...post} large />
@@ -165,12 +167,13 @@ const HomePage = ({ state }) => {
             key={post.id}
             width={[1, 1 / 2, 1 / 3]}
             css={css`
-              margin-bottom: 40px;
+              margin-bottom: 40px !important;
             `}
           >
             <Card {...post} />
           </Column>
         ))}
+        <Column width={[1 / 12, 1 / 3]} />
         <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
           <LoadMore
             isFetching={isFetching}

@@ -170,7 +170,7 @@ const ArchivePage = ({ state }) => {
             </Column>
             <Column
               css={css`
-                margin-bottom: 20px;
+                margin-bottom: 20px !important;
               `}
             >
               <ResultsStatement>{resultsStatement}</ResultsStatement>
@@ -194,7 +194,7 @@ const ArchivePage = ({ state }) => {
             <Column
               width={[1, 3 / 4]}
               css={css`
-                margin-bottom: 20px;
+                margin-bottom: 20px !important;
               `}
             >
               <CategoryDescription>
@@ -205,7 +205,7 @@ const ArchivePage = ({ state }) => {
           {resultsStatement && (
             <Column
               css={css`
-                margin-bottom: 20px;
+                margin-bottom: 20px !important;
               `}
             >
               <ResultsStatement>{resultsStatement}</ResultsStatement>
@@ -223,13 +223,14 @@ const ArchivePage = ({ state }) => {
             <Column
               width={[1, 1 / 2, 1 / 3]}
               css={css`
-                margin-bottom: 40px;
+                margin-bottom: 40px !important;
               `}
               key={post.id}
             >
               <Card {...post} />
             </Column>
           ))}
+        <Column width={[1 / 12, 1 / 3]} />
         <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
           <LoadMore
             isFetching={isFetching}
