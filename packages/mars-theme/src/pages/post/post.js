@@ -87,7 +87,7 @@ const Post = ({ state, libraries, actions }) => {
             <BreadCrumbsWrapper width={[5 / 6, 3 / 4]}>
               <Breadcrumbs />
             </BreadCrumbsWrapper>
-            <Column width={[1, 1 / 4]}>
+            <Column width={[1 / 6, 1 / 4]}>
               <Search open={state.theme.searchIsActive} />
             </Column>
           </Row>
