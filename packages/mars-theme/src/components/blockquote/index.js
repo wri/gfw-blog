@@ -26,7 +26,7 @@ const Blockquote = ({ children }) => (
           }
         `}
         light
-        big
+        size="large"
         round
       >
         <TwitterIcon />

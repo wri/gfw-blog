@@ -30,7 +30,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
         `}
         light
         round
-        big
+        size="large"
       >
         <TwitterIcon />
       </Button>
@@ -51,7 +51,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
         `}
         light
         round
-        big
+        size="large"
       >
         <FacebookIcon />
       </Button>
@@ -62,7 +62,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
       `}
       light
       round
-      big
+      size="large"
       onClick={scrollToComment}
     >
       <img src={ChatIcon} alt="" />
@@ -74,7 +74,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         round
-        big
+        size="large"
         css={css`
           ${theme.mediaQueries.small} {
             margin-top: 20px;
