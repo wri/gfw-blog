@@ -134,7 +134,7 @@ const categoryOrPostHandler = {
 };
 
 const marsTheme = {
-  name: '@frontity/mars-theme',
+  name: '@gfw/blog-theme',
   roots: {
     /**
      *  In Frontity, any package can add React components to the site.

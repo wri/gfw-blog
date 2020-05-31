@@ -15,7 +15,7 @@ const settings = {
   },
   packages: [
     {
-      name: '@frontity/mars-theme',
+      name: '@gfw/blog-theme',
       state: {
         theme: {
           featured: {

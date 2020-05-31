@@ -1328,7 +1328,7 @@
     frontity "^1.7.0"
     himalaya "^1.1.0"
 
-"@frontity/mars-theme@./packages/mars-theme":
+"@gfw/blog-theme@./packages/gfw-blog":
   version "1.4.0"
   dependencies:
     "@frontity/components" "^1.3.0"
