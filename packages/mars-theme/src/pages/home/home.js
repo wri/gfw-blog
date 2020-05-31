@@ -115,9 +115,10 @@ const HomePage = ({ state }) => {
             title="categories"
             categories={mainCategories}
             css={css`
+              margin-bottom: 15px;
+
               ${theme.mediaQueries.small} {
-                margin-bottom: 15px;
-                min-height: 80px;
+                min-height: 60px;
               }
             `}
           />
@@ -154,11 +155,7 @@ const HomePage = ({ state }) => {
         ))}
       </Row>
       <Divider />
-      <Row
-        css={css`
-          margin-bottom: 60px;
-        `}
-      >
+      <Row>
         <Column>
           <LatestTitle>Latest articles</LatestTitle>
         </Column>
@@ -173,16 +170,20 @@ const HomePage = ({ state }) => {
             <Card {...post} />
           </Column>
         ))}
-        <Column width={[1 / 12, 1 / 3]} />
-        <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-          <LoadMore
-            isFetching={isFetching}
-            setIsFetching={setIsFetching}
-            setPage={setPage}
-            page={page}
-            limit={totalPages}
-          />
-        </LoadMoreWrapper>
+        <Column>
+          <Row nested>
+            <Column width={[1 / 12, 1 / 3]} />
+            <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
+              <LoadMore
+                isFetching={isFetching}
+                setIsFetching={setIsFetching}
+                setPage={setPage}
+                page={page}
+                limit={totalPages}
+              />
+            </LoadMoreWrapper>
+          </Row>
+        </Column>
       </Row>
     </Wrapper>
   );

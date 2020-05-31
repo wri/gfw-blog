@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    padding: 50px 0 !important;
+    padding: 50px 0;
   }
 `;
 

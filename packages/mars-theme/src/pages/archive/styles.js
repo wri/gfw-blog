@@ -6,7 +6,7 @@ import Search from '../../components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 20px 0;
+  padding: 20px 0 50px;
 
   ${theme.mediaQueries.small} {
     padding-top: 40px;
@@ -68,6 +68,9 @@ export const SearchDesktop = styled(Search)`
 
 export const CategoryDescription = styled.p`
   margin-top: 15px;
+  font-size: 18px;
+  line-height: 30px;
+  color: ${theme.colors.darkGrey};
 `;
 
 export const ResultsStatement = styled.p`

@@ -1,4 +1,6 @@
 import { styled } from 'frontity';
+import { BasicInput } from 'gfw-components';
+
 import theme from '../../app/theme';
 
 export const Wrapper = styled.div`
@@ -52,7 +54,7 @@ export const OpenMessage = styled.span`
   margin-right: 10px;
 `;
 
-export const Input = styled.input`
+export const Input = styled(BasicInput)`
   appearance: none;
   width: 100%;
   height: 100%;
@@ -74,8 +76,8 @@ export const Input = styled.input`
     padding: 0 20px;
   }
 
-  ${({ value }) =>
-    value &&
+  ${({ value, expanded }) =>
+    value && expanded &&
     `
     padding: 0 !important;
   `}

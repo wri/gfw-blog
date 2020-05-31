@@ -74,15 +74,11 @@ const ArchivePage = ({ state }) => {
   ];
 
   const taxOptions = allCategories || allTags || allAuthors || [];
-
-  const taxSelected =
-    state.source?.[data.taxonomy]?.[data.id] || state.source.author?.[data.id];
-  const hasTaxSelected =
-    taxSelected &&
-    !!taxOptions?.length &&
-    taxOptions.find((tax) => tax.id === taxSelected?.id);
+  const taxFromList = !!taxOptions?.length && taxOptions.find((tax) => tax.id === data?.id);
+  const taxSelected = taxFromList || state.source?.[data.taxonomy]?.[data.id] || state.source.author?.[data.id];
   const taxId = taxSelected?.id;
-  const allTaxOptions = hasTaxSelected
+
+  const allTaxOptions = taxFromList
     ? taxOptions
     : [{ ...taxSelected, count: total }, ...taxOptions];
 
@@ -213,11 +209,7 @@ const ArchivePage = ({ state }) => {
           )}
         </Row>
       )}
-      <Row
-        css={css`
-          margin-bottom: 60px;
-        `}
-      >
+      <Row>
         {listPosts &&
           listPosts.map((post) => (
             <Column
@@ -230,16 +222,20 @@ const ArchivePage = ({ state }) => {
               <Card {...post} />
             </Column>
           ))}
-        <Column width={[1 / 12, 1 / 3]} />
-        <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-          <LoadMore
-            isFetching={isFetching}
-            setIsFetching={setIsFetching}
-            setPage={setPage}
-            page={page}
-            limit={totalPages}
-          />
-        </LoadMoreWrapper>
+        <Column>
+          <Row nested>
+            <Column width={[1 / 12, 1 / 3]} />
+            <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
+              <LoadMore
+                isFetching={isFetching}
+                setIsFetching={setIsFetching}
+                setPage={setPage}
+                page={page}
+                limit={totalPages}
+              />
+            </LoadMoreWrapper>
+          </Row>
+        </Column>
       </Row>
     </Wrapper>
   );

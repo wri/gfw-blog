@@ -91,9 +91,11 @@ const Post = ({ state, libraries, actions }) => {
               <Search open={state.theme.searchIsActive} />
             </Column>
           </Row>
-          <MediaWrapper>
-            <Media {...media} />
-          </MediaWrapper>
+          {media && (
+            <MediaWrapper>
+              <Media {...media} />
+            </MediaWrapper>
+          )}
           <CaptionWrapper>
             <Column>
               <Caption {...media} />

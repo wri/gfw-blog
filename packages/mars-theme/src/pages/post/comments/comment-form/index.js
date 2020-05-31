@@ -30,8 +30,8 @@ const CommentForm = ({ title, postId, parent }) => (
           {submitting && <Loader />}
           {title && <CommentTitle>{title}</CommentTitle>}
           <Row nested>
-            <Column width={[0, 1 / 12]} />
-            <Column width={[1, 5 / 6]}>
+            <Column width={[0, 1 / 8]} />
+            <Column width={[1, 7 / 8]}>
               <form onSubmit={handleSubmit}>
                 <Input
                   name="comment"

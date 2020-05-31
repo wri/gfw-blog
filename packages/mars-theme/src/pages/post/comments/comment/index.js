@@ -9,8 +9,7 @@ import {
   CommentHeader,
   AuthorName,
   DateWrapper,
-  Body,
-  EmptyColumn,
+  Body
 } from './styles';
 
 const Comment = ({
@@ -40,10 +39,15 @@ const Comment = ({
           </Button>
         </CommentHeader>
       </Column>
-      <Column>
-        <EmptyColumn isLast={isLast} />
-      </Column>
-      <Column width={[1 / 8]} />
+      <Column
+        width={[1 / 8]}
+        css={css`
+          ${isLast &&
+          `
+            background-color: white;
+          `}
+        `}
+      />
       <Column
         width={[7 / 8]}
         css={css`

@@ -19,7 +19,7 @@ const CommentThread = ({ childComments, ...props }) => {
   };
 
   return (
-    <CommentThreadWrapper>
+    <CommentThreadWrapper nested>
       {childComments && <Timeline />}
       <Comment {...props} onClickReply={handleGoToReply} />
       {childComments &&
