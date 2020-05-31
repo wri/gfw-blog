@@ -106,6 +106,8 @@ const Post = ({ state, libraries, actions }) => {
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
+                  scrollToComment={() =>
+                    commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
                 />
               </PostMetaDesktop>
             </Column>
@@ -149,11 +151,16 @@ const Post = ({ state, libraries, actions }) => {
           </Row>
           <Divider />
           <Row
-            ref={commentsRef}
             css={css`
               scroll-margin: 150px;
             `}
           >
+            <div
+              ref={commentsRef}
+              css={css`
+                scroll-margin: 150px;
+              `}
+            />
             <Column width={[0, 1 / 12, 1 / 6]} />
             <Column width={[1, 5 / 6, 2 / 3]}>
               <Comments {...post} />
