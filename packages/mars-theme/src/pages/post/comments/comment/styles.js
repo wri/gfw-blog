@@ -26,14 +26,3 @@ export const Body = styled.div`
   color: ${theme.colors.darkGrey};
   margin-bottom: 60px;
 `;
-
-export const EmptyColumn = styled.div`
-  width: 50px;
-  height: 100%;
-
-  ${({ isLast }) =>
-    isLast &&
-    `
-    background-color: ${theme.colors.white};
-  `}
-`;

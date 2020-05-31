@@ -66,7 +66,6 @@ export const ContentWrapper = styled.div`
 export const PostTitle = styled.h3`
   font-size: 30px;
   line-height: 37px;
-  font-weight: 400;
   color: ${theme.colors.white};
   width: 100%;
   margin-bottom: 20px;

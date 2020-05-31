@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled, connect } from 'frontity';
+import { Row, Column } from 'gfw-components';
 
 import theme from '../../app/theme';
 import treeErrorIcon from '../../assets/icons/error.svg';
@@ -16,12 +17,12 @@ const Page404 = ({ state }) => {
     'You may have mistyped the address or the page may have moved.';
 
   return (
-    <Container className="row">
-      <div className="column small-12">
+    <Container>
+      <Column>
         <ErrorImage src={treeErrorIcon} alt="error tree" />
         <Title>{data.is404 ? title404 : title}</Title>
         <Description>{data.is404 ? description404 : description}</Description>
-      </div>
+      </Column>
     </Container>
   );
 };
@@ -32,8 +33,8 @@ Page404.propTypes = {
 
 export default connect(Page404);
 
-const Container = styled.div`
-  padding: 70px 0 100px;
+const Container = styled(Row)`
+  padding: 70px 0 100px !important;
 `;
 
 const ErrorImage = styled.img`

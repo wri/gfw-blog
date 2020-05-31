@@ -8,7 +8,7 @@ export const ListWrapper = styled.ul`
   max-height: 360px;
   border: solid 1px ${theme.colors.grey};
   border-top: none;
-  padding: 40px;
+  padding: 25px 40px;
   background-color: ${theme.colors.white};
   overflow-y: scroll;
 `;
@@ -19,7 +19,7 @@ export const ListItem = styled.li`
 
   a {
     color: ${theme.colors.grey};
-    padding-bottom: 20px;
+    padding: 20px 0;
     width: 100%;
     display: block;
 
@@ -36,11 +36,5 @@ export const ListItem = styled.li`
 
   b {
     color: ${theme.colors.darkestGrey};
-  }
-
-  &:last-child {
-    a {
-      padding-bottom: 0;
-    }
   }
 `;

@@ -84,7 +84,7 @@ const Search = ({
               onKeyDown={keyDownHandler}
             />
             {search && (
-              <Button theme="button-clear round" onClick={() => setSearch('')}>
+              <Button clear round onClick={() => setSearch('')}>
                 <CloseIcon
                   css={css`
                     height: 10px;

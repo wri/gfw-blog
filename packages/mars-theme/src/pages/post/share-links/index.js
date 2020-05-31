@@ -22,13 +22,15 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         css={css`
-          border-color: #f0f0f0;
+          border-color: #f0f0f0 !important;
           svg {
-            width: 20px;
-            height: 20px;
+            width: 20px !important;
+            height: 20px !important;
           }
         `}
-        theme="button-light round big"
+        light
+        round
+        size="large"
       >
         <TwitterIcon />
       </Button>
@@ -41,22 +43,26 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         css={css`
-          border-color: #f0f0f0;
+          border-color: #f0f0f0 !important;
           svg {
-            width: 20px;
-            height: 20px;
+            width: 20px !important;
+            height: 20px !important;
           }
         `}
-        theme="button-light round big"
+        light
+        round
+        size="large"
       >
         <FacebookIcon />
       </Button>
     </a>
     <Button
       css={css`
-        border-color: #f0f0f0;
+        border-color: #f0f0f0 !important;
       `}
-      theme="button-light round big"
+      light
+      round
+      size="large"
       onClick={scrollToComment}
     >
       <img src={ChatIcon} alt="" />
@@ -67,7 +73,8 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
       href="https://www.globalforestwatch.org/subscribe"
     >
       <Button
-        theme="round big"
+        round
+        size="large"
         css={css`
           ${theme.mediaQueries.small} {
             margin-top: 20px;

@@ -1,4 +1,5 @@
 import { styled } from 'frontity';
+import { Row } from 'gfw-components';
 
 import theme from '../../app/theme';
 import Search from '../../components/search';
@@ -77,10 +78,10 @@ export const LatestTitle = styled.h2`
   }
 `;
 
-export const LoadMoreWrapper = styled.div`
-  margin-top: 20px;
+export const LoadMoreWrapper = styled(Row)`
+  margin: 20px 0 50px !important;
 
   ${theme.mediaQueries.small} {
-    margin-top: 60px;
+    margin-top: 60px !important;
   }
 `;

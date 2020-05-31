@@ -14,7 +14,7 @@ const Card = ({ libraries, state, id, type, large }) => {
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
     state.source[type][id] || {};
   const postCategories = categories.map((cat) => state.source.category[cat]);
-  const media = state.source.attachment[featuredMediaId];
+  const media = featuredMediaId && state?.source?.attachment?.[featuredMediaId];
 
   return (
     <CardWrapper>
@@ -29,9 +29,11 @@ const Card = ({ libraries, state, id, type, large }) => {
           right: 0;
         `}
       />
-      <MediaWrapper large={large}>
-        <Media {...media} />
-      </MediaWrapper>
+      {!!media && (
+        <MediaWrapper large={large}>
+          <Media {...media} />
+        </MediaWrapper>
+      )}
       <CategoryList
         categories={postCategories}
         css={css`

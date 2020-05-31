@@ -4,10 +4,12 @@ import { connect } from 'frontity';
 
 import {
   Form,
-  FormInput,
-  FormCheckbox,
-  FormSubmit,
+  Input,
+  Checkbox,
+  Submit,
   Loader,
+  Row,
+  Column,
 } from 'gfw-components';
 
 import postComments from './actions';
@@ -27,19 +29,20 @@ const CommentForm = ({ title, postId, parent }) => (
         <>
           {submitting && <Loader />}
           {title && <CommentTitle>{title}</CommentTitle>}
-          <div className="row">
-            <div className="column small-12 medium-10 medium-offset-2">
+          <Row nested>
+            <Column width={[0, 1 / 8]} />
+            <Column width={[1, 7 / 8]}>
               <form onSubmit={handleSubmit}>
-                <FormInput
+                <Input
                   name="comment"
                   label="Comment"
                   type="textarea"
                   required
                 />
-                <FormInput name="email" label="email" required />
-                <FormInput name="name" label="name" required />
+                <Input name="email" label="email" required />
+                <Input name="name" label="name" required />
                 <AgreeBoxWrapper>
-                  <FormCheckbox
+                  <Checkbox
                     name="agree"
                     options={[
                       {
@@ -50,10 +53,10 @@ const CommentForm = ({ title, postId, parent }) => (
                     required
                   />
                 </AgreeBoxWrapper>
-                <FormSubmit submitting={submitting}>post comment</FormSubmit>
+                <Submit submitting={submitting}>post comment</Submit>
               </form>
-            </div>
-          </div>
+            </Column>
+          </Row>
         </>
       )}
   </Form>

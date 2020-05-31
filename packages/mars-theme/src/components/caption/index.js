@@ -6,8 +6,8 @@ import CaptionWrapper from './styles';
 
 const Media = ({ libraries, caption, media_details: mediaDetails }) => {
   const Html2React = libraries.html2react.Component;
-  const captionText = caption.rendered;
-  const { credit } = mediaDetails.image_meta;
+  const captionText = caption?.rendered;
+  const { credit } = mediaDetails?.image_meta || {};
 
   const imageDescription = `${captionText}${
     captionText && credit ? ' - ' : ''

@@ -1,4 +1,5 @@
 import { styled } from 'frontity';
+import { Row, Column } from 'gfw-components';
 import theme from '../../app/theme';
 import SearchComponent from '../../components/search';
 
@@ -13,11 +14,11 @@ export const PostContainer = styled.div`
   }
 `;
 
-export const BreadCrumbsWrapper = styled.div`
-  margin-bottom: 25px;
+export const BreadCrumbsWrapper = styled(Column)`
+  margin-bottom: 25px !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
   }
 `;
 
@@ -105,10 +106,10 @@ export const Divider = styled.div`
   }
 `;
 
-export const CaptionWrapper = styled.div`
-  margin-bottom: 20px;
+export const CaptionWrapper = styled(Row)`
+  margin-bottom: 20px !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
   }
 `;

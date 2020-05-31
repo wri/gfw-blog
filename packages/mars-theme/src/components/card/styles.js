@@ -39,7 +39,6 @@ export const MediaWrapper = styled.div`
 export const PostTitle = styled.h3`
   font-size: 22px;
   line-height: 28px;
-  font-weight: 400;
   color: ${theme.colors.darkestGrey};
   width: 100%;
   margin-bottom: 20px;
@@ -57,7 +56,7 @@ export const PostTitle = styled.h3`
 export const PostExcerpt = styled.div`
   font-size: 14px;
   line-height: 21px;
-  color: ${theme.colors.darkGrey};
+  color: ${theme.colors.mediumGrey};
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;

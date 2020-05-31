@@ -22,6 +22,7 @@ export const Container = styled.div`
   height: 60px;
   border-bottom: solid 1px ${theme.colors.grey};
   font-size: 30px;
+  line-height: 38px;
   font-weight: 300;
   color: ${theme.colors.darkestGrey};
 
@@ -34,6 +35,7 @@ export const Container = styled.div`
   ${theme.mediaQueries.small} {
     height: 80px;
     font-size: 48px;
+    line-height: 60px;
   }
 `;
 
