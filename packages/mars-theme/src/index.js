@@ -116,19 +116,19 @@ const categoryOrPostHandler = {
   name: 'categoryOrPostType',
   priority: 30,
   pattern: '/(.*)?/:slug',
-  func: async ({ route, params, state, libraries }) => {
+  func: async ({ route, params, state, libraries, link }) => {
     // 1. try with category.
     try {
       const category = libraries.source.handlers.find(
         (handler) => handler.name === 'category'
       );
-      await category.func({ route, params, state, libraries });
+      await category.func({ link, route, params, state, libraries });
     } catch (e) {
       // It's not a category
       const postType = libraries.source.handlers.find(
         (handler) => handler.name === 'post type'
       );
-      await postType.func({ link: route, params, state, libraries });
+      await postType.func({ link, route, params, state, libraries });
     }
   },
 };

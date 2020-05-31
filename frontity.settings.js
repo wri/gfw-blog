@@ -41,8 +41,8 @@ const settings = {
     },
     '@frontity/tiny-router',
     '@frontity/html2react',
-    '@frontity/head-tags',
     '@frontity/google-analytics',
+    '@frontity/head-tags',
   ],
 };
 
