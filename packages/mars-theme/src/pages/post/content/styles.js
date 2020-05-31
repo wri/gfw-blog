@@ -106,7 +106,7 @@ export default styled.div`
     }
   }
 
-  .c-carousel {
+  .wp-block-gallery > div {
     margin: 0;
     width: 100%;
 
