@@ -36,13 +36,13 @@ const CommentThread = ({ childComments, ...props }) => {
           background-color: ${theme.colors.white};
         `}
       >
-        <Row
-          ref={replyFormRef}
-          nested
-          css={css`
-            scroll-margin: 150px;
-          `}
-        >
+        <Row nested>
+          <div
+            ref={replyFormRef}
+            css={css`
+              scroll-margin: 150px;
+            `}
+          />
           {reply && (
             <Column
               css={css`
