@@ -37,11 +37,12 @@ const Post = ({ state, libraries, actions }) => {
   const media = state.source.attachment[post.featured_media];
   const categories = post.categories.map((id) => state.source.category[id]);
   const tags = post.tags.map((id) => state.source.tag[id]);
-  const guestAuthors = post?.acf?.guest_authors?.map(author => ({
+  const guestAuthors = post?.acf?.guest_authors;
+  const guestAuthorsMapped = guestAuthors && guestAuthors.map(author => ({
     name: author.post_title,
     link: author?.acf?.profile_link
   }));
-  const authors = guestAuthors || [state.source.author[post.author]];
+  const authors = guestAuthorsMapped || [state.source.author[post.author]];
 
   /**
    * Once the post has loaded in the DOM, prefetch both the

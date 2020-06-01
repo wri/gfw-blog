@@ -44,6 +44,33 @@ const blockquote = {
   },
 };
 
+const stickyPostsHandler = {
+  priority: 10,
+  pattern: "sticky-posts",
+  func: async ({ route, state, libraries }) => {
+    const { api } = libraries.source;
+    // 1. fetch the posts you want
+    const response = await api.get({
+      endpoint: "posts",
+      params: {
+        sticky: true
+      }
+    });
+
+    // 2. populate response
+    const stickyPosts = await response.json();
+
+    // 3. add data to source
+    const currentPageData = state.source.data[route];
+
+    Object.assign(currentPageData, {
+      stickyPosts: stickyPosts.map(post => ({
+        ...post
+      }))
+    });
+  }
+};
+
 const allCategoriesHandler = {
   name: 'allCategories',
   priority: 10,
@@ -180,6 +207,7 @@ const marsTheme = {
       beforeSSR: ({ actions }) => async () => {
         await actions.source.fetch('all-categories');
         await actions.source.fetch('top-tags');
+        await actions.source.fetch('sticky-posts');
       },
     },
   },
@@ -192,7 +220,7 @@ const marsTheme = {
       processors: [image, iframe, gutenbergGallery, blockquote],
     },
     source: {
-      handlers: [allCategoriesHandler, topTagsHandler, categoryOrPostHandler],
+      handlers: [allCategoriesHandler, topTagsHandler, categoryOrPostHandler, stickyPostsHandler],
     },
   },
 };

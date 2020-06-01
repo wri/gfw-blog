@@ -18,13 +18,15 @@ import {
 const MainPost = ({ libraries, state, id, type }) => {
   const Html2React = libraries.html2react.Component;
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
-    state.source[type][id] || {};
+    state?.source?.[type]?.[id] || {};
   const postCategories = categories.map((cat) => state.source.category[cat]);
   const media = state.source.attachment[featuredMediaId];
 
   return (
     <Wrapper>
-      <Media {...media} />
+      {media && (
+        <Media {...media} />
+      )}
       <Link
         link={link}
         css={css`
