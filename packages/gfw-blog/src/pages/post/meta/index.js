@@ -2,18 +2,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 
-import Link from '../../../components/link';
-
 import { MetaWrapper, MetaItem } from './styles';
 
 const formatDate = (dateStr) => format(new Date(dateStr), 'MMMM d, yyyy');
 
-const PostMeta = ({ author, date }) => (
+const PostMeta = ({ authors, date }) => (
   <MetaWrapper>
-    {author && (
+    {authors && (
       <MetaItem>
         <b>By&nbsp;</b>
-        <Link link={author.link}>{author.name}</Link>
+        <div>
+          {authors.map((author, i) => {
+            const isLast = i === authors.length - 1;
+            const hasMany = authors.length > 2;
+            const isSecondToLast = i === authors.length - 2;
+
+            return (
+              <>
+                <a href={author.link} target="_blank" rel="noopener noreferrer">{author.name}</a>
+                {!isLast && (
+                  <>
+                    {(!hasMany || (hasMany && isSecondToLast) ?
+                      <span> and </span>
+                      :
+                      <span>, </span>
+                    )}
+                  </>
+                )}
+              </>
+            )
+          })}
+        </div>
       </MetaItem>
     )}
     <MetaItem>
@@ -28,7 +47,7 @@ const PostMeta = ({ author, date }) => (
 );
 
 PostMeta.propTypes = {
-  author: PropTypes.object,
+  authors: PropTypes.array,
   date: PropTypes.string,
 };
 

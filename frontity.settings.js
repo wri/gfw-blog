@@ -35,7 +35,7 @@ const settings = {
             type: ['post'],
           },
           categoryBase: 'category',
-          tagBase: 'tag',
+          tagBase: 'tag'
         },
       },
     },

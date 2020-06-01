@@ -37,7 +37,11 @@ const Post = ({ state, libraries, actions }) => {
   const media = state.source.attachment[post.featured_media];
   const categories = post.categories.map((id) => state.source.category[id]);
   const tags = post.tags.map((id) => state.source.tag[id]);
-  const author = state.source.author[post.author];
+  const guestAuthors = post?.acf?.guest_authors?.map(author => ({
+    name: author.post_title,
+    link: author?.acf?.profile_link
+  }));
+  const authors = guestAuthors || [state.source.author[post.author]];
 
   /**
    * Once the post has loaded in the DOM, prefetch both the
@@ -101,7 +105,7 @@ const Post = ({ state, libraries, actions }) => {
           <Row>
             <Column width={[1, 1 / 4]}>
               <PostMetaDesktop>
-                <PostMeta author={author} date={post.date} />
+                <PostMeta authors={authors} date={post.date} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
@@ -116,7 +120,7 @@ const Post = ({ state, libraries, actions }) => {
                 <Html2React html={post.title.rendered} />
               </PostTitle>
               <PostMetaMobile>
-                <PostMeta author={author} date={post.date} />
+                <PostMeta authors={authors} date={post.date} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
