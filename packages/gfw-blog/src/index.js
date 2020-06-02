@@ -220,7 +220,7 @@ const marsTheme = {
       processors: [image, iframe, gutenbergGallery, blockquote],
     },
     source: {
-      handlers: [allCategoriesHandler, topTagsHandler, categoryOrPostHandler, stickyPostsHandler],
+      handlers: [allCategoriesHandler, topTagsHandler, stickyPostsHandler],
     },
   },
 };
