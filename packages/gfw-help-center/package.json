@@ -1,0 +1,23 @@
+{
+  "name": "@gfw/help-center-theme",
+  "version": "1.0.0",
+  "description": "The Global Forest Watch Help Center",
+  "keywords": [
+    "gfw"
+  ],
+  "homepage": "https://www.globalforestwatch.org/help-center",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Vizzuality/gfw-blog-headless"
+  },
+  "bugs": {
+    "url": "https://github.com/Vizzuality/gfw-blog-headless/issues"
+  },
+  "dependencies": {
+    "@frontity/components": "^1.3.0",
+    "@frontity/html2react": "^1.3.0",
+    "frontity": "^1.5.2",
+    "react-spinners": "^0.5.4"
+  }
+}
