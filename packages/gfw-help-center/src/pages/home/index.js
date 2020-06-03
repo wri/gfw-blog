@@ -24,7 +24,7 @@ const HomePage = ({ state }) => {
           <Search />
         </Column>
         <Column>
-          <Tools />
+          <Tools items={data.items} />
         </Column>
       </Row>
     </Wrapper>

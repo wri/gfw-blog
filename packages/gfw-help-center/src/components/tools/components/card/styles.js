@@ -1,19 +1,11 @@
 import { styled } from 'frontity';
 
-import theme from '../../../../app/theme';
-
 export const Card = styled.div`
-  flex: 1 0 34%;
-  max-width: 540px;
+  position: relative;
   height: 480px;
   border: 1px solid #cacabe;
   background-color: #e5e5df;
   padding: 50px 40px 0 40px;
-  margin-left: ${theme.grid.desktopGutter};
-
-  ${theme.mediaQueries.small} {
-    margin-left: ${theme.grid.mobileGutter};
-  }
 `;
 
 export const Title = styled.h1`

@@ -1,11 +1,14 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import { connect } from 'frontity';
+import PropTypes from 'prop-types';
+import { connect, styled } from 'frontity';
+import { Row, Column, H4 } from 'gfw-components';
 import Card from './components/card';
 
-import { Wrapper, Container, Title } from './styles';
+const H4Wrapper = styled(H4)`
+  margin: 100px 0 50px;
+`;
 
-const Tools = ({ ...props }) => {
+const Tools = () => {
   const cards = [
     {
       title: 'Map and Dashboards',
@@ -20,18 +23,27 @@ const Tools = ({ ...props }) => {
       image: '',
     },
   ];
+
   return (
-    <Wrapper {...props}>
-      <Title>Getting started on the GFW tools.</Title>
-      <Container>
-        {cards.map((card) => (
-          <Card {...card} />
-        ))}
-      </Container>
-    </Wrapper>
+    <>
+      <H4Wrapper>Getting started on the GFW tools.</H4Wrapper>
+      <Row nested>
+        {cards.map((card) => {
+          // const card = state.source.get(item.link);
+          return (
+            <Column width={[1, 1 / 2]} key={card.title}>
+              <Card {...card} />
+            </Column>
+          );
+        })}
+      </Row>
+    </>
   );
 };
 
 export default connect(Tools);
 
-Tools.propTypes = {};
+Tools.propTypes = {
+  items: PropTypes.array,
+  state: PropTypes.object,
+};
