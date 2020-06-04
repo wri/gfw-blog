@@ -24,5 +24,17 @@ export const Text = styled.p`
 
 export const Image = styled.img`
   position: absolute;
+  max-width: 100%;
   bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+`;
+
+export const Logo = styled.img`
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
 `;
