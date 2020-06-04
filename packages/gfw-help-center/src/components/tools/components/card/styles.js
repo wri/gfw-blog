@@ -35,6 +35,6 @@ export const Image = styled.img`
 
 export const Logo = styled.img`
   position: absolute;
-  left: 40px;
-  bottom: 40px;
+  left: -88px;
+  bottom: -88px;
 `;
