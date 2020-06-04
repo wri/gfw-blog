@@ -47,7 +47,16 @@ const Tools = () => {
                   </Desktop>
                 </Prompt>
               )}
-              <Card {...card} />
+              <Card
+                css={
+                  i === 0 &&
+                  css`
+                    border: 1px solid #cacabe;
+                    background-color: #e5e5df;
+                  `
+                }
+                {...card}
+              />
             </Column>
           );
         })}
