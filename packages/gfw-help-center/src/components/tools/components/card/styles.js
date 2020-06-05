@@ -6,6 +6,7 @@ export const Card = styled.div`
   padding: 50px 40px 0 40px;
   border: 1px solid #e5e5df;
   background-color: #f6f6f4;
+  margin-bottom: 32px;
 `;
 
 export const Title = styled.h1`

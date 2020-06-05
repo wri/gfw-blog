@@ -23,6 +23,19 @@ const Tools = () => {
       image: 'forestwatcher',
       logo: 'fw',
     },
+    {
+      title: 'MapBuilder',
+      text: `For those who want their own online mapping and monitoring system. MapBuilder allows you to combine GFW data with your own data to
+        build highly customized forest monitoring applications.`,
+      image: 'mapbuilder',
+    },
+    {
+      title: 'GFW Pro',
+      text: `For companies, banks and anyone else seeking to monitor forests across a portfolio of locations. GFW Pro enables you to securely
+        manage deforestation risk in commodity supply chains.`,
+      image: 'gfwpro',
+      logo: 'gfwpro',
+    },
   ];
 
   return (

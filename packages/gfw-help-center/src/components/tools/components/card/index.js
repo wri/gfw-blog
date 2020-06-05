@@ -4,15 +4,23 @@ import { connect } from 'frontity';
 
 import { Card, Title, Text, Image, Logo } from './styles';
 
+// Images
 import md from '../../../../assets/images/mapsdashboards.png';
 import md2 from '../../../../assets/images/mapsdashboards@2x.png';
 import fw from '../../../../assets/images/forestwatcher.png';
 import fw2 from '../../../../assets/images/forestwatcher@2x.png';
+import mb from '../../../../assets/images/mapbuilder.png';
+import mb2 from '../../../../assets/images/mapbuilder@2x.png';
+import gfwpro from '../../../../assets/images/pro.png';
+import gfwpro2 from '../../../../assets/images/pro@2x.png';
 
+// Logos
 import gfw from '../../../../assets/logos/gfw.png';
 import gfw2 from '../../../../assets/logos/gfw@2x.png';
 import fwlogo from '../../../../assets/logos/fw.png';
 import fwlogo2 from '../../../../assets/logos/fw@2x.png';
+import gfwprologo from '../../../../assets/logos/gfwpro.png';
+import gfwprologo2 from '../../../../assets/logos/gfwpro@2x.png';
 
 const images = {
   mapsdashboards: {
@@ -22,6 +30,14 @@ const images = {
   forestwatcher: {
     '1x': fw,
     '2x': fw2,
+  },
+  mapbuilder: {
+    '1x': mb,
+    '2x': mb2,
+  },
+  gfwpro: {
+    '1x': gfwpro,
+    '2x': gfwpro2,
   },
 };
 
@@ -33,6 +49,10 @@ const logos = {
   fw: {
     '1x': fwlogo,
     '2x': fwlogo2,
+  },
+  gfwpro: {
+    '1x': gfwprologo,
+    '2x': gfwprologo2,
   },
 };
 
