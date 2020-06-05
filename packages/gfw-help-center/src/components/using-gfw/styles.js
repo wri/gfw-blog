@@ -6,11 +6,20 @@ export const H4Wrapper = styled(H4)`
 `;
 
 export const Banner = styled.div`
+  position: relative;
+  overflow: hidden;
   height: 240px;
   width: 100%;
   margin-bottom: 30px;
   padding: 55px 80px;
   background-color: #69695d;
+`;
+
+export const BannerBackground = styled.img`
+  position: absolute;
+  top: -280px;
+  left: 0;
+  width: 100%;
 `;
 
 export const BannerTitle = styled.h3`
