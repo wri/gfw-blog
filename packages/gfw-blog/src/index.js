@@ -191,7 +191,7 @@ const marsTheme = {
       categories: [],
     },
     googleAnalytics: {
-      trackingId: process.env.GOOGLE_ANALYTICS,
+      trackingId: 'UA-48182293-1',
     },
   },
   /**
