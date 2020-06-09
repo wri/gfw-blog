@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 
+// import Link from '../../../components/link';
+
 import { MetaWrapper, MetaItem } from './styles';
 
 const formatDate = (dateStr) => format(new Date(dateStr), 'MMMM d, yyyy');
@@ -39,16 +41,21 @@ const PostMeta = ({ authors, date }) => (
       <b>Posted on&nbsp;</b>
       <span>{formatDate(date)}</span>
     </MetaItem>
-    <MetaItem>
-      <b>Languages&nbsp;</b>
-      <span>Léelo en español</span>
-    </MetaItem>
+    {/* {languages && languages.length > 0 && (
+      <MetaItem>
+        <b>Languages&nbsp;</b>
+        {languages.map(lang => (
+          <Link link={lang.href.replace('https://dev-global-forest-watch-blog.pantheonsite.io', '')}>Leelo en Espanol</Link>
+        ))}
+      </MetaItem>
+    )} */}
   </MetaWrapper>
 );
 
 PostMeta.propTypes = {
   authors: PropTypes.array,
   date: PropTypes.string,
+  // languages: PropTypes.array
 };
 
 export default PostMeta;

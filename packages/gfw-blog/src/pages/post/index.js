@@ -43,7 +43,6 @@ const Post = ({ state, libraries, actions }) => {
     link: author?.acf?.profile_link
   }));
   const authors = guestAuthorsMapped || [state.source.author[post.author]];
-
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
@@ -106,7 +105,7 @@ const Post = ({ state, libraries, actions }) => {
           <Row>
             <Column width={[1, 1 / 4]}>
               <PostMetaDesktop>
-                <PostMeta authors={authors} date={post.date} />
+                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
@@ -121,7 +120,7 @@ const Post = ({ state, libraries, actions }) => {
                 <Html2React html={post.title.rendered} />
               </PostTitle>
               <PostMetaMobile>
-                <PostMeta authors={authors} date={post.date} />
+                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
