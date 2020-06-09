@@ -21,18 +21,28 @@ const PostMeta = ({ authors, date }) => (
 
             return (
               <>
-                <a href={author.link} target="_blank" rel="noopener noreferrer">{author.name}</a>
+                {author.link ? (
+                  <a
+                    href={author.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {author.name}
+                  </a>
+                ) : (
+                  <span>{author.name}</span>
+                )}
                 {!isLast && (
                   <>
-                    {(!hasMany || (hasMany && isSecondToLast) ?
+                    {!hasMany || (hasMany && isSecondToLast) ? (
                       <span> and </span>
-                      :
+                    ) : (
                       <span>, </span>
                     )}
                   </>
                 )}
               </>
-            )
+            );
           })}
         </div>
       </MetaItem>
