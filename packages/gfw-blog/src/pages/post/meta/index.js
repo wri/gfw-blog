@@ -20,7 +20,7 @@ const PostMeta = ({ authors, date }) => (
             const isSecondToLast = i === authors.length - 2;
 
             return (
-              <>
+              <span key={author.name}>
                 {author.link ? (
                   <a
                     href={author.link}
@@ -41,7 +41,7 @@ const PostMeta = ({ authors, date }) => (
                     )}
                   </>
                 )}
-              </>
+              </span>
             );
           })}
         </div>
