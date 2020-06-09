@@ -8,13 +8,11 @@ const Media = ({ libraries, caption }) => {
   const Html2React = libraries.html2react.Component;
   const captionText = caption?.rendered;
 
-  return (
-    caption && (
-      <CaptionWrapper>
-        <Html2React html={captionText} />
-      </CaptionWrapper>
-    )
-  );
+  return captionText ? (
+    <CaptionWrapper>
+      <Html2React html={captionText} />
+    </CaptionWrapper>
+  ) : null;
 };
 
 Media.propTypes = {
