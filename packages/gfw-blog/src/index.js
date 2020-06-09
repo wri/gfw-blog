@@ -46,15 +46,15 @@ const blockquote = {
 
 const stickyPostsHandler = {
   priority: 10,
-  pattern: "sticky-posts",
+  pattern: 'sticky-posts',
   func: async ({ route, state, libraries }) => {
     const { api } = libraries.source;
     // 1. fetch the posts you want
     const response = await api.get({
-      endpoint: "posts",
+      endpoint: 'posts',
       params: {
-        sticky: true
-      }
+        sticky: true,
+      },
     });
 
     // 2. populate response
@@ -64,11 +64,11 @@ const stickyPostsHandler = {
     const currentPageData = state.source.data[route];
 
     Object.assign(currentPageData, {
-      stickyPosts: stickyPosts.map(post => ({
-        ...post
-      }))
+      stickyPosts: stickyPosts.map((post) => ({
+        ...post,
+      })),
     });
-  }
+  },
 };
 
 const allCategoriesHandler = {
@@ -155,7 +155,12 @@ const categoryOrPostHandler = {
       const postType = libraries.source.handlers.find(
         (handler) => handler.name === 'post type'
       );
-      await postType.func({ link, route, params, state, libraries });
+
+      try {
+        await postType.func({ link, route, params, state, libraries });
+      } catch (err) {
+        console.error(err);
+      }
     }
   },
 };
@@ -220,7 +225,12 @@ const marsTheme = {
       processors: [image, iframe, gutenbergGallery, blockquote],
     },
     source: {
-      handlers: [allCategoriesHandler, topTagsHandler, categoryOrPostHandler, stickyPostsHandler],
+      handlers: [
+        allCategoriesHandler,
+        topTagsHandler,
+        categoryOrPostHandler,
+        stickyPostsHandler,
+      ],
     },
   },
 };
