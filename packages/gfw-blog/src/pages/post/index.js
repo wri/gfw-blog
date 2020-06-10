@@ -4,6 +4,8 @@ import { connect, css } from 'frontity';
 
 import { Row, Column, Loader } from 'gfw-components';
 
+import { ROOT_URL } from '../../../../../constants';
+
 import Breadcrumbs from '../../components/breadcrumbs';
 import Media from '../../components/media';
 import Caption from '../../components/caption';
@@ -28,6 +30,15 @@ import {
   BreadCrumbsWrapper,
 } from './styles';
 
+const localeStrings = {
+  en_US: 'Read in english',
+  es_MX: 'Leerlo en español',
+  pt_BR: 'Leia em portugues',
+  zh_CN: '用中文閱讀',
+  fr_FR: 'Lire en français',
+  id_ID: 'Baca dalam bahasa indonesia'
+}
+
 const Post = ({ state, libraries, actions }) => {
   const data = state.source.get(state.router.link);
   const Html2React = libraries.html2react.Component;
@@ -42,6 +53,12 @@ const Post = ({ state, libraries, actions }) => {
     name: author.post_title,
     link: author?.acf?.profile_link
   }));
+
+  const languages = post.translations && post.translations.filter(lang => lang.locale !== post.current_lang).map(lang => ({
+    ...lang,
+    link: lang.link && lang.link.replace(ROOT_URL, ''),
+    text: localeStrings[lang.locale]
+  }))
 
   /**
    * Once the post has loaded in the DOM, prefetch both the
@@ -105,7 +122,7 @@ const Post = ({ state, libraries, actions }) => {
           <Row>
             <Column width={[1, 1 / 4]}>
               <PostMetaDesktop>
-                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
+                <PostMeta authors={authors} date={post.date} languages={languages} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
@@ -120,7 +137,7 @@ const Post = ({ state, libraries, actions }) => {
                 <Html2React html={post.title.rendered} />
               </PostTitle>
               <PostMetaMobile>
-                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
+                <PostMeta authors={authors} date={post.date} languages={languages} />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
