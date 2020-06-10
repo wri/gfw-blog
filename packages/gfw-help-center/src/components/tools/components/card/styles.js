@@ -16,7 +16,7 @@ export const Title = styled.h1`
   line-height: 40px;
 `;
 
-export const Text = styled.p`
+export const Text = styled.div`
   margin-top: 20px;
   color: #555555;
   font-size: 18px;

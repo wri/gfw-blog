@@ -7,14 +7,15 @@ import { Container, StyledImage } from './styles';
 const Media = ({
   styles,
   media_details: mediaDetails,
+  sizes,
   title,
-  source_url: sourceUrl,
+  url: sourceUrl,
   alt_text: altText,
 }) => {
   if (!sourceUrl || !mediaDetails) return null;
 
   const srcset =
-    Object.values(mediaDetails.sizes)
+    Object.values(sizes)
       // Get the url and width of each size.
       .map((item) => [item.source_url, item.width])
       // Recude them to a string with the format required by `srcset`.
@@ -40,7 +41,8 @@ const Media = ({
 Media.propTypes = {
   media_details: PropTypes.object,
   title: PropTypes.object,
-  source_url: PropTypes.string,
+  url: PropTypes.string,
+  sizes: PropTypes.object,
   styles: PropTypes.string,
   alt_text: PropTypes.string,
 };
