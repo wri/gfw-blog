@@ -4,8 +4,6 @@ import { connect, css } from 'frontity';
 
 import { Row, Column, Loader } from 'gfw-components';
 
-import { ROOT_URL } from '../../../../../constants';
-
 import Breadcrumbs from '../../components/breadcrumbs';
 import Media from '../../components/media';
 import Caption from '../../components/caption';
@@ -56,7 +54,7 @@ const Post = ({ state, libraries, actions }) => {
 
   const languages = post.translations && post.translations.filter(lang => lang.locale !== post.current_lang).map(lang => ({
     ...lang,
-    link: lang.link && lang.link.replace(ROOT_URL, ''),
+    link: lang.link && lang.link.replace('https://test-global-forest-watch-blog.pantheonsite.io', ''),
     text: localeStrings[lang.locale]
   }))
 
