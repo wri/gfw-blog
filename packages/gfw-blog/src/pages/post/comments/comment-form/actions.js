@@ -2,7 +2,7 @@ import { FORM_ERROR } from 'gfw-components';
 import { post } from 'axios';
 
 const WORDPRESS_GFW_API =
-  'https://dev-global-forest-watch-blog.pantheonsite.io/wp-json';
+  'https://test-global-forest-watch-blog.pantheonsite.io/wp-json';
 const COMMENTS_URI = '/wp/v2/comments';
 
 export default ({ postId, name, email, comment, parent }) => {

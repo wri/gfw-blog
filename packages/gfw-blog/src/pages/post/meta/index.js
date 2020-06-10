@@ -55,7 +55,7 @@ const PostMeta = ({ authors, date }) => (
       <MetaItem>
         <b>Languages&nbsp;</b>
         {languages.map(lang => (
-          <Link link={lang.href.replace('https://dev-global-forest-watch-blog.pantheonsite.io', '')}>Leelo en Espanol</Link>
+          <Link link={lang.href.replace('https://test-global-forest-watch-blog.pantheonsite.io', '')}>Leelo en Espanol</Link>
         ))}
       </MetaItem>
     )} */}
