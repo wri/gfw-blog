@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 
-import {} from './styles';
+import { H3, H4, H5, P } from './styles';
 
 const Card = ({ title, text }) => {
   return (
@@ -21,8 +21,8 @@ Card.propTypes = {
 const CategoryContent = ({ title, text, cards }) => {
   return (
     <>
-      <h1>{title}</h1>
-      <p>{text}</p>
+      <H3>{title}</H3>
+      <P>{text}</P>
       <video
         muted
         css={css`
@@ -34,12 +34,12 @@ const CategoryContent = ({ title, text, cards }) => {
       {!cards.length &&
         Object.entries(cards).map(([key, value]) => (
           <>
-            <h4>{key}</h4>
+            <H4>{key}</H4>
             {value.length
               ? value.map((card) => <Card {...card} />)
               : Object.entries(value).map(([subkey, subvalue]) => (
                 <>
-                  <h5>{subkey}</h5>
+                  <H5>{subkey}</H5>
                   {subvalue.map((card) => (
                     <Card {...card} />
                     ))}
