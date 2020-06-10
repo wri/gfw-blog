@@ -35,6 +35,11 @@ const LoadMore = ({
   const loadHandler = useCallback(() => {
     setIsLoading(true);
     setPage(page + 1);
+    actions.googleAnalytics.sendEvent({
+      category: 'archives',
+      label: 'user clicks load more',
+      action: 'load more articles',
+    });
   }, [page, setPage, setIsLoading]);
 
   if (limit <= page && !isLoading) {
