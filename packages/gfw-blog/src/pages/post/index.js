@@ -38,11 +38,11 @@ const Post = ({ state, libraries, actions }) => {
   const categories = post.categories.map((id) => state.source.category[id]);
   const tags = post.tags.map((id) => state.source.tag[id]);
   const guestAuthors = post?.acf?.guest_authors;
-  const guestAuthorsMapped = guestAuthors && guestAuthors.map(author => ({
+  const authors = guestAuthors && guestAuthors.map(author => ({
     name: author.post_title,
     link: author?.acf?.profile_link
   }));
-  const authors = guestAuthorsMapped || [{ name: state.source.author[post.author].name }];
+
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
