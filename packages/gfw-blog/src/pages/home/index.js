@@ -117,17 +117,19 @@ const HomePage = ({ state }) => {
         `}
       >
         <Column width={[1, 3 / 4]}>
-          <CategoryList
-            title="categories"
-            categories={mainCategories}
-            css={css`
-              margin-bottom: 15px;
+          {mainCategories && (
+            <CategoryList
+              title="categories"
+              categories={mainCategories}
+              css={css`
+                margin-bottom: 15px;
 
-              ${theme.mediaQueries.small} {
-                min-height: 60px;
-              }
-            `}
-          />
+                ${theme.mediaQueries.small} {
+                  min-height: 60px;
+                }
+              `}
+            />
+          )}
         </Column>
         <Column width={[1, 1 / 4]}>
           <SearchDesktop showTitle open={state.theme.searchIsActive} />

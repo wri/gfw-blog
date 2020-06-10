@@ -40,7 +40,9 @@ const MainPost = ({ libraries, state, id, type }) => {
       />
       <Overlay>
         <ContentWrapper>
-          <CategoryList categories={postCategories} />
+          {postCategories && (
+            <CategoryList categories={postCategories} />
+          )}
           <PostTitle>{title.rendered}</PostTitle>
           <PostExcerpt>
             <Html2React html={clearExcerptHellip(excerpt.rendered)} />

@@ -132,7 +132,9 @@ const Post = ({ state, libraries, actions }) => {
               </PostMetaDesktop>
             </Column>
             <Column width={[1, 2 / 3]}>
-              <CategoryList categories={categories} />
+              {categories && (
+                <CategoryList categories={categories} />
+              )}
               <PostTitle>
                 <Html2React html={post.title.rendered} />
               </PostTitle>
@@ -148,7 +150,9 @@ const Post = ({ state, libraries, actions }) => {
               <PostContent>
                 <Html2React html={post.content.rendered} />
               </PostContent>
-              <CategoryList categories={tags} light />
+              {tags && (
+                <CategoryList categories={tags} light />
+              )}
             </Column>
           </Row>
           <Divider />

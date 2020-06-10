@@ -35,13 +35,15 @@ const Card = ({ libraries, state, id, type, large }) => {
           <Media {...media} />
         </MediaWrapper>
       )}
-      <CategoryList
-        categories={postCategories}
-        css={css`
-          z-index: 2;
-          position: relative;
-        `}
-      />
+      {postCategories && (
+        <CategoryList
+          categories={postCategories}
+          css={css`
+            z-index: 2;
+            position: relative;
+          `}
+        />
+      )}
       {title && (
         <PostTitle large={large}>
           <Html2React html={title.rendered} />
