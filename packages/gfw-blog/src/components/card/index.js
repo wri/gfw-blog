@@ -13,7 +13,8 @@ const Card = ({ libraries, state, id, type, large }) => {
   const Html2React = libraries.html2react.Component;
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
     state.source[type][id] || {};
-  const postCategories = categories.map((cat) => state.source.category[cat]);
+  const postCategories =
+    categories && categories.map((cat) => state.source.category[cat]);
   const media = featuredMediaId && state?.source?.attachment?.[featuredMediaId];
 
   return (
