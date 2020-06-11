@@ -2,34 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { Row, Column } from 'gfw-components';
+import Card from '../category-card';
 
-import {
-  H3,
-  H4,
-  H5,
-  P,
-  CardWrapper,
-  CardImage,
-  CardTitle,
-  CardText,
-} from './styles';
-
-const Card = ({ title, text }) => {
-  return (
-    <CardWrapper>
-      <CardImage src="" alt={title} />
-      <div>
-        <CardTitle>{title}</CardTitle>
-        <CardText>{text}</CardText>
-      </div>
-    </CardWrapper>
-  );
-};
-
-Card.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-};
+import { H3, H4, H5, P } from './styles';
 
 const getRecursiveCards = (key, values, level) => {
   const titles = {

@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const CategoriesPage = styled(Row)`
+export const CategoriesWrapper = styled(Row)`
   margin-top: 90px;
 `;
 

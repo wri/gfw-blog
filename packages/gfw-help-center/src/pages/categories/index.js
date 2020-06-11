@@ -9,9 +9,9 @@ import Link from '../../components/link';
 import CategoryContent from '../../components/category-content';
 import theme from '../../app/theme';
 
-import { Wrapper, CategoriesPage, MenuCategory } from './styles';
+import { Wrapper, CategoriesWrapper, MenuCategory } from './styles';
 
-const HomePage = () => {
+const CategoriesPage = () => {
   // const data = state.source.get(state.router.link);
   const links = [
     { label: 'Overview', link: '' },
@@ -50,7 +50,7 @@ const HomePage = () => {
             // selected={null}
           />
         </Column>
-        <CategoriesPage>
+        <CategoriesWrapper>
           <Column width={[1 / 4]}>
             <ul>
               {links.map((l, i) => (
@@ -84,6 +84,11 @@ const HomePage = () => {
                       title: 'Mongabay',
                       text: `The journalism organization Mongabay uses GFW’s map to identify areas of recent clearing and produce timely,
                       data-driven news stories on how the world’s forests are changing. `,
+                      extraText: `Description dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam
+                        malesuada erat ut turpis link.
+
+                        Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam
+                        erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.`,
                     },
                     {
                       title: 'Organization name',
@@ -97,6 +102,7 @@ const HomePage = () => {
                     title: 'An interesting title',
                     text: `The journalism organization Mongabay uses GFW’s map to identify areas of recent clearing and produce timely,
                     data-driven news stories on how the world’s forests are changing. `,
+                    link: '/',
                   },
                   {
                     title: 'Organization name',
@@ -107,12 +113,12 @@ const HomePage = () => {
               }}
             />
           </Column>
-        </CategoriesPage>
+        </CategoriesWrapper>
       </Row>
     </Wrapper>
   );
 };
 
-HomePage.propTypes = {};
+CategoriesPage.propTypes = {};
 
-export default connect(HomePage);
+export default connect(CategoriesPage);
