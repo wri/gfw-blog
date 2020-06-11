@@ -1,15 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
+import { Row, Column } from 'gfw-components';
 
-import { H3, H4, H5, P } from './styles';
+import {
+  H3,
+  H4,
+  H5,
+  P,
+  CardWrapper,
+  CardImage,
+  CardTitle,
+  CardText,
+} from './styles';
 
 const Card = ({ title, text }) => {
   return (
-    <div key={title}>
-      <h1>{title}</h1>
-      <p>{text}</p>
-    </div>
+    <CardWrapper>
+      <CardImage src="" alt={title} />
+      <div>
+        <CardTitle>{title}</CardTitle>
+        <CardText>{text}</CardText>
+      </div>
+    </CardWrapper>
   );
 };
 
@@ -27,14 +40,14 @@ const getRecursiveCards = (key, values, level) => {
   const TitleComponent = titles[level];
   if (!titles[level]) return null;
   return (
-    <>
+    <div key={key}>
       <TitleComponent>{key}</TitleComponent>
       {values.length
-        ? values.map((card) => <Card {...card} />)
+        ? values.map((card) => <Card key={card.title} {...card} />)
         : Object.entries(values).map(([subkey, subvalue]) =>
             getRecursiveCards(subkey, subvalue, level + 1)
           )}
-    </>
+    </div>
   );
 };
 
@@ -51,10 +64,14 @@ const CategoryContent = ({ title, text, cards }) => {
           background-color: #313c3c;
         `}
       />
-      {!cards.length &&
-        Object.entries(cards).map(([key, value]) =>
-          getRecursiveCards(key, value, 4)
-        )}
+      <Row nested>
+        <Column width={[1]}>
+          {!cards.length &&
+            Object.entries(cards).map(([key, value]) =>
+              getRecursiveCards(key, value, 4)
+            )}
+        </Column>
+      </Row>
     </>
   );
 };
@@ -62,7 +79,7 @@ const CategoryContent = ({ title, text, cards }) => {
 CategoryContent.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  cards: PropTypes.oneOf(PropTypes.array, PropTypes.object),
+  cards: PropTypes.oneOf(PropTypes.object),
 };
 
 export default connect(CategoryContent);
