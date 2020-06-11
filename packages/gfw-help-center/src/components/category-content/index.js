@@ -6,7 +6,7 @@ import { H3, H4, H5, P } from './styles';
 
 const Card = ({ title, text }) => {
   return (
-    <div>
+    <div key={title}>
       <h1>{title}</h1>
       <p>{text}</p>
     </div>
@@ -16,6 +16,26 @@ const Card = ({ title, text }) => {
 Card.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
+};
+
+const getRecursiveCards = (key, values, level) => {
+  const titles = {
+    3: H3,
+    4: H4,
+    5: H5,
+  };
+  const TitleComponent = titles[level];
+  if (!titles[level]) return null;
+  return (
+    <>
+      <TitleComponent>{key}</TitleComponent>
+      {values.length
+        ? values.map((card) => <Card {...card} />)
+        : Object.entries(values).map(([subkey, subvalue]) =>
+            getRecursiveCards(subkey, subvalue, level + 1)
+          )}
+    </>
+  );
 };
 
 const CategoryContent = ({ title, text, cards }) => {
@@ -32,21 +52,9 @@ const CategoryContent = ({ title, text, cards }) => {
         `}
       />
       {!cards.length &&
-        Object.entries(cards).map(([key, value]) => (
-          <>
-            <H4>{key}</H4>
-            {value.length
-              ? value.map((card) => <Card {...card} />)
-              : Object.entries(value).map(([subkey, subvalue]) => (
-                <>
-                  <H5>{subkey}</H5>
-                  {subvalue.map((card) => (
-                    <Card {...card} />
-                    ))}
-                </>
-                ))}
-          </>
-        ))}
+        Object.entries(cards).map(([key, value]) =>
+          getRecursiveCards(key, value, 4)
+        )}
     </>
   );
 };
