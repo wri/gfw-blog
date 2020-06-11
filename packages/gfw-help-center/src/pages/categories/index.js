@@ -35,7 +35,7 @@ const HomePage = () => {
             `}
           />
         </Column>
-        <Column width={[1]}>
+        <Column width={[1, 7 / 12]}>
           <Dropdown
             items={[
               {

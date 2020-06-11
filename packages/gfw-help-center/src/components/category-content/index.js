@@ -53,26 +53,24 @@ const getRecursiveCards = (key, values, level) => {
 
 const CategoryContent = ({ title, text, cards }) => {
   return (
-    <>
-      <H3>{title}</H3>
-      <P>{text}</P>
-      <video
-        muted
-        css={css`
-          height: 408px;
-          width: 730px;
-          background-color: #313c3c;
-        `}
-      />
-      <Row nested>
-        <Column width={[1]}>
-          {!cards.length &&
-            Object.entries(cards).map(([key, value]) =>
-              getRecursiveCards(key, value, 4)
-            )}
-        </Column>
-      </Row>
-    </>
+    <Row nested>
+      <Column width={[1, 8 / 9]}>
+        <H3>{title}</H3>
+        <P>{text}</P>
+        <video
+          muted
+          css={css`
+            height: 400px;
+            width: 100%;
+            background-color: #313c3c;
+          `}
+        />
+        {!cards.length &&
+          Object.entries(cards).map(([key, value]) =>
+            getRecursiveCards(key, value, 4)
+          )}
+      </Column>
+    </Row>
   );
 };
 
