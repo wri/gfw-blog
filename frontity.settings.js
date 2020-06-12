@@ -1,8 +1,7 @@
 import { config } from 'dotenv';
-import { WORDPRESS_GFW_API, POSTS_PER_PAGE } from './constants';
 
 config();
-
+console.log(process.env.WORDPRESS_API_URL);
 const settings = {
   name: 'gfw-blog',
   state: {
@@ -29,13 +28,13 @@ const settings = {
       name: '@frontity/wp-source',
       state: {
         source: {
-          api: WORDPRESS_GFW_API,
+          api: `${process.env.WORDPRESS_API_URL}/wp-json`,
           params: {
-            per_page: POSTS_PER_PAGE,
+            per_page: 9,
             type: ['post'],
           },
           categoryBase: 'category',
-          tagBase: 'tag'
+          tagBase: 'tag',
         },
       },
     },

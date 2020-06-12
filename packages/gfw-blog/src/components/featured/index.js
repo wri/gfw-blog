@@ -19,14 +19,13 @@ const MainPost = ({ libraries, state, id, type }) => {
   const Html2React = libraries.html2react.Component;
   const { link, featured_media: featuredMediaId, categories, title, excerpt } =
     state?.source?.[type]?.[id] || {};
-  const postCategories = categories.map((cat) => state.source.category[cat]);
+  const postCategories =
+    categories && categories.map((cat) => state.source.category[cat]);
   const media = state.source.attachment[featuredMediaId];
 
   return (
     <Wrapper>
-      {media && (
-        <Media {...media} />
-      )}
+      {media && <Media {...media} />}
       <Link
         link={link}
         css={css`
@@ -40,13 +39,13 @@ const MainPost = ({ libraries, state, id, type }) => {
       />
       <Overlay>
         <ContentWrapper>
-          {postCategories && (
-            <CategoryList categories={postCategories} />
+          {postCategories && <CategoryList categories={postCategories} />}
+          {title && <PostTitle>{title.rendered}</PostTitle>}
+          {excerpt && (
+            <PostExcerpt>
+              <Html2React html={clearExcerptHellip(excerpt.rendered)} />
+            </PostExcerpt>
           )}
-          <PostTitle>{title.rendered}</PostTitle>
-          <PostExcerpt>
-            <Html2React html={clearExcerptHellip(excerpt.rendered)} />
-          </PostExcerpt>
         </ContentWrapper>
       </Overlay>
     </Wrapper>
