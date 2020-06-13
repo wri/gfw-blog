@@ -10,17 +10,35 @@ import { clearExcerptHellip } from '../../helpers/content';
 import { CardWrapper, MediaWrapper, PostTitle, PostExcerpt } from './styles';
 
 const Card = ({ libraries, state, id, type, large }) => {
-  const Html2React = libraries.html2react.Component;
-  const { link, featured_media: featuredMediaId, categories, title, excerpt } =
-    state.source[type][id] || {};
+  const postData = state.source[type][id];
+  const { locale, translations } = postData;
+
+  // find the card data based on the active lang
+  // if search ignore locale and show base language
+  const {
+    theme: { lang },
+    router,
+  } = state;
+  const isSearch = router.link.includes('?s=');
+  const activeLocale = isSearch ? locale : lang;
+
+  const rawCardData = translations?.find((c) => c.locale === 'en_US');
+  const translatedData = translations?.find((c) => c.locale === activeLocale);
+  const cardData = translatedData || rawCardData;
+
+  const { link, featured, categories, title, excerpt } = cardData || {};
+
   const postCategories =
     categories && categories.map((cat) => state.source.category[cat]);
-  const media = featuredMediaId && state?.source?.attachment?.[featuredMediaId];
+  const media = featured && state?.source?.attachment?.[featured];
+  const { pathname } = (link && new URL(link)) || {};
+
+  const Html2React = libraries.html2react.Component;
 
   return (
-    <CardWrapper>
+    <CardWrapper className="notranslate">
       <Link
-        link={link}
+        link={pathname}
         css={css`
           z-index: 1;
           position: absolute;
@@ -46,12 +64,12 @@ const Card = ({ libraries, state, id, type, large }) => {
       )}
       {title && (
         <PostTitle large={large}>
-          <Html2React html={title.rendered} />
+          <Html2React html={title} />
         </PostTitle>
       )}
       {excerpt && (
         <PostExcerpt large={large}>
-          <Html2React html={clearExcerptHellip(excerpt.rendered)} />
+          <Html2React html={clearExcerptHellip(excerpt)} />
         </PostExcerpt>
       )}
     </CardWrapper>
