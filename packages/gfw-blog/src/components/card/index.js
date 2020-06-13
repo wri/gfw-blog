@@ -36,7 +36,7 @@ const Card = ({ libraries, state, id, type, large }) => {
   const Html2React = libraries.html2react.Component;
 
   return (
-    <CardWrapper className="notranslate">
+    <CardWrapper>
       <Link
         link={pathname}
         css={css`
@@ -63,12 +63,12 @@ const Card = ({ libraries, state, id, type, large }) => {
         />
       )}
       {title && (
-        <PostTitle large={large}>
+        <PostTitle className="notranslate" large={large}>
           <Html2React html={title} />
         </PostTitle>
       )}
       {excerpt && (
-        <PostExcerpt large={large}>
+        <PostExcerpt className="notranslate" large={large}>
           <Html2React html={clearExcerptHellip(excerpt)} />
         </PostExcerpt>
       )}

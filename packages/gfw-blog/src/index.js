@@ -54,6 +54,7 @@ const stickyPostsHandler = {
       endpoint: 'posts',
       params: {
         sticky: true,
+        'filter[lang]': 'en',
       },
     });
 

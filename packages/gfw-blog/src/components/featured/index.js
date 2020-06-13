@@ -16,18 +16,30 @@ import {
 } from './styles';
 
 const MainPost = ({ libraries, state, id, type }) => {
-  const Html2React = libraries.html2react.Component;
-  const { link, featured_media: featuredMediaId, categories, title, excerpt } =
-    state?.source?.[type]?.[id] || {};
+  const postData = state.source[type][id];
+  const { translations } = postData;
+  const {
+    theme: { lang },
+  } = state;
+
+  const rawCardData = translations?.find((c) => c.locale === 'en_US');
+  const translatedData = translations?.find((c) => c.locale === lang);
+  const cardData = translatedData || rawCardData;
+
+  const { link, featured, categories, title, excerpt } = cardData || {};
+
   const postCategories =
     categories && categories.map((cat) => state.source.category[cat]);
-  const media = state.source.attachment[featuredMediaId];
+  const media = state.source.attachment[featured];
+  const { pathname } = (link && new URL(link)) || {};
+
+  const Html2React = libraries.html2react.Component;
 
   return (
     <Wrapper>
       {media && <Media {...media} />}
       <Link
-        link={link}
+        link={pathname}
         css={css`
           z-index: 1;
           position: absolute;
@@ -40,10 +52,10 @@ const MainPost = ({ libraries, state, id, type }) => {
       <Overlay>
         <ContentWrapper>
           {postCategories && <CategoryList categories={postCategories} />}
-          {title && <PostTitle>{title.rendered}</PostTitle>}
+          {title && <PostTitle className="notranslate">{title}</PostTitle>}
           {excerpt && (
-            <PostExcerpt>
-              <Html2React html={clearExcerptHellip(excerpt.rendered)} />
+            <PostExcerpt className="notranslate">
+              <Html2React html={clearExcerptHellip(excerpt)} />
             </PostExcerpt>
           )}
         </ContentWrapper>
