@@ -10,6 +10,8 @@ import { Header, Footer, ContactUsModal, GlobalStyles } from 'gfw-components';
 import theme from './theme';
 import Head from './head';
 
+import { getAPILangCode } from '../helpers/lang';
+
 import Loading from '../pages/loading';
 import Home from '../pages/home';
 import Archive from '../pages/archive';
@@ -29,6 +31,8 @@ const Theme = ({ state, actions }) => {
           relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={actions.theme.toggleContactUsModal}
+          afterLangSelect={(lang) =>
+            actions.theme.changeLanguage(getAPILangCode(lang))}
         />
       </HeaderWrapper>
       <Main>
