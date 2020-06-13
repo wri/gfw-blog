@@ -147,7 +147,7 @@ const Post = ({ state, libraries, actions }) => {
             </Column>
             <Column width={[1, 2 / 3]}>
               {categories && <CategoryList categories={categories} />}
-              <PostTitle>
+              <PostTitle className="notranslate">
                 <Html2React html={post.title.rendered} />
               </PostTitle>
               <PostMetaMobile>

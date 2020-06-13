@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 
 config();
-console.log(process.env.WORDPRESS_API_URL);
+
 const settings = {
   name: 'gfw-blog',
   state: {

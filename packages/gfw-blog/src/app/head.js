@@ -37,7 +37,7 @@ const AppHead = ({ state }) => {
     // Add titles to 404's.
     title = `404 Not Found | ${state.frontity.title}`;
   } else if (searchQuery) {
-    title = `Search: ${searchQuery} | ${state.frontity.title}`;
+    title = `Search: ${decodeURI(searchQuery)} | ${state.frontity.title}`;
   }
 
   return (
