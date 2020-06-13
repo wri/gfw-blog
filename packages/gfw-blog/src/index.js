@@ -149,7 +149,13 @@ const categoryOrPostHandler = {
       const category = libraries.source.handlers.find(
         (handler) => handler.name === 'category'
       );
-      await category.func({ link, route, params, state, libraries });
+      await category.func({
+        link,
+        route,
+        params: { ...params, 'filter[lang]': 'en' },
+        state,
+        libraries,
+      });
     } catch (e) {
       // It's not a category
       const postType = libraries.source.handlers.find(
@@ -161,6 +167,41 @@ const categoryOrPostHandler = {
       } catch (err) {
         console.error(err);
       }
+    }
+  },
+};
+
+const postsHandler = {
+  name: 'postsHandler',
+  priority: 19,
+  pattern: '/',
+  func: async ({ route, params, state, libraries, link }) => {
+    const stateWithParams = !link.includes('?s=')
+      ? {
+          ...state,
+          source: {
+            ...state.source,
+            params: {
+              ...state.source.params,
+              'filter[lang]': 'en',
+            },
+          },
+        }
+      : state;
+
+    try {
+      const posts = libraries.source.handlers.find(
+        (handler) => handler.name === 'post archive'
+      );
+      await posts.func({
+        link,
+        route,
+        params,
+        state: stateWithParams,
+        libraries,
+      });
+    } catch (err) {
+      console.error(err);
     }
   },
 };
@@ -189,6 +230,7 @@ const marsTheme = {
       searchQuery: '',
       tags: [],
       categories: [],
+      lang: 'en_US',
     },
     googleAnalytics: {
       trackingId: 'UA-48182293-1',
@@ -208,6 +250,9 @@ const marsTheme = {
       },
       setSearchQuery: ({ state }) => (value) => {
         state.theme.searchQuery = value;
+      },
+      changeLanguage: ({ state }) => (value) => {
+        state.theme.lang = value;
       },
       beforeSSR: ({ actions }) => async () => {
         await actions.source.fetch('all-categories');
@@ -230,6 +275,7 @@ const marsTheme = {
         topTagsHandler,
         categoryOrPostHandler,
         stickyPostsHandler,
+        postsHandler,
       ],
     },
   },
