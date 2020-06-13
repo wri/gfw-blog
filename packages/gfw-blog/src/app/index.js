@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, styled } from 'frontity';
 import PropTypes from 'prop-types';
 import { rgba } from 'emotion-rgba';
@@ -21,6 +21,11 @@ import Error from '../pages/error';
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const searchOpen = state.theme.searchIsActive;
+
+  useEffect(() => {
+    const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
+    actions.theme.changeLanguage(getAPILangCode(lang));
+  }, []);
 
   return (
     <>
