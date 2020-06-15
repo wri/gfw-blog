@@ -49,7 +49,7 @@ const AppHead = ({ state }) => {
         rel="stylesheet"
       />
       <script type="text/javascript">
-        {'window.liveSettings={api_key:"9eda410a7db74687ba40771c56abd357"};'}
+        {'window.liveSettings={api_key:"8e47889f7d5c4c6ba7b7b3e9453864e1"};'}
       </script>
       <script type="text/javascript" src="//cdn.transifex.com/live.js" />
       <html lang="en" />
