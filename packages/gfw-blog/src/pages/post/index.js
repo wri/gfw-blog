@@ -59,7 +59,7 @@ const Post = ({ state, libraries, actions }) => {
   const languages =
     post.translations &&
     post.translations
-      .filter((lang) => lang.locale !== post.current_lang)
+      .filter((lang) => lang.locale !== post.locale)
       .map((lang) => {
         const url = lang.link && new URL(lang.link);
 
