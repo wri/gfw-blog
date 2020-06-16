@@ -36,7 +36,7 @@
     "dotenv": "^8.2.0",
     "emotion-rgba": "^0.0.8",
     "frontity": "^1.7.0",
-    "gfw-components": "^1.2.7",
+    "gfw-components": "^1.2.9",
     "html-react-parser": "^0.13.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
