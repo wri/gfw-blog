@@ -1,5 +1,4 @@
 import { config } from 'dotenv';
-import { WORDPRESS_GFW_API, POSTS_PER_PAGE } from './constants';
 
 config();
 
@@ -31,21 +30,20 @@ const settings = [
         name: '@frontity/wp-source',
         state: {
           source: {
-            api: WORDPRESS_GFW_API,
+            api: `${process.env.WORDPRESS_API_URL}/wp-json`,
             params: {
-              per_page: POSTS_PER_PAGE,
+              per_page: 9,
               type: ['post'],
             },
             categoryBase: 'category',
-            tagBase: 'tag'
+            tagBase: 'tag',
           },
         },
       },
       '@frontity/tiny-router',
       '@frontity/html2react',
       '@frontity/google-analytics',
-      '@frontity/head-tags',
-    ]
+    ],
   },
   {
     name: 'gfw-help-center',
@@ -74,14 +72,14 @@ const settings = [
         name: '@frontity/wp-source',
         state: {
           source: {
-            api: WORDPRESS_GFW_API,
+            api: `${process.env.WORDPRESS_API_URL}/wp-json`,
             postEndpoint: 'tools',
             postTypes: [
               {
-                type: "tools", // type slug
-                endpoint: "tools", // REST API endpoint
-                archive: "/tools" // link where this custom posts are listed
-              }
+                type: 'tools', // type slug
+                endpoint: 'tools', // REST API endpoint
+                archive: '/tools', // link where this custom posts are listed
+              },
             ],
           },
         },
@@ -89,9 +87,8 @@ const settings = [
       '@frontity/tiny-router',
       '@frontity/html2react',
       '@frontity/google-analytics',
-      '@frontity/head-tags',
-    ]
-  }
+    ],
+  },
 ];
 
 export default settings;

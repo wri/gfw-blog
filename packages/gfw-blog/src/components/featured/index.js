@@ -16,19 +16,31 @@ import {
 } from './styles';
 
 const MainPost = ({ libraries, state, id, type }) => {
+  const postData = state.source[type][id];
+  const { translations } = postData;
+  const {
+    theme: { lang },
+  } = state;
+
+  const rawCardData = translations?.find((c) => c.locale === 'en_US');
+  const translatedData = translations?.find((c) => c.locale === lang);
+  const cardData = translatedData || rawCardData;
+
+  const { link, featured_media: featured, categories, title, excerpt } =
+    cardData || {};
+
+  const postCategories =
+    categories && categories.map((cat) => state.source.category[cat]);
+  const media = state.source.attachment[featured];
+  const { pathname } = (link && new URL(link)) || {};
+
   const Html2React = libraries.html2react.Component;
-  const { link, featured_media: featuredMediaId, categories, title, excerpt } =
-    state?.source?.[type]?.[id] || {};
-  const postCategories = categories.map((cat) => state.source.category[cat]);
-  const media = state.source.attachment[featuredMediaId];
 
   return (
     <Wrapper>
-      {media && (
-        <Media {...media} />
-      )}
+      {media && <Media {...media} />}
       <Link
-        link={link}
+        link={pathname}
         css={css`
           z-index: 1;
           position: absolute;
@@ -40,11 +52,13 @@ const MainPost = ({ libraries, state, id, type }) => {
       />
       <Overlay>
         <ContentWrapper>
-          <CategoryList categories={postCategories} />
-          <PostTitle>{title.rendered}</PostTitle>
-          <PostExcerpt>
-            <Html2React html={clearExcerptHellip(excerpt.rendered)} />
-          </PostExcerpt>
+          {postCategories && <CategoryList categories={postCategories} />}
+          {title && <PostTitle className="notranslate">{title}</PostTitle>}
+          {excerpt && (
+            <PostExcerpt className="notranslate">
+              <Html2React html={clearExcerptHellip(excerpt)} />
+            </PostExcerpt>
+          )}
         </ContentWrapper>
       </Overlay>
     </Wrapper>

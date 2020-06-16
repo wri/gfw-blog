@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ContentWrapper from './styles';
 
 const PostContent = ({ children }) => (
-  <ContentWrapper>{children}</ContentWrapper>
+  <ContentWrapper className="notranslate">{children}</ContentWrapper>
 );
 
 PostContent.propTypes = {

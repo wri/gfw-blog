@@ -36,9 +36,9 @@ const LoadMore = ({
     setIsLoading(true);
     setPage(page + 1);
     actions.googleAnalytics.sendEvent({
-      category: 'archives',
-      label: 'user clicks load more',
-      action: 'load more articles',
+      category: 'GFW Blog',
+      label: 'User clicks on more articles button',
+      action: 'Load more articles',
     });
   }, [page, setPage, setIsLoading]);
 

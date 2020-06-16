@@ -7,9 +7,11 @@ const CategoryItem = ({ state }) => {
   const { link } = state.router;
   const data = state.source.get(link);
   const post = state.source[data.type][data.id];
-  const categories = post.categories.map((id) => {
-    return state.source.category[id];
-  });
+  const categories =
+    post.categories &&
+    post.categories.map((id) => {
+      return state.source.category[id];
+    });
 
   let item = categories[0];
   // eslint-disable-next-line no-restricted-syntax

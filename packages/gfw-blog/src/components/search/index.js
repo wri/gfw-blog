@@ -76,6 +76,7 @@ const Search = ({
         {(open || expanded) && (
           <SearchOpen>
             <Input
+              className="notranslate"
               ref={inputRef}
               value={search}
               expanded={expanded}

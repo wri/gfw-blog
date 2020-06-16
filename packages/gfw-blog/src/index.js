@@ -2,6 +2,7 @@ import image from '@frontity/html2react/processors/image';
 import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
+import axios from 'axios';
 
 import Blockquote from './components/blockquote';
 import Theme from './app';
@@ -54,6 +55,7 @@ const stickyPostsHandler = {
       endpoint: 'posts',
       params: {
         sticky: true,
+        'filter[lang]': 'en',
       },
     });
 
@@ -149,7 +151,13 @@ const categoryOrPostHandler = {
       const category = libraries.source.handlers.find(
         (handler) => handler.name === 'category'
       );
-      await category.func({ link, route, params, state, libraries });
+      await category.func({
+        link,
+        route,
+        params: { ...params, 'filter[lang]': 'en' },
+        state,
+        libraries,
+      });
     } catch (e) {
       // It's not a category
       const postType = libraries.source.handlers.find(
@@ -157,10 +165,82 @@ const categoryOrPostHandler = {
       );
 
       try {
-        await postType.func({ link, route, params, state, libraries });
+        // 1. fetch the data you want from the endpoint page
+        await postType.func({
+          link,
+          route,
+          params,
+          state,
+          libraries,
+          force: true,
+        });
       } catch (err) {
-        console.error(err);
+        const token = await axios.post(
+          `${process.env.WORDPRESS_API_URL}/wp-json/jwt-auth/v1/token`,
+          {
+            username: process.env.REST_USERNAME,
+            password: process.env.REST_PASSWORD,
+          }
+        );
+
+        const regexLink = link.replace(/.$/, '');
+
+        const checkRedirection = await axios.get(
+          `${process.env.WORDPRESS_API_URL}/wp-json/redirection/v1/redirect?filterBy[url]=${regexLink}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+
+        const currentPageData = state.source.data[route];
+
+        // eslint-disable-next-line camelcase
+        const { action_data: actionData } =
+          checkRedirection?.data?.items?.[0] || {};
+        const redirection = actionData?.url;
+
+        Object.assign(currentPageData, {
+          redirection,
+          is404: !redirection,
+        });
       }
+    }
+  },
+};
+
+const postsHandler = {
+  name: 'postsHandler',
+  priority: 19,
+  pattern: '/',
+  func: async ({ route, params, state, libraries, link }) => {
+    const stateWithParams = !link.includes('?s=')
+      ? {
+          ...state,
+          source: {
+            ...state.source,
+            params: {
+              ...state.source.params,
+              'filter[lang]': 'en',
+            },
+          },
+        }
+      : state;
+
+    try {
+      const posts = libraries.source.handlers.find(
+        (handler) => handler.name === 'post archive'
+      );
+      await posts.func({
+        link,
+        route,
+        params,
+        state: stateWithParams,
+        libraries,
+      });
+    } catch (err) {
+      console.error(err);
     }
   },
 };
@@ -189,6 +269,7 @@ const marsTheme = {
       searchQuery: '',
       tags: [],
       categories: [],
+      lang: 'en_US',
     },
     googleAnalytics: {
       trackingId: 'UA-48182293-1',
@@ -208,6 +289,9 @@ const marsTheme = {
       },
       setSearchQuery: ({ state }) => (value) => {
         state.theme.searchQuery = value;
+      },
+      changeLanguage: ({ state }) => (value) => {
+        state.theme.lang = value;
       },
       beforeSSR: ({ actions }) => async () => {
         await actions.source.fetch('all-categories');
@@ -230,6 +314,7 @@ const marsTheme = {
         topTagsHandler,
         categoryOrPostHandler,
         stickyPostsHandler,
+        postsHandler,
       ],
     },
   },
