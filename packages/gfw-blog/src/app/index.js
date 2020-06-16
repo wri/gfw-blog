@@ -23,6 +23,12 @@ const Theme = ({ state, actions }) => {
   const searchOpen = state.theme.searchIsActive;
 
   useEffect(() => {
+    if (data.redirection) {
+      actions.router.set(data.redirection);
+    }
+  }, []);
+
+  useEffect(() => {
     const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
     actions.theme.changeLanguage(getAPILangCode(lang));
   }, []);
@@ -50,11 +56,11 @@ const Theme = ({ state, actions }) => {
           />
         )}
         <Switch>
-          <Loading when={data.isFetching} />
+          <Loading when={data.isFetching || data.redirection} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive && !data.isAuthor} />
           <Post when={data.isPostType} />
-          <Error when={data.isError || data.isAuthor} />
+          <Error when={data.is404 || data.isError || data.isAuthor} />
         </Switch>
       </Main>
       <FooterWrapper>
