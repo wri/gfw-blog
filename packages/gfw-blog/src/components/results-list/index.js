@@ -15,7 +15,7 @@ const ResultsList = ({
   const Html2React = libraries.html2react.Component;
 
   return (
-    <ListWrapper className="notranslate">
+    <ListWrapper>
       {items &&
         !!items.length &&
         items.map(

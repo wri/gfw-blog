@@ -2,6 +2,7 @@ import image from '@frontity/html2react/processors/image';
 import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
+import axios from 'axios';
 
 import Blockquote from './components/blockquote';
 import Theme from './app';
@@ -164,9 +165,46 @@ const categoryOrPostHandler = {
       );
 
       try {
-        await postType.func({ link, route, params, state, libraries });
+        // 1. fetch the data you want from the endpoint page
+        await postType.func({
+          link,
+          route,
+          params,
+          state,
+          libraries,
+          force: true,
+        });
       } catch (err) {
-        console.error(err);
+        const token = await axios.post(
+          `${process.env.WORDPRESS_API_URL}/wp-json/jwt-auth/v1/token`,
+          {
+            username: process.env.REST_USERNAME,
+            password: process.env.REST_PASSWORD,
+          }
+        );
+
+        const regexLink = link.replace(/.$/, '');
+
+        const checkRedirection = await axios.get(
+          `${process.env.WORDPRESS_API_URL}/wp-json/redirection/v1/redirect?filterBy[url]=${regexLink}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token?.data?.token}`,
+            },
+          }
+        );
+
+        const currentPageData = state.source.data[route];
+
+        // eslint-disable-next-line camelcase
+        const { action_data: actionData } =
+          checkRedirection?.data?.items?.[0] || {};
+        const redirection = actionData?.url;
+
+        Object.assign(currentPageData, {
+          redirection,
+          is404: !redirection,
+        });
       }
     }
   },

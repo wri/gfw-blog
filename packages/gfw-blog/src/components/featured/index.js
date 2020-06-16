@@ -26,7 +26,8 @@ const MainPost = ({ libraries, state, id, type }) => {
   const translatedData = translations?.find((c) => c.locale === lang);
   const cardData = translatedData || rawCardData;
 
-  const { link, featured, categories, title, excerpt } = cardData || {};
+  const { link, featured_media: featured, categories, title, excerpt } =
+    cardData || {};
 
   const postCategories =
     categories && categories.map((cat) => state.source.category[cat]);

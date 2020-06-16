@@ -10,7 +10,7 @@ import { clearExcerptHellip } from '../../helpers/content';
 import { CardWrapper, MediaWrapper, PostTitle, PostExcerpt } from './styles';
 
 const Card = ({ libraries, state, id, type, large }) => {
-  const postData = state.source[type][id];
+  const postData = state.source[type][id] || {};
   const { locale, translations } = postData;
 
   // find the card data based on the active lang
@@ -26,7 +26,8 @@ const Card = ({ libraries, state, id, type, large }) => {
   const translatedData = translations?.find((c) => c.locale === activeLocale);
   const cardData = translatedData || rawCardData;
 
-  const { link, featured, categories, title, excerpt } = cardData || {};
+  const { link, featured_media: featured, categories, title, excerpt } =
+    cardData || {};
 
   const postCategories =
     categories && categories.map((cat) => state.source.category[cat]);
