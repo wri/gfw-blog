@@ -22,6 +22,10 @@ const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const searchOpen = state.theme.searchIsActive;
 
+  if (data.isAuthor) {
+    data.is404 = true;
+  }
+
   useEffect(() => {
     if (data.redirection) {
       actions.router.set(data.redirection);
@@ -60,7 +64,7 @@ const Theme = ({ state, actions }) => {
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive && !data.isAuthor} />
           <Post when={data.isPostType} />
-          <Error when={data.is404 || data.isError || data.isAuthor} />
+          <Error when={data.is404 || data.isError} />
         </Switch>
       </Main>
       <FooterWrapper>
