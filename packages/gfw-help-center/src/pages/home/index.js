@@ -6,10 +6,9 @@ import { Row, Column } from 'gfw-components';
 
 import BlogHeader from './intro';
 import Search from '../../components/search';
+import UsingGFW from '../../components/using-gfw';
 
-import {
-  Wrapper
-} from './styles';
+import { Wrapper } from './styles';
 
 const HomePage = ({ state }) => {
   const data = state.source.get(state.router.link);
@@ -23,6 +22,9 @@ const HomePage = ({ state }) => {
         </Column>
         <Column>
           <Search />
+        </Column>
+        <Column>
+          <UsingGFW />
         </Column>
       </Row>
     </Wrapper>
