@@ -11,7 +11,9 @@ import { CardWrapper, MediaWrapper, PostTitle, PostExcerpt } from './styles';
 
 const Card = ({ libraries, state, id, type, large }) => {
   const postData = state.source[type][id] || {};
-  const { locale, translations } = postData;
+  const { locale, translations, acf } = postData;
+  const { post_link: extLink } = acf || {};
+  console.log(extLink);
 
   // find the card data based on the active lang
   // if search ignore locale and show base language
@@ -38,17 +40,35 @@ const Card = ({ libraries, state, id, type, large }) => {
 
   return (
     <CardWrapper>
-      <Link
-        link={pathname}
-        css={css`
-          z-index: 1;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-        `}
-      />
+      {extLink ? (
+        // eslint-disable-next-line jsx-a11y/anchor-has-content
+        <a
+          href={extLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="external link"
+          css={css`
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          `}
+        />
+      ) : (
+        <Link
+          link={pathname}
+          css={css`
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+          `}
+        />
+      )}
       {!!media && (
         <MediaWrapper large={large}>
           <Media {...media} />
