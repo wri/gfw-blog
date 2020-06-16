@@ -7,12 +7,12 @@ import { Row, Column } from 'gfw-components';
 import BlogHeader from './intro';
 import Search from '../../components/search';
 import Tools from '../../components/tools';
+import UsingGFW from '../../components/using-gfw';
 
 import { Wrapper } from './styles';
 
 const HomePage = ({ state }) => {
   const data = state.source.get(state.router.link);
-  console.log(data);
 
   return (
     <Wrapper>
@@ -25,6 +25,7 @@ const HomePage = ({ state }) => {
         </Column>
         <Column>
           <Tools items={data.items} />
+          <UsingGFW />
         </Column>
       </Row>
     </Wrapper>
