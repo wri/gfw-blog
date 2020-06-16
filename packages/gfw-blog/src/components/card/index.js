@@ -26,7 +26,8 @@ const Card = ({ libraries, state, id, type, large }) => {
   const translatedData = translations?.find((c) => c.locale === activeLocale);
   const cardData = translatedData || rawCardData;
 
-  const { link, featured, categories, title, excerpt } = cardData || {};
+  const { link, featured_media: featured, categories, title, excerpt } =
+    cardData || {};
 
   const postCategories =
     categories && categories.map((cat) => state.source.category[cat]);
