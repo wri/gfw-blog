@@ -30,7 +30,11 @@ const HomePage = ({ state }) => (
       >
         <Search expanded />
       </Column>
-      <Column>
+      <Column
+        css={css`
+          margin-bottom: 50px;
+        `}
+      >
         <Tools />
         <UsingGFW />
         <Footer />
