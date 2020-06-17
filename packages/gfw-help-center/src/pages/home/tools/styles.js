@@ -1,11 +1,6 @@
 import { styled } from 'frontity';
-import { H4 } from 'gfw-components';
 
-import theme from '../../app/theme';
-
-export const H4Wrapper = styled(H4)`
-  margin: 100px 0 50px;
-`;
+import theme from '../../../app/theme';
 
 export const Prompt = styled.div`
   position: absolute;
@@ -21,8 +16,8 @@ export const Prompt = styled.div`
 
 export const Tag = styled.p`
   padding: 6px 12px;
-  background-color: #97bd3d;
-  color: #ffffff;
+  background-color: ${theme.colors.green};
+  color: ${theme.colors.white};
   font-size: 12px;
   font-weight: 500;
   line-height: 12px;

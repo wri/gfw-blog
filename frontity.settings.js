@@ -78,7 +78,7 @@ const settings = [
               {
                 type: 'tools', // type slug
                 endpoint: 'tools', // REST API endpoint
-                archive: '/tools', // link where this custom posts are listed
+                archive: '/', // link where this custom posts are listed
               },
               {
                 type: 'faqs', // type slug

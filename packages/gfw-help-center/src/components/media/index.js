@@ -4,15 +4,8 @@ import { connect } from 'frontity';
 
 import { Container, StyledImage } from './styles';
 
-const Media = ({
-  styles,
-  media_details: mediaDetails,
-  sizes,
-  title,
-  url: sourceUrl,
-  alt_text: altText,
-}) => {
-  if (!sourceUrl || !mediaDetails) return null;
+const Media = ({ styles, sizes, title, url: sourceUrl, alt_text: altText }) => {
+  if (!sourceUrl) return null;
 
   const srcset =
     Object.values(sizes)
@@ -30,7 +23,7 @@ const Media = ({
   return (
     <Container css={styles}>
       <StyledImage
-        alt={altText || title.rendered}
+        alt={altText || title.rendered || title}
         src={sourceUrl}
         srcSet={srcset}
       />
@@ -39,8 +32,7 @@ const Media = ({
 };
 
 Media.propTypes = {
-  media_details: PropTypes.object,
-  title: PropTypes.object,
+  title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   url: PropTypes.string,
   sizes: PropTypes.object,
   styles: PropTypes.string,

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { Row, Column } from 'gfw-components';
-import SimpleCard from '../card-simple';
+import SimpleCard from '../../../components/card-simple';
 
 import {
   H4Wrapper,
@@ -12,15 +12,19 @@ import {
   BannerText,
 } from './styles';
 
-import useBg from '../../assets/images/how_people_use_bg.jpg';
-import useBg2 from '../../assets/images/how_people_use_bg@2x.jpg';
-import mapIcon from '../../assets/icons/map.svg';
+import useBg from '../../../assets/images/how_people_use_bg.jpg';
+import useBg2 from '../../../assets/images/how_people_use_bg@2x.jpg';
+import mapIcon from '../../../assets/icons/map.svg';
 
-import { usingGfwCards, supportCards } from './cards';
+import usingGfwCards from './cards';
 
 const UsingGFW = () => {
   return (
-    <>
+    <div
+      css={css`
+        margin-bottom: 80px;
+      `}
+    >
       <H4Wrapper>USING GLOBAL FOREST WATCH</H4Wrapper>
       <Row>
         <Banner>
@@ -46,7 +50,6 @@ const UsingGFW = () => {
       </Row>
       <Row nested>
         {usingGfwCards.map((card) => {
-          // const card = state.source.get(item.link);
           return (
             <Column width={[1, 1 / 3]} key={card.title}>
               <SimpleCard {...card} />
@@ -54,18 +57,7 @@ const UsingGFW = () => {
           );
         })}
       </Row>
-
-      <H4Wrapper>Get support</H4Wrapper>
-      <Row nested>
-        {supportCards.map((card) => {
-          return (
-            <Column width={[1, 1 / 2]} key={card.title}>
-              <SimpleCard {...card} />
-            </Column>
-          );
-        })}
-      </Row>
-    </>
+    </div>
   );
 };
 
