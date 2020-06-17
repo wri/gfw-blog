@@ -9,11 +9,12 @@ import { Wrapper, CategoryPill, H5 } from './styles';
 const CategoryList = ({ categories = [], light, title, ...props }) => (
   <Wrapper {...props}>
     {title && <H5>{title}</H5>}
-    {categories.map(({ name, link } = {}) => (
-      <Link key={name + link} link={link}>
-        <CategoryPill light={light}>{decode(name)}</CategoryPill>
-      </Link>
-    ))}
+    {categories &&
+      categories.map(({ name, link } = {}) => (
+        <Link key={name + link} link={link}>
+          <CategoryPill light={light}>{decode(name)}</CategoryPill>
+        </Link>
+      ))}
   </Wrapper>
 );
 

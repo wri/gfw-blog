@@ -28,6 +28,15 @@ import {
   BreadCrumbsWrapper,
 } from './styles';
 
+const localeStrings = {
+  en_US: 'Read in english',
+  es_MX: 'Leerlo en español',
+  pt_BR: 'Leia em portugues',
+  zh_CN: '用中文閱讀',
+  fr_FR: 'Lire en français',
+  id_ID: 'Baca dalam bahasa indonesia',
+};
+
 const Post = ({ state, libraries, actions }) => {
   const data = state.source.get(state.router.link);
   const Html2React = libraries.html2react.Component;
@@ -37,12 +46,30 @@ const Post = ({ state, libraries, actions }) => {
   const media = state.source.attachment[post.featured_media];
   const categories = post.categories.map((id) => state.source.category[id]);
   const tags = post.tags.map((id) => state.source.tag[id]);
+  // eslint-disable-next-line camelcase
   const guestAuthors = post?.acf?.guest_authors;
-  const guestAuthorsMapped = guestAuthors && guestAuthors.map(author => ({
-    name: author.post_title,
-    link: author?.acf?.profile_link
-  }));
-  const authors = guestAuthorsMapped || [{ name: state.source.author[post.author].name }];
+  const authors =
+    guestAuthors &&
+    guestAuthors.map((author) => ({
+      name: author.post_title,
+      // eslint-disable-next-line camelcase
+      link: author?.acf?.profile_link,
+    }));
+
+  const languages =
+    post.translations &&
+    post.translations
+      .filter((lang) => lang.locale !== post.locale)
+      .map((lang) => {
+        const url = lang.link && new URL(lang.link);
+
+        return {
+          ...lang,
+          link: url.pathname,
+          text: localeStrings[lang.locale],
+        };
+      });
+
   /**
    * Once the post has loaded in the DOM, prefetch both the
    * home posts and the list component so if the user visits
@@ -105,7 +132,11 @@ const Post = ({ state, libraries, actions }) => {
           <Row>
             <Column width={[1, 1 / 4]}>
               <PostMetaDesktop>
-                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
+                <PostMeta
+                  authors={authors}
+                  date={post.date}
+                  languages={languages}
+                />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
@@ -115,12 +146,16 @@ const Post = ({ state, libraries, actions }) => {
               </PostMetaDesktop>
             </Column>
             <Column width={[1, 2 / 3]}>
-              <CategoryList categories={categories} />
-              <PostTitle>
+              {categories && <CategoryList categories={categories} />}
+              <PostTitle className="notranslate">
                 <Html2React html={post.title.rendered} />
               </PostTitle>
               <PostMetaMobile>
-                <PostMeta authors={authors} date={post.date} languages={post.wpml_translations} />
+                <PostMeta
+                  authors={authors}
+                  date={post.date}
+                  languages={languages}
+                />
                 <ShareLinks
                   url={`${state.frontity.url}${state.router.link}`}
                   title={post.title.rendered}
@@ -131,7 +166,7 @@ const Post = ({ state, libraries, actions }) => {
               <PostContent>
                 <Html2React html={post.content.rendered} />
               </PostContent>
-              <CategoryList categories={tags} light />
+              {tags && <CategoryList categories={tags} light />}
             </Column>
           </Row>
           <Divider />

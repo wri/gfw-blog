@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect, styled } from 'frontity';
 import PropTypes from 'prop-types';
 import { rgba } from 'emotion-rgba';
@@ -10,6 +10,8 @@ import { Header, Footer, ContactUsModal, GlobalStyles } from 'gfw-components';
 import theme from './theme';
 import Head from './head';
 
+import { getAPILangCode } from '../helpers/lang';
+
 import Loading from '../pages/loading';
 import Home from '../pages/home';
 import Archive from '../pages/archive';
@@ -20,6 +22,21 @@ const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const searchOpen = state.theme.searchIsActive;
 
+  if (data.isAuthor) {
+    data.is404 = true;
+  }
+
+  useEffect(() => {
+    if (data.redirection) {
+      actions.router.set(data.redirection);
+    }
+  }, []);
+
+  useEffect(() => {
+    const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
+    actions.theme.changeLanguage(getAPILangCode(lang));
+  }, []);
+
   return (
     <>
       <Head />
@@ -29,6 +46,8 @@ const Theme = ({ state, actions }) => {
           relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={actions.theme.toggleContactUsModal}
+          afterLangSelect={(lang) =>
+            actions.theme.changeLanguage(getAPILangCode(lang))}
         />
       </HeaderWrapper>
       <Main>
@@ -41,11 +60,11 @@ const Theme = ({ state, actions }) => {
           />
         )}
         <Switch>
-          <Loading when={data.isFetching} />
+          <Loading when={data.isFetching || data.redirection} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive && !data.isAuthor} />
           <Post when={data.isPostType} />
-          <Error when={data.isError || data.isAuthor} />
+          <Error when={data.is404 || data.isError} />
         </Switch>
       </Main>
       <FooterWrapper>

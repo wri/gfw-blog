@@ -35,7 +35,10 @@ const HomePage = ({ state }) => {
     (cat) => cat.slug !== 'uncategorized'
   );
 
-  const featuredPosts = stickyPosts && stickyPosts.length > 3 ? stickyPosts.slice(0, 3) : stickyPosts;
+  const featuredPosts =
+    stickyPosts && stickyPosts.length > 3
+      ? stickyPosts.slice(0, 3)
+      : stickyPosts;
 
   const data = state.source.get(state.router.link);
   const initialPosts = uniqBy([...featuredPosts, ...data.items], 'id');
@@ -117,17 +120,19 @@ const HomePage = ({ state }) => {
         `}
       >
         <Column width={[1, 3 / 4]}>
-          <CategoryList
-            title="categories"
-            categories={mainCategories}
-            css={css`
-              margin-bottom: 15px;
+          {mainCategories && (
+            <CategoryList
+              title="categories"
+              categories={mainCategories}
+              css={css`
+                margin-bottom: 15px;
 
-              ${theme.mediaQueries.small} {
-                min-height: 60px;
-              }
-            `}
-          />
+                ${theme.mediaQueries.small} {
+                  min-height: 60px;
+                }
+              `}
+            />
+          )}
         </Column>
         <Column width={[1, 1 / 4]}>
           <SearchDesktop showTitle open={state.theme.searchIsActive} />
