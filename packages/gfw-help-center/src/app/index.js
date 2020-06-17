@@ -52,7 +52,9 @@ const Theme = ({ state, actions }) => {
           <Error when={data.isError} />
         </Switch>
       </Main>
-      <HelpFooter />
+      <HelpFooterWrapper>
+        <HelpFooter />
+      </HelpFooterWrapper>
       <FooterWrapper>
         <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
       </FooterWrapper>
@@ -89,6 +91,12 @@ const Main = styled.div`
 const FooterWrapper = styled.div`
   position: relative;
   z-index: 1;
+`;
+
+const HelpFooterWrapper = styled.div`
+  position: relative;
+  z-index: 1;
+  margin-bottom: 100px;
 `;
 
 const Overlay = styled.div`

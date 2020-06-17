@@ -7,11 +7,12 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 480px;
   padding: 50px 40px;
   background-color: #f6f6f4;
   border: 1px solid ${theme.colors.lightGrey};
   margin-bottom: 32px;
+  height: 100%;
+  width: 100%;
 
   ${({ active }) =>
     active &&
@@ -19,6 +20,10 @@ export const Card = styled.div`
     background-color: ${theme.colors.lightGrey};
     border: 1px solid #cacabe;
   `}
+`;
+
+export const ContentWrapper = styled.div`
+  z-index: 1;
 `;
 
 export const Title = styled.h3`
@@ -37,7 +42,7 @@ export const Text = styled.div`
   z-index: 1;
 `;
 
-export const Image = styled.div`
+export const BannerImage = styled.div`
   position: absolute;
   max-width: 100%;
   bottom: 0;
