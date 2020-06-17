@@ -13,7 +13,7 @@ import Head from './head';
 import Loading from '../pages/loading';
 import Home from '../pages/home';
 import Archive from '../pages/archive';
-import Post from '../pages/post';
+import Article from '../pages/article';
 import Error from '../pages/error';
 import Categories from '../pages/categories';
 
@@ -46,7 +46,7 @@ const Theme = ({ state, actions }) => {
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Categories when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive} />
-          <Post when={data.isPostType} />
+          <Article when={data.isArticle} />
           <Error when={data.isError} />
         </Switch>
       </Main>

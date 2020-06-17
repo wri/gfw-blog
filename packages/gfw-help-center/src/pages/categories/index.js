@@ -12,7 +12,6 @@ import theme from '../../app/theme';
 import { Wrapper, CategoriesWrapper, MenuCategory } from './styles';
 
 const CategoriesPage = () => {
-  // const data = state.source.get(state.router.link);
   const links = [
     { label: 'Overview', link: '' },
     { label: 'Step-by-step instructions', link: '' },
