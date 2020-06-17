@@ -43,9 +43,9 @@ const Theme = ({ state, actions }) => {
         <Switch>
           <Loading when={data.isFetching} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
-          {/* <Archive when={data.isArchive} />
+          <Archive when={data.isArchive} />
           <Post when={data.isPostType} />
-          <Error when={data.isError} /> */}
+          <Error when={data.isError} />
         </Switch>
       </Main>
       <FooterWrapper>

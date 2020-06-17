@@ -80,6 +80,11 @@ const settings = [
                 endpoint: 'tools', // REST API endpoint
                 archive: '/tools', // link where this custom posts are listed
               },
+              {
+                type: 'faqs', // type slug
+                endpoint: 'faqs', // REST API endpoint
+                archive: '/faqs', // link where this custom posts are listed
+              },
             ],
           },
         },
