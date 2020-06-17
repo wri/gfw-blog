@@ -4,7 +4,6 @@ import { connect, decode } from 'frontity';
 import Link from '../link';
 import Divider from './divider';
 import { isSearchLink } from '../../helpers/content';
-import CategoryItem from './category-item';
 
 import Wrapper from './styles';
 
@@ -22,12 +21,6 @@ const Breadcrumbs = ({ state }) => {
           <span>Search results</span>
         </>
       )}
-      {data.isAuthor && (
-        <>
-          <Divider />
-          <span>{decode(state.source.author[data.id].name)}</span>
-        </>
-      )}
       {data.isCategory && (
         <>
           <Divider />
@@ -40,14 +33,14 @@ const Breadcrumbs = ({ state }) => {
           <span>Tags</span>
         </>
       )}
-      {data.isPostType && (
+      {parent && (
         <>
           <Divider />
-          {parent ? (
-            <Link link={parent.link}>{decode(parent.title.rendered)}</Link>
-          ) : (
-            <CategoryItem />
-          )}
+          <Link link={parent.link}>{decode(parent.title.rendered)}</Link>
+        </>
+      )}
+      {data.isPostType && (
+        <>
           <Divider />
           <span>{decode(state.source[data.type][data.id].title.rendered)}</span>
         </>

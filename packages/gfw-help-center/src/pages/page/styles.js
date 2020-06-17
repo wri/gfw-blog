@@ -16,7 +16,7 @@ export const CategoriesWrapper = styled(Row)`
 `;
 
 export const MenuCategory = styled.li`
-  margin-bottom: 24px;
+  margin-bottom: 35px;
   font-size: 16px;
 
   a {
