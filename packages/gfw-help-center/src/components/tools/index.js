@@ -20,7 +20,6 @@ const Tools = ({ state, libraries }) => {
           cards.map((card, i) => {
             const { title, content, id, acf } = card;
             const { logo, background_image: bg } = acf;
-            // console.log(card);
 
             return (
               <Column
