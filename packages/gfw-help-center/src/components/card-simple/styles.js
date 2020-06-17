@@ -21,7 +21,7 @@ export const Icon = styled.img`
   position: relative;
 `;
 
-export const Title = styled.h2`
+export const Title = styled.h4`
   margin: 16px 0 10px;
   color: #333333;
   font-size: 22px;
@@ -36,7 +36,7 @@ export const Title = styled.h2`
   `}
 `;
 
-export const Text = styled.p`
+export const Text = styled.div`
   color: #777777;
   font-size: 14px;
   line-height: 21px;

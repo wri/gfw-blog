@@ -30,7 +30,7 @@ SimpleCard.propTypes = {
   link: PropTypes.string,
   icon: PropTypes.object,
   title: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.node,
   large: PropTypes.bool,
   backgroundImage: PropTypes.object,
 };

@@ -27,7 +27,7 @@ export const ContentWrapper = styled.div`
   z-index: 1;
 `;
 
-export const Title = styled.h3`
+export const Title = styled.h4`
   color: ${theme.colors.darkestGrey};
   font-size: 30px;
   font-weight: 300;

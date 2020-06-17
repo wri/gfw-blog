@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { Row, Column, H4, Desktop } from 'gfw-components';
-import sortBy from 'lodash/sortBy';
 
 import { getACFImageSizes } from '../../helpers/media';
 import Intro from '../../components/intro';
@@ -18,37 +17,34 @@ import { Wrapper, Prompt, Tag, Arrow } from './styles';
 const HomePage = ({ state, libraries }) => {
   const Html2React = libraries?.html2react?.Component;
 
-  const allTools =
-    state?.source?.tools &&
-    sortBy(
-      Object.values(state.source.tools).filter((t) => !t.parent),
-      'menu_order'
-    )?.map((tool) => ({
-      ...tool,
-      title: tool?.title?.rendered,
-      text: <Html2React html={tool?.content?.rendered} />,
-      ...(tool?.acf?.logo && {
-        logo: {
-          ...tool?.acf?.logo,
-          sizes: getACFImageSizes(tool?.acf?.logo?.sizes),
-        },
-      }),
-      ...(tool?.acf?.icon && {
-        icon: tool?.acf?.icon,
-      }),
-      ...(tool?.acf?.banner_image && {
-        bannerImage: {
-          ...tool?.acf?.banner_image,
-          sizes: getACFImageSizes(tool?.acf?.banner_image?.sizes),
-        },
-      }),
-      ...(tool?.acf?.background_image && {
-        backgroundImage: {
-          ...tool?.acf?.background_image,
-          sizes: getACFImageSizes(tool?.acf?.background_image?.sizes),
-        },
-      }),
-    }));
+  const { tools } = state.source.data['all-tools/'];
+
+  const allTools = tools?.['0']?.map((tool) => ({
+    ...tool,
+    title: tool?.title?.rendered,
+    text: <Html2React html={tool?.content?.rendered} />,
+    ...(tool?.acf?.logo && {
+      logo: {
+        ...tool?.acf?.logo,
+        sizes: getACFImageSizes(tool?.acf?.logo?.sizes),
+      },
+    }),
+    ...(tool?.acf?.icon && {
+      icon: tool?.acf?.icon,
+    }),
+    ...(tool?.acf?.banner_image && {
+      bannerImage: {
+        ...tool?.acf?.banner_image,
+        sizes: getACFImageSizes(tool?.acf?.banner_image?.sizes),
+      },
+    }),
+    ...(tool?.acf?.background_image && {
+      backgroundImage: {
+        ...tool?.acf?.background_image,
+        sizes: getACFImageSizes(tool?.acf?.background_image?.sizes),
+      },
+    }),
+  }));
 
   const primaryTools = allTools?.slice(0, 4);
   const secondaryTools = allTools?.slice(4, 8);

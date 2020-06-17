@@ -31,7 +31,7 @@ const ToolCard = ({ title, text, bannerImage, logo, link, active }) => (
 ToolCard.propTypes = {
   state: PropTypes.object,
   title: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.node,
   bannerImage: PropTypes.object,
   logo: PropTypes.object,
   link: PropTypes.string,

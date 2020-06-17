@@ -12,19 +12,41 @@ import Content from '../../components/content';
 import { Wrapper, MenuCategory } from './styles';
 
 const Page = ({ state, libraries }) => {
-  const Html2React = libraries?.html2react?.Component;
-
-  const links = [
-    { label: 'Overview', link: '' },
-    { label: 'Step-by-step instructions', link: '' },
-    { label: 'Webinars', link: '' },
-    { label: 'Additional materials', link: '' },
-    { label: 'FAQs', link: '' },
-  ];
-
   const data = state.source.get(state.router.link);
-  const pageData = state.source[data.type][data.id];
-  const { title, content } = pageData || {};
+
+  // get current page data
+  const page = state.source[data.type][data.id];
+
+  // get sibling page data for menu
+  const { tools } = state.source.data['all-tools/'];
+  // if we are at the parent page then parent will be undefined
+  // we can get sibling from the id of the page itself
+  const siblingData = page.parent ? tools[page.parent] : tools[page.id];
+
+  // for the dropdown menu we need all parents
+  const parentTools = tools?.['0'];
+
+  // build the parent page options for the dropdown
+  const parentPageOptions = parentTools?.map((tool) => ({
+    name: tool.title.rendered,
+    id: tool.id,
+    link: tool.link,
+  }));
+
+  // build the sibling page options for the side bar menu
+  const links = siblingData?.map((sub, i) => ({
+    label: sub.title.rendered,
+    link: sub.link,
+    active: (!page.parent && i === 0) || page.link === `${sub.link}/`,
+  }));
+
+  const pageContent = page.parent ? page : siblingData?.[0];
+
+  const currentParentPage = page.parent || page.id;
+
+  const { title, content } = pageContent || {};
+
+  const Html2React = libraries?.html2react?.Component;
 
   return (
     <Wrapper>
@@ -42,18 +64,23 @@ const Page = ({ state, libraries }) => {
         </Column>
       </Row>
       <Row>
-        <Column width={[1, 7 / 12]}>
-          <Dropdown />
+        <Column
+          width={[1, 7 / 12]}
+          css={css`
+            margin-bottom: 90px;
+          `}
+        >
+          <Dropdown items={parentPageOptions} selected={currentParentPage} />
         </Column>
       </Row>
       <Row>
         <Column width={[1 / 4]}>
           <ul>
-            {links.map((l, i) => (
+            {links?.map((l) => (
               <MenuCategory
                 key={l.label}
                 css={
-                  i === 0 &&
+                  l.active &&
                   css`
                     a {
                       color: #97bd3d;
@@ -69,12 +96,20 @@ const Page = ({ state, libraries }) => {
           </ul>
         </Column>
         <Column width={[3 / 4]}>
-          <H3>
-            <Html2React html={title?.rendered} />
-          </H3>
-          <Content>
-            <Html2React html={content?.rendered} />
-          </Content>
+          {title && (
+            <H3
+              css={css`
+                margin-bottom: 25px;
+              `}
+            >
+              <Html2React html={title?.rendered} />
+            </H3>
+          )}
+          {content && (
+            <Content>
+              <Html2React html={content?.rendered} />
+            </Content>
+          )}
         </Column>
       </Row>
     </Wrapper>
