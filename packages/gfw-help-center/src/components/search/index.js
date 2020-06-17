@@ -94,7 +94,7 @@ const Search = ({
         )}
         {!open && showTitle && (
           <SearchClosed>
-            <OpenMessage>search the GFW blog</OpenMessage>
+            <OpenMessage>Search the GFW help center</OpenMessage>
           </SearchClosed>
         )}
         <SearchIcon

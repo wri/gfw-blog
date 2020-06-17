@@ -1,9 +1,10 @@
 import { styled } from 'frontity';
 
 export const Card = styled.div`
-  height: 240px;
+  min-height: 240px;
+  height: 100%;
   border: 1px solid #e5e5df;
-  padding: 46px 15% 0;
+  padding: 50px 45px;
 `;
 
 export const Title = styled.h2`

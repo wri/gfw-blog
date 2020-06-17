@@ -1,6 +1,6 @@
 import { styled } from 'frontity';
 
-import theme from '../../../app/theme';
+import theme from '../../app/theme';
 
 export const Title = styled.h1`
   font-size: 30px;
@@ -18,9 +18,4 @@ export const Description = styled.p`
   font-size: 18px;
   line-height: 30px;
   color: ${theme.colors.darkGrey};
-  margin-bottom: 40px;
-
-  ${theme.mediaQueries.small} {
-    margin-bottom: 70px;
-  }
 `;

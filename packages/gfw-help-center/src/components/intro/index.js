@@ -4,12 +4,12 @@ import { connect } from 'frontity';
 
 import { Title, Description } from './styles';
 
-const Intro = ({ state }) => {
+const Intro = ({ title, description }) => {
   return (
     <>
-      <Title>Help Center</Title>
+      <Title>{title}</Title>
       <Description>
-        <b>{state.frontity.description}</b>
+        <b>{description}</b>
       </Description>
     </>
   );
@@ -18,5 +18,6 @@ const Intro = ({ state }) => {
 export default connect(Intro);
 
 Intro.propTypes = {
-  state: PropTypes.object,
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
