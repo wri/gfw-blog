@@ -7,10 +7,10 @@ import Link from '../link';
 
 import { Card, Title, Text, BackgroundImage, Icon } from './styles';
 
-const SimpleCard = ({ link, icon, title, text, backgroundImage }) => {
+const SimpleCard = ({ link, icon, title, text, backgroundImage, large }) => {
   return (
     <Link link={link}>
-      <Card>
+      <Card large={large}>
         {backgroundImage && (
           <BackgroundImage>
             <Media {...backgroundImage} />
@@ -31,5 +31,6 @@ SimpleCard.propTypes = {
   icon: PropTypes.object,
   title: PropTypes.string,
   text: PropTypes.string,
+  large: PropTypes.bool,
   backgroundImage: PropTypes.object,
 };

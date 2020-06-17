@@ -124,7 +124,7 @@ const HomePage = ({ state, libraries }) => {
                 margin-bottom: 40px;
               `}
             >
-              <SimpleCard {...tool} />
+              <SimpleCard {...tool} large={isFirst} />
             </Column>
           );
         })}

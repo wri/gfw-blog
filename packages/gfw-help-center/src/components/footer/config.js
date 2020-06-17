@@ -9,6 +9,7 @@ export default [
       url: chatIcon,
       title: 'community forum',
     },
+    large: true,
   },
   {
     title: 'Contact us',
@@ -18,5 +19,6 @@ export default [
       url: emailIcon,
       title: 'contact us',
     },
+    large: true,
   },
 ];

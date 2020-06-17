@@ -13,6 +13,7 @@ export const Card = styled.div`
   margin-bottom: 32px;
   height: 100%;
   width: 100%;
+  min-height: 480px;
 
   ${({ active }) =>
     active &&

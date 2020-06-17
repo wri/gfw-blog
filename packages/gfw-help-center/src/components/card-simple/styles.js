@@ -2,11 +2,16 @@ import { styled } from 'frontity';
 import theme from '../../app/theme';
 
 export const Card = styled.div`
-  min-height: 240px;
   height: 100%;
   border: 1px solid #e5e5df;
   padding: 50px 45px;
   position: relative;
+
+  ${({ large }) =>
+    large &&
+    `
+    padding: 50px 80px;
+  `}
 `;
 
 export const Icon = styled.img`
