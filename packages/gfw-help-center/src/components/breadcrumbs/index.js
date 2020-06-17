@@ -10,6 +10,8 @@ import Wrapper from './styles';
 
 const Breadcrumbs = ({ state }) => {
   const data = state.source.get(state.router.link);
+  const pageData = state.source[data.type][data.id];
+  const parent = state.source?.[pageData?.type]?.[pageData?.parent];
 
   return (
     <Wrapper>
@@ -41,7 +43,11 @@ const Breadcrumbs = ({ state }) => {
       {data.isPostType && (
         <>
           <Divider />
-          <CategoryItem />
+          {parent ? (
+            <Link link={parent.link}>{decode(parent.title.rendered)}</Link>
+          ) : (
+            <CategoryItem />
+          )}
           <Divider />
           <span>{decode(state.source[data.type][data.id].title.rendered)}</span>
         </>
