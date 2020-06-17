@@ -40,7 +40,7 @@ const Dropdown = ({ selected, items }) => {
           items={items}
           selected={selected}
           onClickResult={() => setOpen(false)}
-          showCount
+          showCount={items.some(i => !!i.count)}
         />
       )}
     </Wrapper>

@@ -15,6 +15,7 @@ import Home from '../pages/home';
 import Archive from '../pages/archive';
 import Post from '../pages/post';
 import Error from '../pages/error';
+import Categories from '../pages/categories';
 
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
@@ -42,8 +43,9 @@ const Theme = ({ state, actions }) => {
         )}
         <Switch>
           <Loading when={data.isFetching} />
-          <Home when={data.isHome && !data.link.includes('/?s=')} />
-          <Archive when={data.isArchive} />
+          {/* <Home when={data.isHome && !data.link.includes('/?s=')} /> */}
+          <Categories when={data.isHome && !data.link.includes('/?s=')} />
+          {/* <Archive when={data.isArchive} /> */}
           <Post when={data.isPostType} />
           <Error when={data.isError} />
         </Switch>
