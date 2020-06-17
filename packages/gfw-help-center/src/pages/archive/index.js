@@ -56,6 +56,7 @@ const ArchivePage = ({ state, libraries }) => {
           {fqaPages && fqaPages.map(faq => (
             <>
               <h3>{faq.title.rendered}</h3>
+              <Html2React html={faq.content.rendered} />
               <ul>
                 {faq?.acf?.questions?.map(question => (
                   <li>
