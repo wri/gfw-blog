@@ -5,7 +5,6 @@ import { Row, Column } from 'gfw-components';
 
 import Intro from '../../components/intro';
 import Search from '../../components/search';
-import Footer from '../../components/footer';
 
 import Tools from './tools';
 import UsingGFW from './using-gfw';
@@ -37,7 +36,6 @@ const HomePage = ({ state }) => (
       >
         <Tools />
         <UsingGFW />
-        <Footer />
       </Column>
     </Row>
   </Wrapper>

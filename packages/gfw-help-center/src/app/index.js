@@ -15,7 +15,9 @@ import Home from '../pages/home';
 import Archive from '../pages/archive';
 import Article from '../pages/article';
 import Error from '../pages/error';
-import Categories from '../pages/categories';
+import Page from '../pages/page';
+
+import HelpFooter from '../components/footer';
 
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
@@ -28,7 +30,7 @@ const Theme = ({ state, actions }) => {
       <HeaderWrapper>
         <Header
           relative
-          pathname="https://blog.globalforestwatch.org"
+          pathname="https://www.globalforestwatch.org/help-center"
           openContactUsModal={actions.theme.toggleContactUsModal}
         />
       </HeaderWrapper>
@@ -44,12 +46,13 @@ const Theme = ({ state, actions }) => {
         <Switch>
           <Loading when={data.isFetching} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
-          <Categories when={data.isHome && !data.link.includes('/?s=')} />
+          <Page when={data.isTools} />
           <Archive when={data.isArchive} />
           <Article when={data.isArticle} />
           <Error when={data.isError} />
         </Switch>
       </Main>
+      <HelpFooter />
       <FooterWrapper>
         <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
       </FooterWrapper>

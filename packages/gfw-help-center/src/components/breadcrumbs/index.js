@@ -13,7 +13,7 @@ const Breadcrumbs = ({ state }) => {
 
   return (
     <Wrapper>
-      <Link link="/">Blog Home</Link>
+      <Link link="/">Help center home</Link>
       {isSearchLink(state.router.link) && (
         <>
           <Divider />

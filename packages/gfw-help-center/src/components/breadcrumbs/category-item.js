@@ -7,24 +7,24 @@ const CategoryItem = ({ state }) => {
   const { link } = state.router;
   const data = state.source.get(link);
   const post = state.source[data.type][data.id];
-  const categories = post.categories.map((id) => {
+  const categories = post?.categories?.map((id) => {
     return state.source.category[id];
   });
 
-  let item = categories[0];
+  let item = categories?.[0];
   // eslint-disable-next-line no-restricted-syntax
   for (const i in categories) {
-    if (link.indexOf(`/${categories[i].slug}/`) === 0) {
-      item = categories[i];
+    if (link.indexOf(`/${categories?.[i]?.slug}/`) === 0) {
+      item = categories?.[i];
       break;
     }
   }
 
-  return (
+  return item ? (
     <Wrapper>
       <Link link={item.link}>{item.name}</Link>
     </Wrapper>
-  );
+  ) : null;
 };
 
 export default connect(CategoryItem);
