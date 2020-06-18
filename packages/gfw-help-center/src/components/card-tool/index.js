@@ -5,37 +5,37 @@ import { connect } from 'frontity';
 import Media from '../media';
 import Link from '../link';
 
-import { Card, Title, Text, Image, Logo } from './styles';
+import { Card, ContentWrapper, Title, Text, BannerImage, Logo } from './styles';
 
-const ToolCard = ({ title, text, image, logo, link, active }) => (
+const ToolCard = ({ title, text, bannerImage, logo, link, active }) => (
   <Link link={link}>
     <Card active={active}>
-      <div>
+      <ContentWrapper>
         <Title>{title}</Title>
         <Text>{text}</Text>
-      </div>
+      </ContentWrapper>
       {logo && (
         <Logo>
           <Media {...logo} />
         </Logo>
       )}
-      {image && (
-        <Image>
-          <Media {...image} />
-        </Image>
+      {bannerImage && (
+        <BannerImage>
+          <Media {...bannerImage} />
+        </BannerImage>
       )}
     </Card>
   </Link>
 );
 
-export default connect(ToolCard);
-
 ToolCard.propTypes = {
   state: PropTypes.object,
   title: PropTypes.string,
   text: PropTypes.string,
-  image: PropTypes.string,
-  logo: PropTypes.string,
+  bannerImage: PropTypes.object,
+  logo: PropTypes.object,
   link: PropTypes.string,
   active: PropTypes.bool,
 };
+
+export default connect(ToolCard);

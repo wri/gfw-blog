@@ -1,5 +1,5 @@
 import { styled } from 'frontity';
-import theme from '../../../app/theme';
+import theme from '../../app/theme';
 
 export default styled.div`
   position: relative;

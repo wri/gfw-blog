@@ -2,23 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
 
-import { Card, Title, Text } from './styles';
-import icons from './icons';
+import Media from '../media';
+import Link from '../link';
 
-const SimpleCard = ({ icon, title, text }) => {
+import { Card, Title, Text, BackgroundImage, Icon } from './styles';
+
+const SimpleCard = ({ link, icon, title, text, backgroundImage, large }) => {
   return (
-    <Card>
-      <img src={icons[icon]} alt={`${title}-icon`} />
-      <Title>{title}</Title>
-      <Text>{text}</Text>
-    </Card>
+    <Link link={link}>
+      <Card large={large}>
+        {backgroundImage && (
+          <BackgroundImage>
+            <Media {...backgroundImage} />
+          </BackgroundImage>
+        )}
+        {icon && <Icon src={icon.url} alt={icon.title} />}
+        <Title light={!!backgroundImage}>{title}</Title>
+        <Text light={!!backgroundImage}>{text}</Text>
+      </Card>
+    </Link>
   );
 };
 
 export default connect(SimpleCard);
 
 SimpleCard.propTypes = {
-  icon: PropTypes.string,
+  link: PropTypes.string,
+  icon: PropTypes.object,
   title: PropTypes.string,
   text: PropTypes.string,
+  large: PropTypes.bool,
+  backgroundImage: PropTypes.object,
 };

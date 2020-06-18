@@ -8,24 +8,24 @@ import supportCards from './config';
 
 const Footer = () => {
   return (
-    <>
-      <H4
-        css={css`
-          margin-bottom: 30px;
-        `}
-      >
-        Get support
-      </H4>
-      <Row nested>
-        {supportCards.map((card) => {
-          return (
-            <Column width={[1, 1 / 2]} key={card.title}>
-              <SimpleCard {...card} />
-            </Column>
-          );
-        })}
-      </Row>
-    </>
+    <Row>
+      <Column>
+        <H4
+          css={css`
+            margin-bottom: 30px;
+          `}
+        >
+          Get support
+        </H4>
+      </Column>
+      {supportCards.map((card) => {
+        return (
+          <Column width={[1, 1 / 2]} key={card.title}>
+            <SimpleCard {...card} />
+          </Column>
+        );
+      })}
+    </Row>
   );
 };
 
