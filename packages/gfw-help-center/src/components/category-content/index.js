@@ -52,7 +52,7 @@ const CategoryContent = ({ title, text, cards }) => {
 CategoryContent.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  cards: PropTypes.oneOf(PropTypes.object),
+  cards: PropTypes.object,
 };
 
 export default connect(CategoryContent);
