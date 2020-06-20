@@ -1,19 +1,22 @@
-import React from 'react';
+/* eslint-disable camelcase */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-import { Row, Column, H3 } from 'gfw-components';
+import { Row, Column, H3, H4 } from 'gfw-components';
+import axios from 'axios';
+
 import Breadcrumbs from '../../components/breadcrumbs';
 import Dropdown from '../../components/dropdown';
 import Link from '../../components/link';
 import theme from '../../app/theme';
 
 import Content from '../../components/content';
+import SimpleCard from '../../components/card-simple';
 
 import { Wrapper, MenuCategory } from './styles';
 
 const Page = ({ state, libraries }) => {
   const data = state.source.get(state.router.link);
-
   // get current page data
   const page = state.source[data.type][data.id];
 
@@ -44,9 +47,30 @@ const Page = ({ state, libraries }) => {
 
   const currentParentPage = page.parent || page.id;
 
-  const { title, content } = pageContent || {};
+  const { title, content, acf } = pageContent || {};
+
+  const { related_content: relatedContent } = acf || {};
+
+  const { acf_fc_layout, content: relatedPosts } = relatedContent?.[0] || {};
+
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    if (acf_fc_layout) {
+      axios
+        .get(
+          `${
+            state.source.api
+          }/wp/v2/${acf_fc_layout}?includes=${relatedPosts?.join(',')}`
+        )
+        .then((response) => {
+          setArticles(response.data);
+        });
+    }
+  }, []);
 
   const Html2React = libraries?.html2react?.Component;
+  // console.log(data, page, state.source);
 
   return (
     <Wrapper>
@@ -110,6 +134,26 @@ const Page = ({ state, libraries }) => {
               <Html2React html={content?.rendered} />
             </Content>
           )}
+          {relatedContent?.map((section) => (
+            <div key={section.title}>
+              <H4
+                css={css`
+                  margin-bottom: 30px;
+                `}
+              >
+                {section.title}
+              </H4>
+              {articles?.map((post) => (
+                <SimpleCard
+                  key={post}
+                  title={post.title.rendered}
+                  text={<Html2React html={post.content.rendered} />}
+                  link={post.link}
+                  arrow
+                />
+              ))}
+            </div>
+          ))}
         </Column>
       </Row>
     </Wrapper>

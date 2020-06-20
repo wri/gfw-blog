@@ -6,6 +6,8 @@ export const Card = styled.div`
   border: 1px solid #e5e5df;
   padding: 50px 45px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 
   ${({ large }) =>
     large &&
@@ -21,8 +23,18 @@ export const Icon = styled.img`
   position: relative;
 `;
 
+export const ArrowIcon = styled.img`
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+  position: relative;
+  fill: ${theme.colors.green};
+  transform: rotate(-90deg);
+  align-self: center;
+`;
+
 export const Title = styled.h4`
-  margin: 16px 0 10px;
+  margin-bottom: 10px;
   color: #333333;
   font-size: 22px;
   line-height: 28px;

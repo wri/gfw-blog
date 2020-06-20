@@ -85,6 +85,11 @@ const settings = [
                 endpoint: 'faqs', // REST API endpoint
                 archive: '/faqs', // link where this custom posts are listed
               },
+              {
+                type: 'articles', // type slug
+                endpoint: 'articles', // REST API endpoint
+                archive: '/articles', // link where this custom posts are listed
+              },
             ],
           },
         },
