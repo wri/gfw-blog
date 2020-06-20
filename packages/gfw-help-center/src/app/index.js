@@ -12,10 +12,9 @@ import Head from './head';
 
 import Loading from '../pages/loading';
 import Home from '../pages/home';
-import Archive from '../pages/archive';
+import Tools from '../pages/tools';
 import Article from '../pages/article';
 import Error from '../pages/error';
-import Page from '../pages/page';
 
 import HelpFooter from '../components/footer';
 
@@ -46,8 +45,7 @@ const Theme = ({ state, actions }) => {
         <Switch>
           <Loading when={data.isFetching} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
-          <Page when={data.isTools} />
-          <Archive when={data.isArchive} />
+          <Tools when={data.isTools} />
           <Article when={data.isArticle} />
           <Error when={data.isError} />
         </Switch>
