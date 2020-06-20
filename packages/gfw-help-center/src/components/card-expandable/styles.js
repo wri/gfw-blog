@@ -28,13 +28,7 @@ export const Title = styled.h4`
 `;
 
 export const Text = styled.div`
-  font-size: 16px;
-  line-height: 21px;
   z-index: 1;
   position: relative;
   margin-top: 20px;
-
-  p {
-    text-align: left;
-  }
 `;

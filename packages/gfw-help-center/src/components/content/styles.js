@@ -7,6 +7,7 @@ export default styled.div`
   line-height: 32px;
   color: ${theme.colors.darkestGrey};
   word-break: break-word;
+  text-align: left;
 
   ${theme.mediaQueries.small} {
     font-size: 20px;
@@ -24,6 +25,10 @@ export default styled.div`
     font-size: inherit;
     line-height: inherit;
     margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   hr {

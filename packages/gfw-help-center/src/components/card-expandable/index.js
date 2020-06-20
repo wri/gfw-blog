@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'frontity';
 
+import Content from '../content';
+
 import plusIcon from '../../assets/icons/plus.svg';
 import minusIcon from '../../assets/icons/minus.svg';
 
 import { Card, Title, Text, Icon } from './styles';
 
-const ExpandableCard = ({
-  title,
-  text,
-  thumbnail
-}) => {
+const ExpandableCard = ({ title, text, thumbnail }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -20,10 +18,16 @@ const ExpandableCard = ({
       <div>
         <Title>{title}</Title>
         {open && (
-          <Text>{text}</Text>
+          <Text>
+            <Content>{text}</Content>
+          </Text>
         )}
       </div>
-      {open ? <Icon src={minusIcon} alt={title} /> : <Icon src={plusIcon} alt={title} />}
+      {open ? (
+        <Icon src={minusIcon} alt={title} />
+      ) : (
+        <Icon src={plusIcon} alt={title} />
+      )}
     </Card>
   );
 };
