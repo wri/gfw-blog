@@ -8,9 +8,9 @@ import Link from '../link';
 
 import { CardWrapper, CardImage, CardTitle, CardText } from './styles';
 
-const CardContent = ({ title, text, extraText }) => (
+const CardContent = ({ title, text, image, extraText }) => (
   <>
-    <CardImage src="" alt={title} />
+    {image && <CardImage src={image} alt={title} />}
     <div>
       <CardTitle>{title}</CardTitle>
       <CardText>{text}</CardText>
@@ -31,6 +31,7 @@ const CardContent = ({ title, text, extraText }) => (
 CardContent.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
+  image: PropTypes.string,
   extraText: PropTypes.string,
 };
 
@@ -43,13 +44,16 @@ const Card = (props) => {
     </Link>
   ) : (
     <CardWrapper>
-      <CardContent {...props} />
+      <CardContent {...props}>
+        {props.children}
+      </CardContent>
     </CardWrapper>
   );
 };
 
 Card.propTypes = {
   link: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node),PropTypes.node])
 };
 
 export default connect(Card);
