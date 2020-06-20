@@ -66,11 +66,13 @@ export const SearchDesktop = styled(Search)`
   `}
 `;
 
-export const CategoryDescription = styled.p`
-  margin-top: 15px;
-  font-size: 18px;
-  line-height: 30px;
-  color: ${theme.colors.darkGrey};
+export const CategoryDescription = styled.div`
+  p {
+    margin: 20px 0 30px;
+    font-size: 18px;
+    line-height: 30px;
+    color: ${theme.colors.darkGrey};
+  }
 `;
 
 export const ResultsStatement = styled.p`
@@ -89,5 +91,19 @@ export const LoadMoreWrapper = styled(Row)`
 
   ${theme.mediaQueries.small} {
     margin-top: 60px !important;
+  }
+`;
+
+export const FaqCard = styled.div`
+  padding: 30px 40px 30px 55px;
+  margin-top: 24px;
+  box-sizing: border-box;
+  border: 1px solid #e5e5df;
+  cursor: pointer;
+  outline: none;
+
+  p {
+    margin: 33px 0 55px;
+    line-height: 36px;
   }
 `;

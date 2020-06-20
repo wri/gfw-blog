@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'frontity';
+import { connect, css } from 'frontity';
 
 const Link = ({
   state,
@@ -38,6 +38,7 @@ const Link = ({
       onClick={onClick}
       className={className}
       aria-current={ariaCurrent}
+      css={css`cursor: pointer;`}
     >
       {children}
     </a>
