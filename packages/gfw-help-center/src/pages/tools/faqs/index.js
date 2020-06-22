@@ -4,27 +4,30 @@ import { connect, styled } from 'frontity';
 
 import ExpandableCard from '../../../components/card-expandable';
 
-const FAQs = ({ libraries, question, answer }) => {
+const FAQs = ({ libraries, faqs }) => {
   const Html2React = libraries?.html2react?.Component;
 
   return (
-    <CardWrapper>
-      <ExpandableCard
-        title={question}
-        text={<Html2React html={answer} />}
-      />
-    </CardWrapper>
+    <>
+      {faqs?.map(({ question, answer }) => (
+        <CardWrapper key={question}>
+          <ExpandableCard
+            title={question}
+            text={<Html2React html={answer} />}
+          />
+        </CardWrapper>
+      ))}
+    </>
   );
 };
 
 FAQs.propTypes = {
   libraries: PropTypes.object,
-  question: PropTypes.string,
-  answer: PropTypes.string
+  faqs: PropTypes.array,
 };
 
 const CardWrapper = styled.div`
   margin-bottom: 25px;
-`
+`;
 
 export default connect(FAQs);

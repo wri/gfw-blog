@@ -1,26 +1,28 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { Row, Column, H3, H4 } from 'gfw-components';
-// import axios from 'axios';
 
 import Breadcrumbs from '../../components/breadcrumbs';
 import Dropdown from '../../components/dropdown';
 import theme from '../../app/theme';
 
 import Content from '../../components/content';
-import SimpleCard from '../../components/card-simple';
 import Menu from '../../components/menu';
 
 import FAQs from './faqs';
+import Articles from './articles';
+import Organizations from './organizations';
 
-import { Wrapper } from './styles';
+import { Wrapper, ContentWrapper } from './styles';
 
 const ContentComponents = {
   faqs: FAQs,
-  articles: SimpleCard
-}
+  articles: Articles,
+  articles_by_category: Articles,
+  organizations: Organizations,
+};
 
 const Page = ({ state, libraries }) => {
   const { tools } = state.source.data['all-tools/'];
@@ -28,7 +30,9 @@ const Page = ({ state, libraries }) => {
 
   const allParentPages = tools?.['0'];
   const currentPage = state.source[route.type][route.id];
-  const siblingPages = currentPage?.parent ? tools[currentPage.parent] : tools[currentPage.id];
+  const siblingPages = currentPage?.parent
+    ? tools[currentPage.parent]
+    : tools[currentPage.id];
 
   // build the options for the dropdown
   const parentPageOptions = allParentPages?.map((tool) => ({
@@ -41,7 +45,8 @@ const Page = ({ state, libraries }) => {
   const links = siblingPages?.map((sub, i) => ({
     label: sub.title.rendered,
     link: sub.link,
-    active: (!currentPage.parent && i === 0) || currentPage.link === `${sub.link}/`,
+    active:
+      (!currentPage.parent && i === 0) || currentPage.link === `${sub.link}/`,
   }));
 
   // get the current page content
@@ -56,22 +61,6 @@ const Page = ({ state, libraries }) => {
 
   // build related content from acf
   const { related_content: relatedContent } = acf || {};
-
-  // const [articles, setArticles] = useState([]);
-
-  // useEffect(() => {
-  //   if (acf_fc_layout) {
-  //     axios
-  //       .get(
-  //         `${
-  //           state.source.api
-  //         }/wp/v2/${acf_fc_layout}?includes=${relatedPosts?.join(',')}`
-  //       )
-  //       .then((response) => {
-  //         setArticles(response.data);
-  //       });
-  //   }
-  // }, []);
 
   const Html2React = libraries?.html2react?.Component;
 
@@ -115,33 +104,35 @@ const Page = ({ state, libraries }) => {
             </H3>
           )}
           {content && (
-            <Content>
-              <Html2React html={content?.rendered} />
-            </Content>
+            <ContentWrapper>
+              <Content>
+                <Html2React html={content?.rendered} />
+              </Content>
+            </ContentWrapper>
           )}
-          {relatedContent?.length > 0 && relatedContent?.map(section => {
-            const { acf_fc_layout: sectionType, title: sectionTitle } = section;
-            const Component = ContentComponents[sectionType];
+          {relatedContent?.length > 0 &&
+            relatedContent?.map((section) => {
+              const {
+                acf_fc_layout: sectionType,
+                title: sectionTitle,
+              } = section;
+              const Component = ContentComponents[sectionType];
 
-            return (
-              <div key={sectionTitle}>
-                {sectionTitle && (
-                  <H4
-                    css={css`
-                      margin-bottom: 30px;
-                    `}
-                  >
-                    {sectionTitle}
-                  </H4>
-                )}
-                {section[sectionType]?.map((post, i) => (
-                  <Component
-                    key={`${sectionType}-${i}`}
-                    {...post}
-                  />
-                ))}
-              </div>
-            )})}
+              return Component ? (
+                <div key={sectionTitle}>
+                  {sectionTitle && (
+                    <H4
+                      css={css`
+                        margin-bottom: 30px;
+                      `}
+                    >
+                      {sectionTitle}
+                    </H4>
+                  )}
+                  <Component {...section} />
+                </div>
+              ) : null;
+            })}
         </Column>
       </Row>
     </Wrapper>

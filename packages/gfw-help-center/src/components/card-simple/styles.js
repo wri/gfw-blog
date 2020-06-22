@@ -21,6 +21,7 @@ export const Icon = styled.img`
   height: 32px;
   z-index: 1;
   position: relative;
+  margin-bottom: 10px;
 `;
 
 export const ArrowIcon = styled.img`
@@ -31,6 +32,7 @@ export const ArrowIcon = styled.img`
   fill: ${theme.colors.green};
   transform: rotate(-90deg);
   align-self: center;
+  margin-left: 20px;
 `;
 
 export const Title = styled.h4`

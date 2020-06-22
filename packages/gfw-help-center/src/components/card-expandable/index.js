@@ -7,22 +7,22 @@ import Content from '../content';
 import plusIcon from '../../assets/icons/plus.svg';
 import minusIcon from '../../assets/icons/minus.svg';
 
-import { Card, Title, Text, Icon } from './styles';
+import { Card, Title, Text, Icon, Thumbnail, ContentWrapper } from './styles';
 
-const ExpandableCard = ({ title, text, thumbnail }) => {
+const ExpandableCard = ({ title, text, thumbnail, small }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Card onClick={() => setOpen(!open)}>
-      {thumbnail && <img src={thumbnail} alt={title} />}
-      <div>
+      {thumbnail && <Thumbnail src={thumbnail} alt={title} />}
+      <ContentWrapper>
         <Title>{title}</Title>
         {open && (
-          <Text>
-            <Content>{text}</Content>
-          </Text>
+          <Content>
+            <Text small={small}>{text}</Text>
+          </Content>
         )}
-      </div>
+      </ContentWrapper>
       {open ? (
         <Icon src={minusIcon} alt={title} />
       ) : (
@@ -32,10 +32,11 @@ const ExpandableCard = ({ title, text, thumbnail }) => {
   );
 };
 
-export default connect(ExpandableCard);
-
 ExpandableCard.propTypes = {
   title: PropTypes.string,
   thumbnail: PropTypes.string,
   text: PropTypes.node,
+  small: PropTypes.bool,
 };
+
+export default connect(ExpandableCard);

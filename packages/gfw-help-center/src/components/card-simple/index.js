@@ -17,25 +17,23 @@ const SimpleCard = ({
   backgroundImage,
   large,
   arrow,
-}) => {
-  return (
-    <Link link={link}>
-      <Card large={large}>
-        {backgroundImage && (
-          <BackgroundImage>
-            <Media {...backgroundImage} />
-          </BackgroundImage>
-        )}
-        <div>
-          {icon && <Icon src={icon.url} alt={icon.title} />}
-          <Title light={!!backgroundImage}>{title}</Title>
-          <Text light={!!backgroundImage}>{text}</Text>
-        </div>
-        {arrow && <ArrowIcon src={arrowIconSrc} alt={title} />}
-      </Card>
-    </Link>
-  );
-};
+}) => (
+  <Link link={link}>
+    <Card large={large}>
+      {backgroundImage && (
+        <BackgroundImage>
+          <Media {...backgroundImage} />
+        </BackgroundImage>
+      )}
+      <div>
+        {icon && <Icon src={icon.url} alt={icon.title} />}
+        <Title light={!!backgroundImage}>{title}</Title>
+        <Text light={!!backgroundImage}>{text}</Text>
+      </div>
+      {arrow && <ArrowIcon src={arrowIconSrc} alt={title} />}
+    </Card>
+  </Link>
+);
 
 export default connect(SimpleCard);
 

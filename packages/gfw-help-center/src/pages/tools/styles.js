@@ -10,4 +10,6 @@ export const Wrapper = styled.div`
   }
 `;
 
-export default Wrapper;
+export const ContentWrapper = styled.div`
+  margin-bottom: 40px;
+`;
