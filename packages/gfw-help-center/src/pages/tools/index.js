@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-import { Row, Column, H3, H4 } from 'gfw-components';
+import { Row, Column, H3 } from 'gfw-components';
 
 import Breadcrumbs from '../../components/breadcrumbs';
 import Dropdown from '../../components/dropdown';
@@ -10,21 +10,9 @@ import theme from '../../app/theme';
 
 import Content from '../../components/content';
 import Menu from '../../components/menu';
-
-import FAQs from './faqs';
-import Articles from './articles';
-import Organizations from './organizations';
-import Webinars from './webinars';
+import RelatedContent from '../../components/related-content';
 
 import { Wrapper, ContentWrapper } from './styles';
-
-const ContentComponents = {
-  faqs: FAQs,
-  articles: Articles,
-  articles_by_category: Articles,
-  organizations: Organizations,
-  webinars: Webinars,
-};
 
 const Page = ({ state, libraries }) => {
   const { tools } = state.source.data['all-tools/'];
@@ -112,29 +100,9 @@ const Page = ({ state, libraries }) => {
               </Content>
             </ContentWrapper>
           )}
-          {relatedContent?.length > 0 &&
-            relatedContent?.map((section) => {
-              const {
-                acf_fc_layout: sectionType,
-                title: sectionTitle,
-              } = section;
-              const Component = ContentComponents[sectionType];
-
-              return Component ? (
-                <div key={sectionTitle}>
-                  {sectionTitle && (
-                    <H4
-                      css={css`
-                        margin-bottom: 30px;
-                      `}
-                    >
-                      {sectionTitle}
-                    </H4>
-                  )}
-                  <Component {...section} />
-                </div>
-              ) : null;
-            })}
+          {relatedContent?.length > 0 && (
+            <RelatedContent sections={relatedContent} />
+          )}
         </Column>
       </Row>
     </Wrapper>

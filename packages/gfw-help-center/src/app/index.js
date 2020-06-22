@@ -46,7 +46,7 @@ const Theme = ({ state, actions }) => {
           <Loading when={data.isFetching} />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Tools when={data.isTools} />
-          <Article when={data.isArticle} />
+          <Article when={data.isArticles} />
           <Error when={data.isError} />
         </Switch>
       </Main>

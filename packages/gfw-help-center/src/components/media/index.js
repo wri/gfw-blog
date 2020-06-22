@@ -4,11 +4,22 @@ import { connect } from 'frontity';
 
 import { Container, StyledImage } from './styles';
 
-const Media = ({ styles, sizes, title, url: sourceUrl, alt_text: altText }) => {
+const Media = ({
+  styles,
+  media_details,
+  sizes,
+  title,
+  url,
+  source_url,
+  alt_text: altText,
+}) => {
+  const sourceUrl = url || source_url;
+  const imageSizes = sizes || media_details.sizes;
+
   if (!sourceUrl) return null;
 
   const srcset =
-    Object.values(sizes)
+    Object.values(imageSizes)
       // Get the url and width of each size.
       .map((item) => [item.source_url, item.width])
       // Recude them to a string with the format required by `srcset`.
@@ -34,7 +45,9 @@ const Media = ({ styles, sizes, title, url: sourceUrl, alt_text: altText }) => {
 Media.propTypes = {
   title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   url: PropTypes.string,
+  source_url: PropTypes.string,
   sizes: PropTypes.object,
+  media_details: PropTypes.object,
   styles: PropTypes.string,
   alt_text: PropTypes.string,
 };

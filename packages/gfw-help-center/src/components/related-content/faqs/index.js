@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled } from 'frontity';
 
-import ExpandableCard from '../../../components/card-expandable';
+import ExpandableCard from '../../card-expandable';
 
 const FAQs = ({ libraries, faqs }) => {
   const Html2React = libraries?.html2react?.Component;

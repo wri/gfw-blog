@@ -5,7 +5,7 @@ import { get, CancelToken, isCancel } from 'axios';
 
 import { Loader } from 'gfw-components';
 
-import ExpandableCard from '../../../components/card-expandable';
+import ExpandableCard from '../../card-expandable';
 
 const Organizations = ({
   state,

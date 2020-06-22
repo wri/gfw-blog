@@ -8,7 +8,7 @@ import { Loader, Row, Column } from 'gfw-components';
 import { clearExcerptHellip } from '../../../helpers/content';
 import { getACFImageSizes } from '../../../helpers/media';
 
-import Card from '../../../components/card';
+import Card from '../../card';
 
 const Webinars = ({
   state,
