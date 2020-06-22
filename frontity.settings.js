@@ -90,6 +90,11 @@ const settings = [
                 endpoint: 'articles', // REST API endpoint
                 archive: '/articles', // link where this custom posts are listed
               },
+              {
+                type: 'webinars', // type slug
+                endpoint: 'webinars', // REST API endpoint
+                archive: '/webinars', // link where this custom posts are listed
+              },
             ],
           },
         },

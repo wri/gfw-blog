@@ -7,7 +7,7 @@ import { Loader } from 'gfw-components';
 
 import ExpandableCard from '../../../components/card-expandable';
 
-const Articles = ({
+const Organizations = ({
   state,
   libraries,
   organizations_by_id: include,
@@ -15,7 +15,7 @@ const Articles = ({
 }) => {
   const Html2React = libraries?.html2react?.Component;
 
-  const [articles, setArticles] = useState([]);
+  const [organizations, setOrganizations] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,23 +34,23 @@ const Articles = ({
           };
         });
 
-        setArticles(posts);
+        setOrganizations(posts);
         setLoading(false);
       })
       .catch((error) => {
         if (isCancel(error)) {
-          console.info('articles fetch cancelled');
+          console.info('organizations fetch cancelled');
         }
         setLoading(false);
       });
   }, []);
 
   return (
-    <ArticlesWrapper>
+    <OrganizationsWrapper>
       {loading && <Loader />}
       {!loading && (
         <>
-          {articles?.map(({ id, title, content, link, thumbnail }) => (
+          {organizations?.map(({ id, title, content, link, thumbnail }) => (
             <ExpandableCard
               key={id}
               title={title.rendered}
@@ -63,20 +63,20 @@ const Articles = ({
           ))}
         </>
       )}
-    </ArticlesWrapper>
+    </OrganizationsWrapper>
   );
 };
 
-const ArticlesWrapper = styled.div`
+const OrganizationsWrapper = styled.div`
   position: relative;
   min-height: 250px;
 `;
 
-Articles.propTypes = {
+Organizations.propTypes = {
   state: PropTypes.object,
   libraries: PropTypes.object,
   organizations_by_id: PropTypes.array,
   organizations_by_category: PropTypes.number,
 };
 
-export default connect(Articles);
+export default connect(Organizations);

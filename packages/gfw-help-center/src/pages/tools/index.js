@@ -14,6 +14,7 @@ import Menu from '../../components/menu';
 import FAQs from './faqs';
 import Articles from './articles';
 import Organizations from './organizations';
+import Webinars from './webinars';
 
 import { Wrapper, ContentWrapper } from './styles';
 
@@ -22,6 +23,7 @@ const ContentComponents = {
   articles: Articles,
   articles_by_category: Articles,
   organizations: Organizations,
+  webinars: Webinars,
 };
 
 const Page = ({ state, libraries }) => {

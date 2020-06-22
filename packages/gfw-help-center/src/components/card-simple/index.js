@@ -5,6 +5,8 @@ import { connect } from 'frontity';
 import Media from '../media';
 import Link from '../link';
 
+import CategoriesList from '../category-list';
+
 import arrowIconSrc from '../../assets/icons/chevron-down.svg';
 
 import { Card, Title, Text, BackgroundImage, Icon, ArrowIcon } from './styles';
@@ -17,6 +19,7 @@ const SimpleCard = ({
   backgroundImage,
   large,
   arrow,
+  categories,
 }) => (
   <Link link={link}>
     <Card large={large}>
@@ -27,6 +30,7 @@ const SimpleCard = ({
       )}
       <div>
         {icon && <Icon src={icon.url} alt={icon.title} />}
+        {categories && <CategoriesList categories={categories} />}
         <Title light={!!backgroundImage}>{title}</Title>
         <Text light={!!backgroundImage}>{text}</Text>
       </div>
@@ -44,5 +48,6 @@ SimpleCard.propTypes = {
   text: PropTypes.node,
   large: PropTypes.bool,
   arrow: PropTypes.bool,
+  categories: PropTypes.array,
   backgroundImage: PropTypes.object,
 };
