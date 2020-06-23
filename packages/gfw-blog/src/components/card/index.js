@@ -13,7 +13,6 @@ const Card = ({ libraries, state, id, type, large }) => {
   const postData = state.source[type][id] || {};
   const { locale, translations, acf } = postData;
   const { post_link: extLink } = acf || {};
-  console.log(extLink);
 
   // find the card data based on the active lang
   // if search ignore locale and show base language
