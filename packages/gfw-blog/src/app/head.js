@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Head, connect, decode } from 'frontity';
 import ReactHtmlParser from 'react-html-parser';
 
-const AppHead = ({ state }) => {
+const AppHead = ({ state, redirecting }) => {
   const data = state.source.get(state.router.link);
   const { lang } = state.theme;
 
@@ -36,6 +36,8 @@ const AppHead = ({ state }) => {
       const postTitle = state.source[data.type][data.id].title.rendered;
       const cleanTitle = decode(postTitle);
       title = `${cleanTitle} | ${state.frontity.title}`;
+    } else if (redirecting) {
+      title = 'Redirecting...';
     } else if (data.is404) {
       title = `404 Not Found | ${state.frontity.title}`;
     } else if (searchQuery) {
@@ -68,6 +70,7 @@ const AppHead = ({ state }) => {
 
 AppHead.propTypes = {
   state: PropTypes.object,
+  redirecting: PropTypes.bool,
 };
 
 export default connect(AppHead);

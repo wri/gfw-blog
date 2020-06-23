@@ -21,6 +21,11 @@ import Error from '../pages/error';
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
   const searchOpen = state.theme.searchIsActive;
+  const redirectionPost =
+    !data.redirection &&
+    data.is404 &&
+    state.source.post &&
+    Object.values(state.source.post)?.[0];
 
   if (data.isAuthor) {
     data.is404 = true;
@@ -29,6 +34,10 @@ const Theme = ({ state, actions }) => {
   useEffect(() => {
     if (data.redirection) {
       actions.router.set(data.redirection);
+    }
+
+    if (redirectionPost) {
+      actions.router.set(redirectionPost.link);
     }
   }, []);
 
@@ -39,7 +48,7 @@ const Theme = ({ state, actions }) => {
 
   return (
     <>
-      <Head />
+      <Head redirecting={data.redirection || !!redirectionPost} />
       <GlobalStyles />
       <HeaderWrapper>
         <Header
@@ -60,7 +69,9 @@ const Theme = ({ state, actions }) => {
           />
         )}
         <Switch>
-          <Loading when={data.isFetching || data.redirection} />
+          <Loading
+            when={data.isFetching || data.redirection || !!redirectionPost}
+          />
           <Home when={data.isHome && !data.link.includes('/?s=')} />
           <Archive when={data.isArchive && !data.isAuthor} />
           <Post when={data.isPostType} />
