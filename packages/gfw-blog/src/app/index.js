@@ -46,6 +46,19 @@ const Theme = ({ state, actions }) => {
     actions.theme.changeLanguage(getAPILangCode(lang));
   }, []);
 
+  const handleLangSelect = (lang) => {
+    actions.theme.changeLanguage(getAPILangCode(lang));
+    if (data.isPostType && data.isPost) {
+      const post = state.source[data.type][data.id];
+      const translation = post?.translations?.find((p) =>
+        p?.locale?.includes(lang)
+      );
+      if (translation) {
+        actions.router.set(translation.link);
+      }
+    }
+  };
+
   return (
     <>
       <Head redirecting={data.redirection || !!redirectionPost} />
@@ -55,8 +68,7 @@ const Theme = ({ state, actions }) => {
           relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={actions.theme.toggleContactUsModal}
-          afterLangSelect={(lang) =>
-            actions.theme.changeLanguage(getAPILangCode(lang))}
+          afterLangSelect={handleLangSelect}
         />
       </HeaderWrapper>
       <Main>
