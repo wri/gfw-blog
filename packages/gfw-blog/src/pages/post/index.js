@@ -127,7 +127,7 @@ const Post = ({ state, libraries, actions }) => {
               <Search open={state.theme.searchIsActive} />
             </Column>
           </Row>
-          {media && (
+          {!!media && (
             <MediaWrapper>
               <Media {...media} />
             </MediaWrapper>
