@@ -64,7 +64,7 @@ const Post = ({ state, libraries, actions }) => {
       link: author?.acf?.profile_link,
     }));
 
-  const languages = post?.translations
+  const languages = post?.translations_posts
     ?.filter((lang) => lang.locale !== post.locale)
     ?.map((lang) => {
       const url = lang.link && new URL(lang.link);

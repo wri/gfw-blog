@@ -50,7 +50,7 @@ const Theme = ({ state, actions }) => {
     actions.theme.changeLanguage(getAPILangCode(lang));
     if (data.isPostType && data.isPost) {
       const post = state.source[data.type][data.id];
-      const translation = post?.translations?.find((p) =>
+      const translation = post?.translations_posts?.find((p) =>
         p?.locale?.includes(lang)
       );
       if (translation) {

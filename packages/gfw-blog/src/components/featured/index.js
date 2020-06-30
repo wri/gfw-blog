@@ -17,7 +17,7 @@ import {
 
 const MainPost = ({ libraries, state, id, type }) => {
   const postData = state.source[type][id];
-  const { translations } = postData;
+  const { translations_posts: translations } = postData;
   const {
     theme: { lang },
   } = state;

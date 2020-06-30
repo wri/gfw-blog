@@ -13,7 +13,7 @@ const AppHead = ({ state, redirecting }) => {
   const { type, id, taxonomy } = data;
   const pageData =
     state.source?.[type]?.[id] || state.source?.[taxonomy]?.[id] || {};
-  const { yoast_head: yoastHead, translations } = pageData;
+  const { yoast_head: yoastHead, translations_posts: translations } = pageData;
 
   // get default meta data from state
   const { title: frontityTitle } = state.frontity;

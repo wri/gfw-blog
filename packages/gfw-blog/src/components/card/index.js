@@ -11,7 +11,7 @@ import { CardWrapper, MediaWrapper, PostTitle, PostExcerpt } from './styles';
 
 const Card = ({ libraries, state, id, type, large }) => {
   const postData = state.source[type][id] || {};
-  const { locale, translations, acf } = postData;
+  const { locale, translations_posts: translations, acf } = postData;
   const { post_link: extLink } = acf || {};
 
   // find the card data based on the active lang
