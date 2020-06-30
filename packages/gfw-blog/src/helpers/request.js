@@ -30,13 +30,13 @@ export const fetchPostTypeData = async ({
   let posts = data;
   let media = null;
   let categories = null;
+  let tags = null;
 
   if (!Array.isArray(posts)) {
     posts = [posts];
   }
 
   const featuredMedia = compact(posts.map((post) => post.featured_media));
-
   if (featuredMedia && featuredMedia.length) {
     const mediaResponse = await get(
       `${baseUrl}/wp/v2/media?include=${featuredMedia.join(',')}`,
@@ -62,6 +62,23 @@ export const fetchPostTypeData = async ({
     });
   }
 
+  const tagIds =
+    posts && compact(uniq(flatMap(posts.map((post) => post?.tags))));
+  if (tagIds && tagIds.length) {
+    const tagsResponse = await get(
+      `${baseUrl}/wp/v2/tags?include=${tagIds.join(',')}`,
+      { cancelToken }
+    );
+    tags = tagsResponse?.data?.map((tag) => {
+      const url = new URL(tag.link);
+
+      return {
+        ...tag,
+        link: url.pathname,
+      };
+    });
+  }
+
   return posts.map((post) => {
     const url = new URL(post.link);
 
@@ -74,6 +91,9 @@ export const fetchPostTypeData = async ({
         categories: categories.filter((cat) =>
           post.categories.includes(cat.id)
         ),
+      }),
+      ...(tags && {
+        tags: tags.filter((cat) => post.tags.includes(cat.id)),
       }),
       link: url.pathname,
     };
