@@ -41,16 +41,24 @@ const Post = ({ state, libraries, actions }) => {
   const data = state.source.get(state.router.link);
   const Html2React = libraries.html2react.Component;
   const commentsRef = useRef(null);
+  const preview = data.isPreview;
 
-  const post = state.source[data.type][data.id];
-  const media = state.source.attachment[post.featured_media];
-  const categories = post.categories.map((id) => state.source.category[id]);
-  const tags = post.tags.map((id) => state.source.tag[id]);
+  const post = data.post || state.source[data.type][data.id];
+  const media = preview
+    ? post.featured_media
+    : state.source.attachment[post.featured_media];
+  const categories = preview
+    ? post.categories
+    : post.categories.map((id) => state.source.category[id]);
+  const tags = preview
+    ? post.tags
+    : post.tags.map((id) => state.source.tag[id]);
+
   // eslint-disable-next-line camelcase
   const guestAuthors = post?.acf?.guest_authors;
   const authors =
-    guestAuthors &&
-    guestAuthors.map((author) => ({
+    guestAuthors?.length &&
+    guestAuthors?.map((author) => ({
       name: author.post_title,
       // eslint-disable-next-line camelcase
       link: author?.acf?.profile_link,
@@ -87,7 +95,9 @@ const Post = ({ state, libraries, actions }) => {
         _embed: true,
         orderby: 'date',
         exclude: post.id,
-        categories: post.categories.join(),
+        categories: preview
+          ? post?.categories?.map((cat) => cat.id)?.join()
+          : post.categories.join(),
         per_page: 3,
       },
     });
@@ -185,23 +195,27 @@ const Post = ({ state, libraries, actions }) => {
                 </Column>
               ))}
           </Row>
-          <Divider />
-          <Row
-            css={css`
-              scroll-margin: 150px;
-            `}
-          >
-            <div
-              ref={commentsRef}
-              css={css`
-                scroll-margin: 150px;
-              `}
-            />
-            <Column width={[0, 1 / 12, 1 / 6]} />
-            <Column width={[1, 5 / 6, 2 / 3]}>
-              <Comments {...post} />
-            </Column>
-          </Row>
+          {!preview && (
+            <>
+              <Divider />
+              <Row
+                css={css`
+                  scroll-margin: 150px;
+                `}
+              >
+                <div
+                  ref={commentsRef}
+                  css={css`
+                    scroll-margin: 150px;
+                  `}
+                />
+                <Column width={[0, 1 / 12, 1 / 6]} />
+                <Column width={[1, 5 / 6, 2 / 3]}>
+                  <Comments {...post} />
+                </Column>
+              </Row>
+            </>
+          )}
         </>
       ) : (
         <Loader />

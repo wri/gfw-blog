@@ -84,9 +84,11 @@ const Theme = ({ state, actions }) => {
           <Loading
             when={data.isFetching || data.redirection || !!redirectionPost}
           />
-          <Home when={data.isHome && !data.link.includes('/?s=')} />
+          <Home
+            when={!data.isPreview && data.isHome && !data.link.includes('/?s=')}
+          />
           <Archive when={data.isArchive && !data.isAuthor} />
-          <Post when={data.isPostType} />
+          <Post when={data.isPostType || data.isPreview} />
           <Error when={data.is404 || data.isError} />
         </Switch>
       </Main>

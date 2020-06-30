@@ -3,6 +3,9 @@ import iframe from '@frontity/html2react/processors/iframe';
 import sortBy from 'lodash/sortBy';
 import { Carousel } from 'gfw-components';
 import axios from 'axios';
+import { parse } from 'query-string';
+
+import { fetchPostTypeData } from './helpers/request';
 
 import Blockquote from './components/blockquote';
 import Theme from './app';
@@ -215,32 +218,59 @@ const postsHandler = {
   priority: 19,
   pattern: '/',
   func: async ({ route, params, state, libraries, link }) => {
-    const stateWithParams = !link.includes('?s=')
-      ? {
-          ...state,
-          source: {
-            ...state.source,
-            params: {
-              ...state.source.params,
-              'filter[lang]': 'en',
-            },
-          },
-        }
-      : state;
+    const query = route.includes('/?p=') ? parse(route) : {};
+    const { '/?p': postId } = query;
 
-    try {
-      const posts = libraries.source.handlers.find(
-        (handler) => handler.name === 'post archive'
+    if (postId) {
+      const token = await axios.post(
+        `${process.env.WORDPRESS_API_URL}/wp-json/jwt-auth/v1/token`,
+        {
+          username: process.env.REST_USERNAME,
+          password: process.env.REST_PASSWORD,
+        }
       );
-      await posts.func({
-        link,
-        route,
-        params,
-        state: stateWithParams,
-        libraries,
+
+      const [post] = await fetchPostTypeData({
+        baseUrl: `${process.env.WORDPRESS_API_URL}/wp-json`,
+        type: 'posts',
+        id: postId,
+        authToken: token?.data?.token,
       });
-    } catch (err) {
-      console.error(err);
+
+      const currentPageData = state.source.data[route];
+
+      Object.assign(currentPageData, {
+        post,
+        isPreview: true,
+      });
+    } else {
+      const stateWithParams = !link.includes('?s=')
+        ? {
+            ...state,
+            source: {
+              ...state.source,
+              params: {
+                ...state.source.params,
+                'filter[lang]': 'en',
+              },
+            },
+          }
+        : state;
+
+      try {
+        const posts = libraries.source.handlers.find(
+          (handler) => handler.name === 'post archive'
+        );
+        await posts.func({
+          link,
+          route,
+          params,
+          state: stateWithParams,
+          libraries,
+        });
+      } catch (err) {
+        console.error(err);
+      }
     }
   },
 };
