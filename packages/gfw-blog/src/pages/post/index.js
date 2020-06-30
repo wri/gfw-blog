@@ -56,19 +56,17 @@ const Post = ({ state, libraries, actions }) => {
       link: author?.acf?.profile_link,
     }));
 
-  const languages =
-    post.translations &&
-    post.translations
-      .filter((lang) => lang.locale !== post.locale)
-      .map((lang) => {
-        const url = lang.link && new URL(lang.link);
+  const languages = post?.translations
+    ?.filter((lang) => lang.locale !== post.locale)
+    ?.map((lang) => {
+      const url = lang.link && new URL(lang.link);
 
-        return {
-          ...lang,
-          link: url.pathname,
-          text: localeStrings[lang.locale],
-        };
-      });
+      return {
+        ...lang,
+        link: url.pathname,
+        text: localeStrings[lang.locale],
+      };
+    });
 
   /**
    * Once the post has loaded in the DOM, prefetch both the

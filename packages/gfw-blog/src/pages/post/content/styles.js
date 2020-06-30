@@ -75,6 +75,21 @@ export default styled.div`
     }
   }
 
+  .imageright,
+  .imageleft {
+    margin: 0;
+    padding: 0 20px;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+
+    figure {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
+
   figcaption {
     font-size: 12px;
     line-height: 18px;
