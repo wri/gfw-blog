@@ -26,6 +26,11 @@ export default styled.div`
     margin-bottom: 40px;
   }
 
+  b,
+  strong {
+    font-weight: 500;
+  }
+
   hr {
     display: none;
     height: 2px;
