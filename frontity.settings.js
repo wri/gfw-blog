@@ -22,7 +22,6 @@ const settings = {
           params: {
             per_page: 9,
             type: ['post'],
-            lang: 'en',
           },
           categoryBase: 'category',
           tagBase: 'tag',

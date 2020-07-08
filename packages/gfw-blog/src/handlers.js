@@ -216,7 +216,7 @@ export const postsHandler = {
               ...state.source,
               params: {
                 ...state.source.params,
-                'filter[lang]': 'en',
+                lang: 'en',
               },
             },
           }
