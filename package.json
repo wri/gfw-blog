@@ -2,6 +2,7 @@
   "name": "@gfw/blog",
   "version": "1.0.0",
   "description": "Global Forest Watch Blog",
+  "license": "MIT",
   "keywords": [
     "gfw"
   ],
