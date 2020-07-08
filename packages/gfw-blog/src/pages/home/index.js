@@ -1,5 +1,4 @@
-/* eslint-disable no-plusplus */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
 import { Row, Column, theme } from 'gfw-components';
@@ -21,14 +20,11 @@ import {
   LoadMoreWrapper,
 } from './styles';
 
-const POSTS_PER_PAGE = 9;
-
 const HomePage = ({ state }) => {
-  const [isFetching, setIsFetching] = useState(false);
   const { link } = state.router;
-
   const { categories } = state.source.data['all-categories/'];
   const { stickyPosts } = state.source.data['sticky-posts/'];
+  const [page, setPage] = useState(1);
 
   const mainCategories = categories.filter(
     (cat) => cat.slug !== 'uncategorized'
@@ -39,69 +35,21 @@ const HomePage = ({ state }) => {
       ? stickyPosts.slice(0, 3)
       : stickyPosts;
 
-  const data = state.source.get(state.router.link);
-  const initialPosts = uniqBy([...featuredPosts, ...data.items], 'id');
-
-  const mainPosts = initialPosts.splice(0, 1);
-  const subPosts = initialPosts.splice(0, 2);
-  const [posts, setPosts] = useState({
-    [state.router.link]: initialPosts.map(({ id, type }) => ({ id, type })),
-  });
-  const { totalPages } = data;
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    let fetchingAllData = true;
-    let lastLoadedPage = 1;
-    const loadedPosts = [];
-    while (fetchingAllData) {
-      const getLink =
-        link[1] === '?'
-          ? `page/${lastLoadedPage + 1}${link}`
-          : `${link}page/${lastLoadedPage + 1}`;
-      const pageData = state.source.get(getLink);
-      if (pageData && pageData.items) {
-        lastLoadedPage++;
-        loadedPosts.push(...pageData.items);
-      } else {
-        fetchingAllData = false;
-      }
+  const { items, totalPages } = state.source.get(state.router.link);
+  const allPosts = Array.from(Array(page).keys()).reduce((arr, pageNum) => {
+    if (pageNum > 0) {
+      return [
+        ...arr,
+        ...state.source.get(`${state.router.link}page/${pageNum + 1}`).items,
+      ];
     }
-    const finalPosts = [...initialPosts, ...loadedPosts];
-    setPosts({ [link]: finalPosts });
-    setPage(lastLoadedPage);
-  }, [link, setIsFetching, setPosts, setPage]);
 
-  useEffect(() => {
-    if (page && page > 1 && page <= totalPages && isFetching) {
-      const pagesNumber = Math.round(
-        (posts[state.router.link].length + mainPosts.length + subPosts.length) /
-          POSTS_PER_PAGE
-      );
-      if (pagesNumber < page) {
-        for (let i = page - 1; i < page; i++) {
-          const nextPage = i + 1;
-          const getLink =
-            link[1] === '?'
-              ? `page/${nextPage}${link}`
-              : `${link}page/${nextPage}`;
-          const nextData = state.source.get(getLink);
-          const accPosts = posts[state.router.link].concat([]);
-          if (nextData && nextData.items) {
-            accPosts.push(
-              ...nextData.items.map(({ id, type }) => ({ id, type }))
-            );
-            const newPosts = { ...posts };
-            newPosts[link] = accPosts;
-            setPosts(newPosts);
-            setIsFetching(false);
-          }
-        }
-      } else {
-        setIsFetching(false);
-      }
-    }
-  }, [page, state, totalPages, posts, setIsFetching, isFetching]);
+    return arr;
+  }, items);
+  const initialPosts = uniqBy([...featuredPosts, ...allPosts], 'id');
+  const mainPosts = initialPosts.slice(0, 1);
+  const subPosts = initialPosts.slice(0, 2);
+  const posts = initialPosts.slice(3);
 
   return (
     <Wrapper>
@@ -152,7 +100,7 @@ const HomePage = ({ state }) => {
           z-index: 1;
         `}
       >
-        {subPosts.map((post) => (
+        {subPosts?.map((post) => (
           <Column
             key={post.id}
             width={[1, 1 / 2]}
@@ -169,7 +117,7 @@ const HomePage = ({ state }) => {
         <Column>
           <LatestTitle>Latest articles</LatestTitle>
         </Column>
-        {posts[state.router.link].map((post) => (
+        {posts?.map((post) => (
           <Column
             key={post.id}
             width={[1, 1 / 2, 1 / 3]}
@@ -185,11 +133,10 @@ const HomePage = ({ state }) => {
             <Column width={[1 / 12, 1 / 3]} />
             <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
               <LoadMore
-                isFetching={isFetching}
-                setIsFetching={setIsFetching}
                 setPage={setPage}
                 page={page}
                 limit={totalPages}
+                link={link}
               />
             </LoadMoreWrapper>
           </Row>

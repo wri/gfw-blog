@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css, decode } from 'frontity';
 import { Row, Column, theme } from 'gfw-components';
@@ -17,24 +17,20 @@ import {
   CategoryDescription,
 } from './styles';
 
-const POSTS_PER_PAGE = 9;
-
 const ArchivePage = ({ state }) => {
-  const [isFetching, setIsFetching] = useState(false);
-  const { link } = state.router;
-
-  const data = state.source.get(state.router.link);
-  const initialPosts = data.items;
-
-  const [posts, setPosts] = useState({
-    [state.router.link]:
-      initialPosts && initialPosts.map(({ id, type }) => ({ id, type })),
-  });
-
-  const { totalPages } = data;
   const [page, setPage] = useState(1);
+  const { link } = state.router;
+  const data = state.source.get(link);
+  const { totalPages, items } = data;
 
-  const listPosts = posts[state.router.link];
+  const listPosts = Array.from(Array(page).keys()).reduce((arr, pageNum) => {
+    if (pageNum > 0) {
+      return [...arr, ...state.source.get(`${link}page/${pageNum + 1}`).items];
+    }
+
+    return arr;
+  }, items);
+
   const isSearchEmpty = data.link === '/?s=';
   const isSearch = isSearchEmpty || data.isSearch;
   const { isCategory, isTag, isAuthor, total, searchQuery } = data;
@@ -83,59 +79,6 @@ const ArchivePage = ({ state }) => {
   const allTaxOptions = taxFromList
     ? taxOptions
     : [{ ...taxSelected, count: total }, ...taxOptions];
-
-  useEffect(() => {
-    let fetchingAllData = true;
-    let lastLoadedPage = 1;
-    const loadedPosts = [];
-    while (fetchingAllData) {
-      const getLink =
-        link[1] === '?'
-          ? `page/${lastLoadedPage + 1}${link}`
-          : `${link}page/${lastLoadedPage + 1}`;
-      const pageData = state.source.get(getLink);
-      if (pageData && pageData.items) {
-        lastLoadedPage++;
-        loadedPosts.push(...pageData.items);
-      } else {
-        fetchingAllData = false;
-      }
-    }
-    const finalPosts = [...initialPosts, ...loadedPosts];
-    setPosts({ [link]: finalPosts });
-    setPage(lastLoadedPage);
-  }, [link, setIsFetching, setPosts, setPage]);
-
-  useEffect(() => {
-    if (page && page > 1 && page <= totalPages && isFetching) {
-      const pagesNumber = Math.round(
-        posts[state.router.link].length / POSTS_PER_PAGE
-      );
-      if (pagesNumber < page) {
-        for (let i = page - 1; i < page; i++) {
-          const nextPage = i + 1;
-          const getLink =
-            link[1] === '?'
-              ? `page/${nextPage}${link}`
-              : `${link}page/${nextPage}`;
-          const nextData = state.source.get(getLink);
-          const accPosts = posts[state.router.link].concat([]);
-          if (nextData && nextData.items) {
-            accPosts.push(
-              ...(nextData &&
-                nextData.items.map(({ id, type }) => ({ id, type })))
-            );
-            const newPosts = { ...posts };
-            newPosts[link] = accPosts;
-            setPosts(newPosts);
-            setIsFetching(false);
-          }
-        }
-      } else {
-        setIsFetching(false);
-      }
-    }
-  }, [page, state, totalPages, posts, setIsFetching, isFetching]);
 
   return (
     <Wrapper>
@@ -229,11 +172,10 @@ const ArchivePage = ({ state }) => {
             <Column width={[1 / 12, 1 / 3]} />
             <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
               <LoadMore
-                isFetching={isFetching}
-                setIsFetching={setIsFetching}
                 setPage={setPage}
                 page={page}
                 limit={totalPages}
+                link={link}
               />
             </LoadMoreWrapper>
           </Row>

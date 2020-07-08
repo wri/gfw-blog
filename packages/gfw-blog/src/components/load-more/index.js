@@ -1,46 +1,36 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
 
-const LoadMore = ({
-  actions,
-  state,
-  setPage,
-  page,
-  limit,
-  isFetching,
-  setIsFetching,
-}) => {
+const LoadMore = ({ actions, page, link, limit, setPage }) => {
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (page && page > 1) {
-      const fetchLink =
-        state.router.link[1] === '?'
-          ? `page/${page}${state.router.link}`
-          : `${state.router.link}page/${page}`;
-      const res = actions.source.fetch(fetchLink);
-      res.then(() => {
-        setIsFetching(true);
-      });
-    }
-  }, [page, setIsFetching]);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    if (!isFetching) {
-      setIsLoading(false);
-    }
-  }, [isFetching]);
-
-  const loadHandler = useCallback(() => {
+  const handleLoadMore = async () => {
     setIsLoading(true);
-    setPage(page + 1);
-    actions.googleAnalytics.sendEvent({
-      category: 'GFW Blog',
-      label: 'User clicks on more articles button',
-      action: 'Load more articles',
-    });
-  }, [page, setPage, setIsLoading]);
+
+    try {
+      actions.googleAnalytics.event({
+        payload: {
+          category: 'GFW Blog',
+          label: 'User clicks on more articles button',
+        },
+        name: 'Load more articles',
+      });
+      await actions.source.fetch(`${link}page/${page + 1}`);
+      setPage(page + 1);
+    } catch (err) {
+      setIsLoading(false);
+      setError(true);
+    }
+
+    setIsLoading(false);
+  };
+
+  if (error) {
+    return 'We are having trouble getting more posts. Please try again later.';
+  }
 
   if (limit <= page && !isLoading) {
     return null;
@@ -55,7 +45,7 @@ const LoadMore = ({
       )}
       {!isLoading && (
         <Button
-          onClick={loadHandler}
+          onClick={handleLoadMore}
           css={css`
             width: 100%;
           `}
@@ -71,12 +61,10 @@ export default connect(LoadMore);
 
 LoadMore.propTypes = {
   actions: PropTypes.object,
-  state: PropTypes.object,
-  setPage: PropTypes.func,
-  setIsFetching: PropTypes.func,
   page: PropTypes.number,
   limit: PropTypes.number,
-  isFetching: PropTypes.bool,
+  link: PropTypes.string,
+  setPage: PropTypes.func,
 };
 
 const Wrapper = styled.div`

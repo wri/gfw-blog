@@ -21,7 +21,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
     >
       <Button
         onClick={() =>
-          actions.googleAnalytics.sendEvent({
+          actions.googleAnalytics.event({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Twitter',
@@ -48,7 +48,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
     >
       <Button
         onClick={() =>
-          actions.googleAnalytics.sendEvent({
+          actions.googleAnalytics.event({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Facebook',
