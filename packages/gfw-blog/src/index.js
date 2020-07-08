@@ -199,7 +199,6 @@ const categoryOrPostHandler = {
 
         const currentPageData = state.source.data[route];
 
-        // eslint-disable-next-line camelcase
         const { action_data: actionData } =
           checkRedirection?.data?.items?.[0] || {};
         const redirection = actionData?.url;

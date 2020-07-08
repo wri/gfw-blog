@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css, connect } from 'frontity';
-import { Button, TwitterIcon, FacebookIcon } from 'gfw-components';
-import theme from '../../../app/theme';
+import { Button, TwitterIcon, FacebookIcon, theme } from 'gfw-components';
 
 import NewsletterIcon from '../../../assets/icons/envelope.svg';
 import ChatIcon from '../../../assets/icons/comment.svg';

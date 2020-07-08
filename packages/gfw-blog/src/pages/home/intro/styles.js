@@ -1,6 +1,5 @@
 import { styled } from 'frontity';
-
-import theme from '../../../app/theme';
+import { theme } from 'gfw-components';
 
 export const Title = styled.h1`
   font-size: 30px;

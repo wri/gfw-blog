@@ -1,5 +1,5 @@
 import { styled } from 'frontity';
-import theme from '../../app/theme';
+import { theme } from 'gfw-components';
 
 export const Wrapper = styled.div`
   display: flex;

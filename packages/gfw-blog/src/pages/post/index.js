@@ -54,13 +54,11 @@ const Post = ({ state, libraries, actions }) => {
     ? post.tags
     : post.tags.map((id) => state.source.tag[id]);
 
-  // eslint-disable-next-line camelcase
   const guestAuthors = post?.acf?.guest_authors;
   const authors =
     guestAuthors?.length &&
     guestAuthors?.map((author) => ({
       name: author.post_title,
-      // eslint-disable-next-line camelcase
       link: author?.acf?.profile_link,
     }));
 

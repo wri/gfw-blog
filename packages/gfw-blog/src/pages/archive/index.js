@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css, decode } from 'frontity';
-import { Row, Column } from 'gfw-components';
-
-import theme from '../../app/theme';
+import { Row, Column, theme } from 'gfw-components';
 
 import Card from '../../components/card';
 import LoadMore from '../../components/load-more';

@@ -1,6 +1,5 @@
 import { styled } from 'frontity';
-import { ArrowIcon as ArrowIconComponent } from 'gfw-components';
-import theme from '../../app/theme';
+import { ArrowIcon as ArrowIconComponent, theme } from 'gfw-components';
 
 export const Wrapper = styled.div`
   height: 60px;

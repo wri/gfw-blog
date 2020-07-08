@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled, connect } from 'frontity';
-import { Row, Column } from 'gfw-components';
+import { Row, Column, theme } from 'gfw-components';
 
-import theme from '../../app/theme';
 import treeErrorIcon from '../../assets/icons/error.svg';
 
 const Page404 = ({ state }) => {

@@ -1,5 +1,5 @@
 import { styled } from 'frontity';
-import theme from '../../../../app/theme';
+import { theme } from 'gfw-components';
 
 export const CommentTitle = styled.h5`
   font-size: 18px;

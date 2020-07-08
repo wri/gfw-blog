@@ -1,15 +1,14 @@
 {
-  "name": "gfw-blog-test",
+  "name": "@gfw/blog",
   "version": "1.0.0",
-  "private": true,
-  "description": "Frontity project",
+  "description": "Global Forest Watch Blog",
   "keywords": [
-    "frontity"
+    "gfw"
   ],
   "scripts": {
     "dev": "frontity dev",
     "build": "frontity build",
-    "serve": "node frontity-serve.js"
+    "serve": "frontity serve"
   },
   "husky": {
     "hooks": {
@@ -24,18 +23,18 @@
     ]
   },
   "dependencies": {
-    "@frontity/core": "^1.6.1",
-    "@frontity/google-analytics": "^1.0.0",
-    "@frontity/html2react": "^1.3.3",
-    "@frontity/tiny-router": "^1.2.0",
-    "@frontity/wp-source": "^1.7.1",
+    "@frontity/core": "^1.7.2",
+    "@frontity/google-analytics": "^1.2.0",
+    "@frontity/html2react": "^1.3.4",
+    "@frontity/tiny-router": "^1.2.1",
+    "@frontity/wp-source": "^1.8.0",
     "@gfw/blog-theme": "./packages/gfw-blog",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
     "emotion-rgba": "^0.0.8",
-    "frontity": "^1.7.0",
+    "frontity": "^1.10.0",
     "gfw-components": "^1.2.9",
     "html-react-parser": "^0.13.0",
     "husky": "^4.2.3",

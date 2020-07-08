@@ -1,6 +1,5 @@
 import { styled } from 'frontity';
-import { Row, Column } from 'gfw-components';
-import theme from '../../app/theme';
+import { Row, Column, theme } from 'gfw-components';
 import SearchComponent from '../../components/search';
 
 export const PostContainer = styled.div`

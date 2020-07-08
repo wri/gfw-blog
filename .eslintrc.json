@@ -49,6 +49,7 @@
     "no-restricted-globals": "off",
     "react/sort-comp": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "camelcase": "off"
   }
 }

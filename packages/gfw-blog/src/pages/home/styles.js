@@ -1,7 +1,6 @@
 import { styled } from 'frontity';
-import { Row } from 'gfw-components';
+import { Row, theme } from 'gfw-components';
 
-import theme from '../../app/theme';
 import Search from '../../components/search';
 
 export const Wrapper = styled.div`

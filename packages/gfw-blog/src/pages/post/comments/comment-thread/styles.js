@@ -1,6 +1,5 @@
 import { styled } from 'frontity';
-import { Row } from 'gfw-components';
-import theme from '../../../../app/theme';
+import { Row, theme } from 'gfw-components';
 
 export const CommentThreadWrapper = styled(Row)`
   position: relative;

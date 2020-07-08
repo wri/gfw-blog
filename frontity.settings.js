@@ -13,17 +13,7 @@ const settings = {
     },
   },
   packages: [
-    {
-      name: '@gfw/blog-theme',
-      state: {
-        theme: {
-          featured: {
-            showOnList: true,
-            showOnPost: true,
-          },
-        },
-      },
-    },
+    { name: '@gfw/blog-theme' },
     {
       name: '@frontity/wp-source',
       state: {
@@ -32,6 +22,7 @@ const settings = {
           params: {
             per_page: 9,
             type: ['post'],
+            lang: 'en',
           },
           categoryBase: 'category',
           tagBase: 'tag',

@@ -2,10 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect, css } from 'frontity';
-import { Row, Column } from 'gfw-components';
+import { Row, Column, theme } from 'gfw-components';
 import uniqBy from 'lodash/uniqBy';
 
-import theme from '../../app/theme';
 import BlogHeader from './intro';
 import CategoryList from '../../components/category-list';
 import Featured from '../../components/featured';
@@ -35,7 +34,10 @@ const HomePage = ({ state }) => {
     (cat) => cat.slug !== 'uncategorized'
   );
 
-  const featuredPosts = stickyPosts && stickyPosts.length > 3 ? stickyPosts.slice(0, 3) : stickyPosts;
+  const featuredPosts =
+    stickyPosts && stickyPosts.length > 3
+      ? stickyPosts.slice(0, 3)
+      : stickyPosts;
 
   const data = state.source.get(state.router.link);
   const initialPosts = uniqBy([...featuredPosts, ...data.items], 'id');

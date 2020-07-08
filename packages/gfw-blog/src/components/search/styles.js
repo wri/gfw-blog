@@ -1,7 +1,5 @@
 import { styled } from 'frontity';
-import { BasicInput } from 'gfw-components';
-
-import theme from '../../app/theme';
+import { BasicInput, theme } from 'gfw-components';
 
 export const Wrapper = styled.div`
   height: 60px;
@@ -77,7 +75,8 @@ export const Input = styled(BasicInput)`
   }
 
   ${({ value, expanded }) =>
-    value && expanded &&
+    value &&
+    expanded &&
     `
     padding: 0 !important;
   `}
