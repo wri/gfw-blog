@@ -7,10 +7,6 @@ export const PostContainer = styled.div`
   width: 100%;
   overflow: hidden;
   min-height: 500px;
-
-  ${theme.mediaQueries.small} {
-    padding-top: 40px;
-  }
 `;
 
 export const BreadCrumbsWrapper = styled(Column)`
