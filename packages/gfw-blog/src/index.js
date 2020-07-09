@@ -56,6 +56,13 @@ const marsTheme = {
      * relevant state. It is scoped to the `theme` namespace.
      */
     theme: {
+      title: 'Global Forest Watch Blog',
+      description:
+        'Stay atop the latest forest research and news! The Global Forest Watch blog uses data to illuminate the state of forests worldwide and tells the stories of people dedicated to protecting them. Read about rainforests, deforestation, fires, sustainable agriculture, forest management and other topics critical to the future of forests.',
+      metaTitle:
+        'Forest News, Research & Monitoring | Global Forest Watch Blog',
+      metaDescription:
+        'Read about data-backed topics critical to the future of forests, including rainforests, deforestation, fires, sustainable agriculture, forest monitoring and management.',
       isContactUsOpen: false,
       featured: {
         showOnList: false,

@@ -7,9 +7,9 @@ import { Title, Description } from './styles';
 const Intro = ({ state }) => {
   return (
     <>
-      <Title>Global Forest Watch Blog</Title>
+      <Title>{state.theme.title}</Title>
       <Description>
-        <b>{state.frontity.description}</b>
+        <b>{state.theme.description}</b>
       </Description>
     </>
   );

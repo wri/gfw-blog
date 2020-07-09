@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 const AppHead = ({ state, redirecting }) => {
   const data = state.source.get(state.router.link);
-  const { lang } = state.theme;
+  const { lang, metaTitle, metaDescription } = state.theme;
 
   const htmlLang = lang?.split('_')?.[0];
 
@@ -16,8 +16,7 @@ const AppHead = ({ state, redirecting }) => {
   const { yoast_head: yoastHead, translations_posts: translations } = pageData;
 
   // get default meta data from state
-  const { title: frontityTitle } = state.frontity;
-  let title = frontityTitle;
+  let title = metaTitle;
 
   // get search
   const {
@@ -48,7 +47,7 @@ const AppHead = ({ state, redirecting }) => {
   return (
     <Head>
       <title>{title}</title>
-      <meta name="description" content={state.frontity.description} />
+      <meta name="description" content={metaDescription} />
       <link
         href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
         rel="stylesheet"
