@@ -49,7 +49,7 @@ const Search = ({
     }
   };
 
-  const filteredMeta = allMeta.filter((meta) =>
+  const filteredMeta = allMeta?.filter((meta) =>
     deburrUpper(meta.name).includes(deburrUpper(search))
   ) || [{ name: search, link: `/?s=${search}` }];
 
