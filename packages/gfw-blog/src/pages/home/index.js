@@ -36,7 +36,7 @@ const HomePage = ({ state }) => {
       : stickyPosts;
 
   const { items, totalPages } = state.source.get(state.router.link);
-  const allPosts = Array.from(Array(page).keys()).reduce((arr, pageNum) => {
+  const postsByPage = Array.from(Array(page).keys()).reduce((arr, pageNum) => {
     if (pageNum > 0) {
       return [
         ...arr,
@@ -46,9 +46,10 @@ const HomePage = ({ state }) => {
 
     return arr;
   }, items);
-  const initialPosts = uniqBy([...featuredPosts, ...allPosts], 'id');
+
+  const initialPosts = uniqBy([...featuredPosts, ...postsByPage], 'id');
   const mainPosts = initialPosts.slice(0, 1);
-  const subPosts = initialPosts.slice(0, 2);
+  const subPosts = initialPosts.slice(1, 3);
   const posts = initialPosts.slice(3);
 
   return (

@@ -24,7 +24,7 @@ export const stickyPostsHandler = {
       endpoint: 'posts',
       params: {
         sticky: true,
-        'filter[lang]': 'en',
+        lang: 'en',
       },
     });
 
@@ -123,7 +123,7 @@ export const categoryOrPostHandler = {
       await category.func({
         link,
         route,
-        params: { ...params, 'filter[lang]': 'en' },
+        params: { ...params, lang: 'en' },
         state,
         libraries,
       });
