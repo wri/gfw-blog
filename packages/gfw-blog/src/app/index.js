@@ -14,7 +14,6 @@ import {
 } from 'gfw-components';
 
 import Head from './head';
-import Scripts from './scripts';
 
 import { getAPILangCode } from '../helpers/lang';
 
@@ -68,7 +67,6 @@ const Theme = ({ state, actions }) => {
   return (
     <>
       <Head redirecting={!!data.redirection || !!redirectionPost} />
-      <Scripts />
       <GlobalStyles />
       <HeaderWrapper>
         <Header
