@@ -41,7 +41,7 @@
     "html-react-parser": "^0.13.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
