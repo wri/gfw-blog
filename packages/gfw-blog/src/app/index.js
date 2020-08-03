@@ -167,6 +167,7 @@ const CookiesBannerWrapper = styled.div`
   position: fixed;
   z-index: 999999;
   bottom: 0;
+  width: 100%;
 `;
 
 const Overlay = styled.div`
