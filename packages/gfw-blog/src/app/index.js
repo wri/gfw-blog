@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect, styled } from 'frontity';
 import PropTypes from 'prop-types';
 import { rgba } from 'emotion-rgba';
+import TwitterConvTrkr from 'react-twitter-conversion-tracker';
 
 import Switch from '@frontity/components/switch';
 
@@ -13,6 +14,7 @@ import {
   theme,
 } from 'gfw-components';
 
+import ReactPixel from '../helpers/facebook-pixel';
 import Head from './head';
 
 import { getAPILangCode } from '../helpers/lang';
@@ -22,6 +24,20 @@ import Home from '../pages/home';
 import Archive from '../pages/archive';
 import Post from '../pages/post';
 import Error from '../pages/error';
+
+const IS_BROWSER = typeof window !== 'undefined';
+
+export const initAnalytics = () => {
+  if (IS_BROWSER) {
+    ReactPixel.init('895929814105571', null, { debug: true });
+    TwitterConvTrkr.init('o4166');
+  }
+};
+
+export const handlePageTrack = () => {
+  ReactPixel.pageView();
+  TwitterConvTrkr.pageView();
+};
 
 const Theme = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
@@ -50,6 +66,14 @@ const Theme = ({ state, actions }) => {
     const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
     actions.theme.changeLanguage(getAPILangCode(lang));
   }, []);
+
+  useEffect(() => {
+    if (!window.ANALYTICS_INITIALIZED) {
+      initAnalytics();
+      window.ANALYTICS_INITIALIZED = true;
+    }
+    handlePageTrack();
+  }, [data.link]);
 
   const handleLangSelect = (lang) => {
     actions.theme.changeLanguage(getAPILangCode(lang));
