@@ -22,10 +22,13 @@ const ArchivePage = ({ state }) => {
   const { link } = state.router;
   const data = state.source.get(link);
   const { totalPages, items } = data;
-
   const listPosts = Array.from(Array(page).keys()).reduce((arr, pageNum) => {
     if (pageNum > 0) {
-      return [...arr, ...state.source.get(`${link}page/${pageNum + 1}`).items];
+      const pageLink = data.isSearch
+        ? `/page/${pageNum + 1}${data.link}`
+        : `${link}page/${pageNum + 1}`;
+      const { items: newPosts } = state.source.get(pageLink) || {};
+      return newPosts ? [...arr, ...newPosts] : arr;
     }
 
     return arr;
@@ -176,6 +179,7 @@ const ArchivePage = ({ state }) => {
                 page={page}
                 limit={totalPages}
                 link={link}
+                isSearch={data.isSearch}
               />
             </LoadMoreWrapper>
           </Row>
