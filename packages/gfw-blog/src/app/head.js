@@ -27,20 +27,20 @@ const AppHead = ({ state, redirecting }) => {
   if (!yoastHead) {
     if (data.isTaxonomy) {
       const { name } = state.source[data.taxonomy][data.id];
-      title = `${decode(name)} | ${state.frontity.title}`;
+      title = `${decode(name)} | ${state.theme.title}`;
     } else if (data.isAuthor) {
       const { name } = state.source.author[data.id];
-      title = `${decode(name)} | ${state.frontity.title}`;
+      title = `${decode(name)} | ${state.theme.title}`;
     } else if (data.isPostType) {
       const postTitle = state.source[data.type][data.id].title.rendered;
       const cleanTitle = decode(postTitle);
-      title = `${cleanTitle} | ${state.frontity.title}`;
+      title = `${cleanTitle} | ${state.theme.title}`;
     } else if (redirecting) {
       title = 'Redirecting...';
     } else if (data.is404) {
-      title = `404 Not Found | ${state.frontity.title}`;
+      title = `404 Not Found | ${state.theme.title}`;
     } else if (searchQuery) {
-      title = `Search: ${decodeURI(searchQuery)} | ${state.frontity.title}`;
+      title = `Search: ${decodeURI(searchQuery)} | ${state.theme.title}`;
     }
   }
 

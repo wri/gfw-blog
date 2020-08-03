@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect, styled, css } from 'frontity';
 import { Button, Loader } from 'gfw-components';
 
-const LoadMore = ({ actions, page, link, limit, setPage }) => {
+const LoadMore = ({ actions, page, link, limit, setPage, isSearch }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -18,7 +18,9 @@ const LoadMore = ({ actions, page, link, limit, setPage }) => {
         },
         name: 'Load more articles',
       });
-      await actions.source.fetch(`${link}page/${page + 1}`);
+      await actions.source.fetch(
+        isSearch ? `/page/${page + 1}${link}` : `${link}page/${page + 1}`
+      );
       setPage(page + 1);
     } catch (err) {
       setIsLoading(false);
@@ -65,6 +67,7 @@ LoadMore.propTypes = {
   limit: PropTypes.number,
   link: PropTypes.string,
   setPage: PropTypes.func,
+  isSearch: PropTypes.bool,
 };
 
 const Wrapper = styled.div`
