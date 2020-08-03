@@ -12,6 +12,7 @@ import {
   ContactUsModal,
   GlobalStyles,
   theme,
+  CookiesBanner,
 } from 'gfw-components';
 
 import ReactPixel from '../helpers/facebook-pixel';
@@ -29,7 +30,7 @@ const IS_BROWSER = typeof window !== 'undefined';
 
 export const initAnalytics = () => {
   if (IS_BROWSER) {
-    ReactPixel.init('895929814105571', null, { debug: true });
+    ReactPixel.init('895929814105571');
     TwitterConvTrkr.init('o4166');
   }
 };
@@ -124,6 +125,9 @@ const Theme = ({ state, actions }) => {
       <FooterWrapper>
         <Footer openContactUsModal={actions.theme.toggleContactUsModal} />
       </FooterWrapper>
+      <CookiesBannerWrapper>
+        <CookiesBanner />
+      </CookiesBannerWrapper>
       <ContactUsModal
         open={state.theme.isContactUsOpen}
         onRequestClose={actions.theme.toggleContactUsModal}
@@ -157,6 +161,12 @@ const Main = styled.div`
 const FooterWrapper = styled.div`
   position: relative;
   z-index: 1;
+`;
+
+const CookiesBannerWrapper = styled.div`
+  position: fixed;
+  z-index: 999999;
+  bottom: 0;
 `;
 
 const Overlay = styled.div`
