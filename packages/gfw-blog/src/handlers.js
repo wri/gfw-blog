@@ -123,7 +123,7 @@ export const categoryOrPostHandler = {
       await category.func({
         link,
         route,
-        params: { ...params, lang: 'en' },
+        params: { ...params, 'filter[lang]': 'en' },
         state,
         libraries,
       });
@@ -216,7 +216,7 @@ export const postsHandler = {
               ...state.source,
               params: {
                 ...state.source.params,
-                lang: 'en',
+                'filter[lang]': 'en',
               },
             },
           }
