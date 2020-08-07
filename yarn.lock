@@ -1056,10 +1056,10 @@
   dependencies:
     "@frontity/error" "^0.1.1"
 
-"@frontity/core@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@frontity/core/-/core-1.7.2.tgz#5069c11906b55d92600a31a8f491248d9c1d0986"
-  integrity sha512-S29Y/ya9H5ALacLXZUbyslNhd+VdzUfwr209eJn6eY/mps98/T33YohD077hSNEy/ma3nFiEEASJ32Pm6nsCHg==
+"@frontity/core@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@frontity/core/-/core-1.7.3.tgz#92fe84c02fbcc59611d16db06f93cd08b52f67ad"
+  integrity sha512-JSJmC0Vbai3xokq17OYcU27NuflhnCEsiLHSzBwLB2Wql/Bp4XuSIlx9HRUu5ZSzDkuPtU6b7S2AHazdFz3sEg==
   dependencies:
     "@babel/core" "^7.3.4"
     "@babel/plugin-proposal-class-properties" "^7.3.4"
@@ -1197,13 +1197,13 @@
     "@types/koa" "^2.11.2"
     ts-essentials "^6.0.0"
 
-"@frontity/wp-source@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@frontity/wp-source/-/wp-source-1.8.0.tgz#26de7e248568b0634aad572947a0dceccaeec706"
-  integrity sha512-Hwx7Jl6dBmzV66w2VIJCQP5VsPbedFAK8VCrAE+c1NmSXSa/rht3J5VXku2c9HLlAy1OY79uzXGc5imIJD5Z/Q==
+"@frontity/wp-source@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@frontity/wp-source/-/wp-source-1.8.1.tgz#9ffb41786d68db5288796d900c26b56409e95d4a"
+  integrity sha512-kio+fSiGFPISrduT6loAUoFC9IguH/DKnb8/LPZClgujK2gS3pCskGpuIYuIzBr87UwqAVQu6PqrjYlRravI0Q==
   dependencies:
     "@frontity/source" "^1.2.2"
-    frontity "^1.9.0"
+    frontity "^1.10.1"
     normalizr "^3.3.0"
     path-to-regexp "^3.0.0"
     query-string "^6.8.3"
@@ -3944,6 +3944,37 @@ frontity@^1.10.0, frontity@^1.9.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/frontity/-/frontity-1.10.0.tgz#64beeddba7f4102c880c475bd148ff872848b0cf"
   integrity sha512-rbjcVqBwJjfkaOc/UcrIehvWrcbdsqlDVm2UIYrmY5CNRe6UH7/WHuyeARmhfN81VVmW5xDXAN9Mo2QbfrCK7Q==
+  dependencies:
+    "@emotion/core" "^10.0.22"
+    "@emotion/styled" "^10.0.22"
+    "@frontity/error" "^0.1.1"
+    "@frontity/type-declarations" "^1.1.0"
+    "@frontity/types" "^1.4.2"
+    "@loadable/component" "^5.10.1"
+    chalk "^2.4.2"
+    clipboardy "^2.1.0"
+    commander "^2.20.0"
+    detect-port-alt "^1.1.6"
+    didyoumean "^1.2.1"
+    envinfo "^7.3.1"
+    fs-extra "^7.0.1"
+    get-value "^3.0.1"
+    he "^1.2.0"
+    inquirer "^6.3.1"
+    is-root "^2.1.0"
+    node-fetch "^2.6.0"
+    ora "^3.4.0"
+    ramda "^0.26.1"
+    react-helmet-async "1.0.4"
+    simple-entity-decode "^0.0.3"
+    tar "^4.4.8"
+    typed-emitter "^0.2.0"
+    typescript "3.8.3"
+
+frontity@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/frontity/-/frontity-1.10.1.tgz#d9fff0a9907bc049dd847e752e5a3539a98e631a"
+  integrity sha512-3JNRkWl7tiQO2ZQWiW6TcUoOgtL5JaKXZOW8zMk0bfGK0CcLbi84EdS75gBnr8/IGUqnISIfspO6BzTnw++2Og==
   dependencies:
     "@emotion/core" "^10.0.22"
     "@emotion/styled" "^10.0.22"

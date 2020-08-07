@@ -120,11 +120,22 @@ export const categoryOrPostHandler = {
       const category = libraries.source.handlers.find(
         (handler) => handler.name === 'category'
       );
+      const stateWithParams = {
+        ...state,
+        source: {
+          ...state.source,
+          params: {
+            ...state.source.params,
+            lang: 'en',
+          },
+        },
+      };
+
       await category.func({
         link,
         route,
-        params: { ...params, 'filter[lang]': 'en' },
-        state,
+        params,
+        state: stateWithParams,
         libraries,
       });
     } catch (e) {
@@ -216,7 +227,7 @@ export const postsHandler = {
               ...state.source,
               params: {
                 ...state.source.params,
-                'filter[lang]': 'en',
+                lang: 'en',
               },
             },
           }
