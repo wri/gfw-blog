@@ -21,7 +21,7 @@ export const fetchPostTypeData = async ({
       cancelToken,
       ...(authToken && {
         headers: {
-          Authorization: `Bearer ${authToken}`,
+          Authorization: `Basic ${authToken}`,
         },
       }),
     }

@@ -15,6 +15,10 @@ const MAIN_CATEGORIES = [
   'uncategorized',
 ];
 
+const userPassword = btoa(
+  `${process.env.NEXT_PUBLIC_AUTH_USER}:${process.env.NEXT_PUBLIC_AUTH_TOKEN}`
+);
+
 export const stickyPostsHandler = {
   priority: 10,
   pattern: 'sticky-posts',
@@ -156,10 +160,6 @@ export const categoryOrPostHandler = {
           force: true,
         });
       } catch (err) {
-        const userPassword = btoa(
-          `${process.env.NEXT_PUBLIC_AUTH_USER}:${process.env.NEXT_PUBLIC_AUTH_TOKEN}`
-        );
-
         const regexLink = link.replace(/.$/, '');
 
         const checkRedirection = await axios.get(
@@ -195,19 +195,11 @@ export const postsHandler = {
     const { '/?p': postId } = query;
 
     if (postId) {
-      const token = await axios.post(
-        `${process.env.WORDPRESS_API_URL}/wp-json/jwt-auth/v1/token`,
-        {
-          username: process.env.REST_USERNAME,
-          password: process.env.REST_PASSWORD,
-        }
-      );
-
       const [post] = await fetchPostTypeData({
         baseUrl: `${process.env.WORDPRESS_API_URL}/wp-json`,
         type: 'posts',
         id: postId,
-        authToken: token?.data?.token,
+        authToken: userPassword,
       });
 
       const currentPageData = state.source.data[route];
