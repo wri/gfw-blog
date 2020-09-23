@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy';
 import axios from 'axios';
 import { parse } from 'query-string';
+import btoa from 'btoa';
 
 import { fetchPostTypeData } from './helpers/request';
 
@@ -155,12 +156,8 @@ export const categoryOrPostHandler = {
           force: true,
         });
       } catch (err) {
-        const token = await axios.post(
-          `${process.env.WORDPRESS_API_URL}/wp-json/jwt-auth/v1/token`,
-          {
-            username: process.env.REST_USERNAME,
-            password: process.env.REST_PASSWORD,
-          }
+        const userPassword = btoa(
+          `${process.env.NEXT_PUBLIC_AUTH_USER}:${process.env.NEXT_PUBLIC_AUTH_TOKEN}`
         );
 
         const regexLink = link.replace(/.$/, '');
@@ -169,7 +166,7 @@ export const categoryOrPostHandler = {
           `${process.env.WORDPRESS_API_URL}/wp-json/redirection/v1/redirect?filterBy[url]=${regexLink}`,
           {
             headers: {
-              Authorization: `Bearer ${token?.data?.token}`,
+              Authorization: `Basic ${userPassword}`,
             },
           }
         );

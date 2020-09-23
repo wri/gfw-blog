@@ -32,6 +32,7 @@
     "@frontity/wp-source": "^1.8.1",
     "@gfw/blog-theme": "./packages/gfw-blog",
     "axios": "^0.19.2",
+    "btoa": "^1.2.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
