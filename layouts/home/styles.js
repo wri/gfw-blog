@@ -1,72 +1,89 @@
 import styled from '@emotion/styled';
-import { H4, Column, theme } from 'gfw-components';
+import { Column, theme } from 'gfw-components';
 
-import IntroComp from 'components/intro';
+import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 50px 0;
 
   ${theme.mediaQueries.small} {
-    padding: 70px 0;
+    padding: 50px 0;
   }
 `;
 
-export const Intro = styled(IntroComp)`
-  margin-bottom: 20px;
+export const SearchMobile = styled(Search)`
+  display: block;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 30px;
+    display: none;
   }
 `;
 
-export const Prompt = styled.div`
-  position: absolute;
-  z-index: 2;
-  top: 10px;
-  left: 0px;
+export const SearchDesktop = styled(Search)`
+  display: none;
+  margin-top: -28px;
 
   ${theme.mediaQueries.small} {
-    top: -14px;
-    left: -16px;
+    display: block;
+  }
+
+  ${({ open }) =>
+    open &&
+    `
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -28px;
+    max-width: 1120px;
+    padding: 0 16px;
+    margin: 0 auto;
+
+    ${theme.mediaQueries.small} {
+      padding: 0 20px;
+    }
+  `}
+`;
+
+export const FeatureWrapper = styled.div`
+  max-width: 1120px;
+  margin: auto;
+
+  ${theme.mediaQueries.small} {
+    padding: 0 20px;
   }
 `;
 
-export const Tag = styled.p`
-  padding: 6px 12px;
-  background-color: ${theme.colors.green};
-  color: ${theme.colors.white};
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 12px;
-  text-transform: uppercase;
-`;
-
-export const Arrow = styled.div`
-  margin: 5px 10px;
-`;
-
-export const ToolsTitle = styled(H4)`
-  margin-bottom: 20px;
+export const Divider = styled.div`
+  border-top: 1px solid ${theme.colors.lightGrey};
+  margin-top: 20px;
+  margin-bottom: 60px;
+  display: none;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 50px;
+    display: block;
   }
 `;
 
-export const ToolCardsWrapper = styled(Column)`
-  position: relative;
-  margin-bottom: 30px;
-
-  ${theme.mediaQueries.small} {
-    margin-bottom: 40px;
-  }
-`;
-
-export const SearchWrapper = styled(Column)`
+export const LatestTitle = styled.h2`
+  font-size: 18px;
+  color: ${theme.colors.darkestGrey};
   margin-bottom: 50px;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: none;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 100px;
+    display: block;
+  }
+`;
+
+export const LoadMoreWrapper = styled(Column)`
+  margin: 20px 0 50px !important;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  ${theme.mediaQueries.small} {
+    margin-top: 60px !important;
   }
 `;

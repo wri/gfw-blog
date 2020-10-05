@@ -16,7 +16,6 @@ import {
 import { initAnalytics, handlePageTrack } from 'analytics';
 
 import ErrorPage from 'layouts/error';
-import HelpFooter from 'components/footer';
 import PreviewBanner from 'components/preview-banner';
 
 const renderPage = (isError, statusCode, children, setOpen, preview) => (
@@ -29,9 +28,6 @@ const renderPage = (isError, statusCode, children, setOpen, preview) => (
       <PageWrapper>
         {preview && <PreviewBanner />}
         {children}
-        <HelpFooterWrapper>
-          <HelpFooter openContactUsModal={() => setOpen(true)} />
-        </HelpFooterWrapper>
       </PageWrapper>
     )}
   </>
@@ -128,7 +124,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  padding-top: 56px;
+  padding-top: 76px;
 `;
 
 const LoaderWrapper = styled.div`
@@ -144,9 +140,3 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
 };
-
-const HelpFooterWrapper = styled.div`
-  position: relative;
-  z-index: 1;
-  margin-bottom: 100px;
-`;

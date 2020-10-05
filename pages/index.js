@@ -1,10 +1,20 @@
+import sortBy from 'lodash/sortBy';
 import Head from 'next/head';
 
-import { getPostByType } from 'lib/api';
+import { getPostByType, getPostsByType, getCategories } from 'lib/api';
 
 import HomePage from 'layouts/home';
 
 import Layout from 'layouts/layout';
+
+const MAIN_CATEGORIES = [
+  'data-and-research',
+  'people',
+  'commodities',
+  'fires',
+  'climate',
+  'places-to-watch',
+];
 
 export default function Index(props) {
   return (
@@ -29,24 +39,48 @@ export async function getStaticProps() {
     slug: 'global-forest-watch-blog',
   });
 
-  // const tools = await getPostsByType({
-  //   type: 'tools',
-  //   params: {
-  //     per_page: 100,
-  //     order: 'asc',
-  //     orderby: 'menu_order',
-  //     parent: 0,
-  //   },
-  // });
+  const stickyPosts = await getPostsByType({
+    type: 'posts',
+    params: {
+      per_page: 3,
+      sticky: true,
+    },
+  });
 
-  // const toolsMapped = tools?.map((tool) => ({
-  //   ...convertTool(tool),
-  // }));
+  const stickyPostsIds = stickyPosts?.posts?.map((s) => s.id);
+
+  const posts = await getPostsByType({
+    type: 'posts',
+    params: {
+      per_page: 6,
+      exclude: stickyPostsIds,
+    },
+  });
+
+  const categories = await getCategories({
+    params: {
+      per_page: 100,
+    },
+  });
+
+  const filteredCategories = categories
+    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+    ?.map((c) => ({
+      ...c,
+      link: `/${c.slug}`,
+    }));
+
+  const sortedCategories = sortBy(filteredCategories, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
 
   return {
     props: {
       homepage: homepage || {},
-      // tools: toolsMapped || [],
+      stickyPosts: stickyPosts?.posts || [],
+      posts: posts?.posts || [],
+      totalPages: posts?.totalPages || 1,
+      categories: sortedCategories || [],
     },
     revalidate: 10,
   };

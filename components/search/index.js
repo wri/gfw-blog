@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import compact from 'lodash/compact';
 import deburr from 'lodash/deburr';
 import toUpper from 'lodash/toUpper';
-import sortBy from 'lodash/sortBy';
 import debounce from 'lodash/debounce';
 import { CancelToken } from 'axios';
 import { useRouter } from 'next/router';
@@ -55,7 +53,7 @@ const Search = ({
     }
   };
 
-  const filteredMeta = results.filter((meta) =>
+  const filteredMeta = results?.filter((meta) =>
     deburrUpper(meta.name).includes(deburrUpper(search))
   ) || [{ name: search, link: `/search/${search}/` }];
 
@@ -92,53 +90,15 @@ const Search = ({
     debounce(() => {
       const fetchSearchContent = async () => {
         const source = CancelToken.source();
-        const articlesResponse = await getPostsByType({
-          type: 'articles',
-          params: search
-            ? {
-                search,
-              }
-            : {
-                'filter[meta_key]': 'featured',
-                'filter[meta_value]': 1,
-              },
+        const postsResponse = await getPostsByType({
+          type: 'posts',
+          params: {
+            search,
+          },
           cancelToken: source.token,
         });
 
-        const webinarsResponse = await getPostsByType({
-          type: 'webinars',
-          params: search
-            ? {
-                search,
-              }
-            : {
-                'filter[meta_key]': 'featured',
-                'filter[meta_value]': 1,
-              },
-          cancelToken: source.token,
-        });
-
-        const additionalMaterialsResponse = await getPostsByType({
-          type: 'additional_materials',
-          params: search
-            ? {
-                search,
-              }
-            : {
-                'filter[meta_key]': 'featured',
-                'filter[meta_value]': 1,
-              },
-          cancelToken: source.token,
-        });
-
-        const allResults = sortBy(
-          compact([
-            ...articlesResponse,
-            ...webinarsResponse,
-            ...additionalMaterialsResponse,
-          ]),
-          'acf.order'
-        )?.map((r) => {
+        const allResults = postsResponse?.posts?.map((r) => {
           return {
             ...r,
             name: r.title,
@@ -175,7 +135,7 @@ const Search = ({
                 ref={inputRef}
                 value={search}
                 expanded={expanded}
-                placeholder="Search the GFW Blog"
+                placeholder="Search the GFW Blog (e.g. fires, Brazil, palm oil)"
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={keyDownHandler}
               />

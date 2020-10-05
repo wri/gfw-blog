@@ -5,10 +5,10 @@ import { Title, Description } from './styles';
 
 const Intro = ({ title, description }) => {
   return (
-    <>
+    <div>
       <Title>{title}</Title>
       <Description>{description}</Description>
-    </>
+    </div>
   );
 };
 

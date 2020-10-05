@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
+import ReactHtmlParser from 'react-html-parser';
 
 import { Button } from 'gfw-components';
 
@@ -16,7 +17,15 @@ import {
   PostExcerpt,
 } from './styles';
 
-const Card = ({ title, excerpt, media, categories, large, video, link }) => (
+const Card = ({
+  title,
+  excerpt,
+  featured_media,
+  categories,
+  large,
+  video,
+  link,
+}) => (
   <CardWrapper>
     <a
       href={link}
@@ -32,9 +41,9 @@ const Card = ({ title, excerpt, media, categories, large, video, link }) => (
     >
       &nbsp;
     </a>
-    {!!media && (
+    {!!featured_media && (
       <MediaWrapper large={large}>
-        <Media {...media} />
+        <Media {...featured_media} />
         {video && (
           <Overlay>
             <Button
@@ -60,18 +69,21 @@ const Card = ({ title, excerpt, media, categories, large, video, link }) => (
       />
     )}
     {title && <PostTitle large={large}>{title}</PostTitle>}
-    {excerpt && <PostExcerpt large={large}>{excerpt}</PostExcerpt>}
+    {excerpt && (
+      <PostExcerpt large={large}>{ReactHtmlParser(excerpt)}</PostExcerpt>
+    )}
   </CardWrapper>
 );
 
 Card.propTypes = {
   link: PropTypes.string,
   title: PropTypes.string,
-  excerpt: PropTypes.node,
+  excerpt: PropTypes.string,
   media: PropTypes.object,
   categories: PropTypes.array,
   large: PropTypes.bool,
   video: PropTypes.bool,
+  featured_media: PropTypes.object,
 };
 
 export default Card;
