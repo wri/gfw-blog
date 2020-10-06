@@ -1,3 +1,5 @@
+import { createContext } from 'react';
+
 export const apiLangCodes = {
   en: 'en_US',
   zh: 'zh_CN',
@@ -8,3 +10,8 @@ export const apiLangCodes = {
 };
 
 export const getAPILangCode = (lang) => apiLangCodes[lang];
+
+const LangContext = createContext('en_US');
+
+export const LangProvider = LangContext.Provider;
+export const LangConsumer = LangContext.Consumer;

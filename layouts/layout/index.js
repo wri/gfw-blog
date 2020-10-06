@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'react-html-parser';
 
+import { LangProvider, getAPILangCode } from 'utils/lang';
+
 import {
   GlobalStyles,
   Loader,
@@ -18,7 +20,7 @@ import { initAnalytics, handlePageTrack } from 'analytics';
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
 
-const renderPage = (isError, statusCode, children, setOpen, preview) => (
+const renderPage = (isError, statusCode, children, preview, lang) => (
   <>
     {isError ? (
       <PageWrapper>
@@ -27,7 +29,7 @@ const renderPage = (isError, statusCode, children, setOpen, preview) => (
     ) : (
       <PageWrapper>
         {preview && <PreviewBanner />}
-        {children}
+        <LangProvider value={lang}>{children}</LangProvider>
       </PageWrapper>
     )}
   </>
@@ -43,6 +45,7 @@ export default function Layout({
   post,
 }) {
   const [open, setOpen] = useState(false);
+  const [language, setLanguage] = useState('en');
   const { isFallback, asPath, push } = useRouter();
 
   useEffect(() => {
@@ -53,19 +56,22 @@ export default function Layout({
     handlePageTrack();
   }, [asPath]);
 
-  // useEffect(() => {
-  //   const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
-  // }, []);
+  useEffect(() => {
+    const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
+    setLanguage(getAPILangCode(lang));
+  }, []);
 
   const handleLangSelect = (lang) => {
+    const newLang = getAPILangCode(lang);
     if (post) {
       const translation = post?.translations_posts?.find((p) =>
-        p?.locale?.includes(lang)
+        p?.locale?.includes(newLang)
       );
       if (translation) {
         push(translation.link);
       }
     }
+    setLanguage(newLang);
   };
 
   return (
@@ -124,7 +130,7 @@ export default function Layout({
             <Loader />
           </LoaderWrapper>
         ) : (
-          renderPage(isError, statusCode, children, setOpen, preview)
+          renderPage(isError, statusCode, children, preview, language)
         )}
       </main>
       <Footer openContactUsModal={() => setOpen(true)} />
