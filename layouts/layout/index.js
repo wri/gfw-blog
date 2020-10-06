@@ -40,9 +40,10 @@ export default function Layout({
   statusCode,
   preview,
   noIndex,
+  post,
 }) {
   const [open, setOpen] = useState(false);
-  const { isFallback, asPath } = useRouter();
+  const { isFallback, asPath, push } = useRouter();
 
   useEffect(() => {
     if (!window.ANALYTICS_INITIALIZED) {
@@ -51,6 +52,21 @@ export default function Layout({
     }
     handlePageTrack();
   }, [asPath]);
+
+  // useEffect(() => {
+  //   const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
+  // }, []);
+
+  const handleLangSelect = (lang) => {
+    if (post) {
+      const translation = post?.translations_posts?.find((p) =>
+        p?.locale?.includes(lang)
+      );
+      if (translation) {
+        push(translation.link);
+      }
+    }
+  };
 
   return (
     <>
@@ -99,6 +115,7 @@ export default function Layout({
           relative
           pathname="https://blog.globalforestwatch.org"
           openContactUsModal={() => setOpen(true)}
+          afterLangSelect={handleLangSelect}
         />
       </HeaderWrapper>
       <main>
@@ -139,4 +156,5 @@ Layout.propTypes = {
   statusCode: PropTypes.number,
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
+  post: PropTypes.object,
 };
