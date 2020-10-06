@@ -17,24 +17,10 @@ export async function getStaticProps({ params }) {
   const tags = await getTags();
   const tag = await getTagBySlug({ slug: params.tag });
 
-  const articles = await getPostsByType({
-    type: 'articles',
+  const postsResponse = await getPostsByType({
+    type: 'posts',
     params: {
-      help_tags: tag?.id,
-    },
-  });
-
-  const webinars = await getPostsByType({
-    type: 'webinars',
-    params: {
-      help_tags: tag?.id,
-    },
-  });
-
-  const additionalMaterials = await getPostsByType({
-    type: 'additional_materials',
-    params: {
-      help_tags: tag?.id,
+      tags: tag?.id,
     },
   });
 
@@ -42,9 +28,8 @@ export async function getStaticProps({ params }) {
     props: {
       tag: tag || null,
       tags: tags || [],
-      articles: articles || [],
-      webinars: webinars || [],
-      additionalMaterials: additionalMaterials || [],
+      posts: postsResponse?.posts || [],
+      totalPages: postsResponse?.totalPages || 1,
       metaTags: tag?.yoast_head || '',
       isError: !tag,
     },
