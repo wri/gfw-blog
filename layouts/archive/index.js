@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { Row, Column, theme, Loader, Button } from 'gfw-components';
-import { useRouter } from 'next/router';
 import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
@@ -27,9 +26,8 @@ const SearchPage = ({
   posts: firstPagePosts,
   totalPages,
   totalPosts,
+  searchQuery,
 }) => {
-  const { query } = useRouter();
-  const { query: searchQuery } = query || {};
   const articleText = totalPosts === 1 ? 'article' : 'articles';
 
   const searchStatement =
@@ -64,7 +62,7 @@ const SearchPage = ({
 
   useEffect(() => {
     setPosts(firstPagePosts);
-  }, [tag?.id]);
+  }, [tag?.id, searchQuery]);
 
   useEffect(() => {
     if (page > 1) {
@@ -196,6 +194,7 @@ SearchPage.propTypes = {
   totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
   isSearch: PropTypes.bool,
+  searchQuery: PropTypes.string,
 };
 
 export default SearchPage;

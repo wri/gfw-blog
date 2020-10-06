@@ -22,32 +22,20 @@ export default function Search(props) {
 }
 
 export async function getServerSideProps({ params }) {
-  const articles = await getPostsByType({
-    type: 'articles',
+  const postsResponse = await getPostsByType({
+    type: 'posts',
     params: {
       search: params?.query,
-    },
-  });
-
-  const webinars = await getPostsByType({
-    type: 'webinars',
-    params: {
-      search: params?.query,
-    },
-  });
-
-  const additionalMaterials = await getPostsByType({
-    type: 'additional_materials',
-    params: {
-      search: params?.query,
+      per_page: 9,
     },
   });
 
   return {
     props: {
-      articles: articles || [],
-      webinars: webinars || [],
-      additionalMaterials: additionalMaterials || [],
+      posts: postsResponse?.posts || [],
+      totalPages: postsResponse?.totalPages || 1,
+      totalPosts: postsResponse?.total || 0,
+      searchQuery: params?.query,
     },
   };
 }
