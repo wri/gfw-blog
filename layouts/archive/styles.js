@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Row, theme } from 'gfw-components';
+import { theme, Column } from 'gfw-components';
 
 import Search from '../../components/search';
 
@@ -76,13 +76,17 @@ export const ResultsStatement = styled.p`
   }
 `;
 
-export const LoadMoreWrapper = styled(Row)`
+export const MenuWrapper = styled.div`
+  margin-top: 40px;
+`;
+
+export const LoadMoreWrapper = styled(Column)`
   margin: 20px 0 50px !important;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
   ${theme.mediaQueries.small} {
     margin-top: 60px !important;
   }
-`;
-
-export const MenuWrapper = styled.div`
-  margin-top: 40px;
 `;

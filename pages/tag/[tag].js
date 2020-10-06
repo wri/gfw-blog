@@ -21,6 +21,7 @@ export async function getStaticProps({ params }) {
     type: 'posts',
     params: {
       tags: tag?.id,
+      per_page: 9,
     },
   });
 
@@ -30,6 +31,7 @@ export async function getStaticProps({ params }) {
       tags: tags || [],
       posts: postsResponse?.posts || [],
       totalPages: postsResponse?.totalPages || 1,
+      totalPosts: postsResponse?.total || 0,
       metaTags: tag?.yoast_head || '',
       isError: !tag,
     },
