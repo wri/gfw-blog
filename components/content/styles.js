@@ -380,12 +380,12 @@ export default styled.div`
 
     .slick-prev,
     .slick-next {
-      top: 100px;
+      top: 120px;
       background-color: #333;
       z-index: 5;
 
       ${theme.mediaQueries.small} {
-        top: 220px;
+        top: 223px;
       }
 
       &:hover {
