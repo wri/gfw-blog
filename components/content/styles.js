@@ -144,6 +144,7 @@ export default styled.div`
   figure,
   iframe,
   .imagecenter,
+  blockquote,
   table {
     margin: 0;
     padding: 0;
@@ -170,6 +171,10 @@ export default styled.div`
         min-height: 400px;
       }
     }
+  }
+
+  blockquote {
+    margin-bottom: 40px;
   }
 
   figcaption,
@@ -357,6 +362,7 @@ export default styled.div`
 
     img {
       height: 240px;
+      width: 100%;
 
       ${theme.mediaQueries.small} {
         height: 486px;
@@ -366,6 +372,10 @@ export default styled.div`
     figure {
       margin: 0 auto !important;
       width: 100% !important;
+    }
+
+    li {
+      margin: 0;
     }
 
     .slick-prev,

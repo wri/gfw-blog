@@ -13,7 +13,7 @@ const Media = ({
   alt_text: altText,
 }) => {
   const sourceUrl = url || source_url;
-  const imageSizes = sizes || media_details.sizes;
+  const imageSizes = sizes || media_details?.sizes;
 
   if (!sourceUrl) return null;
 
