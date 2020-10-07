@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme, Column } from 'gfw-components';
 
-import Search from '../../components/search';
+import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;

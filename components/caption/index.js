@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactHtmlParser from 'react-html-parser';
 
 import CaptionWrapper from './styles';
 
-const Caption = ({ libraries, caption, media_details: mediaDetails }) => {
-  const Html2React = libraries.html2react.Component;
+const Caption = ({ caption, media_details: mediaDetails }) => {
   const captionText = caption?.rendered;
   const { credit } = mediaDetails?.image_meta || {};
 
@@ -14,16 +14,13 @@ const Caption = ({ libraries, caption, media_details: mediaDetails }) => {
 
   return (
     caption && (
-      <CaptionWrapper>
-        <Html2React html={imageDescription} />
-      </CaptionWrapper>
+      <CaptionWrapper>{ReactHtmlParser(imageDescription)}</CaptionWrapper>
     )
   );
 };
 
 Caption.propTypes = {
   media_details: PropTypes.object,
-  libraries: PropTypes.object,
   caption: PropTypes.object,
 };
 

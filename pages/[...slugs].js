@@ -1,9 +1,16 @@
+/* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 // import Head from 'next/head';
 
-import { getPostsByType, getCategories, getCategoryBySlug } from 'lib/api';
+import {
+  getPostByType,
+  getPostsByType,
+  getCategories,
+  getCategoryBySlug,
+} from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
+import PostPage from 'layouts/post';
 
 import Layout from 'layouts/layout';
 
@@ -20,7 +27,7 @@ const MAIN_CATEGORIES = [
 export default function Index(props) {
   return (
     <Layout {...props}>
-      <ArchivePage {...props} />
+      {props?.post ? <PostPage {...props} /> : <ArchivePage {...props} />}
     </Layout>
   );
 }
@@ -28,55 +35,65 @@ export default function Index(props) {
 export async function getStaticProps({ params }) {
   const { slugs } = params;
 
-  // const isCategory = slugs.length === 1;
-  // const slug = slugs[slugs.length - 1];
+  const isCategory = slugs.length === 1;
 
-  const categories = await getCategories();
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
-    MAIN_CATEGORIES.indexOf(cat.slug)
-  );
+  if (isCategory) {
+    const categories = await getCategories();
+    const filteredCategories = categories
+      ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+      ?.map((c) => ({
+        ...c,
+        link: `/${c.slug}`,
+      }));
+    const sortedCategories = sortBy(filteredCategories, (cat) =>
+      MAIN_CATEGORIES.indexOf(cat.slug)
+    );
 
-  const category = await getCategoryBySlug({ slug: slugs[0] });
-  const categoryPostsResponse = await getPostsByType({
+    const category = await getCategoryBySlug({ slug: slugs[0] });
+    const categoryPostsResponse = await getPostsByType({
+      type: 'posts',
+      params: {
+        per_page: 12,
+        categories: [category?.id],
+      },
+    });
+
+    return {
+      props: {
+        taxType: 'categories',
+        tax: category || {},
+        allTax: sortedCategories || [],
+        posts: categoryPostsResponse?.posts || [],
+        totalPages: categoryPostsResponse?.totalPages || 1,
+        totalPosts: categoryPostsResponse?.total || 0,
+        metaTags: category?.yoast_head || '',
+        isError: !category,
+      },
+      revalidate: 10,
+    };
+  }
+
+  const slug = slugs[slugs.length - 1];
+  const post = await getPostByType({
+    slug,
+  });
+
+  const relatedPosts = await getPostsByType({
     type: 'posts',
     params: {
-      per_page: 12,
-      categories: [category?.id],
+      orderby: 'date',
+      exclude: post.id,
+      categories: post?.category_ids,
+      per_page: 3,
     },
   });
 
-  // const stickyPostsIds = stickyPosts?.posts?.map((s) => s.id);
-
-  // const posts = await getPostsByType({
-  //   type: 'posts',
-  //   params: {
-  //     per_page: 6,
-  //     exclude: stickyPostsIds,
-  //   },
-  // });
-
-  // const categories = await getCategories({
-  //   params: {
-  //     per_page: 100,
-  //   },
-  // });
-
   return {
     props: {
-      taxType: 'categories',
-      tax: category || {},
-      allTax: sortedCategories || [],
-      posts: categoryPostsResponse?.posts || [],
-      totalPages: categoryPostsResponse?.totalPages || 1,
-      totalPosts: categoryPostsResponse?.total || 0,
-      metaTags: category?.yoast_head || '',
-      isError: !category,
+      post: post || {},
+      relatedPosts: relatedPosts?.posts || [],
+      metaTags: post?.yoast_head || '',
+      isError: !post,
     },
     revalidate: 10,
   };
