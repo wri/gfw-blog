@@ -17,11 +17,13 @@ import {
   SearchDesktop,
   ResultsStatement,
   LoadMoreWrapper,
+  CategoryDescription,
 } from './styles';
 
-const SearchPage = ({
-  tag,
-  tags,
+const ArchivePage = ({
+  taxType,
+  tax,
+  allTax,
   isSearch,
   posts: firstPagePosts,
   totalPages,
@@ -34,25 +36,32 @@ const SearchPage = ({
     isSearch &&
     searchQuery &&
     `${totalPosts} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
-  const tagStatement =
-    !isSearch && `${totalPosts} ${articleText} tagged with ${tag?.name}`;
 
-  const resultsStatement = isSearch ? searchStatement : tagStatement;
+  const taxStatement =
+    taxType === 'categories'
+      ? `${totalPosts} ${articleText} under the ${tax?.name} category`
+      : `${totalPosts} ${articleText} tagged with ${tax?.name}`;
 
-  const taxFromList = tags?.find((tax) => tax.id === tag?.id);
+  const resultsStatement = isSearch ? searchStatement : taxStatement;
+
+  const taxFromList = allTax?.find((t) => t.id === tax?.id);
   const allTaxOptions =
-    tags && (taxFromList ? tags : [{ ...tag, count: totalPosts }, ...tags]);
+    allTax &&
+    (taxFromList ? allTax : [{ ...tax, count: totalPosts }, ...allTax]);
 
   const breadCrumbs = compact([
-    {
-      label: isSearch ? 'Search' : 'Tags',
+    isSearch && {
+      label: 'Search',
+    },
+    taxType === 'tags' && {
+      label: 'Tag',
     },
     searchQuery &&
       isSearch && {
         label: decodeURI(searchQuery),
       },
     !isSearch && {
-      label: tag?.name,
+      label: tax?.name,
     },
   ]);
 
@@ -62,7 +71,7 @@ const SearchPage = ({
 
   useEffect(() => {
     setPosts(firstPagePosts);
-  }, [tag?.id, searchQuery]);
+  }, [tax?.id, searchQuery]);
 
   useEffect(() => {
     if (page > 1) {
@@ -72,8 +81,14 @@ const SearchPage = ({
         const nextPosts = await getPostsByType({
           type: 'posts',
           params: {
-            per_page: 9,
+            per_page: 12,
             page,
+            ...(isSearch && {
+              search: searchQuery,
+            }),
+            ...(taxType && {
+              [taxType]: tax?.id,
+            }),
           },
         });
 
@@ -124,17 +139,27 @@ const SearchPage = ({
           `}
         >
           <Column width={[1, 2 / 3]}>
-            <Dropdown items={allTaxOptions} selected={tag?.id} />
+            <Dropdown items={allTaxOptions} selected={tax?.id} />
           </Column>
           <Column width={[1, 1 / 3]}>
             <SearchDesktop showTitle expandable />
           </Column>
+          {tax?.description && (
+            <Column
+              width={[1, 3 / 4]}
+              css={css`
+                margin-bottom: 20px !important;
+              `}
+            >
+              <CategoryDescription>{tax.description}</CategoryDescription>
+            </Column>
+          )}
         </Row>
       )}
       <Row>
         <Column
           css={css`
-            margin-bottom: 50px !important;
+            margin-bottom: 20px !important;
           `}
         >
           <ResultsStatement>{resultsStatement}</ResultsStatement>
@@ -187,9 +212,10 @@ const SearchPage = ({
   );
 };
 
-SearchPage.propTypes = {
-  tag: PropTypes.object,
-  tags: PropTypes.array,
+ArchivePage.propTypes = {
+  taxType: PropTypes.string,
+  tax: PropTypes.object,
+  allTax: PropTypes.array,
   posts: PropTypes.array,
   totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
@@ -197,4 +223,4 @@ SearchPage.propTypes = {
   searchQuery: PropTypes.string,
 };
 
-export default SearchPage;
+export default ArchivePage;

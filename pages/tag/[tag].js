@@ -21,14 +21,15 @@ export async function getStaticProps({ params }) {
     type: 'posts',
     params: {
       tags: tag?.id,
-      per_page: 9,
+      per_page: 12,
     },
   });
 
   return {
     props: {
-      tag: tag || null,
-      tags: tags || [],
+      taxType: 'tags',
+      tax: tag || null,
+      allTax: tags || [],
       posts: postsResponse?.posts || [],
       totalPages: postsResponse?.totalPages || 1,
       totalPosts: postsResponse?.total || 0,
