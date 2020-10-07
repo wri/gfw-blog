@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Row, Column } from 'gfw-components';
+import { Row, Column, Desktop, Mobile } from 'gfw-components';
 
 import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';
@@ -82,11 +82,16 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
           min-height: 40px;
         `}
       >
-        <BreadCrumbsWrapper width={[5 / 6, 3 / 4]}>
+        <BreadCrumbsWrapper width={[5 / 6, 2 / 3]}>
           <Breadcrumbs links={breadcrumbs} />
         </BreadCrumbsWrapper>
-        <Column width={[1 / 6, 1 / 4]}>
-          <Search />
+        <Column width={[1 / 6, 1 / 3]}>
+          <Desktop>
+            <Search expandable showTitle />
+          </Desktop>
+          <Mobile>
+            <Search expandable />
+          </Mobile>
         </Column>
       </Row>
       {!!media && (
@@ -108,8 +113,8 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
               languages={languages}
             />
             <ShareLinks
-              // url={`${state.frontity.url}${state.router.link}`}
-              title={post.title.rendered}
+              url={`https://blog.globalforestwatch.org${post.link}`}
+              title={post.title}
               scrollToComment={() =>
                 commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
             />
@@ -127,7 +132,7 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
               languages={languages}
             />
             <ShareLinks
-              // url={`${state.frontity.url}${state.router.link}`}
+              url={`https://blog.globalforestwatch.org${post.link}`}
               title={post.title}
               scrollToComment={() =>
                 commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
