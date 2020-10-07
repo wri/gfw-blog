@@ -31,24 +31,10 @@ const Card = ({
       const rawCardData = translations_posts?.find((c) => c.locale === 'en_US');
       const translatedData = translations_posts?.find((c) => c.locale === lang);
       const cardData = translatedData || rawCardData;
-      const { title, excerpt, link } = cardData || {};
+      const { title, excerpt } = cardData || {};
 
       return (
         <CardWrapper className="notranslate">
-          <a
-            href={link}
-            alt={title}
-            css={css`
-              z-index: 1;
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-            `}
-          >
-            &nbsp;
-          </a>
           {!!featured_media && (
             <MediaWrapper large={large}>
               <Media {...featured_media} />
