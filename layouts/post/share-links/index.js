@@ -76,7 +76,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
       size="large"
       onClick={scrollToComment}
     >
-      <img src={ChatIcon} alt="" />
+      <ChatIcon />
     </Button>
     <a
       target="_blank"
@@ -92,7 +92,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
           }
         `}
       >
-        <img src={NewsletterIcon} alt="" />
+        <NewsletterIcon />
       </Button>
     </a>
     <Label>

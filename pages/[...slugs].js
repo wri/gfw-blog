@@ -91,6 +91,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       post: post || {},
+      slugs: slugs || [],
       relatedPosts: relatedPosts?.posts || [],
       metaTags: post?.yoast_head || '',
       isError: !post,

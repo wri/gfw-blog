@@ -38,8 +38,8 @@ const localeStrings = {
   id_ID: 'Baca dalam bahasa indonesia',
 };
 
-const Post = ({ post, preview, relatedPosts }) => {
-  const { categories, tags, featured_media: media } = post || {};
+const Post = ({ post, preview, relatedPosts, slugs }) => {
+  const { title, categories, tags, featured_media: media } = post || {};
 
   const commentsRef = useRef(null);
   const guestAuthors = post?.acf?.guest_authors;
@@ -62,6 +62,18 @@ const Post = ({ post, preview, relatedPosts }) => {
       };
     });
 
+  const breadcrumbs = [
+    ...categories
+      ?.filter((c) => slugs?.includes(c.slug))
+      ?.map((c) => ({
+        label: c.name,
+        href: c.link,
+      })),
+    {
+      label: title,
+    },
+  ];
+
   return (
     <PostContainer>
       <Row
@@ -71,7 +83,7 @@ const Post = ({ post, preview, relatedPosts }) => {
         `}
       >
         <BreadCrumbsWrapper width={[5 / 6, 3 / 4]}>
-          <Breadcrumbs />
+          <Breadcrumbs links={breadcrumbs} />
         </BreadCrumbsWrapper>
         <Column width={[1 / 6, 1 / 4]}>
           <Search />
@@ -172,6 +184,7 @@ Post.propTypes = {
   post: PropTypes.object,
   preview: PropTypes.bool,
   relatedPosts: PropTypes.array,
+  slugs: PropTypes.array,
 };
 
 export default Post;
