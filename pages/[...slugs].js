@@ -107,8 +107,19 @@ export async function getStaticPaths() {
     },
   }));
 
+  const posts = await getPostsByType({ params: { per_page: 100 } });
+  const postsPaths = posts?.posts?.map((p) => {
+    const slugs = p.link.split('/').filter((o) => o);
+
+    return {
+      params: {
+        slugs,
+      },
+    };
+  });
+
   return {
-    paths: categoryPaths || [],
+    paths: [...categoryPaths, ...postsPaths] || [],
     fallback: true,
   };
 }
