@@ -3,10 +3,14 @@ import { Row, Column, theme } from 'gfw-components';
 import SearchComponent from 'components/search';
 
 export const PostContainer = styled.div`
-  padding-top: 40px;
+  padding-top: 30px;
   width: 100%;
   overflow: hidden;
   min-height: 500px;
+
+  ${theme.mediaQueries.small} {
+    padding-top: 20px;
+  }
 `;
 
 export const BreadCrumbsWrapper = styled(Column)`

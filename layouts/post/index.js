@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
+import Link from 'next/link';
 
 import { Row, Column, Desktop, Mobile } from 'gfw-components';
 
@@ -156,7 +157,11 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
               `}
               key={p}
             >
-              <Card {...p} />
+              <Link href={p.link}>
+                <a>
+                  <Card {...p} />
+                </a>
+              </Link>
             </Column>
           ))}
       </Row>
