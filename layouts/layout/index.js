@@ -68,7 +68,8 @@ export default function Layout({
         p?.locale?.includes(newLang)
       );
       if (translation) {
-        push(translation.link);
+        const url = new URL(translation.link);
+        push(url?.pathname);
       }
     }
     setLanguage(newLang);
