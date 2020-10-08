@@ -112,7 +112,7 @@ export default function Layout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
-        {noIndex && <meta name="robots" content="noindex" />}
+        {(noIndex || isError) && <meta name="robots" content="noindex" />}
         {metaTags && ReactHtmlParser(metaTags)}
       </Head>
       <GlobalStyles />

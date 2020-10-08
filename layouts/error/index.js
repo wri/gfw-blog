@@ -22,8 +22,11 @@ const Page404 = ({ statusCode }) => {
   return (
     <Container>
       <Head>
-        <title>{`${errorTitle} | GFW Blog`}</title>
-        <meta name="description" content={`${errorDescription} | GFW Blog`} />
+        <title>{`${errorTitle} | Global Forest Watch Blog`}</title>
+        <meta
+          name="description"
+          content={`${errorDescription} | Global Forest Watch Blog`}
+        />
       </Head>
       <Column>
         <Message error title={errorTitle} description={errorDescription} />

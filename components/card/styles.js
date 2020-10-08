@@ -4,8 +4,17 @@ import { theme } from 'gfw-components';
 
 import PlayIconSrc from 'assets/icons/play.svg';
 
-export const CardWrapper = styled.article`
+export const CardWrapper = styled.div`
   position: relative;
+
+  > a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
 
   img,
   h3 {

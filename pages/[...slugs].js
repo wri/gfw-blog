@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
-// import Head from 'next/head';
 
 import {
   getPostByType,
   getPostsByType,
   getCategories,
-  getCategoryBySlug,
   getAllPostsByType,
 } from 'lib/api';
 
@@ -38,67 +36,76 @@ export async function getStaticProps({ params }) {
 
   const isCategory = slugs.length === 1;
 
-  if (isCategory) {
-    const categories = await getCategories();
-    const filteredCategories = categories
-      ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-      ?.map((c) => ({
-        ...c,
-        link: `/${c.slug}`,
-      }));
-    const sortedCategories = sortBy(filteredCategories, (cat) =>
-      MAIN_CATEGORIES.indexOf(cat.slug)
-    );
+  try {
+    if (isCategory) {
+      const categories = await getCategories();
+      const filteredCategories = categories
+        ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+        ?.map((c) => ({
+          ...c,
+          link: `/${c.slug}`,
+        }));
+      const sortedCategories = sortBy(filteredCategories, (cat) =>
+        MAIN_CATEGORIES.indexOf(cat.slug)
+      );
 
-    const category = await getCategoryBySlug({ slug: slugs[0] });
-    const categoryPostsResponse = await getPostsByType({
+      const category = categories?.find((cat) => cat.slug === slugs[0]);
+
+      const categoryPostsResponse = await getPostsByType({
+        type: 'posts',
+        params: {
+          per_page: 12,
+          categories: [category?.id],
+        },
+      });
+
+      return {
+        props: {
+          taxType: 'categories',
+          tax: category || {},
+          allTax: sortedCategories || [],
+          posts: categoryPostsResponse?.posts || [],
+          totalPages: categoryPostsResponse?.totalPages || 1,
+          totalPosts: categoryPostsResponse?.total || 0,
+          metaTags: category?.yoast_head || '',
+          isError: !category,
+        },
+        revalidate: 10,
+      };
+    }
+
+    const slug = slugs[slugs.length - 1];
+    const post = await getPostByType({
+      slug,
+    });
+
+    const relatedPosts = await getPostsByType({
       type: 'posts',
       params: {
-        per_page: 12,
-        categories: [category?.id],
+        orderby: 'date',
+        exclude: post.id,
+        categories: post?.category_ids,
+        per_page: 3,
       },
     });
 
     return {
       props: {
-        taxType: 'categories',
-        tax: category || {},
-        allTax: sortedCategories || [],
-        posts: categoryPostsResponse?.posts || [],
-        totalPages: categoryPostsResponse?.totalPages || 1,
-        totalPosts: categoryPostsResponse?.total || 0,
-        metaTags: category?.yoast_head || '',
-        isError: !category,
+        post: post || {},
+        slugs: slugs || [],
+        relatedPosts: relatedPosts?.posts || [],
+        metaTags: post?.yoast_head || '',
+        isError: !post,
       },
       revalidate: 10,
     };
+  } catch (err) {
+    return {
+      props: {
+        isError: true,
+      },
+    };
   }
-
-  const slug = slugs[slugs.length - 1];
-  const post = await getPostByType({
-    slug,
-  });
-
-  const relatedPosts = await getPostsByType({
-    type: 'posts',
-    params: {
-      orderby: 'date',
-      exclude: post.id,
-      categories: post?.category_ids,
-      per_page: 3,
-    },
-  });
-
-  return {
-    props: {
-      post: post || {},
-      slugs: slugs || [],
-      relatedPosts: relatedPosts?.posts || [],
-      metaTags: post?.yoast_head || '',
-      isError: !post,
-    },
-    revalidate: 10,
-  };
 }
 
 export async function getStaticPaths() {

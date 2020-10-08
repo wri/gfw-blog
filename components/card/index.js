@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
+import Link from 'next/link';
 
 import { Button } from 'gfw-components';
 
@@ -31,10 +32,24 @@ const Card = ({
       const rawCardData = translations_posts?.find((c) => c.locale === 'en_US');
       const translatedData = translations_posts?.find((c) => c.locale === lang);
       const cardData = translatedData || rawCardData;
-      const { title, excerpt } = cardData || {};
+      const { title, excerpt, link, extLink } = cardData || {};
 
       return (
         <CardWrapper className="notranslate">
+          {extLink && (
+            // eslint-disable-next-line jsx-a11y/anchor-has-content
+            <a
+              href={extLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="external link"
+            />
+          )}
+          {!extLink && link && (
+            <Link href={link}>
+              <a> </a>
+            </Link>
+          )}
           {!!featured_media && (
             <MediaWrapper large={large}>
               <Media {...featured_media} />

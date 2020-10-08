@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from 'gfw-components';
 
-export const Wrapper = styled.article`
+export const Wrapper = styled.div`
   height: 400px;
   position: relative;
   overflow: hidden;
@@ -12,6 +12,15 @@ export const Wrapper = styled.article`
 
   ${theme.mediaQueries.medium} {
     height: 440px;
+  }
+
+  > a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
 
   img {

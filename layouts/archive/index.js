@@ -6,7 +6,6 @@ import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
 
-import Link from 'next/link';
 import Card from 'components/card';
 import Breadcrumbs from 'components/breadcrumbs';
 import Dropdown from 'components/dropdown';
@@ -172,11 +171,7 @@ const ArchivePage = ({
             `}
             key={id}
           >
-            <Link href={link}>
-              <a>
-                <Card {...rest} />
-              </a>
-            </Link>
+            <Card {...rest} />
           </Column>
         ))}
         <Column>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
-import Link from 'next/link';
 
 import { Row, Column, theme, Loader, Button } from 'gfw-components';
 import { getPostsByType } from 'lib/api';
@@ -105,11 +104,7 @@ const HomePage = ({
           margin-bottom: 40px;
         `}
       >
-        <Link href={mainPost?.link}>
-          <a>
-            <Featured {...mainPost} />
-          </a>
-        </Link>
+        <Featured {...mainPost} />
       </FeatureWrapper>
       <Row
         css={css`
@@ -125,11 +120,7 @@ const HomePage = ({
               margin-bottom: 40px !important;
             `}
           >
-            <Link href={post?.link}>
-              <a>
-                <Card {...post} large />
-              </a>
-            </Link>
+            <Card {...post} large />
           </Column>
         ))}
       </Row>
@@ -146,11 +137,7 @@ const HomePage = ({
               margin-bottom: 40px !important;
             `}
           >
-            <Link href={post?.link}>
-              <a>
-                <Card {...post} />
-              </a>
-            </Link>
+            <Card {...post} />
           </Column>
         ))}
         <Column>
