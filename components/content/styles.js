@@ -173,6 +173,38 @@ export default styled.div`
     }
   }
 
+  .imageright,
+  .imageleft {
+    margin: 0;
+    padding: 0 20px;
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+
+    figure {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  aside {
+    width: 100% !important;
+    background-color: #f6f6f4;
+    border: solid 1px #e5e5df;
+    border-left-width: 1px !important;
+    padding: 20px !important;
+    font-size: 14px !important;
+    line-height: 24px !important;
+    color: ${theme.colors.darkGrey} !important;
+
+    ${theme.mediaQueries.medium} {
+      padding: 30px !important;
+      width: calc(40% + (100% / 7)) !important;
+      margin-right: calc(-100% / 7) !important;
+    }
+  }
+
   blockquote {
     margin-bottom: 40px;
   }
