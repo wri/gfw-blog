@@ -98,7 +98,7 @@ export default function Layout({
         <meta property="og:image:height" content="700" />
         <meta
           property="og:url"
-          content={`https://www.globalforestwatch.org${asPath}`}
+          content={`https://blog.globalforestwatch.org${asPath}`}
         />
         <meta
           property="fb:appid"
@@ -106,7 +106,7 @@ export default function Layout({
         />
         <link
           rel="canonical"
-          href={`https://www.globalforestwatch.org${asPath}`}
+          href={`https://blog.globalforestwatch.org${asPath}`}
         />
         <meta
           name="viewport"
