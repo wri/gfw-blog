@@ -79,7 +79,9 @@ const Search = ({
 
   useEffect(() => {
     const fetchTags = async () => {
-      const tagsResponse = await getTags();
+      const tagsResponse = await getTags({
+        params: { per_page: 50, orderby: 'count', order: 'desc' },
+      });
       setTags(tagsResponse);
     };
 

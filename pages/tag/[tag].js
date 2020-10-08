@@ -14,7 +14,9 @@ export default function Tag(props) {
 }
 
 export async function getStaticProps({ params }) {
-  const tags = await getTags();
+  const tags = await getTags({
+    params: { per_page: 50, orderby: 'count', order: 'desc' },
+  });
   const tag = await getTagBySlug({ slug: params.tag });
 
   const postsResponse = await getPostsByType({
