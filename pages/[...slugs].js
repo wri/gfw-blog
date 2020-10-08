@@ -7,6 +7,7 @@ import {
   getPostsByType,
   getCategories,
   getCategoryBySlug,
+  getAllPostsByType,
 } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
@@ -101,15 +102,16 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const categories = await getCategories();
+  const categories = await getCategories({ params: { _fields: 'slug' } });
   const categoryPaths = categories?.map((cat) => ({
     params: {
       slugs: [cat.slug],
     },
   }));
-
-  const posts = await getPostsByType({ params: { per_page: 100 } });
-  const postsPaths = posts?.posts?.map((p) => {
+  const allPosts = await getAllPostsByType({
+    params: { _fields: 'link', per_page: 50 },
+  });
+  const postsPaths = allPosts?.map((p) => {
     const slugs = p.link.split('/').filter((o) => o);
 
     return {

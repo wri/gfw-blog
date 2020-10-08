@@ -96,15 +96,17 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
         </Column>
       </Row>
       {!!media && (
-        <MediaWrapper>
-          <Media {...media} />
-        </MediaWrapper>
+        <>
+          <MediaWrapper>
+            <Media {...media} />
+          </MediaWrapper>
+          <CaptionWrapper>
+            <Column>
+              <Caption {...media} />
+            </Column>
+          </CaptionWrapper>
+        </>
       )}
-      <CaptionWrapper>
-        <Column>
-          <Caption {...media} />
-        </Column>
-      </CaptionWrapper>
       <Row>
         <Column width={[1, 1 / 4]}>
           <PostMetaDesktop>
