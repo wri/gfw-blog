@@ -51,6 +51,14 @@ export async function getStaticProps({ params }) {
 
       const category = categories?.find((cat) => cat.slug === slugs[0]);
 
+      if (!category) {
+        return {
+          props: {
+            isError: true,
+          },
+        };
+      }
+
       const categoryPostsResponse = await getPostsByType({
         type: 'posts',
         params: {
@@ -68,7 +76,6 @@ export async function getStaticProps({ params }) {
           totalPages: categoryPostsResponse?.totalPages || 1,
           totalPosts: categoryPostsResponse?.total || 0,
           metaTags: category?.yoast_head || '',
-          isError: !category,
         },
         revalidate: 10,
       };
@@ -78,6 +85,14 @@ export async function getStaticProps({ params }) {
     const post = await getPostByType({
       slug,
     });
+
+    if (!post || post?.link !== `/${slugs?.join('/')}`) {
+      return {
+        props: {
+          isError: true,
+        },
+      };
+    }
 
     const relatedPosts = await getPostsByType({
       type: 'posts',
@@ -95,7 +110,6 @@ export async function getStaticProps({ params }) {
         slugs: slugs || [],
         relatedPosts: relatedPosts?.posts || [],
         metaTags: post?.yoast_head || '',
-        isError: !post,
       },
       revalidate: 10,
     };
