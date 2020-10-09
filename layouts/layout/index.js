@@ -77,43 +77,22 @@ export default function Layout({
   return (
     <>
       <Head>
-        <meta name="author" content="Vizzuality" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:creator" content="@globalforests" />
-        <meta
-          name="twitter:description"
-          content="Read about data-backed topics critical to the future of forests, including rainforests, deforestation, fires, sustainable agriculture, forest monitoring and management."
-        />
-        <meta
-          property="og:title"
-          content="Forest News, Research & Monitoring | Global Forest Watch Blog"
-        />
-        <meta
-          property="og:description"
-          content="Read about data-backed topics critical to the future of forests, including rainforests, deforestation, fires, sustainable agriculture, forest monitoring and management."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="/preview.png" />
-        <meta property="og:image:width" content="1280" />
-        <meta property="og:image:height" content="700" />
-        <meta
-          property="og:url"
-          content={`https://blog.globalforestwatch.org${asPath}`}
-        />
-        <meta
-          property="fb:appid"
-          content={process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}
-        />
-        <link
-          rel="canonical"
-          href={`https://blog.globalforestwatch.org${asPath}`}
-        />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
         {(noIndex || isError) && <meta name="robots" content="noindex" />}
         {metaTags && ReactHtmlParser(metaTags)}
+        {post?.translations_posts
+          ?.filter((tr) => tr.locale !== post?.locale)
+          .map((tr) => (
+            <link
+              key={tr.locale}
+              rel="alternate"
+              href={`https://blog.globalforestwatch.org${tr.link}`}
+              hrefLang={tr.locale}
+            />
+          ))}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>

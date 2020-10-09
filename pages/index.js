@@ -1,5 +1,4 @@
 import sortBy from 'lodash/sortBy';
-import Head from 'next/head';
 
 import { getPostByType, getPostsByType, getCategories } from 'lib/api';
 
@@ -19,15 +18,6 @@ const MAIN_CATEGORIES = [
 export default function Index(props) {
   return (
     <Layout {...props}>
-      <Head>
-        <title>
-          Forest News, Research & Monitoring | Global Forest Watch Blog
-        </title>
-        <meta
-          name="description"
-          content="Read about data-backed topics critical to the future of forests, including rainforests, deforestation, fires, sustainable agriculture, forest monitoring and management."
-        />
-      </Head>
       <HomePage {...props} />
     </Layout>
   );
@@ -81,6 +71,7 @@ export async function getStaticProps() {
       posts: posts?.posts || [],
       totalPages: posts?.totalPages || 1,
       categories: sortedCategories || [],
+      metaTags: homepage?.yoast_head || '',
     },
     revalidate: 10,
   };
