@@ -51,16 +51,11 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
     }));
 
   const languages = post?.translations_posts
-    ?.filter((lang) => lang.locale !== post.locale)
-    ?.map((lang) => {
-      const url = lang.link && new URL(lang.link);
-
-      return {
-        ...lang,
-        link: url.pathname,
-        text: localeStrings[lang.locale],
-      };
-    });
+    ?.filter((lang) => lang?.locale && lang?.locale !== post?.locale)
+    ?.map((lang) => ({
+      ...lang,
+      text: localeStrings[lang.locale],
+    }));
 
   const breadcrumbs = [
     ...categories
