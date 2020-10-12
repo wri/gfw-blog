@@ -19,3 +19,5 @@ export const handlePageTrack = () => {
   ReactPixel.pageView();
   TwitterConvTrkr.pageView();
 };
+
+export const handleEventTrack = (event) => ReactGA.event(event);

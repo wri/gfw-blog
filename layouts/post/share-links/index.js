@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { Button, TwitterIcon, FacebookIcon, theme } from 'gfw-components';
 
+import { handleEventTrack } from 'analytics';
+
 import NewsletterIcon from 'assets/icons/envelope.svg';
 import ChatIcon from 'assets/icons/comment.svg';
 
@@ -11,7 +13,7 @@ import { ButtonsContainer, Label } from './styles';
 const TWITT_SHARE_URL = 'https://twitter.com/share';
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
 
-const ShareLinks = ({ url, title, scrollToComment, actions }) => (
+const ShareLinks = ({ url, title, scrollToComment }) => (
   <ButtonsContainer>
     <a
       href={`${TWITT_SHARE_URL}?url=${url}&text=${title}`}
@@ -21,7 +23,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
     >
       <Button
         onClick={() =>
-          actions.googleAnalytics.event({
+          handleEventTrack({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Twitter',
@@ -48,7 +50,7 @@ const ShareLinks = ({ url, title, scrollToComment, actions }) => (
     >
       <Button
         onClick={() =>
-          actions.googleAnalytics.event({
+          handleEventTrack({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Facebook',
@@ -107,7 +109,6 @@ ShareLinks.propTypes = {
   url: PropTypes.string,
   title: PropTypes.string,
   scrollToComment: PropTypes.func,
-  actions: PropTypes.object,
 };
 
 export default ShareLinks;
