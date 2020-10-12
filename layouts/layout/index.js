@@ -117,7 +117,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  padding-top: 76px;
+  padding-top: 56px;
 `;
 
 const LoaderWrapper = styled.div`

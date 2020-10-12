@@ -3,13 +3,13 @@ import { Row, Column, theme } from 'gfw-components';
 import SearchComponent from 'components/search';
 
 export const PostContainer = styled.div`
-  padding-top: 30px;
+  padding-top: 50px;
   width: 100%;
   overflow: hidden;
   min-height: 500px;
 
   ${theme.mediaQueries.small} {
-    padding-top: 20px;
+    padding-top: 40px;
   }
 `;
 

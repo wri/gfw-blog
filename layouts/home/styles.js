@@ -5,9 +5,10 @@ import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
+  padding-top: 20px;
 
   ${theme.mediaQueries.small} {
-    padding: 50px 0;
+    padding: 70px 0;
   }
 `;
 

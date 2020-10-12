@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 
 import { getPostByType, getPostsByType, getCategories } from 'lib/api';
 
 import HomePage from 'layouts/home';
+import PostPage from 'layouts/post';
 
 import Layout from 'layouts/layout';
 
@@ -18,12 +20,42 @@ const MAIN_CATEGORIES = [
 export default function Index(props) {
   return (
     <Layout {...props}>
-      <HomePage {...props} />
+      {props?.post ? <PostPage {...props} /> : <HomePage {...props} />}
     </Layout>
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps({ query: { p: postId } }) {
+  if (postId) {
+    const post = await getPostByType({ type: 'posts', id: postId });
+    if (!post) {
+      return {
+        props: {
+          isError: true,
+        },
+      };
+    }
+
+    const relatedPosts = await getPostsByType({
+      type: 'posts',
+      params: {
+        orderby: 'date',
+        exclude: postId,
+        categories: post?.category_ids,
+        per_page: 3,
+      },
+    });
+
+    return {
+      props: {
+        post: post || {},
+        relatedPosts: relatedPosts?.posts || [],
+        metaTags: post?.yoast_head || '',
+        preview: true,
+      },
+    };
+  }
+
   const homepage = await getPostByType({
     type: 'pages',
     slug: 'global-forest-watch-blog',
@@ -73,6 +105,5 @@ export async function getStaticProps() {
       categories: sortedCategories || [],
       metaTags: homepage?.yoast_head || '',
     },
-    revalidate: 10,
   };
 }
