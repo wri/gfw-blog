@@ -35,7 +35,7 @@ const Card = ({
       const { title, excerpt, link, extLink } = cardData || {};
 
       return (
-        <CardWrapper className="notranslate">
+        <CardWrapper>
           {extLink && (
             // eslint-disable-next-line jsx-a11y/anchor-has-content
             <a
@@ -77,9 +77,15 @@ const Card = ({
               `}
             />
           )}
-          {title && <PostTitle large={large}>{title}</PostTitle>}
+          {title && (
+            <PostTitle className="notranslate" large={large}>
+              {title}
+            </PostTitle>
+          )}
           {excerpt && (
-            <PostExcerpt large={large}>{ReactHtmlParser(excerpt)}</PostExcerpt>
+            <PostExcerpt className="notranslate" large={large}>
+              {ReactHtmlParser(excerpt)}
+            </PostExcerpt>
           )}
         </CardWrapper>
       );

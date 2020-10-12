@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import groupBy from 'lodash/groupBy';
 import { Loader } from 'gfw-components';
 import { getPostsByType } from 'lib/api';
 
@@ -8,6 +7,19 @@ import CommentThread from './comment-thread';
 import CommentForm from './comment-form';
 
 import { CommentsContainer, CommentTitle } from './styles';
+
+// recursive function to walk back up commment list and find top parent
+const getTopParentId = (comments, comment) => {
+  if (!comment?.parent) return comment?.id;
+
+  const parent = comments.find((c) => c.id === comment?.parent);
+
+  if (!parent?.parent) {
+    return parent.id;
+  }
+
+  return getTopParentId(comments, parent);
+};
 
 const Comments = ({ id, comment_status }) => {
   const [comments, setComments] = useState([]);
@@ -22,6 +34,8 @@ const Comments = ({ id, comment_status }) => {
           post: id,
           orderby: 'date',
           order: 'asc',
+          per_page: 100,
+          status: 'approve',
         },
       });
       setComments(commentsResponse?.posts);
@@ -31,16 +45,24 @@ const Comments = ({ id, comment_status }) => {
     fetchComments();
   }, []);
 
-  const groupedComments = comments && groupBy(comments, 'parent');
-  const nestedComments =
-    groupedComments &&
-    groupedComments?.['0'] &&
-    groupedComments?.['0'].map((c) => ({
-      ...c,
-      ...(groupedComments[c.id] && {
-        childComments: groupedComments[c.id],
-      }),
-    }));
+  const nestedComments = comments.reduce((obj, c) => {
+    const parentId = getTopParentId(comments, c);
+
+    if (!c?.parent) {
+      return {
+        ...obj,
+        [c.id]: c,
+      };
+    }
+
+    return {
+      ...obj,
+      [parentId]: {
+        ...obj[parentId],
+        childComments: [...(obj?.[parentId]?.childComments || []), c],
+      },
+    };
+  }, {});
 
   return (
     <CommentsContainer>
@@ -49,10 +71,12 @@ const Comments = ({ id, comment_status }) => {
       ) : (
         <>
           <CommentTitle>
-            {`There is ${comments.length || 0} comments for this article`}
+            {`There ${comments.length > 1 ? 'are' : 'is'} ${
+              comments.length || 0
+            } comments for this article`}
           </CommentTitle>
           {nestedComments &&
-            nestedComments.map((comment) => (
+            Object.values(nestedComments).map((comment) => (
               <CommentThread key={comment.id} {...comment} postId={id} />
             ))}
           {comment_status !== 'closed' && (
