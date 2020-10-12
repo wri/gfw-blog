@@ -1,64 +1,78 @@
 {
   "name": "@gfw/blog",
-  "version": "1.0.0",
-  "description": "Global Forest Watch Blog",
-  "license": "MIT",
-  "keywords": [
-    "gfw"
-  ],
+  "version": "1.0.1",
   "scripts": {
-    "dev": "frontity dev",
-    "build": "frontity build",
-    "serve": "node serve.js"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p $PORT",
+    "postbuild": "next-sitemap"
   },
+  "dependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.27",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "@svgr/webpack": "^5.4.0",
+    "@wordpress/api-fetch": "^3.19.0",
+    "axios": "^0.20.0",
+    "btoa": "^1.2.1",
+    "buttercms": "1.2.2",
+    "classnames": "2.2.6",
+    "date-fns": "^2.16.1",
+    "emotion": "^10.0.27",
+    "emotion-rgba": "^0.0.8",
+    "emotion-server": "^10.0.27",
+    "gfw-components": "^1.3.10",
+    "husky": "^4.3.0",
+    "image-trace-loader": "^1.0.2",
+    "imagemin-mozjpeg": "^9.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "isomorphic-unfetch": "3.0.0",
+    "lint-staged": "^10.3.0",
+    "lodash": "^4.17.20",
+    "next": "^9.5.5",
+    "next-compose-plugins": "^2.2.0",
+    "next-optimized-images": "^2.6.2",
+    "next-sitemap": "^1.2.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-ga": "^3.1.2",
+    "react-twitter-conversion-tracker": "^1.0.0",
+    "release": "^6.3.0",
+    "responsive-loader": "^2.1.1",
+    "simple-entity-decode": "^0.0.3",
+    "webp-loader": "^0.6.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-emotion": "^10.0.33",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.1",
+    "postcss-flexbugs-fixes": "4.2.1",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.1.1"
+  },
+  "license": "MIT",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.scss": "sass-lint -c .sass-lint.yml -v -q",
     "*.{js,jsx}": [
       "prettier --parser flow --write --single-quote",
       "eslint --ext .js --ext .jsx --fix"
     ]
   },
-  "dependencies": {
-    "@frontity/core": "^1.7.3",
-    "@frontity/google-analytics": "^1.2.0",
-    "@frontity/hooks": "^2.0.2",
-    "@frontity/html2react": "^1.3.4",
-    "@frontity/tiny-router": "^1.2.1",
-    "@frontity/wp-source": "^1.8.1",
-    "@gfw/blog-theme": "./packages/gfw-blog",
-    "axios": "^0.19.2",
-    "btoa": "^1.2.1",
-    "classnames": "^2.2.6",
-    "date-fns": "^2.14.0",
-    "dotenv": "^8.2.0",
-    "emotion-rgba": "^0.0.8",
-    "frontity": "^1.10.1",
-    "gfw-components": "^1.3.10",
-    "html-react-parser": "^0.13.0",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.1.0",
-    "lodash": "^4.17.19",
-    "prop-types": "^15.7.2",
-    "react-twitter-conversion-tracker": "^1.0.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
-    "prettier": "^2.0.2",
-    "sass-lint": "^1.13.1"
-  },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "resolutions": {
     "debug": "^2.6.9"
   }
