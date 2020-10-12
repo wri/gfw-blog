@@ -85,7 +85,11 @@ const Search = ({
         const tagsResponse = await getTags({
           params: {
             search,
-            per_page: search ? 6 : 20,
+            per_page: search ? 6 : 50,
+            ...(!search && {
+              orderby: 'count',
+              order: 'desc',
+            }),
           },
           cancelToken: source.token,
         });
