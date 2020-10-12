@@ -12,6 +12,7 @@ export const AuthorName = styled.h6`
   font-size: 16px;
   color: ${theme.colors.darkestGrey};
   font-weight: 500;
+  margin-bottom: 10px;
 `;
 
 export const DateWrapper = styled.span`

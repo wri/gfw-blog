@@ -9,7 +9,7 @@ import CommentForm from './comment-form';
 
 import { CommentsContainer, CommentTitle } from './styles';
 
-const Comments = ({ id }) => {
+const Comments = ({ id, comment_status }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,7 +55,9 @@ const Comments = ({ id }) => {
             nestedComments.map((comment) => (
               <CommentThread key={comment.id} {...comment} postId={id} />
             ))}
-          <CommentForm title="Post a comment" postId={id} />
+          {comment_status !== 'closed' && (
+            <CommentForm title="Post a comment" postId={id} />
+          )}
         </>
       )}
     </CommentsContainer>
@@ -64,6 +66,7 @@ const Comments = ({ id }) => {
 
 Comments.propTypes = {
   id: PropTypes.number,
+  comment_status: PropTypes.string,
   libraries: PropTypes.object,
   state: PropTypes.object,
   date: PropTypes.string,
