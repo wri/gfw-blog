@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import deburr from 'lodash/deburr';
-import toUpper from 'lodash/toUpper';
 import debounce from 'lodash/debounce';
 import { CancelToken } from 'axios';
 import { useRouter } from 'next/router';
@@ -22,8 +20,6 @@ import {
   Input,
   Overlay,
 } from './styles';
-
-const deburrUpper = (string) => toUpper(deburr(string));
 
 const Search = ({
   actions,
@@ -53,12 +49,8 @@ const Search = ({
     }
   };
 
-  const filteredMeta = results?.filter((meta) =>
-    deburrUpper(meta.name).includes(deburrUpper(search))
-  ) || [{ name: search, link: `/search/${search}/` }];
-
-  const filteredResults = filteredMeta?.length
-    ? filteredMeta
+  const filteredResults = results?.length
+    ? results
     : [{ name: search, link: `/search/${search}/` }];
 
   const searchResults = [
@@ -96,6 +88,7 @@ const Search = ({
           type: 'posts',
           params: {
             search,
+            per_page: 6,
           },
           cancelToken: source.token,
         });
