@@ -69,17 +69,6 @@ const Search = ({
     if (open) inputRef.current.focus();
   }, [open]);
 
-  useEffect(() => {
-    const fetchTags = async () => {
-      const tagsResponse = await getTags({
-        params: { per_page: 50, orderby: 'count', order: 'desc' },
-      });
-      setTags(tagsResponse);
-    };
-
-    fetchTags();
-  }, []);
-
   useEffect(
     debounce(() => {
       const fetchSearchContent = async () => {
@@ -88,7 +77,15 @@ const Search = ({
           type: 'posts',
           params: {
             search,
-            per_page: 6,
+            per_page: search ? 3 : 6,
+          },
+          cancelToken: source.token,
+        });
+
+        const tagsResponse = await getTags({
+          params: {
+            search,
+            per_page: search ? 6 : 20,
           },
           cancelToken: source.token,
         });
@@ -101,6 +98,7 @@ const Search = ({
         });
 
         setResults(allResults);
+        setTags(tagsResponse);
       };
 
       fetchSearchContent();
