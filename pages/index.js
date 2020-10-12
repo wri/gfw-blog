@@ -27,33 +27,42 @@ export default function Index(props) {
 
 export async function getServerSideProps({ query: { p: postId } }) {
   if (postId) {
-    const post = await getPostByType({ type: 'posts', id: postId });
-    if (!post) {
+    try {
+      const post = await getPostByType({ type: 'posts', id: postId });
+
+      if (!post) {
+        return {
+          props: {
+            isError: true,
+          },
+        };
+      }
+
+      const relatedPosts = await getPostsByType({
+        type: 'posts',
+        params: {
+          orderby: 'date',
+          exclude: postId,
+          categories: post?.category_ids,
+          per_page: 3,
+        },
+      });
+
+      return {
+        props: {
+          post: post || {},
+          relatedPosts: relatedPosts?.posts || [],
+          metaTags: post?.yoast_head || '',
+          preview: true,
+        },
+      };
+    } catch (err) {
       return {
         props: {
           isError: true,
         },
       };
     }
-
-    const relatedPosts = await getPostsByType({
-      type: 'posts',
-      params: {
-        orderby: 'date',
-        exclude: postId,
-        categories: post?.category_ids,
-        per_page: 3,
-      },
-    });
-
-    return {
-      props: {
-        post: post || {},
-        relatedPosts: relatedPosts?.posts || [],
-        metaTags: post?.yoast_head || '',
-        preview: true,
-      },
-    };
   }
 
   const homepage = await getPostByType({
