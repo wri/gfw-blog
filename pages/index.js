@@ -42,7 +42,7 @@ export async function getStaticProps() {
   const posts = await getPostsByType({
     type: 'posts',
     params: {
-      per_page: 6,
+      per_page: 9,
       exclude: stickyPostsIds,
     },
   });

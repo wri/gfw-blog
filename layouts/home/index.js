@@ -28,10 +28,16 @@ const HomePage = ({
   totalPages,
   categories,
 }) => {
-  const mainPost = stickyPosts[0];
-  const subPosts = stickyPosts.slice(1, 3);
+  const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
+  const subPosts = stickyPosts?.length
+    ? stickyPosts.slice(1, 3)
+    : firstPagePosts?.slice(1, 3);
 
-  const [posts, setPosts] = useState(firstPagePosts || []);
+  const [posts, setPosts] = useState(
+    stickyPosts?.length
+      ? firstPagePosts
+      : firstPagePosts.slice(3, firstPagePosts.length) || []
+  );
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +49,7 @@ const HomePage = ({
         const nextPosts = await getPostsByType({
           type: 'posts',
           params: {
-            per_page: 6,
+            per_page: 9,
             exclude: stickyPosts.map((s) => s.id),
             page,
           },
