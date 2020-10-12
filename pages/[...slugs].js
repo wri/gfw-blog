@@ -130,7 +130,7 @@ export async function getStaticPaths() {
     },
   }));
   const allPosts = await getAllPostsByType({
-    params: { _fields: 'link', per_page: 50 },
+    params: { _fields: 'link' },
   });
   const postsPaths = allPosts?.map((p) => {
     const slugs = p.link.split('/').filter((o) => o);

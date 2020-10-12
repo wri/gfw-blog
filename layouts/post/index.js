@@ -135,7 +135,7 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
                 commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
             />
           </PostMetaMobile>
-          <PostContent>{post.content}</PostContent>
+          <PostContent className="notranslate">{post.content}</PostContent>
           {tags && <CategoryList categories={tags} light />}
         </Column>
       </Row>

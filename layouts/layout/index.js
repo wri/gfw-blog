@@ -46,7 +46,7 @@ export default function Layout({
 }) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
-  const { isFallback, asPath, push } = useRouter();
+  const { isFallback, asPath } = useRouter();
 
   useEffect(() => {
     if (!window.ANALYTICS_INITIALIZED) {
@@ -62,16 +62,7 @@ export default function Layout({
   }, []);
 
   const handleLangSelect = (lang) => {
-    const newLang = getAPILangCode(lang);
-    if (post) {
-      const translation = post?.translations_posts?.find((p) =>
-        p?.locale?.includes(newLang)
-      );
-      if (translation) {
-        push(translation.link);
-      }
-    }
-    setLanguage(newLang);
+    setLanguage(getAPILangCode(lang));
   };
 
   return (

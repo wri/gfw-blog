@@ -383,9 +383,15 @@ export default styled.div`
     font-weight: 600;
   }
 
-  figure {
+  figure,
+  .imagecenter {
     padding-top: 20px;
     margin-bottom: 40px;
+
+    .imagecentre {
+      padding-top: 0;
+      margin-bottom: 0;
+    }
   }
 
   .wp-block-gallery > div {
