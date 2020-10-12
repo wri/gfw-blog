@@ -31,7 +31,7 @@ const Search = ({
   ...props
 }) => {
   const { query, push } = useRouter();
-  const searchQuery = query?.q ? decodeURI(query?.q) : '';
+  const searchQuery = query?.query ? decodeURI(query?.query) : '';
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchQuery);
