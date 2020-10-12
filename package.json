@@ -33,6 +33,7 @@
     "next-compose-plugins": "^2.2.0",
     "next-optimized-images": "^2.6.2",
     "next-sitemap": "^1.2.4",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
