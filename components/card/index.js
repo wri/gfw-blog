@@ -26,10 +26,10 @@ const Card = ({
   categories,
   large,
   video,
+  ...rawCardData
 }) => (
   <LangConsumer>
     {(lang) => {
-      const rawCardData = translations_posts?.find((c) => c.locale === 'en_US');
       const translatedData = translations_posts?.find((c) => c.locale === lang);
       const cardData = translatedData || rawCardData;
       const { title, excerpt, link, extLink } = cardData || {};
