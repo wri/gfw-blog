@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import debounce from 'lodash/debounce';
+import compact from 'lodash/compact';
 import { CancelToken } from 'axios';
 import { useRouter } from 'next/router';
 
@@ -37,6 +38,7 @@ const Search = ({
   const [search, setSearch] = useState(searchQuery);
   const [results, setResults] = useState([]);
   const [tags, setTags] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const inputRef = React.createRef();
 
@@ -53,11 +55,11 @@ const Search = ({
     ? results
     : [{ name: search, link: `/search/${search}/` }];
 
-  const searchResults = [
+  const searchResults = compact([
     ...filteredResults,
-    { name: 'divider', id: 'divider' },
+    tags?.length ? { name: 'divider', id: 'divider' } : null,
     ...tags,
-  ].map((meta) => ({
+  ]).map((meta) => ({
     ...meta,
     name:
       meta.name !== 'divider'
@@ -69,17 +71,32 @@ const Search = ({
     if (open) inputRef.current.focus();
   }, [open]);
 
+  let postsRequest = null;
+  let tagsRequest = null;
+
   useEffect(
     debounce(() => {
       const fetchSearchContent = async () => {
-        const source = CancelToken.source();
+        setLoading(true);
+
+        if (postsRequest) {
+          postsRequest.cancel();
+        }
+        if (tagsRequest) {
+          tagsRequest.cancel();
+        }
+
+        postsRequest = CancelToken.source();
+        tagsRequest = CancelToken.source();
+
         const postsResponse = await getPostsByType({
           type: 'posts',
           params: {
             search,
             per_page: search ? 3 : 6,
           },
-          cancelToken: source.token,
+          cancelToken: postsRequest.token,
+          allLanguages: true,
         });
 
         const tagsResponse = await getTags({
@@ -91,7 +108,7 @@ const Search = ({
               order: 'desc',
             }),
           },
-          cancelToken: source.token,
+          cancelToken: tagsRequest.token,
         });
 
         const allResults = postsResponse?.posts?.map((r) => {
@@ -103,6 +120,7 @@ const Search = ({
 
         setResults(allResults);
         setTags(tagsResponse);
+        setLoading(false);
       };
 
       fetchSearchContent();
@@ -120,7 +138,12 @@ const Search = ({
           onClick={() => setOpen(false)}
         />
       )}
-      <Wrapper {...props} open={open} expandable={expandable}>
+      <Wrapper
+        className="notranslate"
+        {...props}
+        open={open}
+        expandable={expandable}
+      >
         <Container
           open={open}
           expanded={expanded}
@@ -167,6 +190,7 @@ const Search = ({
           <ResultsList
             items={searchResults}
             onClickResult={() => setOpen(false)}
+            loading={loading}
           />
         )}
       </Wrapper>

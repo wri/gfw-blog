@@ -28,6 +28,7 @@ export async function getServerSideProps({ params }) {
       search: params?.query,
       per_page: 9,
     },
+    allLanguages: true,
   });
 
   return {

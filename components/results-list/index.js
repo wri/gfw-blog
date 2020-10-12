@@ -2,13 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
+import { Loader } from 'gfw-components';
+
 import Link from 'next/link';
 
 import { ListWrapper, ListItem, Divider } from './styles';
 
-const ResultsList = ({ items = [], onClickResult, selected, showCount }) => {
+const ResultsList = ({
+  loading,
+  items = [],
+  onClickResult,
+  selected,
+  showCount,
+}) => {
   return (
     <ListWrapper>
+      {loading && <Loader />}
       {items &&
         !!items.length &&
         items.map(
@@ -53,6 +62,7 @@ const ResultsList = ({ items = [], onClickResult, selected, showCount }) => {
 export default ResultsList;
 
 ResultsList.propTypes = {
+  loading: PropTypes.bool,
   items: PropTypes.array.isRequired,
   onClickResult: PropTypes.func,
   selected: PropTypes.number,

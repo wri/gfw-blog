@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { theme } from 'gfw-components';
 
 export const ListWrapper = styled.ul`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
