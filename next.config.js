@@ -24,19 +24,40 @@ module.exports = withPlugins(
       const userPassword = btoa(
         `${process.env.NEXT_PUBLIC_AUTH_USER}:${process.env.NEXT_PUBLIC_AUTH_TOKEN}`
       );
+      const fetchConfig = {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Basic ${userPassword}`,
+        },
+      };
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?per_page=200&filterBy[status]=enabled`,
-        {
-          method: 'get',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Basic ${userPassword}`,
-          },
-        }
+        `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?per_page=5&filterBy[status]=enabled`,
+        fetchConfig
       );
       const json = await response.json();
+      const totalPages = Math.ceil(parseInt(json.total, 10) / 50);
+      const redirectPages = await Promise.all(
+        Array.from(Array(totalPages).keys()).map((page) =>
+          fetch(
+            `${
+              process.env.NEXT_PUBLIC_WORDPRESS_URL
+            }/redirection/v1/redirect?per_page=50&page=${
+              page + 1
+            }&filterBy[status]=enabled`,
+            fetchConfig
+          )
+        )
+      );
+      const allResponses = await Promise.all(
+        redirectPages.map((res) => res.json())
+      );
+      const allRedirects = allResponses.reduce(
+        (arr, res) => [...arr, ...res.items],
+        []
+      );
 
-      return json.items.map((r) => ({
+      return allRedirects.map((r) => ({
         source: `${r.url}/`,
         destination: `${r.action_data.url}/`,
         permanent: true,
