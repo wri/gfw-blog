@@ -10,5 +10,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.5.6 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "gfw-help-center" #Must be unique in Heroku
+          heroku_app_name: "gfw-blog" #Must be unique in Heroku
           heroku_email: "e.j.a.brett@gmail.com"
