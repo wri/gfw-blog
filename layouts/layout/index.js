@@ -81,7 +81,9 @@ export default function Layout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
-        {(noIndex || isError) && <meta name="robots" content="noindex" />}
+        {(noIndex || isError) && (
+          <meta name="robots" content="noindex,follow" />
+        )}
         {metaTags && ReactHtmlParser(metaTags)}
         {post?.translations_posts
           ?.filter((tr) => tr.locale !== post?.locale)
