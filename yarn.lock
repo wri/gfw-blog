@@ -5305,10 +5305,10 @@ gettext-parser@^1.3.1:
     encoding "^0.1.12"
     safe-buffer "^5.1.1"
 
-gfw-components@^1.3.10:
-  version "1.3.10"
-  resolved "https://registry.yarnpkg.com/gfw-components/-/gfw-components-1.3.10.tgz#2963f8d6682a06796b7168dfe654a80ca499b6ff"
-  integrity sha512-rs/dEuwOlUZNX+w73zzIhoGwo8ahrYWk7CeeBo5ifhIoDXFpj4SBUo+GcWlWd8xm2y+HHK0Mm2Mp8xYx3KEmvQ==
+gfw-components@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/gfw-components/-/gfw-components-1.5.2.tgz#bf6b0454ae85a66ec74366db5f47dc3ca700101f"
+  integrity sha512-Sea+bSjbOflpZMJyLVCvVb8NwK6weV+XzgO1GOVuOyS5n/LsH0aPFi/FmA0m9TM3pcmosSjYK1RDNIu6bUK+zg==
   dependencies:
     "@artsy/fresnel" "^1.1.0"
     "@tippyjs/react" "^4.0.2"
