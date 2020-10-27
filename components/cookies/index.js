@@ -6,7 +6,7 @@ import { CookiesBanner } from 'gfw-components';
 import { trackEvent, initAnalytics, trackPage } from 'utils/analytics';
 
 const Cookies = () => {
-  const [accepted, setAccepted] = useState(false);
+  const [accepted, setAccepted] = useState(true);
 
   useEffect(() => {
     const agreeCookies = JSON.parse(localStorage.getItem('agreeCookies'));
