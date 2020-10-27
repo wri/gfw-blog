@@ -5,7 +5,7 @@ import { Row, Column, theme, Loader, Button } from 'gfw-components';
 import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
-import { handleEventTrack } from 'analytics';
+import { trackEvent } from 'utils/analytics';
 
 import Card from 'components/card';
 import Breadcrumbs from 'components/breadcrumbs';
@@ -194,7 +194,7 @@ const ArchivePage = ({
                 <Button
                   onClick={() => {
                     setPage(page + 1);
-                    handleEventTrack({
+                    trackEvent({
                       category: 'GFW Blog',
                       label: 'User clicks on more articles button',
                       action: 'Load more articles',

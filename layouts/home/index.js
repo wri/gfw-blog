@@ -5,7 +5,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { Row, Column, theme, Loader, Button } from 'gfw-components';
 import { getPostsByType } from 'lib/api';
-import { handleEventTrack } from 'analytics';
+import { trackEvent } from 'utils/analytics';
 
 import Card from 'components/card';
 import CategoryList from 'components/category-list';
@@ -166,7 +166,7 @@ const HomePage = ({
                 <Button
                   onClick={() => {
                     setPage(page + 1);
-                    handleEventTrack({
+                    trackEvent({
                       category: 'GFW Blog',
                       label: 'User clicks on more articles button',
                       action: 'Load more articles',

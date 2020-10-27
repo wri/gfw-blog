@@ -15,10 +15,11 @@ import {
   ContactUsModal,
 } from 'gfw-components';
 
-import { initAnalytics, handlePageTrack } from 'analytics';
+import { useTrackPage } from 'utils/analytics';
 
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
+import Cookies from 'components/cookies';
 
 const renderPage = (isError, statusCode, children, preview, lang) => (
   <>
@@ -46,15 +47,9 @@ export default function Layout({
 }) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
-  const { isFallback, asPath, push } = useRouter();
+  const { isFallback, push } = useRouter();
 
-  useEffect(() => {
-    if (!window.ANALYTICS_INITIALIZED) {
-      initAnalytics();
-      window.ANALYTICS_INITIALIZED = true;
-    }
-    handlePageTrack();
-  }, [asPath]);
+  useTrackPage();
 
   useEffect(() => {
     const lang = JSON.parse(localStorage.getItem('txlive:selectedlang'));
@@ -116,6 +111,7 @@ export default function Layout({
       </main>
       <Footer openContactUsModal={() => setOpen(true)} />
       <ContactUsModal open={open} onRequestClose={() => setOpen(false)} />
+      <Cookies />
     </>
   );
 }

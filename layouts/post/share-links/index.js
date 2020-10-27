@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { Button, TwitterIcon, FacebookIcon, theme } from 'gfw-components';
 
-import { handleEventTrack } from 'analytics';
+import { trackEvent } from 'utils/analytics';
 
 import NewsletterIcon from 'assets/icons/envelope.svg';
 import ChatIcon from 'assets/icons/comment.svg';
@@ -23,7 +23,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         onClick={() =>
-          handleEventTrack({
+          trackEvent({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Twitter',
@@ -50,7 +50,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
     >
       <Button
         onClick={() =>
-          handleEventTrack({
+          trackEvent({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Facebook',
