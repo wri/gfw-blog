@@ -152,7 +152,7 @@ export default styled.div`
     width: 100%;
 
     ${theme.mediaQueries.small} {
-      width: calc(100% + (100% / 7));
+      width: calc(100% + (100% / 7)) !important;
       margin-left: calc(-100% / 7);
 
       ${({ align }) =>

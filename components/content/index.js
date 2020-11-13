@@ -4,6 +4,7 @@ import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
 import { Carousel } from 'gfw-components';
 
+import useScript from 'utils/scripts';
 import Blockquote from 'components/blockquote';
 
 import ContentWrapper from './styles';
@@ -35,6 +36,11 @@ const PostContent = ({ children, align }) => (
           return (
             <Blockquote>{node.children.map(convertNodeToElement)}</Blockquote>
           );
+        }
+
+        if (node?.name === 'script') {
+          const src = node?.attribs?.src;
+          useScript(src);
         }
 
         return '';
