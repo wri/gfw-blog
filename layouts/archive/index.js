@@ -6,6 +6,7 @@ import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
 import { trackEvent } from 'utils/analytics';
+import { translateText } from 'utils/lang';
 
 import Card from 'components/card';
 import Breadcrumbs from 'components/breadcrumbs';
@@ -32,17 +33,19 @@ const ArchivePage = ({
 }) => {
   const articleText = totalPosts === 1 ? 'article' : 'articles';
 
-  const searchStatement =
+  const searchStatementTemplate =
     isSearch &&
     searchQuery &&
-    `${totalPosts} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
+    `{totalPosts} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
 
-  const taxStatement =
+  const taxStatementTemplate =
     taxType === 'categories'
-      ? `${totalPosts} ${articleText} under the ${tax?.name} category`
-      : `${totalPosts} ${articleText} tagged with ${tax?.name}`;
+      ? `{totalPosts} ${articleText} under the ${tax?.name} category`
+      : `{totalPosts} ${articleText} tagged with ${tax?.name}`;
 
-  const resultsStatement = isSearch ? searchStatement : taxStatement;
+  const resultsStatement = isSearch
+    ? searchStatementTemplate
+    : taxStatementTemplate;
 
   const taxFromList = allTax?.find((t) => t.id === tax?.id);
   const allTaxOptions =
@@ -162,7 +165,9 @@ const ArchivePage = ({
             margin-bottom: 20px !important;
           `}
         >
-          <ResultsStatement>{resultsStatement}</ResultsStatement>
+          <ResultsStatement>
+            {translateText(resultsStatement, { totalPosts })}
+          </ResultsStatement>
         </Column>
         {posts?.map(({ id, link, ...rest }) => (
           <Column

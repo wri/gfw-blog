@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
+import { translateText } from 'utils/lang';
 
 import { Loader } from 'gfw-components';
 
@@ -20,41 +21,40 @@ const ResultsList = ({
       {loading && <Loader />}
       {items &&
         !!items.length &&
-        items.map(
-          (item) =>
-            item && (
-              <ListItem
-                key={item.id || item.name}
-                selected={item.id === selected}
-              >
-                {item.name === 'divider' ? (
-                  <Divider />
-                ) : (
-                  <>
-                    {item.link ? (
-                      <Link href={item.link}>
-                        <a>
-                          <button onClick={onClickResult}>
-                            {ReactHtmlParser(
-                              `${item.name}${
-                                showCount ? ` (${item.count})` : ''
-                              }`
-                            )}
-                          </button>
-                        </a>
-                      </Link>
-                    ) : (
-                      <button onClick={item.onClick}>
-                        {ReactHtmlParser(
-                          `${item.name}${showCount ? ` (${item.count})` : ''}`
-                        )}
-                      </button>
-                    )}
-                  </>
-                )}
-              </ListItem>
-            )
-        )}
+        items.map((item) => {
+          const label = translateText(item?.name);
+
+          return (
+            <ListItem
+              key={item.id || item.name}
+              selected={item.id === selected}
+            >
+              {item.name === 'divider' ? (
+                <Divider />
+              ) : (
+                <>
+                  {item.link ? (
+                    <Link href={item.link}>
+                      <a>
+                        <button onClick={onClickResult}>
+                          {ReactHtmlParser(
+                            `${label}${showCount ? ` (${item.count})` : ''}`
+                          )}
+                        </button>
+                      </a>
+                    </Link>
+                  ) : (
+                    <button onClick={item.onClick}>
+                      {ReactHtmlParser(
+                        `${label}${showCount ? ` (${item.count})` : ''}`
+                      )}
+                    </button>
+                  )}
+                </>
+              )}
+            </ListItem>
+          );
+        })}
     </ListWrapper>
   );
 };
