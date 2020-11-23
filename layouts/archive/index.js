@@ -169,7 +169,7 @@ const ArchivePage = ({
             {translateText(resultsStatement, { totalPosts })}
           </ResultsStatement>
         </Column>
-        {posts?.map(({ id, link, ...rest }) => (
+        {posts?.map(({ id, ...rest }) => (
           <Column
             width={[1, 1 / 2, 1 / 3]}
             css={css`
