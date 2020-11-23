@@ -56,6 +56,7 @@ export async function getStaticProps({ params }) {
           props: {
             isError: true,
           },
+          revalidate: 10,
         };
       }
 
@@ -91,6 +92,7 @@ export async function getStaticProps({ params }) {
         props: {
           isError: true,
         },
+        revalidate: 10,
       };
     }
 
@@ -118,6 +120,7 @@ export async function getStaticProps({ params }) {
       props: {
         isError: true,
       },
+      revalidate: 10,
     };
   }
 }
