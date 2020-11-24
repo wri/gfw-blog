@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { translateText } from 'utils/lang';
 
 import Divider from './divider';
 import Wrapper from './styles';
@@ -12,7 +13,11 @@ const Breadcrumbs = ({ links }) => {
       {links?.map(({ label, ...link }) => (
         <Fragment key={label}>
           <Divider />
-          {link.href ? <Link {...link}>{label}</Link> : label}
+          {link.href ? (
+            <Link {...link}>{translateText(label)}</Link>
+          ) : (
+            translateText(label)
+          )}
         </Fragment>
       ))}
     </Wrapper>

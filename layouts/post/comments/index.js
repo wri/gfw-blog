@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'gfw-components';
 import { getPostsByType } from 'lib/api';
+import { translateText } from 'utils/lang';
 
 import CommentThread from './comment-thread';
 import CommentForm from './comment-form';
@@ -64,6 +65,10 @@ const Comments = ({ id, comment_status }) => {
     };
   }, {});
 
+  const commentsTitleTemplate = `There ${
+    comments.length > 1 ? 'are' : 'is'
+  } {commentCount} comments for this article`;
+
   return (
     <CommentsContainer>
       {loading ? (
@@ -71,9 +76,9 @@ const Comments = ({ id, comment_status }) => {
       ) : (
         <>
           <CommentTitle>
-            {`There ${comments.length > 1 ? 'are' : 'is'} ${
-              comments.length || 0
-            } comments for this article`}
+            {translateText(commentsTitleTemplate, {
+              commentCount: comments.length || 0,
+            })}
           </CommentTitle>
           {nestedComments &&
             Object.values(nestedComments).map((comment) => (
