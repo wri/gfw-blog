@@ -121,6 +121,11 @@ const HeaderWrapper = styled.div`
   z-index: 100;
   width: 100%;
   margin-bottom: 20px;
+  button {
+    background-color: transparent;
+    border-radius: initial;
+    width: initial;
+  }
 `;
 
 const PageWrapper = styled.div`
