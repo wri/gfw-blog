@@ -8,7 +8,7 @@ import ReactPixel from 'utils/facebook-pixel';
 const IS_BROWSER = typeof window !== 'undefined';
 
 export const initAnalytics = () => {
-  if (IS_BROWSER) {
+  if (IS_BROWSER && !window.ANALYTICS_INITIALIZED) {
     window.ANALYTICS_INITIALIZED = true;
     ReactGA.initialize(process.env.NEXT_PUBLIC_ANALYTICS_PROPERTY_ID);
     ReactPixel.init(process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID);
