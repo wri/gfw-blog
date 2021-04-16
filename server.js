@@ -13,6 +13,17 @@ app.prepare().then(() => {
   server.use(sslRedirect());
 
   server.all('*', (req, res) => {
+    // XXX: this is to support old url redirects
+    // as we switched to /blog for flagship
+    if (req.url === '/') {
+      res.redirect('/blog');
+      return;
+    }
+    if (!req.url.match(/^\/blog\//)) {
+      res.redirect(`/blog${req.url}`);
+      return;
+    }
+    // eslint-disable-next-line consistent-return
     return handle(req, res);
   });
 
