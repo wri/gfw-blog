@@ -13,11 +13,14 @@ const Cookies = () => {
     setAccepted(agreeCookies);
   }, []);
 
+  useEffect(() => {
+    initAnalytics();
+    trackPage();
+  }, []);
+
   const acceptCookies = () => {
     localStorage.setItem('agreeCookies', true);
     setAccepted(true);
-    initAnalytics();
-    trackPage();
     trackEvent({
       category: 'Cookies banner',
       action: 'User accepts cookies',
