@@ -7,7 +7,6 @@ module.exports = withPlugins(
   [[optimizedImages, { handleImages: ['jpeg', 'png', 'webp', 'gif'] }]],
   {
     basePath: '/blog',
-    assetPrefix: '/blog',
     webpack: (config) => {
       config.module.rules.push({
         test: /\.svg$/,
