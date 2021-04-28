@@ -2,7 +2,7 @@ const next = require('next');
 const express = require('express');
 const sslRedirect = require('heroku-ssl-redirect').default;
 
-const port = parseInt(process.env.PORT, 10) || 3000;
+const port = parseInt(process.env.PORT, 10) || 9090;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -10,14 +10,15 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  server.use(sslRedirect());
+  // TODO: Enable after test
+  // server.use(sslRedirect());
 
   server.all('*', (req, res) => {
     const host = req.get('Host');
-    if (host === 'blog.globalforestwatch.org') {
+    if (host === 'blog.globalforestwatch.org' || host === 'www.molabz.com') {
       return res.redirect(
         301,
-        `https://www.globalforestwatch.org/blog${req.originalUrl}`
+        `https://gfw-staging-app.herokuapp.com/blog${req.originalUrl}`
       );
     }
     return handle(req, res);
