@@ -10,12 +10,11 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
-  // TODO: Enable after test
-  // server.use(sslRedirect());
+  server.use(sslRedirect());
 
   server.all('*', (req, res) => {
     const host = req.get('Host');
-    if (host === 'blog.globalforestwatch.org' || host === 'www.molabz.com') {
+    if (host === 'blog.globalforestwatch.org') {
       return res.redirect(
         301,
         `https://gfw-staging-app.herokuapp.com/blog${req.originalUrl}`
