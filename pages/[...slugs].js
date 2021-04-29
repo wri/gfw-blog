@@ -83,10 +83,14 @@ export async function getStaticProps({ params }) {
     }
 
     const slug = slugs[slugs.length - 1];
+
     const post = await getPostByType({
       slug,
     });
 
+    console.log('POST', post);
+    console.log('CONDITION', !post || post?.link !== `/${slugs?.join('/')}`);
+    console.log('SLUG', `/${slugs?.join('/')}`);
     if (!post || post?.link !== `/${slugs?.join('/')}`) {
       return {
         props: {
