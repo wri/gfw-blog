@@ -60,7 +60,11 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <script type="text/javascript" src="//cdn.transifex.com/live.js" />
-          <script type="text/javascript" src="/transifex.js" rel="preconnect" />
+          <script
+            type="text/javascript"
+            src="/blog/transifex.js"
+            rel="preconnect"
+          />
         </Head>
         <body>
           <Main />

@@ -86,7 +86,7 @@ export default function Layout({
             <link
               key={tr.locale}
               rel="alternate"
-              href={`https://blog.globalforestwatch.org${tr.link}`}
+              href={`https://globalforestwatch.org/blog${tr.link}`}
               hrefLang={tr.locale}
             />
           ))}
@@ -95,7 +95,7 @@ export default function Layout({
       <HeaderWrapper>
         <Header
           relative
-          pathname="https://blog.globalforestwatch.org"
+          pathname="https://globalforestwatch.org/blog"
           openContactUsModal={() => setOpen(true)}
           afterLangSelect={handleLangSelect}
         />
