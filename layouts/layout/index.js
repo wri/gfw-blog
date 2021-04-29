@@ -5,6 +5,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'react-html-parser';
 
+import has from 'lodash/has';
+
 import { LangProvider, getAPILangCode } from 'utils/lang';
 
 import {
@@ -20,6 +22,15 @@ import { useTrackPage } from 'utils/analytics';
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
 import Cookies from 'components/cookies';
+
+const LOCALES = {
+  es_ES: 'es',
+  es_MX: 'es',
+  en: 'en',
+  pt_BR: 'pt',
+  fr_FR: 'fr',
+  id_ID: 'id',
+};
 
 const renderPage = (isError, statusCode, children, preview, lang) => (
   <>
@@ -80,16 +91,41 @@ export default function Layout({
           <meta name="robots" content="noindex,follow" />
         )}
         {metaTags && ReactHtmlParser(metaTags)}
+        {/* english default */}
+        <link
+          rel="alternate"
+          href={`https://globalforestwatch.org/blog${post?.link}`}
+          hrefLang="en"
+        />
+        <link
+          rel="alternate"
+          href={`https://globalforestwatch.org/blog${post?.link}`}
+          hrefLang="x-default"
+        />
         {post?.translations_posts
           ?.filter((tr) => tr.locale !== post?.locale)
-          .map((tr) => (
-            <link
-              key={tr.locale}
-              rel="alternate"
-              href={`https://globalforestwatch.org/blog${tr.link}`}
-              hrefLang={tr.locale}
-            />
-          ))}
+          .map((tr) => {
+            if (has(LOCALES, tr.locale)) {
+              return (
+                <>
+                  <link
+                    key={tr.locale}
+                    rel="alternate"
+                    href={`https://globalforestwatch.org/blog${tr.link}`}
+                    hrefLang={LOCALES[tr.locale]}
+                  />
+                </>
+              );
+            }
+            return (
+              <link
+                key={tr.locale}
+                rel="alternate"
+                href={`https://globalforestwatch.org/blog${tr.link}`}
+                hrefLang={tr.locale}
+              />
+            );
+          })}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>
