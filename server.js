@@ -17,7 +17,7 @@ app.prepare().then(() => {
     if (host === 'blog.globalforestwatch.org') {
       return res.redirect(
         301,
-        `https://gfw-staging-app.herokuapp.com/blog${req.originalUrl}`
+        `https://gfw-blog.herokuapp.com/blog${req.originalUrl}`
       );
     }
     return handle(req, res);
