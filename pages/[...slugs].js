@@ -87,8 +87,7 @@ export async function getStaticProps({ params }) {
       slug,
     });
 
-    // XXX: Find out why this check is here: !post || post?.link !== `/${slugs?.join('/')}`
-    if (!post) {
+    if (!post || post?.link !== `/${slugs?.join('/')}`) {
       return {
         props: {
           isError: true,
