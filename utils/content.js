@@ -7,8 +7,13 @@ export const getLessContent = (str) => {
 };
 
 export const serializeYoast = (yoast) => {
-  return yoast.replace(
-    /https:\/\/content.globalforestwatch.org\/global-forest-watch-blog/g,
-    'https://www.globalforestwatch.org/blog'
-  );
+  return yoast
+    .replace(
+      /https:\/\/content.globalforestwatch.org\/global-forest-watch-blog/g,
+      'https://www.globalforestwatch.org/blog'
+    )
+    .replace(
+      /https:\/\/blog.globalforestwatch.org/g,
+      'https://www.globalforestwatch.org/blog'
+    );
 };
