@@ -8,6 +8,7 @@ import ReactHtmlParser from 'react-html-parser';
 import has from 'lodash/has';
 
 import { LangProvider, getAPILangCode } from 'utils/lang';
+import { serializeYoast } from 'utils/content';
 
 import {
   GlobalStyles,
@@ -90,18 +91,22 @@ export default function Layout({
         {(noIndex || isError) && (
           <meta name="robots" content="noindex,follow" />
         )}
-        {metaTags && ReactHtmlParser(metaTags)}
+        {metaTags && ReactHtmlParser(serializeYoast(metaTags))}
         {/* english default */}
-        <link
-          rel="alternate"
-          href={`https://globalforestwatch.org/blog${post?.link}`}
-          hrefLang="en"
-        />
-        <link
-          rel="alternate"
-          href={`https://globalforestwatch.org/blog${post?.link}`}
-          hrefLang="x-default"
-        />
+        {post && (
+          <>
+            <link
+              rel="alternate"
+              href={`https://globalforestwatch.org/blog${post?.link}`}
+              hrefLang="en"
+            />
+            <link
+              rel="alternate"
+              href={`https://globalforestwatch.org/blog${post?.link}`}
+              hrefLang="x-default"
+            />
+          </>
+        )}
         {post?.translations_posts
           ?.filter((tr) => tr.locale !== post?.locale)
           .map((tr) => {
