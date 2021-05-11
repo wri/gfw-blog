@@ -97,12 +97,12 @@ export default function Layout({
           <>
             <link
               rel="alternate"
-              href={`https://globalforestwatch.org/blog${post?.link}`}
+              href={`https://www.globalforestwatch.org/blog${post?.link}`}
               hrefLang="en"
             />
             <link
               rel="alternate"
-              href={`https://globalforestwatch.org/blog${post?.link}`}
+              href={`https://www.globalforestwatch.org/blog${post?.link}`}
               hrefLang="x-default"
             />
           </>
@@ -116,7 +116,7 @@ export default function Layout({
                   <link
                     key={tr.locale}
                     rel="alternate"
-                    href={`https://globalforestwatch.org/blog${tr.link}`}
+                    href={`https://www.globalforestwatch.org/blog${tr.link}`}
                     hrefLang={LOCALES[tr.locale]}
                   />
                 </>
@@ -126,7 +126,7 @@ export default function Layout({
               <link
                 key={tr.locale}
                 rel="alternate"
-                href={`https://globalforestwatch.org/blog${tr.link}`}
+                href={`https://www.globalforestwatch.org/blog${tr.link}`}
                 hrefLang={tr.locale}
               />
             );
