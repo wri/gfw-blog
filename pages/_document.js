@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
           {initialProps.styles}
           <style
             data-emotion-css={styles.ids.join(' ')}
-            dangerouslySetInnerHTML={{ __html: styles.css }}
+            dangerouslySetInnerHTML={{ __html: styles.css }} // eslint-disable-line
           />
         </>
       ),
@@ -63,6 +63,11 @@ export default class MyDocument extends Document {
           <script
             type="text/javascript"
             src="/blog/transifex.js"
+            rel="preconnect"
+          />
+          <script
+            type="text/javascript"
+            src="/blog/hotjar.js"
             rel="preconnect"
           />
         </Head>
