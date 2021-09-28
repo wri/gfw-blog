@@ -8,7 +8,7 @@ import ReactHtmlParser from 'react-html-parser';
 import has from 'lodash/has';
 
 import { LangProvider, getAPILangCode } from 'utils/lang';
-import { serializeYoast } from 'utils/content';
+import { serializeYoast, ensureTrailingSlash } from 'utils/content';
 
 import {
   GlobalStyles,
@@ -48,6 +48,32 @@ const renderPage = (isError, statusCode, children, preview, lang) => (
   </>
 );
 
+const renderCanonical = (post = null, tax = null) => {
+  if (post?.link) {
+    return (
+      <link
+        rel="canonical"
+        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+          post.link
+        )}`}
+      />
+    );
+  }
+  if (tax?.link) {
+    return (
+      <link
+        rel="canonical"
+        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+          tax.link
+        )}`}
+      />
+    );
+  }
+  return (
+    <link rel="canonical" href="https://www.globalforestwatch.org/blog/" />
+  );
+};
+
 export default function Layout({
   children,
   metaTags,
@@ -56,6 +82,7 @@ export default function Layout({
   preview,
   noIndex,
   post,
+  tax,
 }) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
@@ -97,12 +124,16 @@ export default function Layout({
           <>
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${post?.link}`}
+              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+                post?.link
+              )}`}
               hrefLang="en"
             />
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${post?.link}`}
+              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+                post?.link
+              )}`}
               hrefLang="x-default"
             />
           </>
@@ -131,6 +162,7 @@ export default function Layout({
               />
             );
           })}
+        {renderCanonical(post, tax)}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>
@@ -186,4 +218,5 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
+  tax: PropTypes.object,
 };
