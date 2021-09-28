@@ -8,7 +8,7 @@ import ReactHtmlParser from 'react-html-parser';
 import has from 'lodash/has';
 
 import { LangProvider, getAPILangCode } from 'utils/lang';
-import { serializeYoast } from 'utils/content';
+import { serializeYoast, ensureTrailingSlash } from 'utils/content';
 
 import {
   GlobalStyles,
@@ -48,12 +48,31 @@ const renderPage = (isError, statusCode, children, preview, lang) => (
   </>
 );
 
-function ensureEndSlash(link) {
-  if (!link.endsWith('/')) {
-    return `${link}/`;
+const renderCanonical = (post = null, tax = null) => {
+  if (post?.link) {
+    return (
+      <link
+        rel="canonical"
+        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+          post.link
+        )}`}
+      />
+    );
   }
-  return link;
-}
+  if (tax?.link) {
+    return (
+      <link
+        rel="canonical"
+        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+          tax.link
+        )}`}
+      />
+    );
+  }
+  return (
+    <link rel="canonical" href="https://www.globalforestwatch.org/blog/" />
+  );
+};
 
 export default function Layout({
   children,
@@ -63,6 +82,7 @@ export default function Layout({
   preview,
   noIndex,
   post,
+  tax,
 }) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
@@ -104,14 +124,14 @@ export default function Layout({
           <>
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureEndSlash(
+              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
                 post?.link
               )}`}
               hrefLang="en"
             />
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureEndSlash(
+              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
                 post?.link
               )}`}
               hrefLang="x-default"
@@ -127,7 +147,7 @@ export default function Layout({
                   <link
                     key={tr.locale}
                     rel="alternate"
-                    href={`https://www.globalforestwatch.org/blog${ensureEndSlash(
+                    href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
                       tr.link
                     )}`}
                     hrefLang={LOCALES[tr.locale]}
@@ -139,13 +159,14 @@ export default function Layout({
               <link
                 key={tr.locale}
                 rel="alternate"
-                href={`https://www.globalforestwatch.org/blog${ensureEndSlash(
+                href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
                   tr.link
                 )}`}
                 hrefLang={tr.locale}
               />
             );
           })}
+        {renderCanonical(post, tax)}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>
@@ -201,4 +222,5 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
+  tax: PropTypes.object,
 };
