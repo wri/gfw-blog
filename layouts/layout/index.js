@@ -108,6 +108,66 @@ export default function Layout({
     setLanguage(newLang);
   };
 
+  // @todo: move to a utility
+  const getYoastGraph = () => {
+    const match = metaTags.match(
+      /<script type="application\/ld\+json" .+>(.*?)<\/script>/
+    );
+    if (match && match[1]) {
+      try {
+        const parseGraph = JSON.parse(match[1]);
+        const graph = {
+          ...parseGraph,
+          '@graph': [
+            {
+              '@type': 'Organization',
+              name: 'Global Forest Watch',
+              description:
+                'Global Forest Watch offers free, real-time data, technology and tools for monitoring the world’s forests, enabling better protection against illegal deforestation and unsustainable practices.',
+              image: 'https://www.globalforestwatch.org/assets/card-2.png',
+              logo: 'https://www.globalforestwatch.org/assets/gfw.png',
+              url: 'https://www.globalforestwatch.org/',
+              telephone: '+12027297600',
+              sameAs: [
+                'https://twitter.com/globalforests',
+                'https://www.facebook.com/globalforests/',
+                'https://www.youtube.com/channel/UCAsamYre1KLulf4FD-xJfLA',
+                'https://www.instagram.com/globalforests/',
+                'https://en.wikipedia.org/wiki/Global_Forest_Watch',
+                'https://www.wikidata.org/wiki/Q22677558',
+                'https://www.crunchbase.com/organization/global-forest-watch',
+                'https://www.wri.org/our-work/project/global-forest-watch, https://data.globalforestwatch.org/, https://pro.globalforestwatch.org/, https://www.unenvironment.org/resources/toolkits-manuals-and-guides/global-forest-watch',
+              ],
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: '10 G St NE #800',
+                addressLocality: 'Washington DC',
+                postalCode: '20002',
+                addressCountry: 'United States',
+              },
+            },
+            ...parseGraph['@graph'].filter(
+              (graphItem) => graphItem['@type'] === 'BreadcrumbList'
+            ),
+          ],
+        };
+        const serialize = JSON.stringify(graph);
+        if (serialize.length > 0) {
+          return (
+            <script
+              type="application/ld+json"
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{ __html: serialize }}
+            />
+          );
+        }
+      } catch (_e) {
+        return null;
+      }
+    }
+    return null;
+  };
+
   return (
     <>
       <Head>
@@ -119,6 +179,8 @@ export default function Layout({
           <meta name="robots" content="noindex,follow" />
         )}
         {metaTags && ReactHtmlParser(serializeYoast(metaTags))}
+        {/* ld+json tags from yoast */}
+        {getYoastGraph()}
         {/* english default */}
         {post && (
           <>
