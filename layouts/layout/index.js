@@ -110,6 +110,7 @@ export default function Layout({
 
   // @todo: move to a utility
   const getYoastGraph = () => {
+    if (!metaTags) return null;
     const match = metaTags.match(
       /<script type="application\/ld\+json" .+>(.*?)<\/script>/
     );
