@@ -14,7 +14,6 @@ const Media = ({
 }) => {
   const sourceUrl = url || source_url;
   const imageSizes = sizes || media_details?.sizes;
-
   if (!sourceUrl) return null;
 
   const srcset =
