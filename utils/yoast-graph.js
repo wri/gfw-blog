@@ -11,11 +11,11 @@ function serializeContentUrl(url) {
   // Cleanup cms urls
   urlSerializer = urlSerializer.replace(
     /https:\/\/content.globalforestwatch.org\//,
-    'https://globalforestwatch.org/blog/'
+    'https://www.globalforestwatch.org/blog/'
   );
   urlSerializer = urlSerializer.replace(
     /https:\/\/www.globalforestwatch.org\/(blog)?\/?/,
-    'https://globalforestwatch.org/blog/'
+    'https://www.globalforestwatch.org/blog/'
   );
 
   if (urlSerializer.endsWith('#breadcrumb')) {
