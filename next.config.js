@@ -38,14 +38,11 @@ module.exports = withPlugins(
       );
       const json = await response.json();
       const totalPages = Math.ceil(parseInt(json.total, 10) / 50);
+
       const redirectPages = await Promise.all(
-        Array.from(Array(totalPages).keys()).map((page) =>
+        Array.from(Array(totalPages).keys()).map(() =>
           fetch(
-            `${
-              process.env.NEXT_PUBLIC_WORDPRESS_URL
-            }/redirection/v1/redirect?per_page=50&page=${
-              page + 1
-            }&filterBy[status]=enabled`,
+            `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?filterBy[status]=enabled`,
             fetchConfig
           )
         )
@@ -53,14 +50,17 @@ module.exports = withPlugins(
       const allResponses = await Promise.all(
         redirectPages.map((res) => res.json())
       );
+
       const allRedirects = allResponses.reduce(
         (arr, res) => [...arr, ...res.items],
         []
       );
 
       return allRedirects.map((r) => ({
-        source: `${r.url}/`,
-        destination: `${r.action_data.url}/`,
+        source: `${r.url}${!r.url.endsWith('/') ? '/' : ''}`,
+        destination: `${r.action_data.url}${
+          !r.action_data.url.endsWith('/') ? '/' : ''
+        }`,
         permanent: true,
       }));
     },
