@@ -18,6 +18,9 @@ function serializeContentUrl(url) {
     'https://www.globalforestwatch.org/blog/'
   );
 
+  // Remove any breadcrump references.
+  // First two instances just makes sure traling slash works as expected
+
   if (urlSerializer.endsWith('#breadcrumb')) {
     urlSerializer = urlSerializer.replace(/#breadcrumb/, '/#breadcrumb');
   }
@@ -25,10 +28,43 @@ function serializeContentUrl(url) {
   if (!urlSerializer.endsWith('#breadcrumb') && !urlSerializer.endsWith('/')) {
     urlSerializer = `${urlSerializer}/`;
   }
+
+  urlSerializer = urlSerializer.replace(/#breadcrumb/, '');
+
+  // Remove traling slash
+  urlSerializer = urlSerializer.replace(/\/$/, '');
+
   return urlSerializer;
 }
 
-export default (metaTags) => {
+function parseBreadcrumbListItems(breadcrump) {
+  const ROOT_URL = 'https://globalforestwatch.org/blog';
+  const breadListItems = [
+    {
+      type: 'ListItem',
+      position: 1,
+      item: {
+        '@type': 'WebPage',
+        '@id': ROOT_URL,
+        '@url': ROOT_URL,
+        name: 'Home',
+      },
+    },
+    ...breadcrump.map((item, idx) => ({
+      type: 'ListItem',
+      position: idx + 2,
+      item: {
+        '@type': 'WebPage',
+        '@id': `${ROOT_URL}${item.href}`,
+        '@url': `${ROOT_URL}${item.href}`,
+        name: item.label,
+      },
+    })),
+  ];
+  return breadListItems;
+}
+
+export default (metaTags, breadcrumbs) => {
   if (!metaTags) return null;
   const match = metaTags.match(
     /<script type="application\/ld\+json" .+>(.*?)<\/script>/
@@ -72,14 +108,7 @@ export default (metaTags) => {
               return {
                 ...g,
                 '@id': serializeContentUrl(g['@id']),
-                itemListElement: g.itemListElement.map((item) => ({
-                  ...item,
-                  item: {
-                    ...item.item,
-                    '@id': serializeContentUrl(item.item['@id']),
-                    url: serializeContentUrl(item.item.url),
-                  },
-                })),
+                itemListElement: parseBreadcrumbListItems(breadcrumbs),
               };
             }),
         ],

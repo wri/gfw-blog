@@ -85,6 +85,7 @@ export default function Layout({
   noIndex,
   post,
   tax,
+  slugs,
 }) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
@@ -110,8 +111,26 @@ export default function Layout({
     setLanguage(newLang);
   };
 
+  const { title, categories } = post || {};
+
+  const breadcrumbs =
+    categories?.length > 0
+      ? [
+          ...categories
+            ?.filter((c) => slugs?.includes(c.slug))
+            ?.map((c) => ({
+              label: c.name,
+              href: c.link,
+            })),
+          {
+            label: title,
+            href: post.link,
+          },
+        ]
+      : [];
+
   const getYoastGraph = () => {
-    const graph = serializeYoastGraph(metaTags);
+    const graph = serializeYoastGraph(metaTags, breadcrumbs);
     if (graph) {
       return (
         <script
@@ -234,6 +253,7 @@ const LoaderWrapper = styled.div`
 
 Layout.propTypes = {
   children: PropTypes.node,
+  slugs: PropTypes.array,
   metaTags: PropTypes.string,
   isError: PropTypes.bool,
   statusCode: PropTypes.number,
