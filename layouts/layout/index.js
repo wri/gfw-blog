@@ -113,18 +113,21 @@ export default function Layout({
 
   const { title, categories } = post || {};
 
-  const breadcrumbs = [
-    ...categories
-      ?.filter((c) => slugs?.includes(c.slug))
-      ?.map((c) => ({
-        label: c.name,
-        href: c.link,
-      })),
-    {
-      label: title,
-      href: post.link,
-    },
-  ];
+  const breadcrumbs =
+    categories?.length > 0
+      ? [
+          ...categories
+            ?.filter((c) => slugs?.includes(c.slug))
+            ?.map((c) => ({
+              label: c.name,
+              href: c.link,
+            })),
+          {
+            label: title,
+            href: post.link,
+          },
+        ]
+      : [];
 
   const getYoastGraph = () => {
     const graph = serializeYoastGraph(metaTags, breadcrumbs);
