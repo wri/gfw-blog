@@ -38,11 +38,10 @@ const localeStrings = {
   id_ID: 'Baca dalam bahasa indonesia',
 };
 
-const Post = ({ post, preview, relatedPosts, slugs }) => {
+const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
   const { title, categories, tags, featured_media: media } = post || {};
 
   const commentsRef = useRef(null);
-  const guestAuthors = post?.acf?.guest_authors;
   const authors =
     guestAuthors?.length &&
     guestAuthors?.map((author) => ({
@@ -108,6 +107,7 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
               authors={authors}
               date={post.date}
               languages={languages}
+              guestAuthors={guestAuthors}
             />
             <ShareLinks
               url={`https://blog.globalforestwatch.org${post.link}`}
@@ -127,6 +127,7 @@ const Post = ({ post, preview, relatedPosts, slugs }) => {
               authors={authors}
               date={post.date}
               languages={languages}
+              guestAuthors={guestAuthors}
             />
             <ShareLinks
               url={`https://blog.globalforestwatch.org${post.link}`}
@@ -187,6 +188,7 @@ Post.propTypes = {
   preview: PropTypes.bool,
   relatedPosts: PropTypes.array,
   slugs: PropTypes.array,
+  guestAuthors: PropTypes.array,
 };
 
 export default Post;
