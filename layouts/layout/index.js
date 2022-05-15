@@ -50,31 +50,31 @@ const renderPage = (isError, statusCode, children, preview, lang) => (
   </>
 );
 
-const renderCanonical = (post = null, tax = null) => {
-  if (post?.link) {
-    return (
-      <link
-        rel="canonical"
-        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-          post.link
-        )}`}
-      />
-    );
-  }
-  if (tax?.link) {
-    return (
-      <link
-        rel="canonical"
-        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-          tax.link
-        )}`}
-      />
-    );
-  }
-  return (
-    <link rel="canonical" href="https://www.globalforestwatch.org/blog/" />
-  );
-};
+// const renderCanonical = (post = null, tax = null) => {
+//   if (post?.link) {
+//     return (
+//       <link
+//         rel="canonical"
+//         href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+//           post.link
+//         )}`}
+//       />
+//     );
+//   }
+//   if (tax?.link) {
+//     return (
+//       <link
+//         rel="canonical"
+//         href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
+//           tax.link
+//         )}`}
+//       />
+//     );
+//   }
+//   return (
+//     <link rel="canonical" href="https://www.globalforestwatch.org/blog/" />
+//   );
+// };
 
 export default function Layout({
   children,
@@ -84,7 +84,7 @@ export default function Layout({
   preview,
   noIndex,
   post,
-  tax,
+  // tax,
   slugs,
 }) {
   const [open, setOpen] = useState(false);
@@ -199,7 +199,7 @@ export default function Layout({
               />
             );
           })}
-        {renderCanonical(post, tax)}
+        {/* {renderCanonical(post, tax)} */}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>
@@ -256,5 +256,5 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
-  tax: PropTypes.object,
+  // tax: PropTypes.object,
 };
