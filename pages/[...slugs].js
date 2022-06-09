@@ -2,6 +2,7 @@
 import sortBy from 'lodash/sortBy';
 
 import {
+  getPostById,
   getPostByType,
   getPostsByType,
   getCategories,
@@ -88,7 +89,7 @@ export async function getStaticProps({ params }) {
       slug,
     });
 
-    if (!post || post?.link !== `/${slugs?.join('/')}`) {
+    if (!post || post?.link !== `/${slugs?.join('/')}/`) {
       return {
         props: {
           isError: true,
@@ -96,6 +97,18 @@ export async function getStaticProps({ params }) {
         revalidate: 10,
       };
     }
+
+    const originalPostId = post?.translations_posts.find(
+      (translation) => translation?.acf?.guest_authors
+    )?.id;
+
+    const originalPost =
+      originalPostId &&
+      (await getPostById({
+        id: originalPostId,
+      }));
+
+    const originalPostGuestAuthors = originalPost?.acf?.guest_authors || [];
 
     const relatedPosts = await getPostsByType({
       type: 'posts',
@@ -113,6 +126,7 @@ export async function getStaticProps({ params }) {
         slugs: slugs || [],
         relatedPosts: relatedPosts?.posts || [],
         metaTags: post?.yoast_head || '',
+        guestAuthors: originalPostGuestAuthors,
       },
       revalidate: 10,
     };
