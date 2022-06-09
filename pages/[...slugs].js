@@ -100,13 +100,15 @@ export async function getStaticProps({ params }) {
 
     const originalPostId = post?.translations_posts.find(
       (translation) => translation?.acf?.guest_authors
-    ).id;
+    )?.id;
 
-    const originalPost = await getPostById({
-      id: originalPostId,
-    });
+    const originalPost =
+      originalPostId &&
+      (await getPostById({
+        id: originalPostId,
+      }));
 
-    const originalPostGuestAuthors = originalPost?.acf?.guest_authors;
+    const originalPostGuestAuthors = originalPost?.acf?.guest_authors || [];
 
     const relatedPosts = await getPostsByType({
       type: 'posts',
@@ -124,7 +126,7 @@ export async function getStaticProps({ params }) {
         slugs: slugs || [],
         relatedPosts: relatedPosts?.posts || [],
         metaTags: post?.yoast_head || '',
-        guestAuthors: originalPostGuestAuthors || [],
+        guestAuthors: originalPostGuestAuthors,
       },
       revalidate: 10,
     };

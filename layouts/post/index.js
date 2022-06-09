@@ -43,7 +43,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
 
   const commentsRef = useRef(null);
   const authors =
-    guestAuthors?.length &&
+    guestAuthors &&
     guestAuthors?.map((author) => ({
       name: author.post_title,
       link: author?.acf?.profile_link,
