@@ -34,6 +34,10 @@ function serializeContentUrl(url) {
   // Remove traling slash
   urlSerializer = urlSerializer.replace(/\/$/, '');
 
+  if (!urlSerializer.endsWith('/')) {
+    urlSerializer = `${urlSerializer}/`;
+  }
+
   return urlSerializer;
 }
 
