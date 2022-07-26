@@ -12,20 +12,18 @@ export const ensureTrailingSlash = (str) => {
 };
 
 export const serializeYoast = (yoast) => {
-  return (
-    yoast
-      // .replace(/<link rel="canonical" .* \/>/, '') // we render this ourselves
-      .replace(
-        /https:\/\/www.globalforestwatch.org\/(blog\/?)?/g, // /blog/ might not be present, and has to be added if thats the case.
-        'https://www.globalforestwatch.org/blog/'
-      )
-      .replace(
-        /https:\/\/content.globalforestwatch.org\/global-forest-watch-blog/g,
-        'https://www.globalforestwatch.org/blog'
-      )
-      .replace(
-        /https:\/\/blog.globalforestwatch.org/g,
-        'https://www.globalforestwatch.org/blog'
-      )
-  );
+  return yoast
+    .replace(/<link rel="canonical" .* \/>/, '') // we render this ourselves
+    .replace(
+      /https:\/\/www.globalforestwatch.org\/(blog\/?)?/g, // /blog/ might not be present, and has to be added if thats the case.
+      'https://www.globalforestwatch.org/blog/'
+    )
+    .replace(
+      /https:\/\/content.globalforestwatch.org\/global-forest-watch-blog/g,
+      'https://www.globalforestwatch.org/blog'
+    )
+    .replace(
+      /https:\/\/blog.globalforestwatch.org/g,
+      'https://www.globalforestwatch.org/blog'
+    );
 };
