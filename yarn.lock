@@ -5443,10 +5443,10 @@ gettext-parser@^1.3.1:
     encoding "^0.1.12"
     safe-buffer "^5.1.1"
 
-gfw-components@^1.7.7:
-  version "1.7.7"
-  resolved "https://registry.yarnpkg.com/gfw-components/-/gfw-components-1.7.7.tgz#76c763e3eed95b1eeb24bdecafd470b38001dfb7"
-  integrity sha512-Hj9RbenD2ouZuyenhqw1pjXSqzIbw0Bo+59QRHLSKXO4pu4mMt9kfkxWwDRIdSc3A+HO+JznE8+oX76n0ycr6w==
+gfw-components@^1.8.4:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/gfw-components/-/gfw-components-1.8.4.tgz#d3522eadfa9bb93cd1cce3dc789c5942ca274c51"
+  integrity sha512-ILf89p1mUlkwOx1fQGvPfzy2uw2L63LK+xHNzNPLu7d0IZaQ15LT1J7entguFdfXsW84pGvzvwAjHBBR5RfRBw==
   dependencies:
     "@artsy/fresnel" "^1.1.0"
     "@tippyjs/react" "^4.0.2"
@@ -5455,6 +5455,7 @@ gfw-components@^1.7.7:
     date-fns "^2.13.0"
     emotion-rgba "^0.0.8"
     final-form "^4.19.1"
+    moment "^2.29.3"
     polished "^3.6.2"
     query-string "^6.12.0"
     react-final-form "^6.4.0"
@@ -7241,6 +7242,11 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+
+moment@^2.29.3:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 move-concurrently@^1.0.1:
   version "1.0.1"
