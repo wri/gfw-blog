@@ -21,6 +21,8 @@ export default class MyDocument extends Document {
   }
 
   render() {
+    const isProduction = process.env.NEXT_PUBLIC_FEATURE_ENV === 'production';
+
     return (
       <Html>
         <Head>
@@ -55,6 +57,7 @@ export default class MyDocument extends Document {
             name="google-site-verification"
             content="xx82D6cZ40Hvf-TT9jkhfsVi11yIeShPcK0zcc7m7ak"
           />
+          {!isProduction && <meta name="robots" content="noindex,follow" />}
           <link
             href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap"
             rel="stylesheet"
