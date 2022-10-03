@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
-import { CookiesBanner } from 'gfw-components';
+import { CookiesBanner, theme } from 'gfw-components';
 
 import { trackEvent, initAnalytics, trackPage } from 'utils/analytics';
 
@@ -41,9 +41,16 @@ const Cookies = () => {
 
 const CookiesWrapper = styled.div`
   position: fixed;
+  z-index: 99999;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
   bottom: 0;
-  z-index: 99999;
+
+  ${theme.mediaQueries.small} {
+    max-width: 620px;
+    bottom: 30px;
+  }
 `;
 
 export default Cookies;
