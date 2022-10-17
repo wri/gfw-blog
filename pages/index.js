@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 
-import { getPostByType, getPostsByType, getCategories } from 'lib/api';
+import { getPostById, getPostByType, getPostsByType, getCategories } from 'lib/api';
 
 import HomePage from 'layouts/home';
 import PostPage from 'layouts/post';
@@ -48,12 +48,25 @@ export async function getServerSideProps({ query: { p: postId } }) {
         },
       });
 
+      const originalPostId = post?.translations_posts.find(
+        (translation) => translation?.acf?.guest_authors
+      )?.id;
+
+      const originalPost =
+        originalPostId &&
+        (await getPostById({
+          id: originalPostId,
+        }));
+
+      const originalPostGuestAuthors = originalPost?.acf?.guest_authors || [];
+
       return {
         props: {
           post: post || {},
           relatedPosts: relatedPosts?.posts || [],
           metaTags: post?.yoast_head || '',
           preview: true,
+          guestAuthors: originalPostGuestAuthors,
         },
       };
     } catch (err) {

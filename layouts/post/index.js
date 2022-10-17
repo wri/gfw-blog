@@ -42,12 +42,28 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
   const { title, categories, tags, featured_media: media } = post || {};
 
   const commentsRef = useRef(null);
-  const authors =
+
+  const ownGuestAuthors =
+    post?.acf?.guest_authors?.length > 0 &&
+    post?.acf?.guest_authors?.map((author) => ({
+      name: author.post_title,
+      link: author?.acf?.profile_link,
+    }));
+
+  const originalGuestAuthors =
     guestAuthors &&
     guestAuthors?.map((author) => ({
       name: author.post_title,
       link: author?.acf?.profile_link,
     }));
+
+  let authors = [];
+  if (ownGuestAuthors.length > 0) {
+    authors = ownGuestAuthors;
+  }
+  if (originalGuestAuthors.length > 0) {
+    authors = originalGuestAuthors;
+  }
 
   const languages = post?.translations_posts
     ?.filter((lang) => lang?.locale && lang?.locale !== post?.locale)

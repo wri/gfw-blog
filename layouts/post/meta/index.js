@@ -10,7 +10,7 @@ const formatDate = (dateStr) => format(new Date(dateStr), 'MMMM d, yyyy');
 
 const PostMeta = ({ authors, date, languages }) => (
   <MetaWrapper>
-    {authors.length > 0 && (
+    {authors?.length > 0 && (
       <MetaItem>
         <b>By&nbsp;</b>
         <div>

@@ -1,6 +1,9 @@
 {
   "name": "@gfw/blog",
   "version": "1.0.1",
+  "engines": {
+    "node": "12.16.2"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
