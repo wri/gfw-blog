@@ -27,3 +27,18 @@ export const serializeYoast = (yoast) => {
       'https://www.globalforestwatch.org/blog'
     );
 };
+
+/**
+ * Returns the canonical link to be used in the page.
+ * If one is set in Yoast, we use it. If not, we'll use either the post or tax link.
+ * If no links are available, we can assume we're on the /blog page.
+ */
+export const getCanonicalLink = ({ metaTags }) => {
+  const blogLink = 'https://www.globalforestwatch.org/blog';
+
+  const yoastCanonicalLink = (metaTags?.match(
+    /<link rel="canonical" href="(.*)" \/>/
+  ) || [])[1];
+
+  return ensureTrailingSlash(serializeYoast(yoastCanonicalLink || blogLink)); // blogLink is just a failsafe
+};
