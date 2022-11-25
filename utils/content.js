@@ -1,3 +1,5 @@
+const BLOG_LINK = 'https://www.globalforestwatch.org/blog';
+
 export const clearExcerptHellip = (str) => {
   return str.replace(/(\[(&hellip;)\])<\/.>/, '$2');
 };
@@ -16,16 +18,13 @@ export const serializeYoast = (yoast) => {
     .replace(/<link rel="canonical" .* \/>/, '') // we render this ourselves
     .replace(
       /https:\/\/www.globalforestwatch.org\/(blog\/?)?/g, // /blog/ might not be present, and has to be added if thats the case.
-      'https://www.globalforestwatch.org/blog/'
+      `${BLOG_LINK}/`
     )
     .replace(
       /https:\/\/content.globalforestwatch.org\/global-forest-watch-blog/g,
-      'https://www.globalforestwatch.org/blog'
+      BLOG_LINK
     )
-    .replace(
-      /https:\/\/blog.globalforestwatch.org/g,
-      'https://www.globalforestwatch.org/blog'
-    );
+    .replace(/https:\/\/blog.globalforestwatch.org/g, BLOG_LINK);
 };
 
 /**
@@ -34,11 +33,9 @@ export const serializeYoast = (yoast) => {
  * If no links are available, we can assume we're on the /blog page.
  */
 export const getCanonicalLink = ({ metaTags }) => {
-  const blogLink = 'https://www.globalforestwatch.org/blog';
-
   const yoastCanonicalLink = (metaTags?.match(
     /<link rel="canonical" href="(.*)" \/>/
   ) || [])[1];
 
-  return ensureTrailingSlash(serializeYoast(yoastCanonicalLink || blogLink)); // blogLink is just a failsafe
+  return ensureTrailingSlash(serializeYoast(yoastCanonicalLink || BLOG_LINK)); // BLOG_LINK is just a failsafe
 };
