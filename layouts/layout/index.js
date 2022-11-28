@@ -10,8 +10,8 @@ import has from 'lodash/has';
 import { LangProvider, getAPILangCode } from 'utils/lang';
 import {
   getCanonicalLink,
-  serializeYoast,
   ensureTrailingSlash,
+  parseYoast,
 } from 'utils/content';
 
 import {
@@ -57,14 +57,13 @@ const renderPage = (isError, statusCode, children, preview, lang) => (
 export default function Layout(props) {
   const {
     children,
-    metaTags,
     isError,
     statusCode,
     preview,
     noIndex,
     post,
-    tax,
     slugs,
+    metaTags: yoast,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -110,7 +109,7 @@ export default function Layout(props) {
       : [];
 
   const getYoastGraph = () => {
-    const graph = serializeYoastGraph(metaTags, breadcrumbs);
+    const graph = serializeYoastGraph(yoast, breadcrumbs);
     if (graph) {
       return (
         <script
@@ -124,7 +123,8 @@ export default function Layout(props) {
   };
 
   const isProduction = process.env.NEXT_PUBLIC_FEATURE_ENV === 'production';
-  const canonicalLink = getCanonicalLink({ metaTags, post, tax });
+  const canonicalLink = getCanonicalLink(yoast);
+  const yoastMetaTags = ReactHtmlParser(parseYoast(yoast));
 
   return (
     <>
@@ -133,8 +133,8 @@ export default function Layout(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
+        {yoastMetaTags}
         <link rel="canonical" href={canonicalLink} />
-        {metaTags && ReactHtmlParser(serializeYoast(metaTags))}
         {/* ld+json tags from yoast */}
         {getYoastGraph()}
         {(!isProduction || noIndex || isError) && (
@@ -243,5 +243,4 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
-  tax: PropTypes.object,
 };
