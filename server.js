@@ -38,7 +38,8 @@ function handleNonWwwToWwwRedirect(req, res) {
 app.prepare().then(() => {
   const server = express();
 
-  server.use(sslRedirect());
+  // Redirect from http to https when NODE_ENV is set to `production`.
+  server.use(sslRedirect(['production'], 301));
 
   server.all(/.*/, (req, res) => {
     // Redirect from non-www to www, but only on actual `production`.
