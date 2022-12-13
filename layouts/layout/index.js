@@ -8,7 +8,11 @@ import ReactHtmlParser from 'react-html-parser';
 import has from 'lodash/has';
 
 import { LangProvider, getAPILangCode } from 'utils/lang';
-import { serializeYoast, ensureTrailingSlash } from 'utils/content';
+import {
+  getCanonicalLink,
+  ensureTrailingSlash,
+  parseYoast,
+} from 'utils/content';
 
 import {
   GlobalStyles,
@@ -50,43 +54,18 @@ const renderPage = (isError, statusCode, children, preview, lang) => (
   </>
 );
 
-const renderCanonical = (post = null, tax = null) => {
-  if (post?.link) {
-    return (
-      <link
-        rel="canonical"
-        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-          post.link
-        )}`}
-      />
-    );
-  }
-  if (tax?.link) {
-    return (
-      <link
-        rel="canonical"
-        href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-          tax.link
-        )}`}
-      />
-    );
-  }
-  return (
-    <link rel="canonical" href="https://www.globalforestwatch.org/blog/" />
-  );
-};
+export default function Layout(props) {
+  const {
+    children,
+    isError,
+    statusCode,
+    preview,
+    noIndex,
+    post,
+    slugs,
+    metaTags: yoast,
+  } = props;
 
-export default function Layout({
-  children,
-  metaTags,
-  isError,
-  statusCode,
-  preview,
-  noIndex,
-  post,
-  tax,
-  slugs,
-}) {
   const [open, setOpen] = useState(false);
   const [language, setLanguage] = useState('en');
   const { isFallback, push } = useRouter();
@@ -130,7 +109,7 @@ export default function Layout({
       : [];
 
   const getYoastGraph = () => {
-    const graph = serializeYoastGraph(metaTags, breadcrumbs);
+    const graph = serializeYoastGraph(yoast, breadcrumbs);
     if (graph) {
       return (
         <script
@@ -144,6 +123,8 @@ export default function Layout({
   };
 
   const isProduction = process.env.NEXT_PUBLIC_FEATURE_ENV === 'production';
+  const canonicalLink = getCanonicalLink(yoast);
+  const yoastMetaTags = ReactHtmlParser(parseYoast(yoast));
 
   return (
     <>
@@ -152,7 +133,8 @@ export default function Layout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
-        {metaTags && ReactHtmlParser(serializeYoast(metaTags))}
+        {yoastMetaTags}
+        <link rel="canonical" href={canonicalLink} />
         {/* ld+json tags from yoast */}
         {getYoastGraph()}
         {(!isProduction || noIndex || isError) && (
@@ -205,7 +187,6 @@ export default function Layout({
               />
             );
           })}
-        {renderCanonical(post, tax)}
       </Head>
       <GlobalStyles />
       <HeaderWrapper>
@@ -262,5 +243,4 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
-  tax: PropTypes.object,
 };
