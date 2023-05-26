@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { theme } from 'gfw-components';
+import { theme } from '@worldresources/gfw-components';
 
 import CloseIconSrc from 'assets/icons/close.svg';
 

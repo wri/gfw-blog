@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { rgba } from 'emotion-rgba';
-import { theme } from 'gfw-components';
+import { theme } from '@worldresources/gfw-components';
 
 import PlayIconSrc from 'assets/icons/play.svg';
 

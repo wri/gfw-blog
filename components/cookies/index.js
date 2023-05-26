@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 
-import { CookiesBanner, theme } from 'gfw-components';
+import { CookiesBanner, theme } from '@worldresources/gfw-components';
 
 import { trackEvent, initAnalytics, trackPage } from 'utils/analytics';
 

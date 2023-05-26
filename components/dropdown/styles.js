@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
-import { ArrowIcon as ArrowIconComponent, theme } from 'gfw-components';
+import {
+  ArrowIcon as ArrowIconComponent,
+  theme,
+} from '@worldresources/gfw-components';
 
 export const Wrapper = styled.div`
   height: 60px;

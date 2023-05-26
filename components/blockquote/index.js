@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, TwitterIcon } from 'gfw-components';
+import { Button, TwitterIcon } from '@worldresources/gfw-components';
 import { css } from '@emotion/core';
 
 import BlockquoteWrapper from './styles';

@@ -9,7 +9,7 @@ import {
   Loader,
   Row,
   Column,
-} from 'gfw-components';
+} from '@worldresources/gfw-components';
 
 import postComments from './actions';
 import { CommentTitle, ModerationMessage, AgreeBoxWrapper } from './styles';

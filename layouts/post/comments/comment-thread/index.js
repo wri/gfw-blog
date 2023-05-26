@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import { Row, Column, theme } from 'gfw-components';
+import { Row, Column, theme } from '@worldresources/gfw-components';
 
 import Comment from '../comment';
 import CommentForm from '../comment-form';

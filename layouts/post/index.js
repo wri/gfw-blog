@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Row, Column, Desktop, Mobile } from 'gfw-components';
+import { Row, Column, Desktop, Mobile } from '@worldresources/gfw-components';
 
 import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';

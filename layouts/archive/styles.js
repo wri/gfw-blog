@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme, Column } from 'gfw-components';
+import { theme, Column } from '@worldresources/gfw-components';
 
 import Search from 'components/search';
 

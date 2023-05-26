@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Loader } from 'gfw-components';
+import { Loader } from '@worldresources/gfw-components';
 import { getPostsByType } from 'lib/api';
 import { translateText } from 'utils/lang';
 

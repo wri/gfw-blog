@@ -20,7 +20,7 @@ import {
   Header,
   Footer,
   ContactUsModal,
-} from 'gfw-components';
+} from '@worldresources/gfw-components';
 
 import { useTrackPage } from 'utils/analytics';
 
