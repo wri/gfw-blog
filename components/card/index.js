@@ -4,7 +4,7 @@ import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
 
-import { Button } from 'gfw-components';
+import { Button } from '@worldresources/gfw-components';
 
 import { LangConsumer } from 'utils/lang';
 

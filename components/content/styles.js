@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from 'gfw-components';
+import { theme } from '@worldresources/gfw-components';
 
 export default styled.div`
   position: relative;

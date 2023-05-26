@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import { Button, TwitterIcon, FacebookIcon, theme } from 'gfw-components';
+import {
+  Button,
+  TwitterIcon,
+  FacebookIcon,
+  theme,
+} from '@worldresources/gfw-components';
 
 import { trackEvent } from 'utils/analytics';
 

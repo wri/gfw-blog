@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from 'gfw-components';
+import { theme } from '@worldresources/gfw-components';
 
 export const CommentHeader = styled.div`
   display: flex;

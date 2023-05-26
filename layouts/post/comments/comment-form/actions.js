@@ -1,4 +1,4 @@
-import { FORM_ERROR } from 'gfw-components';
+import { FORM_ERROR } from '@worldresources/gfw-components';
 import { post } from 'axios';
 
 const COMMENTS_URI = '/wp/v2/comments';

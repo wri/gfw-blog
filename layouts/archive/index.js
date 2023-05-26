@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import { Row, Column, theme, Loader, Button } from 'gfw-components';
+import {
+  Row,
+  Column,
+  theme,
+  Loader,
+  Button,
+} from '@worldresources/gfw-components';
 import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
