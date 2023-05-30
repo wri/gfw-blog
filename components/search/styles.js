@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BasicInput, theme } from 'gfw-components';
+import { BasicInput, theme } from '@worldresources/gfw-components';
 import { rgba } from 'emotion-rgba';
 
 export const Wrapper = styled.div`

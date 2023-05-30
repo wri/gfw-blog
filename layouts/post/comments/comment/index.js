@@ -4,7 +4,7 @@ import { css } from '@emotion/core';
 import { format } from 'date-fns';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Button, Column } from 'gfw-components';
+import { Button, Column } from '@worldresources/gfw-components';
 
 import { CommentHeader, AuthorName, DateWrapper, Body } from './styles';
 

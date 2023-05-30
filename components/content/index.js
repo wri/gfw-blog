@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactHtmlParser, { convertNodeToElement } from 'react-html-parser';
 
-import { Carousel } from 'gfw-components';
+import { Carousel } from '@worldresources/gfw-components';
 
 import useScript from 'utils/scripts';
 import Blockquote from 'components/blockquote';

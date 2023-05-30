@@ -6,7 +6,7 @@ import compact from 'lodash/compact';
 import { CancelToken } from 'axios';
 import { useRouter } from 'next/router';
 
-import { SearchIcon, CloseIcon, Button } from 'gfw-components';
+import { SearchIcon, CloseIcon, Button } from '@worldresources/gfw-components';
 
 import { getPostsByType, getTags } from 'lib/api';
 

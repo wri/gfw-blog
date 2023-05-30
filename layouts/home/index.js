@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Row, Column, theme, Loader, Button } from 'gfw-components';
+import {
+  Row,
+  Column,
+  theme,
+  Loader,
+  Button,
+} from '@worldresources/gfw-components';
 import { getPostsByType } from 'lib/api';
 import { trackEvent } from 'utils/analytics';
 

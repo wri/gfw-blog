@@ -6,8 +6,8 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { getPostByType } from 'lib/api';
 
-import { Row, Column, H4, theme } from 'gfw-components';
-import SimpleCard from '../card-simple';
+import { Row, Column, H4, theme } from '@worldresources/gfw-components';
+import SimpleCard from 'components/card';
 
 const Footer = ({ openContactUsModal }) => {
   const [support, setSupport] = useState(null);

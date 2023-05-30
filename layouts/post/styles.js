@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Row, Column, theme } from 'gfw-components';
+import { Row, Column, theme } from '@worldresources/gfw-components';
 import SearchComponent from 'components/search';
 
 export const PostContainer = styled.div`
