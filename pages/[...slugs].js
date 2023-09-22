@@ -14,6 +14,8 @@ import PostPage from 'layouts/post';
 
 import Layout from 'layouts/layout';
 
+import { getPublishedNotifications } from 'utils/notifications';
+
 const MAIN_CATEGORIES = [
   'data-and-research',
   'people',
@@ -37,6 +39,8 @@ export async function getStaticProps({ params }) {
 
   const isCategory = slugs.length === 1;
 
+  const notifications = await getPublishedNotifications();
+
   try {
     if (isCategory) {
       const categories = await getCategories();
@@ -56,6 +60,7 @@ export async function getStaticProps({ params }) {
         return {
           props: {
             isError: true,
+            notifications: notifications || [],
           },
           revalidate: 10,
         };
@@ -78,6 +83,7 @@ export async function getStaticProps({ params }) {
           totalPages: categoryPostsResponse?.totalPages || 1,
           totalPosts: categoryPostsResponse?.total || 0,
           metaTags: category?.yoast_head || '',
+          notifications: notifications || [],
         },
         revalidate: 10,
       };
@@ -97,6 +103,7 @@ export async function getStaticProps({ params }) {
       return {
         props: {
           isError: true,
+          notifications: notifications || [],
         },
         revalidate: 10,
       };
@@ -131,6 +138,7 @@ export async function getStaticProps({ params }) {
         relatedPosts: relatedPosts?.posts || [],
         metaTags: post?.yoast_head || '',
         guestAuthors: originalPostGuestAuthors,
+        notifications: notifications || [],
       },
       revalidate: 10,
     };
@@ -138,6 +146,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         isError: true,
+        notifications: notifications || [],
       },
       revalidate: 10,
     };

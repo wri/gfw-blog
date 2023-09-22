@@ -6,6 +6,8 @@ import ArchivePage from 'layouts/archive';
 
 import Layout from 'layouts/layout';
 
+import { getPublishedNotifications } from 'utils/notifications';
+
 export default function Search(props) {
   return (
     <Layout {...props} noIndex>
@@ -30,6 +32,7 @@ export async function getServerSideProps({ params }) {
     },
     allLanguages: true,
   });
+  const notifications = await getPublishedNotifications();
 
   return {
     props: {
@@ -37,6 +40,7 @@ export async function getServerSideProps({ params }) {
       totalPages: postsResponse?.totalPages || 1,
       totalPosts: postsResponse?.total || 0,
       searchQuery: params?.query,
+      notifications: notifications || [],
     },
   };
 }
