@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -16,6 +15,7 @@ import {
 } from 'utils/content';
 
 import {
+  Header,
   GlobalStyles,
   Loader,
   Footer,
@@ -29,10 +29,6 @@ import serializeYoastGraph from 'utils/yoast-graph';
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
 import Cookies from 'components/cookies';
-
-const Header = dynamic(() => import('@worldresources/gfw-components'), {
-  ssr: false,
-});
 
 const LOCALES = {
   es_ES: 'es',
