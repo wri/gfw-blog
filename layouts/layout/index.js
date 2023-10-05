@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -17,7 +18,6 @@ import {
 import {
   GlobalStyles,
   Loader,
-  Header,
   Footer,
   ContactUsModal,
 } from '@worldresources/gfw-components';
@@ -29,6 +29,10 @@ import serializeYoastGraph from 'utils/yoast-graph';
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
 import Cookies from 'components/cookies';
+
+const Header = dynamic(() => import('@worldresources/gfw-components'), {
+  ssr: false,
+});
 
 const LOCALES = {
   es_ES: 'es',
@@ -64,6 +68,7 @@ export default function Layout(props) {
     post,
     slugs,
     metaTags: yoast,
+    notifications,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -195,6 +200,7 @@ export default function Layout(props) {
           pathname="https://globalforestwatch.org/blog"
           openContactUsModal={() => setOpen(true)}
           afterLangSelect={handleLangSelect}
+          notifications={notifications}
         />
       </HeaderWrapper>
       <main>
@@ -243,4 +249,5 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
+  notifications: PropTypes.array,
 };
