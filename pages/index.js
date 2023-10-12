@@ -1,12 +1,23 @@
 /* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 
-import { getPostById, getPostByType, getPostsByType, getCategories } from 'lib/api';
+import {
+  getPostById,
+  getPostByType,
+  getPostsByType,
+  getCategories,
+} from 'lib/api';
+
+import dynamic from 'next/dynamic';
 
 import HomePage from 'layouts/home';
 import PostPage from 'layouts/post';
 
-import Layout from 'layouts/layout';
+import { getPublishedNotifications } from 'utils/notifications';
+
+const Layout = dynamic(() => import('layouts/layout'), {
+  ssr: false,
+});
 
 const MAIN_CATEGORIES = [
   'data-and-research',
@@ -26,6 +37,8 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps({ query: { p: postId } }) {
+  const notifications = await getPublishedNotifications();
+
   if (postId) {
     try {
       const post = await getPostByType({ type: 'posts', id: postId });
@@ -34,6 +47,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
         return {
           props: {
             isError: true,
+            notifications: notifications || [],
           },
         };
       }
@@ -67,12 +81,14 @@ export async function getServerSideProps({ query: { p: postId } }) {
           metaTags: post?.yoast_head || '',
           preview: true,
           guestAuthors: originalPostGuestAuthors,
+          notifications: notifications || [],
         },
       };
     } catch (err) {
       return {
         props: {
           isError: true,
+          notifications: notifications || [],
         },
       };
     }
@@ -126,6 +142,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
       totalPages: posts?.totalPages || 1,
       categories: sortedCategories || [],
       metaTags: homepage?.yoast_head || '',
+      notifications: notifications || [],
     },
   };
 }

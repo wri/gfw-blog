@@ -15,9 +15,9 @@ import {
 } from 'utils/content';
 
 import {
+  Header,
   GlobalStyles,
   Loader,
-  Header,
   Footer,
   ContactUsModal,
 } from '@worldresources/gfw-components';
@@ -64,6 +64,7 @@ export default function Layout(props) {
     post,
     slugs,
     metaTags: yoast,
+    notifications,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -195,6 +196,7 @@ export default function Layout(props) {
           pathname="https://globalforestwatch.org/blog"
           openContactUsModal={() => setOpen(true)}
           afterLangSelect={handleLangSelect}
+          notifications={notifications}
         />
       </HeaderWrapper>
       <main>
@@ -243,4 +245,5 @@ Layout.propTypes = {
   preview: PropTypes.bool,
   noIndex: PropTypes.bool,
   post: PropTypes.object,
+  notifications: PropTypes.array,
 };
