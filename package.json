@@ -24,7 +24,7 @@
     "emotion": "^10.0.27",
     "emotion-rgba": "^0.0.8",
     "emotion-server": "^10.0.27",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "heroku-ssl-redirect": "^0.1.1",
     "@worldresources/gfw-components": "^3.4.0",
     "husky": "^4.3.0",
