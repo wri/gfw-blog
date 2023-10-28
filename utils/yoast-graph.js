@@ -49,8 +49,8 @@ function parseBreadcrumbListItems(breadcrump) {
       position: 1,
       item: {
         '@type': 'WebPage',
-        '@id': ROOT_URL,
-        '@url': ROOT_URL,
+        '@id': `${ROOT_URL}/`,
+        '@url': `${ROOT_URL}/`,
         name: 'Home',
       },
     },
@@ -59,8 +59,8 @@ function parseBreadcrumbListItems(breadcrump) {
       position: idx + 2,
       item: {
         '@type': 'WebPage',
-        '@id': `${ROOT_URL}${item.href}`,
-        '@url': `${ROOT_URL}${item.href}`,
+        '@id': `${ROOT_URL}${item.href}/`,
+        '@url': `${ROOT_URL}${item.href}/`,
         name: item.label,
       },
     })),
