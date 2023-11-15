@@ -97,7 +97,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
   const stickyPosts = await getPostsByType({
     type: 'posts',
     params: {
-      per_page: 3,
+      per_page: 4,
       sticky: true,
     },
   });
