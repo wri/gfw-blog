@@ -26,6 +26,7 @@ import {
   Divider,
   LatestTitle,
   LoadMoreWrapper,
+  Hero,
 } from './styles';
 
 const HomePage = ({
@@ -74,20 +75,30 @@ const HomePage = ({
     <Wrapper>
       <Row
         css={css`
+          background-size: cover;
+          background-image: url('images/hero-bg-mobile.png');
           margin-bottom: 20px;
+          max-width: 100%;
+          padding: 70px 0;
+          width: 100%;
           ${theme.mediaQueries.small} {
             margin-bottom: 50px;
+            background-image: url('images/hero-bg-desktop.png');
           }
         `}
       >
-        <Column>
-          <SearchMobile />
-        </Column>
-        <Column width={[1, 5 / 6, 2 / 3]}>
-          <Intro
-            title={homepage?.title}
-            description={ReactHtmlParser(homepage?.excerpt)}
-          />
+        <Column
+          css={css`
+            padding: 0px;
+          `}
+          width={[1, 5 / 6, 2 / 3]}
+        >
+          <Hero>
+            <Intro
+              title={homepage?.title}
+              description={ReactHtmlParser(homepage?.excerpt)}
+            />
+          </Hero>
         </Column>
       </Row>
       <Row>
@@ -105,6 +116,16 @@ const HomePage = ({
               `}
             />
           )}
+        </Column>
+        <Column
+          css={css`
+            display: block;
+            ${theme.mediaQueries.small} {
+              display: none;
+            }
+          `}
+        >
+          <SearchMobile />
         </Column>
         <Column width={[1, 1 / 4]}>
           <SearchDesktop showTitle expandable />
