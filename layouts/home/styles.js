@@ -5,10 +5,13 @@ import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding-top: 20px;
+`;
+
+export const Hero = styled.div`
+  padding: 0 16px;
 
   ${theme.mediaQueries.small} {
-    padding: 70px 0;
+    padding: 0 60px;
   }
 `;
 
