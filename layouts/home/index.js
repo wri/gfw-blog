@@ -15,14 +15,12 @@ import { trackEvent } from 'utils/analytics';
 
 import Card from 'components/card';
 import CategoryList from 'components/category-list';
-import Featured from 'components/featured';
 import Intro from 'components/intro';
 
 import {
   Wrapper,
   SearchMobile,
   SearchDesktop,
-  FeatureWrapper,
   Divider,
   LatestTitle,
   LoadMoreWrapper,
@@ -38,8 +36,8 @@ const HomePage = ({
 }) => {
   const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
   const subPosts = stickyPosts?.length
-    ? stickyPosts.slice(1, 3)
-    : firstPagePosts?.slice(1, 3);
+    ? stickyPosts.slice(1, 4)
+    : firstPagePosts?.slice(1, 4);
 
   const [posts, setPosts] = useState(
     stickyPosts?.length
@@ -131,44 +129,56 @@ const HomePage = ({
           <SearchDesktop showTitle expandable />
         </Column>
       </Row>
-      <FeatureWrapper
-        css={css`
-          position: relative;
-          z-index: 1;
-          margin-bottom: 40px;
-        `}
-      >
-        <Featured {...mainPost} />
-      </FeatureWrapper>
       <Row
         css={css`
-          position: relative;
-          z-index: 1;
+          ${theme.mediaQueries.small} {
+            max-width: 100%;
+            padding: 0 60px;
+          }
         `}
       >
-        {subPosts?.map((post) => (
-          <Column
-            key={post.id}
-            width={[1, 1 / 2]}
-            css={css`
-              margin-bottom: 40px !important;
-            `}
-          >
-            <Card {...post} large />
-          </Column>
-        ))}
+        <Column>
+          <LatestTitle>Featured Articles</LatestTitle>
+        </Column>
+      </Row>
+      <Row
+        css={css`
+          display: none;
+          ${theme.mediaQueries.small} {
+            display: flex;
+            max-width: 100%;
+            padding: 0 44px;
+          }
+        `}
+      >
+        <Column width={[1, 1 / 2]}>
+          <Card {...mainPost} large />
+        </Column>
+        <Column width={[1, 1 / 2]}>
+          {subPosts?.map((post) => (
+            <Card key={post.id} {...post} excerpt="" isFeaturedSubPost />
+          ))}
+        </Column>
       </Row>
       <Divider />
-      <Row>
+      <Row
+        css={css`
+          max-width: 100%;
+          ${theme.mediaQueries.small} {
+            padding: 0 60px;
+          }
+        `}
+      >
         <Column>
-          <LatestTitle>Latest articles</LatestTitle>
+          <LatestTitle>All articles</LatestTitle>
         </Column>
         {posts?.map((post) => (
           <Column
             key={post.id}
-            width={[1, 1 / 2, 1 / 3]}
+            width={[1]}
             css={css`
               margin-bottom: 40px !important;
+              width: auto;
             `}
           >
             <Card {...post} />
