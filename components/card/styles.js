@@ -45,7 +45,7 @@ export const MediaWrapper = styled.div`
     ${({ large }) =>
       large &&
       `
-        height: 300px;
+        height: 462px;
     `}
   }
 `;
