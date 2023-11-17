@@ -35,7 +35,11 @@ const HomePage = ({
   topics,
 }) => {
   const router = useRouter();
+<<<<<<< HEAD
   const page = Number(router.query.page) || 1;
+=======
+  const currentPage = Number(router.query.page) || 1;
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
   const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
   const subPosts = stickyPosts?.length
     ? stickyPosts.slice(1, 4)
@@ -47,6 +51,7 @@ const HomePage = ({
       : firstPagePosts.slice(3, firstPagePosts.length) || []
   );
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(currentPage);
 
   useEffect(() => {
     const fetchNextPosts = async () => {
@@ -69,7 +74,13 @@ const HomePage = ({
   }, [page]);
 
   const selectPage = (selectedPage) => {
+<<<<<<< HEAD
     location.assign(`/blog/?page=${selectedPage}`);
+=======
+    setPage(selectedPage);
+
+    history.pushState(null, '', `/blog/?page=${selectedPage}`);
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
   };
 
   return (
@@ -234,6 +245,7 @@ const HomePage = ({
         `}
       >
         <Column>
+<<<<<<< HEAD
           <LatestTitle
             css={css`
               margin-bottom: 1.5625rem;
@@ -250,6 +262,18 @@ const HomePage = ({
               height: '3.125rem',
             }}
           >
+=======
+          <LatestTitle>All articles</LatestTitle>
+        </Column>
+        {loading && (
+          <div
+            style={{
+              position: 'relative',
+              width: '50px',
+              height: '50px',
+            }}
+          >
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
             <Loader />
           </div>
         )}
@@ -259,6 +283,7 @@ const HomePage = ({
               key={post.id}
               width={[1]}
               css={css`
+<<<<<<< HEAD
                 margin-bottom: 2.5rem !important;
                 width: auto;
               `}
@@ -273,20 +298,38 @@ const HomePage = ({
                     }
                 `}
               />
+=======
+                margin-bottom: 40px !important;
+                width: auto;
+              `}
+            >
+              <Card {...post} />
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
             </Column>
           ))}
         <Column
           css={css`
+<<<<<<< HEAD
             padding-bottom: 5rem !important;
             padding-top: 3.75rem !important;
+=======
+            padding-bottom: 80px !important;
+            padding-top: 60px !important;
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
             display: flex;
             align-items: center;
             justify-content: center;
 
             ${theme.mediaQueries.small} {
+<<<<<<< HEAD
               padding-bottom: 9.8125rem !important;
               padding-top: 6.25rem !important;
               padding-right: 2.8125rem !important;
+=======
+              padding-bottom: 157px !important;
+              padding-top: 100px !important;
+              padding-right: 45px !important;
+>>>>>>> 3eac964 (feat(home): Implement All Articles pagination)
               justify-content: end;
             }
           `}
