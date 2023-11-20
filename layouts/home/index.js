@@ -34,7 +34,7 @@ const HomePage = ({
   categories,
 }) => {
   const router = useRouter();
-  const currentPage = Number(router.query.page) || 1;
+  const page = Number(router.query.page) || 1;
   const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
   const subPosts = stickyPosts?.length
     ? stickyPosts.slice(1, 4)
@@ -46,7 +46,6 @@ const HomePage = ({
       : firstPagePosts.slice(3, firstPagePosts.length) || []
   );
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(currentPage);
 
   useEffect(() => {
     const fetchNextPosts = async () => {
@@ -69,9 +68,7 @@ const HomePage = ({
   }, [page]);
 
   const selectPage = (selectedPage) => {
-    setPage(selectedPage);
-
-    history.pushState(null, '', `/blog/?page=${selectedPage}`);
+    location.assign(`/blog/?page=${selectedPage}`);
   };
 
   return (
