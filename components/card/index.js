@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 
 import { Button, Row, Column } from '@worldresources/gfw-components';
 
 import { LangConsumer } from 'utils/lang';
 
 import Media from 'components/media';
-import CategoryList from 'components/category-list';
 
 import {
   CardWrapper,
@@ -18,6 +19,7 @@ import {
   PlayIcon,
   PostTitle,
   PostExcerpt,
+  InfoWrapper,
 } from './styles';
 
 const Card = ({
@@ -27,8 +29,13 @@ const Card = ({
   large,
   isFeaturedSubPost = false,
   video,
+  date,
+  modified,
   ...rawCardData
 }) => {
+  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
+  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
+
   const renderMedia = () => {
     return (
       !!featured_media && (
@@ -52,20 +59,28 @@ const Card = ({
     );
   };
 
+  const renderInfo = () => {
+    return (
+      <InfoWrapper>
+        <span>{formattedDate}</span>
+        {categories && (
+          <>
+            <span className="separator">|</span>
+            <span className="bold">{categories[0].name}</span>
+          </>
+        )}
+        <span className="separator">|</span>
+        <span>20 min</span>
+      </InfoWrapper>
+    );
+  };
+
   const renderCard = ({ title, excerpt }) => {
     if (large) {
       return (
         <Column width={[1]}>
           {renderMedia()}
-          {categories && (
-            <CategoryList
-              categories={categories}
-              css={css`
-                z-index: 2;
-                position: relative;
-              `}
-            />
-          )}
+          {renderInfo()}
           {title && (
             <PostTitle className="notranslate" large={large}>
               {title}
@@ -94,15 +109,7 @@ const Card = ({
       <>
         <Column width={widthValues[0]}>{renderMedia()}</Column>
         <Column width={widthValues[1]}>
-          {categories && (
-            <CategoryList
-              categories={categories}
-              css={css`
-                z-index: 2;
-                position: relative;
-              `}
-            />
-          )}
+          {renderInfo()}
           {title && (
             <PostTitle className="notranslate" large={large}>
               {title}
@@ -168,6 +175,8 @@ Card.propTypes = {
   video: PropTypes.bool,
   featured_media: PropTypes.object,
   translations_posts: PropTypes.array,
+  date: PropTypes.string,
+  modified: PropTypes.string,
 };
 
 export default Card;
