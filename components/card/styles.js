@@ -34,6 +34,32 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const InfoWrapper = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  padding: 10px 0;
+  text-align: left;
+
+  > span {
+    padding: 0 2px;
+  }
+
+  .bold {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .separator {
+    color: #97bd3d;
+  }
+`;
+
 export const MediaWrapper = styled.div`
   height: 200px;
   overflow: hidden;
