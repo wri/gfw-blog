@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
+import { useRouter } from 'next/router';
 
 import {
   Row,
   Column,
   theme,
   Loader,
-  Button,
+  Paginator,
 } from '@worldresources/gfw-components';
 import { getPostsByType } from 'lib/api';
-import { trackEvent } from 'utils/analytics';
 
 import Card from 'components/card';
 import CategoryList from 'components/category-list';
@@ -23,7 +23,6 @@ import {
   SearchDesktop,
   Divider,
   LatestTitle,
-  LoadMoreWrapper,
   Hero,
 } from './styles';
 
@@ -34,6 +33,8 @@ const HomePage = ({
   totalPages,
   categories,
 }) => {
+  const router = useRouter();
+  const page = Number(router.query.page) || 1;
   const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
   const subPosts = stickyPosts?.length
     ? stickyPosts.slice(1, 4)
@@ -44,30 +45,31 @@ const HomePage = ({
       ? firstPagePosts
       : firstPagePosts.slice(3, firstPagePosts.length) || []
   );
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (page > 1) {
-      const fetchNextPosts = async () => {
-        setLoading(true);
+    const fetchNextPosts = async () => {
+      setLoading(true);
 
-        const nextPosts = await getPostsByType({
-          type: 'posts',
-          params: {
-            per_page: 9,
-            exclude: stickyPosts.map((s) => s.id),
-            page,
-          },
-        });
+      const nextPosts = await getPostsByType({
+        type: 'posts',
+        params: {
+          per_page: 6,
+          exclude: stickyPosts.map((s) => s.id),
+          page,
+        },
+      });
 
-        setPosts([...posts, ...nextPosts?.posts]);
-        setLoading(false);
-      };
+      setPosts([...nextPosts?.posts]);
+      setLoading(false);
+    };
 
-      fetchNextPosts();
-    }
+    fetchNextPosts();
   }, [page]);
+
+  const selectPage = (selectedPage) => {
+    location.assign(`/blog/?page=${selectedPage}`);
+  };
 
   return (
     <Wrapper>
@@ -172,51 +174,53 @@ const HomePage = ({
         <Column>
           <LatestTitle>All articles</LatestTitle>
         </Column>
-        {posts?.map((post) => (
-          <Column
-            key={post.id}
-            width={[1]}
-            css={css`
-              margin-bottom: 40px !important;
-              width: auto;
-            `}
+        {loading && (
+          <div
+            style={{
+              position: 'relative',
+              width: '50px',
+              height: '50px',
+            }}
           >
-            <Card {...post} />
-          </Column>
-        ))}
-        <Column>
+            <Loader />
+          </div>
+        )}
+        {!loading &&
+          posts?.map((post) => (
+            <Column
+              key={post.id}
+              width={[1]}
+              css={css`
+                margin-bottom: 40px !important;
+                width: auto;
+              `}
+            >
+              <Card {...post} />
+            </Column>
+          ))}
+        <Column
+          css={css`
+            padding-bottom: 80px !important;
+            padding-top: 60px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            ${theme.mediaQueries.small} {
+              padding-bottom: 157px !important;
+              padding-top: 100px !important;
+              padding-right: 45px !important;
+              justify-content: end;
+            }
+          `}
+        >
           <Row nested>
             <Column width={[1 / 12, 1 / 3]} />
-            <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-              {loading && (
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '50px',
-                    height: '50px',
-                  }}
-                >
-                  <Loader />
-                </div>
-              )}
-              {!loading && page < totalPages && (
-                <Button
-                  onClick={() => {
-                    setPage(page + 1);
-                    trackEvent({
-                      category: 'GFW Blog',
-                      label: 'User clicks on more articles button',
-                      action: 'Load more articles',
-                    });
-                  }}
-                  css={css`
-                    width: 100%;
-                  `}
-                >
-                  Load more articles
-                </Button>
-              )}
-            </LoadMoreWrapper>
+            <Paginator
+              currentPage={page}
+              totalPages={totalPages}
+              handleSelectPage={selectPage}
+            />
           </Row>
         </Column>
       </Row>
