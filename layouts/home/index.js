@@ -16,6 +16,7 @@ import { getPostsByType } from 'lib/api';
 import Card from 'components/card';
 import CategoryList from 'components/category-list';
 import Intro from 'components/intro';
+import Slider from 'components/slider';
 
 import {
   Wrapper,
@@ -131,9 +132,12 @@ const HomePage = ({
           <SearchDesktop showTitle expandable />
         </Column>
       </Row>
+      {/** Desktop  */}
       <Row
         css={css`
+          display: none;
           ${theme.mediaQueries.small} {
+            display: flex;
             max-width: 100%;
             padding: 0 60px;
           }
@@ -162,6 +166,22 @@ const HomePage = ({
           ))}
         </Column>
       </Row>
+      {/** END Desktop  */}
+      {/** Mobile  */}
+      <Row
+        css={css`
+          ${theme.mediaQueries.small} {
+            display: none;
+          }
+        `}
+      >
+        <Slider
+          cards={[mainPost, ...subPosts]}
+          title="Featured Articles"
+          withBackgroundImage={false}
+        />
+      </Row>
+      {/** END Mobile  */}
       <Divider />
       <Row
         css={css`
