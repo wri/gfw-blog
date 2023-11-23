@@ -31,6 +31,7 @@ const Card = ({
   video,
   date,
   modified,
+  textColor = '#333',
   ...rawCardData
 }) => {
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
@@ -61,7 +62,11 @@ const Card = ({
 
   const renderInfo = () => {
     return (
-      <InfoWrapper>
+      <InfoWrapper
+        css={css`
+          color: ${textColor};
+        `}
+      >
         <span>{formattedDate}</span>
         {categories && (
           <>
@@ -82,12 +87,24 @@ const Card = ({
           {renderMedia()}
           {renderInfo()}
           {title && (
-            <PostTitle className="notranslate" large={large}>
+            <PostTitle
+              css={css`
+                color: ${textColor};
+              `}
+              className="notranslate"
+              large={large}
+            >
               {title}
             </PostTitle>
           )}
           {excerpt && (
-            <PostExcerpt className="notranslate" large={large}>
+            <PostExcerpt
+              css={css`
+                color: ${textColor};
+              `}
+              className="notranslate"
+              large={large}
+            >
               {ReactHtmlParser(excerpt)}
             </PostExcerpt>
           )}
@@ -111,12 +128,24 @@ const Card = ({
         <Column width={widthValues[1]}>
           {renderInfo()}
           {title && (
-            <PostTitle className="notranslate" large={large}>
+            <PostTitle
+              css={css`
+                color: ${textColor};
+              `}
+              className="notranslate"
+              large={large}
+            >
               {title}
             </PostTitle>
           )}
           {excerpt && (
-            <PostExcerpt className="notranslate" large={large}>
+            <PostExcerpt
+              css={css`
+                color: ${textColor};
+              `}
+              className="notranslate"
+              large={large}
+            >
               {ReactHtmlParser(excerpt)}
             </PostExcerpt>
           )}
@@ -177,6 +206,7 @@ Card.propTypes = {
   translations_posts: PropTypes.array,
   date: PropTypes.string,
   modified: PropTypes.string,
+  textColor: PropTypes.string,
 };
 
 export default Card;
