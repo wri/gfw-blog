@@ -41,7 +41,7 @@ const Card = ({
     return (
       !!featured_media && (
         <MediaWrapper large={large}>
-          <Media {...featured_media} />
+          <Media {...featured_media} isExternalLink={!!rawCardData.extLink} />
           {video && (
             <Overlay>
               <Button
@@ -168,6 +168,7 @@ const Card = ({
             {extLink && (
               // eslint-disable-next-line jsx-a11y/anchor-has-content
               <a
+                style={{ cursor: 'pointer' }}
                 href={extLink}
                 target="_blank"
                 rel="noopener noreferrer"
