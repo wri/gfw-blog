@@ -8,16 +8,11 @@ import {
   getCategories,
 } from 'lib/api';
 
-import dynamic from 'next/dynamic';
-
 import HomePage from 'layouts/home';
 import PostPage from 'layouts/post';
+import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
-
-const Layout = dynamic(() => import('layouts/layout'), {
-  ssr: false,
-});
 
 const MAIN_CATEGORIES = [
   'data-and-research',
