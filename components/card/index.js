@@ -164,7 +164,7 @@ const Card = ({
         const { title, excerpt, link, extLink } = cardData || {};
 
         return (
-          <CardWrapper>
+          <CardWrapper isFeaturedSubPost={isFeaturedSubPost}>
             {extLink && (
               // eslint-disable-next-line jsx-a11y/anchor-has-content
               <a
