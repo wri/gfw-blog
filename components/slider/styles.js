@@ -18,6 +18,7 @@ const SliderWrapper = styled.div`
       line-height: 30px;
       letter-spacing: 0.25px;
       text-align: left;
+      text-transform: uppercase;
       padding-bottom: 25px;
       padding-left: 16px;
       padding-top: 35px;
@@ -54,6 +55,7 @@ const SliderWrapper = styled.div`
     line-height: 18px;
     letter-spacing: 0.25px;
     text-align: left;
+    text-transform: uppercase;
     padding-bottom: 25px;
     padding-left: 16px;
     padding-top: 35px;
