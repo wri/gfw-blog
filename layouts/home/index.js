@@ -192,7 +192,13 @@ const HomePage = ({
         `}
       >
         <Column>
-          <LatestTitle>All articles</LatestTitle>
+          <LatestTitle
+            css={css`
+              margin-bottom: 25px;
+            `}
+          >
+            All articles
+          </LatestTitle>
         </Column>
         {loading && (
           <div

@@ -74,11 +74,7 @@ export const LatestTitle = styled.h2`
   margin-bottom: 50px;
   text-transform: uppercase;
   font-weight: 500;
-  display: none;
-
-  ${theme.mediaQueries.small} {
-    display: block;
-  }
+  display: block;
 `;
 
 export const LoadMoreWrapper = styled(Column)`
