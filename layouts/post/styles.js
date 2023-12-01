@@ -105,6 +105,18 @@ export const Divider = styled.div`
   }
 `;
 
+export const MoreArticlesWrapper = styled.div`
+  background-image: url('../../images/prefooter-desktop.png');
+  background-size: cover;
+  display: none;
+  min-height: 785px;
+  margin: 50px 0;
+
+  ${theme.mediaQueries.small} {
+    display: flex;
+  }
+`;
+
 export const CaptionWrapper = styled(Row)`
   margin-bottom: 20px !important;
 
