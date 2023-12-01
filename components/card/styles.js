@@ -72,14 +72,6 @@ export const MediaWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
   display: flex;
-
-  ${theme.mediaQueries.small} {
-    ${({ large }) =>
-      large &&
-      `
-        height: 462px;
-    `}
-  }
 `;
 
 export const Overlay = styled.div`
