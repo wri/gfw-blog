@@ -9,7 +9,7 @@ import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';
 import Caption from 'components/caption';
 import CategoryList from 'components/category-list';
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import PostContent from 'components/content';
 
 import PostMeta from './meta';
@@ -170,7 +170,14 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
               `}
               key={p?.id}
             >
-              <Card {...p} />
+              <Card
+                {...p}
+                large
+                imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                  }
+                `}
+              />
             </Column>
           ))}
       </Row>
