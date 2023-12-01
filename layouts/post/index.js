@@ -20,13 +20,13 @@ import {
   PostContainer,
   MediaWrapper,
   PostTitle,
-  Divider,
   LatestTitle,
   PostMetaMobile,
   PostMetaDesktop,
   CaptionWrapper,
   Search,
   BreadCrumbsWrapper,
+  MoreArticlesWrapper,
 } from './styles';
 
 const localeStrings = {
@@ -156,34 +156,52 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           {tags && <CategoryList categories={tags} light />}
         </Column>
       </Row>
-      <Divider />
-      <Row>
-        <Column>
-          <LatestTitle>Latest articles</LatestTitle>
-        </Column>
-        {relatedPosts &&
-          relatedPosts.map((p) => (
-            <Column
-              width={[1, 1 / 2, 1 / 3]}
+      <MoreArticlesWrapper>
+        <Row
+          css={css`
+            padding: 20px 0;
+          `}
+        >
+          <Column>
+            <LatestTitle
               css={css`
-                margin-bottom: 40px !important;
+                color: white;
+                font-size: 48px;
+                font-weight: 400;
+                line-height: 48px;
+                letter-spacing: 0.25px;
+                text-align: center;
+                text-transform: capitalize;
+                padding-top: 30px;
               `}
-              key={p?.id}
             >
-              <Card
-                {...p}
-                large
-                imageSize={`
-                    height: ${CARD_MEDIA_SIZE.MEDIUM.height};
-                  }
+              Explore More Articles
+            </LatestTitle>
+          </Column>
+          {relatedPosts &&
+            relatedPosts.map((p) => (
+              <Column
+                width={[1, 1 / 2, 1 / 3]}
+                css={css`
+                  margin-bottom: 40px !important;
                 `}
-              />
-            </Column>
-          ))}
-      </Row>
+                key={p?.id}
+              >
+                <Card
+                  {...p}
+                  large
+                  textColor="white"
+                  imageSize={`
+                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                    }
+                  `}
+                />
+              </Column>
+            ))}
+        </Row>
+      </MoreArticlesWrapper>
       {!preview && (
         <>
-          <Divider />
           <Row
             css={css`
               scroll-margin: 150px;
