@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import LeftArrowIcon from 'assets/icons/left-arrow.svg';
 import RightArrowIcon from 'assets/icons/right-arrow.svg';
 import SliderWrapper from './styles';
@@ -64,7 +64,15 @@ const Slider = ({ cards, withBackgroundImage = false, title }) => {
           {cards &&
             cards.map((card) => (
               <div key={card.id} className="slide">
-                <Card textColor={cardTextColor} {...card} excerpt="" large />
+                <Card
+                  textColor={cardTextColor}
+                  {...card}
+                  excerpt=""
+                  large
+                  imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+                `}
+                />
               </div>
             ))}
         </div>
