@@ -6,10 +6,10 @@ const SliderWrapper = styled.div`
   height: 100%;
   padding: 10px 0;
 
-  ${({ withBackgroundImage }) =>
-    withBackgroundImage &&
+  ${({ backgroundImageUrl }) =>
+    backgroundImageUrl &&
     `
-    background-image: url('images/prefooter-mobile.png');
+    background-image: url('${backgroundImageUrl}');
 
     .title {
       color: white;
