@@ -44,9 +44,9 @@ const scroll = (element, change, duration) => {
   animateScroll();
 };
 
-const Slider = ({ cards, withBackgroundImage = false, title }) => {
+const Slider = ({ cards, backgroundImageUrl = '', title }) => {
   const sliderRef = useRef();
-  const cardTextColor = withBackgroundImage ? 'white' : undefined;
+  const cardTextColor = backgroundImageUrl ? 'white' : undefined;
 
   const handleScrollRight = () => {
     scroll(sliderRef.current, 300, 100);
@@ -57,7 +57,7 @@ const Slider = ({ cards, withBackgroundImage = false, title }) => {
   };
 
   return (
-    <SliderWrapper withBackgroundImage={withBackgroundImage}>
+    <SliderWrapper backgroundImageUrl={backgroundImageUrl}>
       <div className="title">{title}</div>
       <div className="slider">
         <div ref={sliderRef} className="slides">
@@ -91,7 +91,7 @@ const Slider = ({ cards, withBackgroundImage = false, title }) => {
 
 Slider.propTypes = {
   cards: PropTypes.array,
-  withBackgroundImage: PropTypes.bool,
+  backgroundImageUrl: PropTypes.string, // this url needs to be relative to the page / component is being used
   title: PropTypes.string,
 };
 
