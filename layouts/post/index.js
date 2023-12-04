@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Row, Column, Desktop, Mobile } from '@worldresources/gfw-components';
+import {
+  Row,
+  Column,
+  Desktop,
+  Mobile,
+  theme,
+} from '@worldresources/gfw-components';
 
 import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';
@@ -12,6 +18,7 @@ import CategoryList from 'components/category-list';
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import PostContent from 'components/content';
 
+import Slider from 'components/slider';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
 import Comments from './comments';
@@ -200,11 +207,29 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
             ))}
         </Row>
       </MoreArticlesWrapper>
+      <Row
+        css={css`
+          ${theme.mediaQueries.small} {
+            display: none;
+          }
+        `}
+      >
+        <Slider
+          cards={relatedPosts}
+          title="Explore More Articles"
+          backgroundImageUrl="../../images/prefooter-mobile.png"
+        />
+      </Row>
       {!preview && (
         <>
           <Row
             css={css`
               scroll-margin: 150px;
+              padding: 40px 0;
+
+              ${theme.mediaQueries.small} {
+                padding: 0;
+              }
             `}
           >
             <div

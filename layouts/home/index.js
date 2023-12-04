@@ -197,11 +197,7 @@ const HomePage = ({
           }
         `}
       >
-        <Slider
-          cards={[mainPost, ...subPosts]}
-          title="Featured Articles"
-          withBackgroundImage={false}
-        />
+        <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
       </Row>
       {/** END Mobile  */}
       <Divider />
