@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 
-import { Row, Column, Desktop, Mobile } from '@worldresources/gfw-components';
+import {
+  Row,
+  Column,
+  Desktop,
+  Mobile,
+  theme,
+} from '@worldresources/gfw-components';
 
 import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';
 import Caption from 'components/caption';
 import CategoryList from 'components/category-list';
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import PostContent from 'components/content';
 
+import Slider from 'components/slider';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
 import Comments from './comments';
@@ -20,13 +27,13 @@ import {
   PostContainer,
   MediaWrapper,
   PostTitle,
-  Divider,
   LatestTitle,
   PostMetaMobile,
   PostMetaDesktop,
   CaptionWrapper,
   Search,
   BreadCrumbsWrapper,
+  MoreArticlesWrapper,
 } from './styles';
 
 const localeStrings = {
@@ -156,30 +163,73 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           {tags && <CategoryList categories={tags} light />}
         </Column>
       </Row>
-      <Divider />
-      <Row>
-        <Column>
-          <LatestTitle>Latest articles</LatestTitle>
-        </Column>
-        {relatedPosts &&
-          relatedPosts.map((p) => (
-            <Column
-              width={[1, 1 / 2, 1 / 3]}
+      <MoreArticlesWrapper>
+        <Row
+          css={css`
+            padding: 20px 0;
+          `}
+        >
+          <Column>
+            <LatestTitle
               css={css`
-                margin-bottom: 40px !important;
+                color: white;
+                font-size: 48px;
+                font-weight: 400;
+                line-height: 48px;
+                letter-spacing: 0.25px;
+                text-align: center;
+                text-transform: capitalize;
+                padding-top: 30px;
               `}
-              key={p?.id}
             >
-              <Card {...p} />
-            </Column>
-          ))}
+              Explore More Articles
+            </LatestTitle>
+          </Column>
+          {relatedPosts &&
+            relatedPosts.map((p) => (
+              <Column
+                width={[1, 1 / 2, 1 / 3]}
+                css={css`
+                  margin-bottom: 40px !important;
+                `}
+                key={p?.id}
+              >
+                <Card
+                  {...p}
+                  large
+                  textColor="white"
+                  imageSize={`
+                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                    }
+                  `}
+                />
+              </Column>
+            ))}
+        </Row>
+      </MoreArticlesWrapper>
+      <Row
+        css={css`
+          ${theme.mediaQueries.small} {
+            display: none;
+          }
+        `}
+      >
+        <Slider
+          cards={relatedPosts}
+          title="Explore More Articles"
+          backgroundImageUrl="../../images/prefooter-mobile.png"
+        />
       </Row>
       {!preview && (
         <>
-          <Divider />
           <Row
             css={css`
               scroll-margin: 150px;
+              padding: 40px 0;
+
+              ${theme.mediaQueries.small} {
+                padding: 0;
+              }
             `}
           >
             <div

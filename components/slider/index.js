@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import LeftArrowIcon from 'assets/icons/left-arrow.svg';
 import RightArrowIcon from 'assets/icons/right-arrow.svg';
 import SliderWrapper from './styles';
@@ -44,9 +44,9 @@ const scroll = (element, change, duration) => {
   animateScroll();
 };
 
-const Slider = ({ cards, withBackgroundImage = false, title }) => {
+const Slider = ({ cards, backgroundImageUrl = '', title }) => {
   const sliderRef = useRef();
-  const cardTextColor = withBackgroundImage ? 'white' : undefined;
+  const cardTextColor = backgroundImageUrl ? 'white' : undefined;
 
   const handleScrollRight = () => {
     scroll(sliderRef.current, 300, 100);
@@ -57,14 +57,22 @@ const Slider = ({ cards, withBackgroundImage = false, title }) => {
   };
 
   return (
-    <SliderWrapper withBackgroundImage={withBackgroundImage}>
+    <SliderWrapper backgroundImageUrl={backgroundImageUrl}>
       <div className="title">{title}</div>
       <div className="slider">
         <div ref={sliderRef} className="slides">
           {cards &&
             cards.map((card) => (
               <div key={card.id} className="slide">
-                <Card textColor={cardTextColor} {...card} excerpt="" large />
+                <Card
+                  textColor={cardTextColor}
+                  {...card}
+                  excerpt=""
+                  large
+                  imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+                `}
+                />
               </div>
             ))}
         </div>
@@ -83,7 +91,7 @@ const Slider = ({ cards, withBackgroundImage = false, title }) => {
 
 Slider.propTypes = {
   cards: PropTypes.array,
-  withBackgroundImage: PropTypes.bool,
+  backgroundImageUrl: PropTypes.string, // this url needs to be relative to the page / component is being used
   title: PropTypes.string,
 };
 

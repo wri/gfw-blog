@@ -22,6 +22,25 @@ import {
   InfoWrapper,
 } from './styles';
 
+export const CARD_MEDIA_SIZE = Object.freeze({
+  LARGE: {
+    height: '462px',
+    width: '603px',
+  },
+  MEDIUM: {
+    height: '232px',
+    width: '303px',
+  },
+  SMALL: {
+    height: '186px',
+    width: '243px',
+  },
+  MOBILE: {
+    height: '252px',
+    width: '329px',
+  },
+});
+
 const Card = ({
   featured_media,
   translations_posts,
@@ -31,6 +50,7 @@ const Card = ({
   video,
   date,
   modified,
+  imageSize = '',
   textColor = '#333',
   ...rawCardData
 }) => {
@@ -40,7 +60,12 @@ const Card = ({
   const renderMedia = () => {
     return (
       !!featured_media && (
-        <MediaWrapper large={large}>
+        <MediaWrapper
+          large={large}
+          css={css`
+            ${imageSize}
+          `}
+        >
           <Media {...featured_media} isExternalLink={!!rawCardData.extLink} />
           {video && (
             <Overlay>
@@ -208,6 +233,7 @@ Card.propTypes = {
   date: PropTypes.string,
   modified: PropTypes.string,
   textColor: PropTypes.string,
+  imageSize: PropTypes.string,
 };
 
 export default Card;

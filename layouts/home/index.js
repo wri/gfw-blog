@@ -13,7 +13,7 @@ import {
 } from '@worldresources/gfw-components';
 import { getPostsByType } from 'lib/api';
 
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import CategoryList from 'components/category-list';
 import Intro from 'components/intro';
 import Slider from 'components/slider';
@@ -138,7 +138,7 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 100%;
+            max-width: 1443px;
             padding: 0 60px;
           }
         `}
@@ -152,17 +152,39 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 100%;
+            max-width: 1443px;
             padding: 0 44px;
           }
         `}
       >
         <Column width={[1, 1 / 2]}>
-          <Card {...mainPost} large />
+          <Card
+            {...mainPost}
+            large
+            imageSize={`
+            height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+            ${theme.mediaQueries.small} {
+              height: ${CARD_MEDIA_SIZE.LARGE.height};
+            }
+        `}
+          />
         </Column>
         <Column width={[1, 1 / 2]}>
           {subPosts?.map((post) => (
-            <Card key={post.id} {...post} excerpt="" isFeaturedSubPost />
+            <Card
+              key={post.id}
+              {...post}
+              excerpt=""
+              isFeaturedSubPost
+              imageSize={`
+                height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                ${theme.mediaQueries.small} {
+                  height: ${CARD_MEDIA_SIZE.SMALL.height};
+                }
+              `}
+            />
           ))}
         </Column>
       </Row>
@@ -175,11 +197,7 @@ const HomePage = ({
           }
         `}
       >
-        <Slider
-          cards={[mainPost, ...subPosts]}
-          title="Featured Articles"
-          withBackgroundImage={false}
-        />
+        <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
       </Row>
       {/** END Mobile  */}
       <Divider />
@@ -188,6 +206,7 @@ const HomePage = ({
           max-width: 100%;
           ${theme.mediaQueries.small} {
             padding: 0 60px;
+            max-width: 1443px;
           }
         `}
       >
@@ -221,7 +240,16 @@ const HomePage = ({
                 width: auto;
               `}
             >
-              <Card {...post} />
+              <Card
+                {...post}
+                imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                    ${theme.mediaQueries.small} {
+                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                    }
+                `}
+              />
             </Column>
           ))}
         <Column
