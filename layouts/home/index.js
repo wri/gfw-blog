@@ -138,7 +138,7 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 100%;
+            max-width: 1443px;
             padding: 0 60px;
           }
         `}
@@ -152,7 +152,7 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 100%;
+            max-width: 1443px;
             padding: 0 44px;
           }
         `}
@@ -210,6 +210,7 @@ const HomePage = ({
           max-width: 100%;
           ${theme.mediaQueries.small} {
             padding: 0 60px;
+            max-width: 1443px;
           }
         `}
       >
