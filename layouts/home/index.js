@@ -162,12 +162,13 @@ const HomePage = ({
             {...mainPost}
             large
             imageSize={`
-            height: ${CARD_MEDIA_SIZE.MOBILE.height};
+              height: ${CARD_MEDIA_SIZE.MOBILE.height};
 
-            ${theme.mediaQueries.small} {
-              height: ${CARD_MEDIA_SIZE.LARGE.height};
-            }
-        `}
+              ${theme.mediaQueries.small} {
+                height: ${CARD_MEDIA_SIZE.LARGE.height};
+              }
+            `}
+            showExcerpt={false}
           />
         </Column>
         <Column width={[1, 1 / 2]}>
@@ -175,7 +176,7 @@ const HomePage = ({
             <Card
               key={post.id}
               {...post}
-              excerpt=""
+              showExcerpt={false}
               isFeaturedSubPost
               imageSize={`
                 height: ${CARD_MEDIA_SIZE.MOBILE.height};
