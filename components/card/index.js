@@ -52,6 +52,7 @@ const Card = ({
   modified,
   imageSize = '',
   textColor = '#333',
+  showExcerpt = true,
   ...rawCardData
 }) => {
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
@@ -122,7 +123,7 @@ const Card = ({
               {title}
             </PostTitle>
           )}
-          {excerpt && (
+          {excerpt && showExcerpt && (
             <PostExcerpt
               css={css`
                 color: ${textColor};
@@ -163,7 +164,7 @@ const Card = ({
               {title}
             </PostTitle>
           )}
-          {excerpt && (
+          {excerpt && showExcerpt && (
             <PostExcerpt
               css={css`
                 color: ${textColor};
@@ -234,6 +235,7 @@ Card.propTypes = {
   modified: PropTypes.string,
   textColor: PropTypes.string,
   imageSize: PropTypes.string,
+  showExcerpt: PropTypes.bool,
 };
 
 export default Card;
