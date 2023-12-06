@@ -67,7 +67,7 @@ const Slider = ({ cards, backgroundImageUrl = '', title }) => {
                 <Card
                   textColor={cardTextColor}
                   {...card}
-                  excerpt=""
+                  showExcerpt={false}
                   large
                   imageSize={`
                     height: ${CARD_MEDIA_SIZE.MOBILE.height};
