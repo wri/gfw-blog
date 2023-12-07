@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
+import { useRouter } from 'next/router';
 
 import {
   Row,
@@ -19,6 +20,7 @@ import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import PostContent from 'components/content';
 
 import Slider from 'components/slider';
+import BackButton from 'components/back-button';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
 import Comments from './comments';
@@ -46,6 +48,7 @@ const localeStrings = {
 };
 
 const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
+  const router = useRouter();
   const { title, categories, tags, featured_media: media } = post || {};
 
   const commentsRef = useRef(null);
@@ -110,6 +113,12 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
             <Search expandable />
           </Mobile>
         </Column>
+      </Row>
+      <Row>
+        <BackButton
+          handleClick={() => router.push('/')}
+          title="back to all articles"
+        />
       </Row>
       {!!media && (
         <>
