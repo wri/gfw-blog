@@ -15,18 +15,18 @@ import { getPostsByType } from 'lib/api';
 import { trackEvent } from 'utils/analytics';
 import { translateText } from 'utils/lang';
 
-import Card from 'components/card';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import Breadcrumbs from 'components/breadcrumbs';
 import Dropdown from 'components/dropdown';
-// import Slider from 'components/slider'
+import Slider from 'components/slider';
 
 import {
   Wrapper,
-  SearchMobile,
-  SearchDesktop,
   ResultsStatement,
   LoadMoreWrapper,
   CategoryDescription,
+  MoreArticlesWrapper,
+  LatestTitle,
 } from './styles';
 
 const ArchivePage = ({
@@ -77,6 +77,7 @@ const ArchivePage = ({
   ]);
 
   const [posts, setPosts] = useState(firstPagePosts || []);
+  const [moreArticles, setMoreArticles] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -84,6 +85,18 @@ const ArchivePage = ({
   useEffect(() => {
     setPosts(firstPagePosts);
   }, [tax?.id, searchQuery]);
+
+  useEffect(() => {
+    if (totalPosts <= 0) {
+      const populateExploreMoreArticles = async () => {
+        const articles = await getPostsByType({});
+
+        setMoreArticles(articles.posts);
+      };
+
+      populateExploreMoreArticles();
+    }
+  }, []);
 
   useEffect(() => {
     if (page > 1) {
@@ -132,12 +145,8 @@ const ArchivePage = ({
               links={breadCrumbs}
             />
           </Column>
-          {!isSearch && (
-            <Column width={[1 / 4]}>
-              <SearchMobile expandable />
-            </Column>
-          )}
-          {isSearch && (
+
+          {isSearch && totalPosts <= 0 && (
             <>
               <Column>
                 <h1
@@ -147,7 +156,6 @@ const ArchivePage = ({
                 >
                   No Results for Lorem Ipsum
                 </h1>
-                {/* <SearchDesktop expanded isSearch /> */}
               </Column>
             </>
           )}
@@ -160,9 +168,6 @@ const ArchivePage = ({
           >
             <Column width={[1, 2 / 3]}>
               <Dropdown items={allTaxOptions} selected={tax?.id} />
-            </Column>
-            <Column width={[1, 1 / 3]}>
-              <SearchDesktop showTitle expandable />
             </Column>
             {tax?.description && (
               <Column
@@ -234,74 +239,123 @@ const ArchivePage = ({
           </Column>
         </Row>
 
-        <Row>
-          {/* <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" /> */}
-        </Row>
-        {/* <Row
+        {totalPosts <= 0 && (
+          <MoreArticlesWrapper>
+            <Row
+              css={css`
+                padding: 20px 0;
+              `}
+            >
+              <Column>
+                <LatestTitle
+                  css={css`
+                    font-size: 3rem;
+                    font-weight: 400;
+                    line-height: 3rem;
+                    letter-spacing: 0.25px;
+                    text-align: center;
+                    text-transform: capitalize;
+                    padding-top: 30px;
+                  `}
+                >
+                  Explore More Articles
+                </LatestTitle>
+              </Column>
+              {moreArticles &&
+                moreArticles.slice(0, 3).map((p) => (
+                  <Column
+                    width={[1, 1 / 2, 1 / 3]}
+                    css={css`
+                      margin-bottom: 40px !important;
+                    `}
+                    key={p?.id}
+                  >
+                    <Card
+                      {...p}
+                      large
+                      textColor="black"
+                      imageSize={`
+                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                    }
+                  `}
+                    />
+                  </Column>
+                ))}
+            </Row>
+          </MoreArticlesWrapper>
+        )}
+
+        {totalPosts <= 0 && (
+          <Row
+            css={css`
+              ${theme.mediaQueries.small} {
+                display: none;
+              }
+            `}
+          >
+            <Slider
+              cards={moreArticles}
+              title="Explore More Articles"
+              backgroundImageUrl="../../images/prefooter-mobile.png"
+            />
+          </Row>
+        )}
+      </Wrapper>
+
+      {totalPosts <= 0 && (
+        <Row
           css={css`
+            background-size: cover;
+            background-image: url('images/hero-bg-mobile.png');
+            max-width: 100%;
+            width: 100%;
+            height: 20.5625rem;
             ${theme.mediaQueries.small} {
-              display: none;
+              background-image: url('images/hero-bg-desktop.png');
             }
           `}
         >
-          <Slider
-            cards={relatedPosts}
-            title='Explore More Articles'
-            backgroundImageUrl='../../images/prefooter-mobile.png'
-          />
-        </Row> */}
-      </Wrapper>
-      <Row
-        css={css`
-          background-size: cover;
-          background-image: url('images/hero-bg-mobile.png');
-          max-width: 100%;
-          width: 100%;
-          height: 20.5625rem;
-          ${theme.mediaQueries.small} {
-            background-image: url('images/hero-bg-desktop.png');
-          }
-        `}
-      >
-        <Column
-          css={css`
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            background-image: url('../../images/no-results-bg.png');
-          `}
-        >
-          <h2
+          <Column
             css={css`
-              font-size: 2.5rem;
-              color: #fff;
-              margin-bottom: 2.25rem;
-              font-family: Fira Sans;
-              font-style: normal;
-              font-weight: 400;
-              line-height: 3rem;
-              letter-spacing: 0.01563rem;
-              text-align: center;
+              display: flex;
+              flex-flow: column;
+              justify-content: center;
+              align-items: center;
+              background-size: cover;
+              background-position: center;
+              background-image: url('../../images/no-results-bg.png');
             `}
           >
-            Not Finding What You&apos;re Looking For?
-          </h2>
-          <Button
-            css={css`
-              color: rgb(151, 190, 50);
-              font-size: 1rem;
-            `}
-            onClick={() => setOpen(!open)}
-            light
-            size="large"
-          >
-            Contact Us
-          </Button>
-        </Column>
-      </Row>
+            <h2
+              css={css`
+                font-size: 2.5rem;
+                color: #fff;
+                margin-bottom: 2.25rem;
+                font-family: Fira Sans;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 3rem;
+                letter-spacing: 0.01563rem;
+                text-align: center;
+              `}
+            >
+              Not Finding What You&apos;re Looking For?
+            </h2>
+            <Button
+              css={css`
+                color: rgb(151, 190, 50);
+                font-size: 1rem;
+              `}
+              onClick={() => setOpen(!open)}
+              light
+              size="large"
+            >
+              Contact Us
+            </Button>
+          </Column>
+        </Row>
+      )}
+
       <ContactUsModal open={open} onRequestClose={() => setOpen(false)} />
     </>
   );
