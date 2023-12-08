@@ -58,6 +58,24 @@ export const SearchDesktop = styled(Search)`
   `}
 `;
 
+export const MoreArticlesWrapper = styled.div`
+  display: none;
+  min-height: 785px;
+  margin: 50px 0;
+
+  ${theme.mediaQueries.small} {
+    display: flex;
+  }
+`;
+
+export const LatestTitle = styled.h2`
+  font-size: 18px;
+  color: ${theme.colors.darkestGrey};
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  font-weight: 500;
+`;
+
 export const CategoryDescription = styled.p`
   margin-top: 15px;
   font-size: 18px;
