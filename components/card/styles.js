@@ -29,7 +29,6 @@ export const CardWrapper = styled.div`
 
   &:hover {
     h3 {
-      color: ${theme.colors.darkGreen};
       text-decoration: underline;
     }
 
@@ -109,15 +108,15 @@ export const PostTitle = styled.h3`
 `;
 
 export const PostExcerpt = styled.div`
+  color: ${theme.colors.mediumGrey};
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   font-size: 14px;
   line-height: 21px;
-  color: ${theme.colors.mediumGrey};
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
