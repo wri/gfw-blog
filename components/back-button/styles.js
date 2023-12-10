@@ -4,11 +4,11 @@ import { theme } from '@worldresources/gfw-components';
 import GreenLeftArrowSrc from 'assets/icons/green-left-arrow.svg';
 
 export const BackButtonWrapper = styled.div`
-  padding: 45px 0;
+  padding: 25px 0;
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    padding: 54px 0;
+    padding: 34px 0;
   }
 
   button {
