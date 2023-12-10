@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import { useRouter } from 'next/router';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 
 import {
   Row,
@@ -21,6 +23,8 @@ import PostContent from 'components/content';
 
 import Slider from 'components/slider';
 import BackButton from 'components/back-button';
+import ReadingBar from 'components/reading-bar';
+import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
 import Comments from './comments';
@@ -49,7 +53,9 @@ const localeStrings = {
 
 const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
   const router = useRouter();
-  const { title, categories, tags, featured_media: media } = post || {};
+  const { title, categories, tags, featured_media: media, date } = post || {};
+  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
+  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
 
   const commentsRef = useRef(null);
 
@@ -82,6 +88,47 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       text: localeStrings[lang.locale],
     }));
 
+  const renderAuthors = () => {
+    return (
+      authors?.length > 0 && (
+        <MetaItem>
+          <div>
+            {authors.map((author, i) => {
+              const isLast = i === authors.length - 1;
+              const hasMany = authors.length > 2;
+              const isSecondToLast = i === authors.length - 2;
+
+              return (
+                <span key={author.name}>
+                  {author.link ? (
+                    <a
+                      href={author.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {author.name}
+                    </a>
+                  ) : (
+                    <span>{author.name}</span>
+                  )}
+                  {!isLast && (
+                    <>
+                      {!hasMany || (hasMany && isSecondToLast) ? (
+                        <span> and </span>
+                      ) : (
+                        <span>, </span>
+                      )}
+                    </>
+                  )}
+                </span>
+              );
+            })}
+          </div>
+        </MetaItem>
+      )
+    );
+  };
+
   const breadcrumbs = [
     ...categories
       ?.filter((c) => slugs?.includes(c.slug))
@@ -98,8 +145,19 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
     <PostContainer>
       <Row
         css={css`
-          position: relative;
-          min-height: 40px;
+          display: flex;
+          min-height: 88px;
+          max-width: 100% !important;
+          position: fixed;
+          padding-top: 50px;
+          width: 100%;
+          z-index: 20;
+          background: white;
+
+          ${theme.mediaQueries.small} {
+            min-height: 61px;
+            padding-top: 40px;
+          }
         `}
       >
         <BreadCrumbsWrapper width={[5 / 6, 2 / 3]}>
@@ -114,11 +172,63 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           </Mobile>
         </Column>
       </Row>
-      <Row>
+      <Row
+        css={css`
+          display: flex;
+          position: fixed;
+          margin-top: 138px;
+          width: 100%;
+          max-width: 100% !important;
+          z-index: 10;
+          background: white;
+
+          ${theme.mediaQueries.small} {
+            margin-top: 100px;
+          }
+        `}
+      >
         <BackButton
           handleClick={() => router.push('/')}
           title="back to all articles"
         />
+      </Row>
+      <Row
+        css={css`
+          width: 100%;
+          max-width: 100% !important;
+          margin-top: 208px;
+          z-index: 90;
+
+          ${theme.mediaQueries.small} {
+            margin-top: 188px;
+          }
+        `}
+      >
+        <ReadingBar />
+      </Row>
+      <Row
+        css={css`
+          padding: 0 16px;
+          margin-top: 98px;
+
+          ${theme.mediaQueries.small} {
+            margin-top: 98px;
+            padding: 40px 150px;
+          }
+        `}
+      >
+        <PostTitle className="notranslate">
+          {ReactHtmlParser(post.title)}
+        </PostTitle>
+        <div className="subtitle">
+          <span>{formattedDate}</span>
+          <span className="pipe">|</span>
+          <span>{renderAuthors()}</span>
+          <span className="pipe">|</span>
+          <span>
+            {post.yoast_head_json.twitter_misc['Est. reading time'] || ''}
+          </span>
+        </div>
       </Row>
       {!!media && (
         <>
@@ -150,10 +260,6 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           </PostMetaDesktop>
         </Column>
         <Column width={[1, 2 / 3]}>
-          {categories && <CategoryList categories={categories} />}
-          <PostTitle className="notranslate">
-            {ReactHtmlParser(post.title)}
-          </PostTitle>
           <PostMetaMobile>
             <PostMeta
               authors={authors}

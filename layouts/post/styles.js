@@ -3,13 +3,32 @@ import { Row, Column, theme } from '@worldresources/gfw-components';
 import SearchComponent from 'components/search';
 
 export const PostContainer = styled.div`
-  padding-top: 50px;
   width: 100%;
   overflow: hidden;
   min-height: 500px;
 
-  ${theme.mediaQueries.small} {
-    padding-top: 40px;
+  .subtitle {
+    align-items: baseline;
+    display: flex;
+    gap: 5px;
+
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.25px;
+    line-height: 14px;
+    text-align: left;
+    text-transform: uppercase;
+
+    ${theme.mediaQueries.small} {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.25px;
+      line-height: 14px;
+    }
+
+    .pipe {
+      color: #97bd3d;
+    }
   }
 `;
 
@@ -59,16 +78,21 @@ export const MediaWrapper = styled.div`
 `;
 
 export const PostTitle = styled.h1`
-  font-size: 30px;
-  line-height: 38px;
   color: ${theme.colors.darkestGrey};
-  font-weight: 300;
   margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.25px;
+  text-align: left;
 
   ${theme.mediaQueries.small} {
-    font-size: 48px;
-    line-height: 60px;
     margin-bottom: 20px;
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 60px;
+    letter-spacing: 0.25px;
+    text-align: left;
   }
 `;
 

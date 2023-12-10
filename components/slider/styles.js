@@ -10,6 +10,8 @@ const SliderWrapper = styled.div`
     backgroundImageUrl &&
     `
     background-image: url('${backgroundImageUrl}');
+    background-repeat: no-repeat;
+    background-size: center;
 
     .title {
       color: white;
