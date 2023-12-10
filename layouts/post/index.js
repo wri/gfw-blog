@@ -23,6 +23,7 @@ import PostContent from 'components/content';
 
 import Slider from 'components/slider';
 import BackButton from 'components/back-button';
+import ReadingBar from 'components/reading-bar';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
@@ -144,8 +145,19 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
     <PostContainer>
       <Row
         css={css`
-          position: relative;
-          min-height: 40px;
+          display: flex;
+          min-height: 88px;
+          max-width: 100% !important;
+          position: fixed;
+          padding-top: 50px;
+          width: 100%;
+          z-index: 20;
+          background: white;
+
+          ${theme.mediaQueries.small} {
+            min-height: 61px;
+            padding-top: 40px;
+          }
         `}
       >
         <BreadCrumbsWrapper width={[5 / 6, 2 / 3]}>
@@ -160,7 +172,21 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           </Mobile>
         </Column>
       </Row>
-      <Row>
+      <Row
+        css={css`
+          display: flex;
+          position: fixed;
+          margin-top: 138px;
+          width: 100%;
+          max-width: 100% !important;
+          z-index: 10;
+          background: white;
+
+          ${theme.mediaQueries.small} {
+            margin-top: 100px;
+          }
+        `}
+      >
         <BackButton
           handleClick={() => router.push('/')}
           title="back to all articles"
@@ -168,9 +194,25 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       </Row>
       <Row
         css={css`
-          padding: 0 16px;
+          width: 100%;
+          max-width: 100% !important;
+          margin-top: 208px;
+          z-index: 90;
 
           ${theme.mediaQueries.small} {
+            margin-top: 188px;
+          }
+        `}
+      >
+        <ReadingBar />
+      </Row>
+      <Row
+        css={css`
+          padding: 0 16px;
+          margin-top: 98px;
+
+          ${theme.mediaQueries.small} {
+            margin-top: 98px;
             padding: 40px 150px;
           }
         `}
