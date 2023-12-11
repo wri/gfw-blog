@@ -244,55 +244,57 @@ const ArchivePage = ({
           </Column>
         </Row>
 
-        <Row>
-          {posts?.map(({ id, ...rest }) => (
-            <Column
-              width={[1, 1 / 2, 1 / 3]}
-              css={css`
-                margin-bottom: 40px !important;
-              `}
-              key={id}
-            >
-              <Card {...rest} />
-            </Column>
-          ))}
+        {totalPosts > 0 && (
+          <Row>
+            {posts?.map(({ id, ...rest }) => (
+              <Column
+                width={[1, 1 / 2, 1 / 3]}
+                css={css`
+                  margin-bottom: 40px !important;
+                `}
+                key={id}
+              >
+                <Card {...rest} />
+              </Column>
+            ))}
 
-          <Column>
-            <Row nested>
-              <Column width={[1 / 12, 1 / 3]} />
-              <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-                {loading && (
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '50px',
-                      height: '50px',
-                    }}
-                  >
-                    <Loader />
-                  </div>
-                )}
-                {!loading && page < totalPages && (
-                  <Button
-                    onClick={() => {
-                      setPage(page + 1);
-                      trackEvent({
-                        category: 'GFW Blog',
-                        label: 'User clicks on more articles button',
-                        action: 'Load more articles',
-                      });
-                    }}
-                    css={css`
-                      width: 100%;
-                    `}
-                  >
-                    Load more articles
-                  </Button>
-                )}
-              </LoadMoreWrapper>
-            </Row>
-          </Column>
-        </Row>
+            <Column>
+              <Row nested>
+                <Column width={[1 / 12, 1 / 3]} />
+                <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
+                  {loading && (
+                    <div
+                      style={{
+                        position: 'relative',
+                        width: '50px',
+                        height: '50px',
+                      }}
+                    >
+                      <Loader />
+                    </div>
+                  )}
+                  {!loading && page < totalPages && (
+                    <Button
+                      onClick={() => {
+                        setPage(page + 1);
+                        trackEvent({
+                          category: 'GFW Blog',
+                          label: 'User clicks on more articles button',
+                          action: 'Load more articles',
+                        });
+                      }}
+                      css={css`
+                        width: 100%;
+                      `}
+                    >
+                      Load more articles
+                    </Button>
+                  )}
+                </LoadMoreWrapper>
+              </Row>
+            </Column>
+          </Row>
+        )}
 
         {totalPosts <= 0 && (
           <MoreArticlesWrapper>
