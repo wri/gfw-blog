@@ -124,11 +124,15 @@ const ArchivePage = ({
                 <h1
                   css={css`
                     font-family: Fira Sans;
-                    font-size: 3.75rem;
+
+                    font-size: 1.625rem;
                     font-style: normal;
                     font-weight: 500;
                     line-height: 3.75rem;
                     letter-spacing: 0.01563rem;
+                    ${theme.mediaQueries.small} {
+                      font-size: 3.75rem;
+                    }
                   `}
                 >
                   No Results for &ldquo;
@@ -159,10 +163,17 @@ const ArchivePage = ({
         <Row
           css={css`
             display: flex;
-            flex-flow: row;
+            flex-flow: column;
             justify-content: space-between;
             align-items: center;
-            margin: 3.875rem auto;
+            margin: 2rem auto;
+            height: 6.25rem;
+
+            ${theme.mediaQueries.small} {
+              margin: 3.875rem auto;
+              flex-flow: row;
+              justify-content: space-between;
+            }
           `}
         >
           <Column
@@ -213,8 +224,11 @@ const ArchivePage = ({
                   font-size: 14px;
                   line-height: 21px;
                   color: #777;
-                  text-align: right;
                   margin-right: 0.3125rem;
+
+                  ${theme.mediaQueries.small} {
+                    text-align: right;
+                  }
                 `}
               >
                 FILTER BY TOPIC
@@ -237,6 +251,10 @@ const ArchivePage = ({
             <ResultsStatement
               css={css`
                 text-align: right;
+
+                ${theme.mediaQueries.small} {
+                  text-align: right;
+                }
               `}
             >
               {translateText(resultsStatement.toUpperCase(), { totalPosts })}
@@ -350,11 +368,7 @@ const ArchivePage = ({
               }
             `}
           >
-            <Slider
-              cards={moreArticles}
-              title="Explore More Articles"
-              backgroundImageUrl="../../images/prefooter-mobile.png"
-            />
+            <Slider cards={moreArticles} title="Explore More Articles" />
           </Row>
         )}
       </Wrapper>
@@ -366,9 +380,11 @@ const ArchivePage = ({
             background-image: url('images/hero-bg-mobile.png');
             max-width: 100%;
             width: 100%;
-            height: 20.5625rem;
+            height: 15.625rem;
+
             ${theme.mediaQueries.small} {
               background-image: url('images/hero-bg-desktop.png');
+              height: 20.5625rem;
             }
           `}
         >
@@ -385,8 +401,8 @@ const ArchivePage = ({
           >
             <h2
               css={css`
-                font-size: 2.5rem;
-                color: #fff;
+                color: rgb(255, 255, 255);
+                font-size: 1.25rem;
                 margin-bottom: 2.25rem;
                 font-family: Fira Sans;
                 font-style: normal;
@@ -394,6 +410,10 @@ const ArchivePage = ({
                 line-height: 3rem;
                 letter-spacing: 0.01563rem;
                 text-align: center;
+
+                ${theme.mediaQueries.small} {
+                  font-size: 2.5rem;
+                }
               `}
             >
               Not Finding What You&apos;re Looking For?
@@ -401,7 +421,11 @@ const ArchivePage = ({
             <Button
               css={css`
                 color: rgb(151, 190, 50);
-                font-size: 1rem;
+                font-size: 0.875rem;
+
+                ${theme.mediaQueries.small} {
+                  font-size: 1rem;
+                }
               `}
               onClick={() => setOpen(!open)}
               light
