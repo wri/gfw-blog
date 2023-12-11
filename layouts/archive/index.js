@@ -20,6 +20,8 @@ import Dropdown from 'components/dropdown';
 import Slider from 'components/slider';
 import BackButton from 'components/back-button';
 
+import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
+
 import {
   Wrapper,
   ResultsStatement,
@@ -27,6 +29,15 @@ import {
   CategoryDescription,
   MoreArticlesWrapper,
   LatestTitle,
+  NoResultsTitle,
+  NotFindWhatYoureLookingForWrapper,
+  NotFindWhatYoureLookingForColumn,
+  NotFindWhatYoureLookingForTitle,
+  FilterByWrapper,
+  FilterByColumn,
+  FilterByTopic,
+  FilterByCategory,
+  ContactUs,
 } from './styles';
 
 const ArchivePage = ({
@@ -121,28 +132,16 @@ const ArchivePage = ({
           {isSearch && totalPosts <= 0 && (
             <>
               <Column>
-                <h1
-                  css={css`
-                    font-family: Fira Sans;
-
-                    font-size: 1.625rem;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 3.75rem;
-                    letter-spacing: 0.01563rem;
-                    ${theme.mediaQueries.small} {
-                      font-size: 3.75rem;
-                    }
-                  `}
-                >
+                <NoResultsTitle css={css``}>
                   No Results for &ldquo;
                   {searchQuery}
                   &rdquo;
-                </h1>
+                </NoResultsTitle>
               </Column>
             </>
           )}
         </Row>
+
         {!isSearch && (
           <Row>
             <Column width={[1, 2 / 3]}>
@@ -160,107 +159,32 @@ const ArchivePage = ({
             )}
           </Row>
         )}
-        <Row
-          css={css`
-            display: flex;
-            flex-flow: column;
-            justify-content: space-between;
-            align-items: center;
-            margin: 2rem auto;
-            height: 6.25rem;
 
-            ${theme.mediaQueries.small} {
-              margin: 3.875rem auto;
-              flex-flow: row;
-              justify-content: space-between;
-            }
-          `}
-        >
+        <FilterByWrapper>
           <Column
             css={css`
               display: flex;
             `}
           >
-            <div
-              css={css`
-                margin-right: 1rem;
-                display: flex;
-                align-items: start;
-              `}
-            >
-              <span
-                css={css`
-                  font-size: 14px;
-                  line-height: 21px;
-                  color: #777;
-                  text-align: right;
-                  margin-right: 0.3125rem;
-                `}
-              >
-                FILTER BY CATEGORY
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  d="M8.95703 17.6644L1.59581 4.91443L16.3182 4.91443L8.95703 17.6644Z"
-                  fill="#AAAAAA"
-                />
-              </svg>
-            </div>
-            <div
-              css={css`
-                margin-right: 0.625rem;
-                display: flex;
-                align-items: start;
-              `}
-            >
-              <span
-                css={css`
-                  font-size: 14px;
-                  line-height: 21px;
-                  color: #777;
-                  margin-right: 0.3125rem;
-
-                  ${theme.mediaQueries.small} {
-                    text-align: right;
-                  }
-                `}
-              >
-                FILTER BY TOPIC
-              </span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  d="M8.95703 17.6644L1.59581 4.91443L16.3182 4.91443L8.95703 17.6644Z"
-                  fill="#AAAAAA"
-                />
-              </svg>
-            </div>
+            <FilterByColumn>
+              <FilterByCategory>FILTER BY CATEGORY</FilterByCategory>
+              <FilterArrowIcon />
+            </FilterByColumn>
+            <FilterByColumn>
+              <FilterByTopic>FILTER BY TOPIC</FilterByTopic>
+              <FilterArrowIcon />
+            </FilterByColumn>
           </Column>
           <Column>
             <ResultsStatement
               css={css`
                 text-align: right;
-
-                ${theme.mediaQueries.small} {
-                  text-align: right;
-                }
               `}
             >
               {translateText(resultsStatement.toUpperCase(), { totalPosts })}
             </ResultsStatement>
           </Column>
-        </Row>
+        </FilterByWrapper>
 
         {totalPosts > 0 && (
           <Row>
@@ -322,19 +246,7 @@ const ArchivePage = ({
               `}
             >
               <Column>
-                <LatestTitle
-                  css={css`
-                    font-size: 3rem;
-                    font-weight: 400;
-                    line-height: 3rem;
-                    letter-spacing: 0.25px;
-                    text-align: center;
-                    text-transform: capitalize;
-                    padding-top: 30px;
-                  `}
-                >
-                  Explore More Articles
-                </LatestTitle>
+                <LatestTitle>Explore More Articles</LatestTitle>
               </Column>
               {moreArticles &&
                 moreArticles.slice(0, 3).map((p) => (
@@ -350,9 +262,12 @@ const ArchivePage = ({
                       large
                       textColor="black"
                       imageSize={`
-                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
-                    }
-                  `}
+                        height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                        ${theme.mediaQueries.small} {
+                          height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                        }
+                      `}
                     />
                   </Column>
                 ))}
@@ -374,67 +289,16 @@ const ArchivePage = ({
       </Wrapper>
 
       {totalPosts <= 0 && (
-        <Row
-          css={css`
-            background-size: cover;
-            background-image: url('images/hero-bg-mobile.png');
-            max-width: 100%;
-            width: 100%;
-            height: 15.625rem;
-
-            ${theme.mediaQueries.small} {
-              background-image: url('images/hero-bg-desktop.png');
-              height: 20.5625rem;
-            }
-          `}
-        >
-          <Column
-            css={css`
-              display: flex;
-              flex-flow: column;
-              justify-content: center;
-              align-items: center;
-              background-size: cover;
-              background-position: center;
-              background-image: url('../../images/no-results-bg.png');
-            `}
-          >
-            <h2
-              css={css`
-                color: rgb(255, 255, 255);
-                font-size: 1.25rem;
-                margin-bottom: 2.25rem;
-                font-family: Fira Sans;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 3rem;
-                letter-spacing: 0.01563rem;
-                text-align: center;
-
-                ${theme.mediaQueries.small} {
-                  font-size: 2.5rem;
-                }
-              `}
-            >
+        <NotFindWhatYoureLookingForWrapper>
+          <NotFindWhatYoureLookingForColumn>
+            <NotFindWhatYoureLookingForTitle>
               Not Finding What You&apos;re Looking For?
-            </h2>
-            <Button
-              css={css`
-                color: rgb(151, 190, 50);
-                font-size: 0.875rem;
-
-                ${theme.mediaQueries.small} {
-                  font-size: 1rem;
-                }
-              `}
-              onClick={() => setOpen(!open)}
-              light
-              size="large"
-            >
+            </NotFindWhatYoureLookingForTitle>
+            <ContactUs onClick={() => setOpen(!open)} light size="large">
               Contact Us
-            </Button>
-          </Column>
-        </Row>
+            </ContactUs>
+          </NotFindWhatYoureLookingForColumn>
+        </NotFindWhatYoureLookingForWrapper>
       )}
 
       <ContactUsModal open={open} onRequestClose={() => setOpen(false)} />
