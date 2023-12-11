@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
+import { useRouter } from 'next/router';
 import {
   Row,
   Column,
@@ -9,16 +10,15 @@ import {
   Button,
   ContactUsModal,
 } from '@worldresources/gfw-components';
-import compact from 'lodash/compact';
 
 import { getPostsByType } from 'lib/api';
 import { trackEvent } from 'utils/analytics';
 import { translateText } from 'utils/lang';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
-import Breadcrumbs from 'components/breadcrumbs';
 import Dropdown from 'components/dropdown';
 import Slider from 'components/slider';
+import BackButton from 'components/back-button';
 
 import {
   Wrapper,
@@ -39,12 +39,12 @@ const ArchivePage = ({
   totalPosts,
   searchQuery,
 }) => {
+  const router = useRouter();
   const articleText = totalPosts === 1 ? 'article' : 'articles';
+  const postsQuantity = totalPosts <= 0 ? 0 : 12; // 12 per page
 
   const searchStatementTemplate =
-    isSearch &&
-    searchQuery &&
-    `{totalPosts} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
+    isSearch && searchQuery && `Showing ${postsQuantity} of ${totalPosts}`;
 
   const taxStatementTemplate =
     taxType === 'categories'
@@ -60,22 +60,6 @@ const ArchivePage = ({
     allTax &&
     (taxFromList ? allTax : [{ ...tax, count: totalPosts }, ...allTax]);
 
-  const breadCrumbs = compact([
-    isSearch && {
-      label: 'Search',
-    },
-    taxType === 'tags' && {
-      label: 'Tag',
-    },
-    searchQuery &&
-      isSearch && {
-        label: decodeURI(searchQuery),
-      },
-    !isSearch && {
-      label: tax?.name,
-    },
-  ]);
-
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [moreArticles, setMoreArticles] = useState([]);
   const [page, setPage] = useState(1);
@@ -87,7 +71,7 @@ const ArchivePage = ({
   }, [tax?.id, searchQuery]);
 
   useEffect(() => {
-    if (totalPosts <= 0) {
+    if (isSearch && totalPosts <= 0) {
       const populateExploreMoreArticles = async () => {
         const articles = await getPostsByType({});
 
@@ -128,44 +112,35 @@ const ArchivePage = ({
   return (
     <>
       <Wrapper>
-        <Row
-          css={css`
-            position: relative;
-            min-height: 40px;
-          `}
-        >
-          <Column width={[3 / 4]}>
-            <Breadcrumbs
-              css={css`
-                margin-bottom: 25px;
-                ${theme.mediaQueries.small} {
-                  margin-bottom: 40px;
-                }
-              `}
-              links={breadCrumbs}
-            />
-          </Column>
+        <Row>
+          <BackButton
+            handleClick={() => router.push('/')}
+            title="back to all articles"
+          />
 
           {isSearch && totalPosts <= 0 && (
             <>
               <Column>
                 <h1
                   css={css`
+                    font-family: Fira Sans;
                     font-size: 3.75rem;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 3.75rem;
+                    letter-spacing: 0.01563rem;
                   `}
                 >
-                  No Results for Lorem Ipsum
+                  No Results for &ldquo;
+                  {searchQuery}
+                  &rdquo;
                 </h1>
               </Column>
             </>
           )}
         </Row>
         {!isSearch && (
-          <Row
-            css={css`
-              position: relative;
-            `}
-          >
+          <Row>
             <Column width={[1, 2 / 3]}>
               <Dropdown items={allTaxOptions} selected={tax?.id} />
             </Column>
@@ -181,16 +156,95 @@ const ArchivePage = ({
             )}
           </Row>
         )}
-        <Row>
+        <Row
+          css={css`
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 3.875rem auto;
+          `}
+        >
           <Column
             css={css`
-              margin-bottom: 20px !important;
+              display: flex;
             `}
           >
-            <ResultsStatement>
-              {translateText(resultsStatement, { totalPosts })}
+            <div
+              css={css`
+                margin-right: 1rem;
+                display: flex;
+                align-items: start;
+              `}
+            >
+              <span
+                css={css`
+                  font-size: 14px;
+                  line-height: 21px;
+                  color: #777;
+                  text-align: right;
+                  margin-right: 0.3125rem;
+                `}
+              >
+                FILTER BY CATEGORY
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+              >
+                <path
+                  d="M8.95703 17.6644L1.59581 4.91443L16.3182 4.91443L8.95703 17.6644Z"
+                  fill="#AAAAAA"
+                />
+              </svg>
+            </div>
+            <div
+              css={css`
+                margin-right: 0.625rem;
+                display: flex;
+                align-items: start;
+              `}
+            >
+              <span
+                css={css`
+                  font-size: 14px;
+                  line-height: 21px;
+                  color: #777;
+                  text-align: right;
+                  margin-right: 0.3125rem;
+                `}
+              >
+                FILTER BY TOPIC
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+              >
+                <path
+                  d="M8.95703 17.6644L1.59581 4.91443L16.3182 4.91443L8.95703 17.6644Z"
+                  fill="#AAAAAA"
+                />
+              </svg>
+            </div>
+          </Column>
+          <Column>
+            <ResultsStatement
+              css={css`
+                text-align: right;
+              `}
+            >
+              {translateText(resultsStatement.toUpperCase(), { totalPosts })}
             </ResultsStatement>
           </Column>
+        </Row>
+
+        <Row>
           {posts?.map(({ id, ...rest }) => (
             <Column
               width={[1, 1 / 2, 1 / 3]}
@@ -202,6 +256,7 @@ const ArchivePage = ({
               <Card {...rest} />
             </Column>
           ))}
+
           <Column>
             <Row nested>
               <Column width={[1 / 12, 1 / 3]} />
