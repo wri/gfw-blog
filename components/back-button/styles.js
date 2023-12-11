@@ -4,34 +4,34 @@ import { theme } from '@worldresources/gfw-components';
 import GreenLeftArrowSrc from 'assets/icons/green-left-arrow.svg';
 
 export const BackButtonWrapper = styled.div`
-  padding: 25px 0;
+  padding: 1.5625rem 0;
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    padding: 34px 0;
+    padding: 2.125rem 0;
   }
 
   button {
     align-items: center;
     display: flex;
-    gap: 11px;
+    gap: 0.6875rem;
   }
 
   .title {
     color: #97bd3d;
     font-weight: 500;
-    letter-spacing: 0.25px;
-    line-height: 14px;
+    letter-spacing: 0.015625rem;
+    line-height: 0.875rem;
     text-transform: uppercase;
-    font-size: 12px;
+    font-size: 0.75rem;
 
     ${theme.mediaQueries.small} {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
   }
 `;
 
 export const GreenLeftArrowIcon = styled(GreenLeftArrowSrc)`
-  height: 18px;
-  width: 18px;
+  height: 1.125rem;
+  width: 1.125rem;
 `;
