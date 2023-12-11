@@ -87,11 +87,6 @@ export const ResultsStatement = styled.p`
   font-size: 14px;
   line-height: 21px;
   color: ${theme.colors.mediumGrey};
-  margin-top: 20px;
-
-  ${theme.mediaQueries.small} {
-    margin-top: 75px;
-  }
 `;
 
 export const MenuWrapper = styled.div`
