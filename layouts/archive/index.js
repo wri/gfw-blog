@@ -29,7 +29,7 @@ import {
   CategoryDescription,
   MoreArticlesWrapper,
   LatestTitle,
-  NoResultsTitle,
+  ResultsTitle,
   NotFindWhatYoureLookingForWrapper,
   NotFindWhatYoureLookingForColumn,
   NotFindWhatYoureLookingForTitle,
@@ -132,11 +132,23 @@ const ArchivePage = ({
           {isSearch && totalPosts <= 0 && (
             <>
               <Column>
-                <NoResultsTitle css={css``}>
+                <ResultsTitle>
                   No Results for &ldquo;
                   {searchQuery}
                   &rdquo;
-                </NoResultsTitle>
+                </ResultsTitle>
+              </Column>
+            </>
+          )}
+
+          {isSearch && totalPosts > 0 && (
+            <>
+              <Column>
+                <ResultsTitle>
+                  Results for &ldquo;
+                  {searchQuery}
+                  &rdquo;
+                </ResultsTitle>
               </Column>
             </>
           )}
@@ -190,7 +202,6 @@ const ArchivePage = ({
           <Row>
             {posts?.map(({ id, ...rest }) => (
               <Column
-                width={[1, 1 / 2, 1 / 3]}
                 css={css`
                   margin-bottom: 40px !important;
                 `}
