@@ -109,7 +109,7 @@ export const LoadMoreWrapper = styled(Column)`
   }
 `;
 
-export const NoResultsTitle = styled.h1`
+export const ResultsTitle = styled.h1`
   font-family: Fira Sans;
   font-size: 1.625rem;
   font-style: normal;
@@ -172,6 +172,7 @@ export const FilterByWrapper = styled(Row)`
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto;
     flex-flow: row;
+    height: 1.25rem;
     justify-content: space-between;
   }
 `;
