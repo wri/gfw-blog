@@ -10,8 +10,8 @@ export const CardWrapper = styled.div`
   ${({ isFeaturedSubPost }) =>
     isFeaturedSubPost &&
     `
-        padding: 10px 0;
-      `}
+      margin-bottom: 10px;
+    `}
 
   > a {
     position: absolute;
@@ -62,6 +62,10 @@ export const InfoWrapper = styled.div`
 
   .separator {
     color: #97bd3d;
+  }
+
+  .reading-time {
+    text-transform: uppercase;
   }
 `;
 
