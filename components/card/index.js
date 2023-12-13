@@ -101,7 +101,9 @@ const Card = ({
           </>
         )}
         <span className="separator">|</span>
-        <span>20 min</span>
+        <span className="reading-time">
+          {rawCardData.yoast_head_json?.twitter_misc['Est. reading time'] || ''}
+        </span>
       </InfoWrapper>
     );
   };
