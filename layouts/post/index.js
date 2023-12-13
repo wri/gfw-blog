@@ -332,7 +332,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
         <Slider
           cards={relatedPosts}
           title="Explore More Articles"
-          backgroundImageUrl="../../images/prefooter-mobile.png"
+          withBackground
         />
       </Row>
       {!preview && (
