@@ -130,8 +130,7 @@ export const Divider = styled.div`
 `;
 
 export const MoreArticlesWrapper = styled.div`
-  background-image: url('../../images/prefooter-desktop.png');
-  background-size: cover;
+  background-color: #333333;
   display: none;
   min-height: 785px;
   margin: 50px 0;
