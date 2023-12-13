@@ -157,7 +157,14 @@ const HomePage = ({
           }
         `}
       >
-        <Column width={[1, 1 / 2]}>
+        <Column
+          css={css`
+            ${theme.mediaQueries.small} {
+              padding: 0;
+            }
+          `}
+          width={[1, 1 / 2]}
+        >
           <Card
             {...mainPost}
             large
@@ -171,7 +178,14 @@ const HomePage = ({
             showExcerpt={false}
           />
         </Column>
-        <Column width={[1, 1 / 2]}>
+        <Column
+          css={css`
+            ${theme.mediaQueries.small} {
+              padding: 0;
+            }
+          `}
+          width={[1, 1 / 2]}
+        >
           {subPosts?.map((post) => (
             <Card
               key={post.id}
