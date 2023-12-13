@@ -5,6 +5,7 @@ export const ReadingBarWrapper = styled.div`
   height: 8px;
   background: #e5e5df;
   width: 100%;
+  z-index: 99;
 `;
 
 export const ActiveBarWrapper = styled.div`
