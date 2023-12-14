@@ -6,13 +6,12 @@ import {
   Row,
   Column,
   theme,
-  Loader,
-  Button,
   ContactUsModal,
+  Paginator,
 } from '@worldresources/gfw-components';
 
 import { getPostsByType } from 'lib/api';
-import { trackEvent } from 'utils/analytics';
+// import { trackEvent } from 'utils/analytics'
 import { translateText } from 'utils/lang';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -25,7 +24,6 @@ import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
 import {
   Wrapper,
   ResultsStatement,
-  LoadMoreWrapper,
   CategoryDescription,
   MoreArticlesWrapper,
   LatestTitle,
@@ -52,7 +50,7 @@ const ArchivePage = ({
 }) => {
   const router = useRouter();
   const articleText = totalPosts === 1 ? 'article' : 'articles';
-  const postsQuantity = totalPosts <= 0 ? 0 : 12; // 12 per page
+  const postsQuantity = totalPosts < 12 ? totalPosts : 12; // 12 per page
 
   const searchStatementTemplate =
     isSearch &&
@@ -76,7 +74,6 @@ const ArchivePage = ({
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [moreArticles, setMoreArticles] = useState([]);
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -101,8 +98,6 @@ const ArchivePage = ({
   useEffect(() => {
     if (page > 1) {
       const fetchNextPosts = async () => {
-        setLoading(true);
-
         const nextPosts = await getPostsByType({
           type: 'posts',
           params: {
@@ -118,12 +113,17 @@ const ArchivePage = ({
         });
 
         setPosts([...posts, ...nextPosts?.posts]);
-        setLoading(false);
       };
 
       fetchNextPosts();
     }
   }, [page]);
+
+  const selectPage = (selectedPage) => {
+    location.assign(`${location.pathname}?page=${selectedPage}`);
+
+    setPage(selectedPage);
+  };
 
   return (
     <>
@@ -212,41 +212,14 @@ const ArchivePage = ({
               </Column>
             ))}
 
-            <Column>
-              <Row nested>
-                <Column width={[1 / 12, 1 / 3]} />
-                <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-                  {loading && (
-                    <div
-                      style={{
-                        position: 'relative',
-                        width: '50px',
-                        height: '50px',
-                      }}
-                    >
-                      <Loader />
-                    </div>
-                  )}
-                  {!loading && page < totalPages && (
-                    <Button
-                      onClick={() => {
-                        setPage(page + 1);
-                        trackEvent({
-                          category: 'GFW Blog',
-                          label: 'User clicks on more articles button',
-                          action: 'Load more articles',
-                        });
-                      }}
-                      css={css`
-                        width: 100%;
-                      `}
-                    >
-                      Load more articles
-                    </Button>
-                  )}
-                </LoadMoreWrapper>
-              </Row>
-            </Column>
+            <Row nested>
+              <Column width={[1 / 12, 1 / 3]} />
+              <Paginator
+                currentPage={page}
+                totalPages={totalPages}
+                handleSelectPage={selectPage}
+              />
+            </Row>
           </Row>
         )}
 
