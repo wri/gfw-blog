@@ -7,8 +7,8 @@ export const Container = styled.div`
   .icon {
     position: absolute;
     z-index: 1;
-    bottom: -4px;
-    left: -1px;
+    bottom: -0.25rem;
+    left: -0.0625rem;
     cursor: pointer;
   }
 `;

@@ -3,15 +3,15 @@ import { theme } from '@worldresources/gfw-components';
 
 export default styled.div`
   position: relative;
-  font-size: 18px;
-  line-height: 32px;
+  font-size: 1.125rem;
+  line-height: 2rem;
   color: ${theme.colors.darkestGrey};
   word-break: break-word;
   text-align: left;
 
   ${theme.mediaQueries.small} {
-    font-size: 20px;
-    line-height: 36px;
+    font-size: 1.25rem;
+    line-height: 2.25rem;
   }
 
   *::selection {
@@ -24,7 +24,7 @@ export default styled.div`
   a {
     font-size: inherit;
     line-height: inherit;
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 
     &:last-child {
       margin-bottom: 0;
@@ -92,11 +92,11 @@ export default styled.div`
 
   hr {
     display: none;
-    height: 2px;
+    height: 0.125rem;
     display: block;
-    width: 65px;
+    width: 4.0625rem;
     border: none;
-    margin: 0 0 40px 0;
+    margin: 0 0 2.5rem 0;
     background-color: ${theme.colors.lightGrey};
   }
 
@@ -113,22 +113,22 @@ export default styled.div`
   h2,
   h3,
   h4 {
-    line-height: 36px;
+    line-height: 2.25rem;
     font-weight: 500;
-    padding-top: 20px;
-    margin-bottom: 20px;
+    padding-top: 1.25rem;
+    margin-bottom: 1.25rem;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   h4 {
-    font-size: 18px;
+    font-size: 1.125rem;
     text-transform: uppercase;
   }
 
@@ -165,10 +165,10 @@ export default styled.div`
 
     iframe {
       width: 100%;
-      min-height: 250px;
+      min-height: 15.625rem;
 
       ${theme.mediaQueries.small} {
-        min-height: 400px;
+        min-height: 25rem;
       }
     }
   }
@@ -176,7 +176,7 @@ export default styled.div`
   .imageright,
   .imageleft {
     margin: 0;
-    padding: 0 20px;
+    padding: 0 1.25rem;
     display: block;
     margin-left: 0;
     margin-right: 0;
@@ -191,30 +191,30 @@ export default styled.div`
   aside {
     width: 100% !important;
     background-color: #f6f6f4;
-    border: solid 1px #e5e5df;
-    border-left-width: 1px !important;
-    padding: 20px !important;
-    font-size: 14px !important;
-    line-height: 24px !important;
+    border: solid 0.0625rem #e5e5df;
+    border-left-width: 0.0625rem !important;
+    padding: 1.25rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5rem !important;
     color: ${theme.colors.darkGrey} !important;
 
     ${theme.mediaQueries.medium} {
-      padding: 30px !important;
+      padding: 1.875rem !important;
       width: calc(40% + (100% / 7)) !important;
       margin-right: calc(-100% / 7) !important;
     }
   }
 
   blockquote {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
   }
 
   figcaption,
   caption {
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
     color: ${theme.colors.darkGrey};
-    padding-top: 10px;
+    padding-top: 0.625rem;
   }
 
   img {
@@ -278,25 +278,25 @@ export default styled.div`
 
   ul,
   ol {
-    margin-left: 16px;
+    margin-left: 1rem;
 
     ${theme.mediaQueries.small} {
-      margin-left: 20px;
+      margin-left: 1.25rem;
     }
 
     > li {
-      margin-bottom: 20px;
+      margin-bottom: 1.25rem;
     }
   }
 
   table {
-    border-left: 1px solid ${theme.colors.lightGrey};
-    border-right: 1px solid ${theme.colors.lightGrey};
+    border-left: 0.0625rem solid ${theme.colors.lightGrey};
+    border-right: 0.0625rem solid ${theme.colors.lightGrey};
     border-collapse: collapse;
     border-spacing: 0;
     empty-cells: show;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 1rem;
+    line-height: 1.1875rem;
     color: ${theme.colors.darkGrey};
     max-width: 100%;
     overflow: hidden;
@@ -320,16 +320,16 @@ export default styled.div`
 
   th,
   td {
-    border: 1px solid ${theme.colors.lightGrey};
+    border: 0.0625rem solid ${theme.colors.lightGrey};
     border-right: 0;
     border-left: 0;
     margin: 0;
     overflow: visible;
-    padding: 10px;
+    padding: 0.625rem;
     white-space: pre-wrap;
 
     ${theme.mediaQueries.small} {
-      padding: 20px;
+      padding: 1.25rem;
     }
   }
 
@@ -341,14 +341,14 @@ export default styled.div`
     background-color: ${theme.colors.lightGrey};
     text-transform: uppercase;
     color: #777;
-    font-size: 14px;
+    font-size: 0.875rem;
 
     th,
     td {
-      padding: 10px 15px;
+      padding: 0.625rem 0.9375rem;
 
       ${theme.mediaQueries.small} {
-        padding: 10px 20px;
+        padding: 0.625rem 1.25rem;
       }
     }
   }
@@ -357,18 +357,18 @@ export default styled.div`
     th,
     td {
       &:first-of-type {
-        padding-left: 20px;
+        padding-left: 1.25rem;
 
         ${theme.mediaQueries.small} {
-          padding-left: 40px;
+          padding-left: 2.5rem;
         }
       }
 
       &:last-of-type {
-        padding-right: 20px;
+        padding-right: 1.25rem;
 
         ${theme.mediaQueries.small} {
-          padding-left: 40px;
+          padding-left: 2.5rem;
         }
       }
     }
@@ -385,8 +385,8 @@ export default styled.div`
 
   figure,
   .imagecenter {
-    padding-top: 20px;
-    margin-bottom: 40px;
+    padding-top: 1.25rem;
+    margin-bottom: 2.5rem;
 
     .imagecentre {
       padding-top: 0;
@@ -399,11 +399,11 @@ export default styled.div`
     width: 100%;
 
     img {
-      height: 240px;
+      height: 15rem;
       width: 100%;
 
       ${theme.mediaQueries.small} {
-        height: 486px;
+        height: 30.375rem;
       }
     }
 
@@ -418,12 +418,12 @@ export default styled.div`
 
     .slick-prev,
     .slick-next {
-      top: 120px;
+      top: 11.25rem;
       background-color: #333;
       z-index: 5;
 
       ${theme.mediaQueries.small} {
-        top: 223px;
+        top: 13.9375rem;
       }
 
       &:hover {
@@ -432,26 +432,26 @@ export default styled.div`
     }
 
     .slick-prev {
-      left: -5px;
+      left: -0.3125rem;
 
       ${theme.mediaQueries.medium} {
-        left: -10px;
+        left: -0.625rem;
       }
 
       ${theme.mediaQueries.large} {
-        left: -150px;
+        left: -9.375rem;
       }
     }
 
     .slick-next {
-      right: -5px;
+      right: -0.3125rem;
 
       ${theme.mediaQueries.medium} {
-        right: -10px;
+        right: -0.625rem;
       }
 
       ${theme.mediaQueries.large} {
-        right: -150px;
+        right: -9.375rem;
       }
     }
   }

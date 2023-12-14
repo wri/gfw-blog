@@ -146,17 +146,17 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       <Row
         css={css`
           display: flex;
-          min-height: 88px;
+          min-height: 5.5rem;
           max-width: 100% !important;
           position: fixed;
-          padding-top: 50px;
+          padding-top: 3.125rem;
           width: 100%;
           z-index: 20;
           background: white;
 
           ${theme.mediaQueries.small} {
-            min-height: 61px;
-            padding-top: 40px;
+            min-height: 3.8125rem;
+            padding-top: 2.5rem;
           }
         `}
       >
@@ -176,14 +176,14 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
         css={css`
           display: flex;
           position: fixed;
-          margin-top: 138px;
+          margin-top: 8.625rem;
           width: 100%;
           max-width: 100% !important;
           z-index: 10;
           background: white;
 
           ${theme.mediaQueries.small} {
-            margin-top: 100px;
+            margin-top: 6.25rem;
           }
         `}
       >
@@ -196,11 +196,11 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
         css={css`
           width: 100%;
           max-width: 100% !important;
-          margin-top: 208px;
+          margin-top: 13rem;
           z-index: 90;
 
           ${theme.mediaQueries.small} {
-            margin-top: 188px;
+            margin-top: 11.75rem;
           }
         `}
       >
@@ -208,12 +208,12 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       </Row>
       <Row
         css={css`
-          padding: 0 16px;
-          margin-top: 98px;
+          padding: 0 1rem;
+          margin-top: 6.125rem;
 
           ${theme.mediaQueries.small} {
-            margin-top: 98px;
-            padding: 40px 150px;
+            margin-top: 6.125rem;
+            padding: 2.5rem 9.375rem;
           }
         `}
       >
@@ -281,20 +281,20 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       <MoreArticlesWrapper>
         <Row
           css={css`
-            padding: 20px 0;
+            padding: 1.25rem 0;
           `}
         >
           <Column>
             <LatestTitle
               css={css`
                 color: white;
-                font-size: 48px;
+                font-size: 3rem;
                 font-weight: 400;
-                line-height: 48px;
-                letter-spacing: 0.25px;
+                line-height: 3rem;
+                letter-spacing: 0.1.5625rem;
                 text-align: center;
                 text-transform: capitalize;
-                padding-top: 30px;
+                padding-top: 1.875rem;
               `}
             >
               Explore More Articles
@@ -305,7 +305,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
               <Column
                 width={[1, 1 / 2, 1 / 3]}
                 css={css`
-                  margin-bottom: 40px !important;
+                  margin-bottom: 2.5rem !important;
                 `}
                 key={p?.id}
               >
@@ -339,8 +339,8 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
         <>
           <Row
             css={css`
-              scroll-margin: 150px;
-              padding: 40px 0;
+              scroll-margin: 9.375rem;
+              padding: 2.5rem 0;
 
               ${theme.mediaQueries.small} {
                 padding: 0;
@@ -350,7 +350,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
             <div
               ref={commentsRef}
               css={css`
-                scroll-margin: 150px;
+                scroll-margin: 9.375rem;
               `}
             />
             <Column width={[0, 1 / 12, 1 / 6]} />

@@ -11,8 +11,8 @@ export const CommentThreadWrapper = styled(Row)`
 
 export const Divider = styled.div`
   width: 100%;
-  border-top: solid 1px ${theme.colors.lightGrey};
-  padding-bottom: 45px;
+  border-top: solid 0.0625rem ${theme.colors.lightGrey};
+  padding-bottom: 2.8125rem;
   background-color: ${theme.colors.white};
 `;
 
@@ -20,7 +20,7 @@ export const Timeline = styled.div`
   position: absolute;
   left: 9%;
   height: 100%;
-  border-left: solid 1px ${theme.colors.lightGrey};
+  border-left: solid 0.0625rem ${theme.colors.lightGrey};
 `;
 
 export const EmptyColumn = styled.div`
