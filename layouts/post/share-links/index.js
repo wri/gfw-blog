@@ -36,8 +36,8 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
         css={css`
           border-color: #f0f0f0 !important;
           svg {
-            width: 20px !important;
-            height: 20px !important;
+            width: 1.25rem !important;
+            height: 1.25rem !important;
           }
         `}
         light
@@ -63,8 +63,8 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
         css={css`
           border-color: #f0f0f0 !important;
           svg {
-            width: 20px !important;
-            height: 20px !important;
+            width: 1.25rem !important;
+            height: 1.25rem !important;
           }
         `}
         light
@@ -95,7 +95,7 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
         size="large"
         css={css`
           ${theme.mediaQueries.small} {
-            margin-top: 20px;
+            margin-top: 1.25rem;
           }
         `}
       >

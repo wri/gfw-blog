@@ -3,8 +3,8 @@ import { theme } from '@worldresources/gfw-components';
 
 export default styled.blockquote`
   p {
-    font-size: 30px;
-    line-height: 45px;
+    font-size: 1.875rem;
+    line-height: 2.8125rem;
     text-decoration: underline;
     font-style: italic;
     color: ${theme.colors.darkestGrey};
@@ -18,7 +18,7 @@ export default styled.blockquote`
 
   cite {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: ${theme.colors.grey};
   }
 `;

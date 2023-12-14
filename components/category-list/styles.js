@@ -6,17 +6,17 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
 
   a {
-    margin: 0 20px 20px 0;
+    margin: 0 1.25rem 1.25rem 0;
   }
 `;
 
 export const H5 = styled.h5`
   color: ${theme.colors.mediumGrey};
-  height: 24px;
+  height: 1.5rem;
   display: flex;
   align-items: center;
-  margin: 0 20px 20px 0;
-  font-size: 12px;
+  margin: 0 1.25rem 1.25rem 0;
+  font-size: 0.75rem;
   width: 100%;
   text-transform: uppercase;
 
@@ -26,9 +26,9 @@ export const H5 = styled.h5`
 `;
 
 export const CategoryPill = styled.button`
-  height: 24px;
-  padding: 0 12px;
-  font-size: 12px;
+  height: 1.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
   background-color: ${theme.colors.darkestGrey};
   border-radius: 0;
   text-transform: uppercase;
