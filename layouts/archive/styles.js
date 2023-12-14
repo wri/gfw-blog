@@ -72,7 +72,7 @@ export const LatestTitle = styled.h2`
   color: ${theme.colors.darkestGrey};
   margin-bottom: 50px;
   text-transform: uppercase;
-  font-size: 3rem;
+  font-size: 2.125rem;
   font-weight: 400;
   line-height: 3rem;
   letter-spacing: 0.25px;
@@ -92,6 +92,10 @@ export const ResultsStatement = styled.p`
   font-size: 14px;
   line-height: 21px;
   color: ${theme.colors.mediumGrey};
+
+  ${theme.mediaQueries.small} {
+    text-align: right;
+  }
 `;
 
 export const MenuWrapper = styled.div`
@@ -118,7 +122,7 @@ export const ResultsTitle = styled.h1`
   letter-spacing: 0.01563rem;
 
   ${theme.mediaQueries.small} {
-    font-size: 3.75rem;
+    font-size: 3rem;
   }
 `;
 
@@ -157,17 +161,17 @@ export const NotFindWhatYoureLookingForTitle = styled.h2`
   text-align: center;
 
   ${theme.mediaQueries.small} {
-    font-size: 2.5rem;
+    font-size: 2.125rem;
   }
 `;
 
 export const FilterByWrapper = styled(Row)`
   display: flex;
-  flex-flow: column;
+  flex-flow: column-reverse;
   justify-content: space-between;
   align-items: center;
   margin: 2rem auto;
-  height: 6.25rem;
+  height: 3.75rem;
 
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto;
