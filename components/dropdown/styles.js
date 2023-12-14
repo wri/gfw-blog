@@ -5,14 +5,14 @@ import {
 } from '@worldresources/gfw-components';
 
 export const Wrapper = styled.div`
-  height: 60px;
+  height: 3.75rem;
   width: 100%;
   cursor: pointer;
   position: relative;
   z-index: 3;
 
   ${theme.mediaQueries.small} {
-    height: 80px;
+    height: 5rem;
   }
 `;
 
@@ -21,10 +21,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 60px;
-  border-bottom: solid 1px ${theme.colors.grey};
-  font-size: 30px;
-  line-height: 38px;
+  height: 3.75rem;
+  border-bottom: solid 0.0625rem ${theme.colors.grey};
+  font-size: 1.875rem;
+  line-height: 2.375rem;
   font-weight: 300;
   color: ${theme.colors.darkestGrey};
 
@@ -35,18 +35,18 @@ export const Container = styled.div`
   }
 
   ${theme.mediaQueries.small} {
-    height: 80px;
-    font-size: 48px;
-    line-height: 60px;
+    height: 5rem;
+    font-size: 3rem;
+    line-height: 3.75rem;
   }
 `;
 
 export const ArrowIcon = styled(ArrowIconComponent)`
-  min-width: 15px;
-  min-height: 15px;
-  height: 15px;
+  min-width: 0.9375rem;
+  min-height: 0.9375rem;
+  height: 0.9375rem;
   transition: all 0.2s ease-in-out;
-  margin-left: 10px;
+  margin-left: 0.625rem;
 
   ${({ open }) =>
     open &&

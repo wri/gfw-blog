@@ -39,13 +39,13 @@ const CommentThread = ({ childComments, ...props }) => {
           <div
             ref={replyFormRef}
             css={css`
-              scroll-margin: 150px;
+              scroll-margin: 9.375rem;
             `}
           />
           {reply && (
             <Column
               css={css`
-                margin-bottom: 60px;
+                margin-bottom: 3.75rem;
               `}
             >
               <CommentForm

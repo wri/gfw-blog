@@ -163,10 +163,10 @@ const Search = ({
                 <Button clear round onClick={() => setSearch('')}>
                   <CloseIcon
                     css={css`
-                      height: 10px;
-                      width: 10px;
-                      max-height: 10px;
-                      max-width: 10px;
+                      height: 0.625rem;
+                      width: 0.625rem;
+                      max-height: 0.625rem;
+                      max-width: 0.625rem;
                     `}
                   />
                 </Button>
@@ -180,9 +180,9 @@ const Search = ({
           )}
           <SearchIcon
             css={css`
-              min-width: 32px;
-              min-height: 32px;
-              height: 32px;
+              min-width: 2rem;
+              min-height: 2rem;
+              height: 2rem;
             `}
           />
         </Container>

@@ -5,25 +5,25 @@ import SearchComponent from 'components/search';
 export const PostContainer = styled.div`
   width: 100%;
   overflow: hidden;
-  min-height: 500px;
+  min-height: 31.25rem;
 
   .subtitle {
     align-items: baseline;
     display: flex;
-    gap: 5px;
+    gap: 0.3125rem;
 
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.25px;
-    line-height: 14px;
+    letter-spacing: 0.1.5625rem;
+    line-height: 0.875rem;
     text-align: left;
     text-transform: uppercase;
 
     ${theme.mediaQueries.small} {
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 400;
-      letter-spacing: 0.25px;
-      line-height: 14px;
+      letter-spacing: 0.1.5625rem;
+      line-height: 0.875rem;
     }
 
     .pipe {
@@ -33,18 +33,18 @@ export const PostContainer = styled.div`
 `;
 
 export const BreadCrumbsWrapper = styled(Column)`
-  margin-bottom: 25px !important;
+  margin-bottom: 1.5625rem !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px !important;
+    margin-bottom: 2.5rem !important;
   }
 `;
 
 export const Search = styled(SearchComponent)`
-  margin-top: -20px;
+  margin-top: -1.25rem;
 
   ${theme.mediaQueries.small} {
-    margin-top: -30px;
+    margin-top: -1.875rem;
   }
 
   ${({ open }) =>
@@ -53,13 +53,13 @@ export const Search = styled(SearchComponent)`
     position: absolute;
     left: 0;
     right: 0;
-    top: -20px;
-    max-width: 1120px;
-    padding: 0 16px;
+    top: -1.25rem;
+    max-width: 111.25rem;
+    padding: 0 1rem;
     margin: 0 auto;
 
     ${theme.mediaQueries.small} {
-      padding: 0 20px;
+      padding: 0 1.25rem;
       top: 0;
     }
   `}
@@ -67,31 +67,31 @@ export const Search = styled(SearchComponent)`
 
 export const MediaWrapper = styled.div`
   margin: 0 auto;
-  height: 240px;
-  margin-bottom: 10px;
+  height: 15rem;
+  margin-bottom: 0.625rem;
 
   ${theme.mediaQueries.small} {
-    height: 400px;
-    padding: 0 20px;
-    max-width: 1120px;
+    height: 25rem;
+    padding: 0 1.25rem;
+    max-width: 111.25rem;
   }
 `;
 
 export const PostTitle = styled.h1`
   color: ${theme.colors.darkestGrey};
-  margin-bottom: 15px;
-  font-size: 26px;
+  margin-bottom: 0.9375rem;
+  font-size: 1.625rem;
   font-weight: 500;
-  line-height: 30px;
-  letter-spacing: 0.25px;
+  line-height: 1.875rem;
+  letter-spacing: 0.1.5625rem;
   text-align: left;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 20px;
-    font-size: 60px;
+    margin-bottom: 1.25rem;
+    font-size: 3.75rem;
     font-weight: 500;
-    line-height: 60px;
-    letter-spacing: 0.25px;
+    line-height: 3.75rem;
+    letter-spacing: 0.1.5625rem;
     text-align: left;
   }
 `;
@@ -111,15 +111,15 @@ export const PostMetaDesktop = styled.div`
 `;
 
 export const LatestTitle = styled.h2`
-  font-size: 18px;
+  font-size: 1.125rem;
   color: ${theme.colors.darkestGrey};
-  margin-bottom: 50px;
+  margin-bottom: 3.125rem;
   text-transform: uppercase;
   font-weight: 500;
 `;
 
 export const Divider = styled.div`
-  border-top: 1px solid ${theme.colors.lightGrey};
+  border-top: 0.0625rem solid ${theme.colors.lightGrey};
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 
@@ -132,8 +132,8 @@ export const Divider = styled.div`
 export const MoreArticlesWrapper = styled.div`
   background-color: #333333;
   display: none;
-  min-height: 785px;
-  margin: 50px 0;
+  min-height: 49.0625rem;
+  margin: 3.125rem 0;
 
   ${theme.mediaQueries.small} {
     display: flex;
@@ -141,9 +141,9 @@ export const MoreArticlesWrapper = styled.div`
 `;
 
 export const CaptionWrapper = styled(Row)`
-  margin-bottom: 20px !important;
+  margin-bottom: 1.25rem !important;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 40px !important;
+    margin-bottom: 2.5rem !important;
   }
 `;

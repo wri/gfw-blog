@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { css } from '@emotion/core';
-import ReactHtmlParser from 'react-html-parser';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { css } from '@emotion/core'
+import ReactHtmlParser from 'react-html-parser'
+import { useRouter } from 'next/router'
 
 import {
   Row,
   Column,
   theme,
   Loader,
-  Paginator,
-} from '@worldresources/gfw-components';
-import { getPostsByType } from 'lib/api';
+  Paginator
+} from '@worldresources/gfw-components'
+import { getPostsByType } from 'lib/api'
 
-import Card, { CARD_MEDIA_SIZE } from 'components/card';
-import CategoryList from 'components/category-list';
-import Intro from 'components/intro';
-import Slider from 'components/slider';
+import Card, { CARD_MEDIA_SIZE } from 'components/card'
+import CategoryList from 'components/category-list'
+import Intro from 'components/intro'
+import Slider from 'components/slider'
 
 import {
   Wrapper,
@@ -24,53 +24,53 @@ import {
   SearchDesktop,
   Divider,
   LatestTitle,
-  Hero,
-} from './styles';
+  Hero
+} from './styles'
 
 const HomePage = ({
   homepage,
   stickyPosts,
   posts: firstPagePosts,
   totalPages,
-  categories,
+  categories
 }) => {
-  const router = useRouter();
-  const page = Number(router.query.page) || 1;
-  const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
+  const router = useRouter()
+  const page = Number(router.query.page) || 1
+  const mainPost = stickyPosts?.[0] || firstPagePosts?.[0]
   const subPosts = stickyPosts?.length
     ? stickyPosts.slice(1, 4)
-    : firstPagePosts?.slice(1, 4);
+    : firstPagePosts?.slice(1, 4)
 
   const [posts, setPosts] = useState(
     stickyPosts?.length
       ? firstPagePosts
       : firstPagePosts.slice(3, firstPagePosts.length) || []
-  );
-  const [loading, setLoading] = useState(false);
+  )
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchNextPosts = async () => {
-      setLoading(true);
+      setLoading(true)
 
       const nextPosts = await getPostsByType({
         type: 'posts',
         params: {
           per_page: 6,
           exclude: stickyPosts.map((s) => s.id),
-          page,
-        },
-      });
+          page
+        }
+      })
 
-      setPosts([...nextPosts?.posts]);
-      setLoading(false);
-    };
+      setPosts([...nextPosts?.posts])
+      setLoading(false)
+    }
 
-    fetchNextPosts();
-  }, [page]);
+    fetchNextPosts()
+  }, [page])
 
   const selectPage = (selectedPage) => {
-    location.assign(`/blog/?page=${selectedPage}`);
-  };
+    location.assign(`/blog/?page=${selectedPage}`)
+  }
 
   return (
     <Wrapper>
@@ -78,19 +78,19 @@ const HomePage = ({
         css={css`
           background-size: cover;
           background-image: url('images/hero-bg-mobile.png');
-          margin-bottom: 20px;
-          max-width: 1440px;
-          padding: 70px 0;
+          margin-bottom: 1.25rem;
+          max-width: 90rem;
+          padding: 4.375rem 0;
           width: 100%;
           ${theme.mediaQueries.small} {
-            margin-bottom: 50px;
+            margin-bottom: 3.125rem;
             background-image: url('images/hero-bg-desktop.png');
           }
         `}
       >
         <Column
           css={css`
-            padding: 0px;
+            padding: 0;
           `}
           width={[1, 5 / 6]}
         >
@@ -106,13 +106,13 @@ const HomePage = ({
         <Column width={[1, 3 / 4]}>
           {categories && (
             <CategoryList
-              title="categories"
+              title='categories'
               categories={categories}
               css={css`
-                margin-bottom: 15px;
+                margin-bottom: 0.9375rem;
 
                 ${theme.mediaQueries.small} {
-                  min-height: 60px;
+                  min-height: 3.75rem;
                 }
               `}
             />
@@ -138,8 +138,8 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 1440px;
-            padding: 0 60px;
+            max-width: 90rem;
+            padding: 0 3.75rem;
           }
         `}
       >
@@ -152,8 +152,8 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 1440px;
-            padding: 0 60px;
+            max-width: 90rem;
+            padding: 0 2.75rem;
           }
         `}
       >
@@ -212,7 +212,7 @@ const HomePage = ({
           }
         `}
       >
-        <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
+        <Slider cards={[mainPost, ...subPosts]} title='Featured Articles' />
       </Row>
       {/** END Mobile  */}
       <Divider />
@@ -220,15 +220,15 @@ const HomePage = ({
         css={css`
           max-width: 100%;
           ${theme.mediaQueries.small} {
-            padding: 0 60px;
-            max-width: 1443px;
+            padding: 0 3.75rem;
+            max-width: 90.1875rem;
           }
         `}
       >
         <Column>
           <LatestTitle
             css={css`
-              margin-bottom: 25px;
+              margin-bottom: 1.5625rem;
             `}
           >
             All articles
@@ -238,8 +238,8 @@ const HomePage = ({
           <div
             style={{
               position: 'relative',
-              width: '50px',
-              height: '50px',
+              width: '3.125rem',
+              height: '3.125rem'
             }}
           >
             <Loader />
@@ -251,7 +251,7 @@ const HomePage = ({
               key={post.id}
               width={[1]}
               css={css`
-                margin-bottom: 40px !important;
+                margin-bottom: 2.5rem !important;
                 width: auto;
               `}
             >
@@ -269,16 +269,16 @@ const HomePage = ({
           ))}
         <Column
           css={css`
-            padding-bottom: 80px !important;
-            padding-top: 60px !important;
+            padding-bottom: 5rem !important;
+            padding-top: 3.75rem !important;
             display: flex;
             align-items: center;
             justify-content: center;
 
             ${theme.mediaQueries.small} {
-              padding-bottom: 157px !important;
-              padding-top: 100px !important;
-              padding-right: 45px !important;
+              padding-bottom: 9.8125rem !important;
+              padding-top: 6.25rem !important;
+              padding-right: 2.8125rem !important;
               justify-content: end;
             }
           `}
@@ -294,15 +294,15 @@ const HomePage = ({
         </Column>
       </Row>
     </Wrapper>
-  );
-};
+  )
+}
 
 HomePage.propTypes = {
   homepage: PropTypes.object,
   stickyPosts: PropTypes.array,
   posts: PropTypes.array,
   totalPages: PropTypes.number,
-  categories: PropTypes.array,
-};
+  categories: PropTypes.array
+}
 
-export default HomePage;
+export default HomePage

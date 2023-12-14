@@ -2,17 +2,17 @@ import styled from '@emotion/styled';
 
 export const Title = styled.h1`
   color: white;
-  font-size: 60px;
+  font-size: 3.75rem;
   font-weight: 500;
-  line-height: 60px;
+  line-height: 3.75rem;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 export const Description = styled.div`
-  margin-bottom: 20px;
-  font-size: 18px;
+  margin-bottom: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  line-height: 30px;
+  line-height: 1.875rem;
   color: white;
 `;
