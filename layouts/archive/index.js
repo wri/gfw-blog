@@ -88,7 +88,10 @@ const ArchivePage = ({
       const populateExploreMoreArticles = async () => {
         const articles = await getPostsByType({});
 
-        setMoreArticles(articles.posts);
+        // To show only 3 items at the carousel
+        const slicedArticleList = articles.posts.slice(0, 3);
+
+        setMoreArticles(slicedArticleList);
       };
 
       populateExploreMoreArticles();
@@ -258,7 +261,7 @@ const ArchivePage = ({
                 <LatestTitle>Explore More Articles</LatestTitle>
               </Column>
               {moreArticles &&
-                moreArticles.slice(0, 3).map((p) => (
+                moreArticles.map((p) => (
                   <Column
                     width={[1, 1 / 2, 1 / 3]}
                     css={css`
