@@ -102,17 +102,6 @@ export const MenuWrapper = styled.div`
   margin-top: 40px;
 `;
 
-export const LoadMoreWrapper = styled(Column)`
-  margin: 20px 0 50px !important;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  ${theme.mediaQueries.small} {
-    margin-top: 60px !important;
-  }
-`;
-
 export const ResultsTitle = styled.h1`
   font-family: Fira Sans;
   font-size: 1.625rem;
