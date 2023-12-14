@@ -109,6 +109,7 @@ export const ResultsTitle = styled.h1`
   font-weight: 500;
   line-height: 3.75rem;
   letter-spacing: 0.01563rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     font-size: 3rem;
@@ -161,6 +162,7 @@ export const FilterByWrapper = styled(Row)`
   align-items: center;
   margin: 2rem auto;
   height: 3.75rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto;
