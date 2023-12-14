@@ -55,7 +55,9 @@ const ArchivePage = ({
   const postsQuantity = totalPosts <= 0 ? 0 : 12; // 12 per page
 
   const searchStatementTemplate =
-    isSearch && searchQuery && `Showing ${postsQuantity} of ${totalPosts}`;
+    isSearch &&
+    searchQuery &&
+    `Showing ${postsQuantity} of ${totalPosts} posts`;
 
   const taxStatementTemplate =
     taxType === 'categories'
@@ -133,7 +135,7 @@ const ArchivePage = ({
             <>
               <Column>
                 <ResultsTitle>
-                  No Results for &ldquo;
+                  No results for &ldquo;
                   {searchQuery}
                   &rdquo;
                 </ResultsTitle>
@@ -188,11 +190,7 @@ const ArchivePage = ({
             </FilterByColumn>
           </Column>
           <Column>
-            <ResultsStatement
-              css={css`
-                text-align: right;
-              `}
-            >
+            <ResultsStatement>
               {translateText(resultsStatement.toUpperCase(), { totalPosts })}
             </ResultsStatement>
           </Column>
@@ -303,7 +301,7 @@ const ArchivePage = ({
         <NotFindWhatYoureLookingForWrapper>
           <NotFindWhatYoureLookingForColumn>
             <NotFindWhatYoureLookingForTitle>
-              Not Finding What You&apos;re Looking For?
+              Not finding what you&apos;re looking for?
             </NotFindWhatYoureLookingForTitle>
             <ContactUs onClick={() => setOpen(!open)} light size="large">
               Contact Us
