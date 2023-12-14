@@ -7,11 +7,11 @@ import {
   Column,
   theme,
   ContactUsModal,
+  Loader,
   Paginator,
 } from '@worldresources/gfw-components';
 
 import { getPostsByType } from 'lib/api';
-// import { trackEvent } from 'utils/analytics'
 import { translateText } from 'utils/lang';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -49,6 +49,7 @@ const ArchivePage = ({
   searchQuery,
 }) => {
   const router = useRouter();
+  const page = Number(router.query.page) || 1;
   const articleText = totalPosts === 1 ? 'article' : 'articles';
   const postsQuantity = totalPosts < 12 ? totalPosts : 12; // 12 per page
 
@@ -73,7 +74,7 @@ const ArchivePage = ({
 
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [moreArticles, setMoreArticles] = useState([]);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -96,33 +97,31 @@ const ArchivePage = ({
   }, []);
 
   useEffect(() => {
-    if (page > 1) {
-      const fetchNextPosts = async () => {
-        const nextPosts = await getPostsByType({
-          type: 'posts',
-          params: {
-            per_page: 12,
-            page,
-            ...(isSearch && {
-              search: searchQuery,
-            }),
-            ...(taxType && {
-              [taxType]: tax?.id,
-            }),
-          },
-        });
+    const fetchNextPosts = async () => {
+      setLoading(true);
+      const nextPosts = await getPostsByType({
+        type: 'posts',
+        params: {
+          per_page: 12,
+          page,
+          ...(isSearch && {
+            search: searchQuery,
+          }),
+          ...(taxType && {
+            [taxType]: tax?.id,
+          }),
+        },
+      });
 
-        setPosts([...posts, ...nextPosts?.posts]);
-      };
+      setPosts([...nextPosts?.posts]);
+      setLoading(false);
+    };
 
-      fetchNextPosts();
-    }
+    fetchNextPosts();
   }, [page]);
 
   const selectPage = (selectedPage) => {
     location.assign(`${location.pathname}?page=${selectedPage}`);
-
-    setPage(selectedPage);
   };
 
   return (
@@ -199,7 +198,19 @@ const ArchivePage = ({
           </Column>
         </FilterByWrapper>
 
-        {totalPosts > 0 && (
+        {loading && (
+          <div
+            style={{
+              position: 'relative',
+              width: '3.125rem',
+              height: '3.125rem',
+            }}
+          >
+            <Loader />
+          </div>
+        )}
+
+        {!loading && totalPosts > 0 && (
           <Row>
             {posts?.map(({ id, ...rest }) => (
               <Column
