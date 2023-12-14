@@ -10,7 +10,7 @@ export const ButtonsContainer = styled.div`
 
   > a,
   > button {
-    margin: 0 20px 20px 0;
+    margin: 0 1.25rem 1.25rem 0;
   }
 `;
 

@@ -24,20 +24,20 @@ import {
 
 export const CARD_MEDIA_SIZE = Object.freeze({
   LARGE: {
-    height: '462px',
-    width: '603px',
+    height: '28.875rem',
+    width: '37.6875rem',
   },
   MEDIUM: {
-    height: '232px',
-    width: '303px',
+    height: '14.5rem',
+    width: '18.9375rem',
   },
   SMALL: {
-    height: '186px',
-    width: '243px',
+    height: '11.625rem',
+    width: '15.1875rem',
   },
   MOBILE: {
-    height: '252px',
-    width: '329px',
+    height: '15.75rem',
+    width: '20.5625rem',
   },
 });
 
@@ -210,7 +210,7 @@ const Card = ({
             )}
             <Row
               css={css`
-                padding: 0px;
+                padding: 0;
               `}
             >
               {renderCard({ title, excerpt })}
