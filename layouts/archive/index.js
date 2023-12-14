@@ -224,7 +224,6 @@ const ArchivePage = ({
               `}
             >
               <Row nested>
-                <Column width={[1 / 12, 1 / 3]} />
                 <Paginator
                   currentPage={page}
                   totalPages={totalPages}
