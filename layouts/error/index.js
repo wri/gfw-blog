@@ -42,5 +42,5 @@ Page404.propTypes = {
 export default Page404;
 
 const Container = styled(Row)`
-  padding: 70px 0 100px !important;
+  padding: 4.375rem 0 6.25rem !important;
 `;

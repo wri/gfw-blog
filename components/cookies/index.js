@@ -48,8 +48,8 @@ const CookiesWrapper = styled.div`
   bottom: 0;
 
   ${theme.mediaQueries.small} {
-    max-width: 620px;
-    bottom: 30px;
+    max-width: 61.25rem;
+    bottom: 1.875rem;
   }
 `;
 

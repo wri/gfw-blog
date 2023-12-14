@@ -168,7 +168,7 @@ const ArchivePage = ({
               <Column
                 width={[1, 3 / 4]}
                 css={css`
-                  margin-bottom: 20px !important;
+                  margin-bottom: 1.25rem !important;
                 `}
               >
                 <CategoryDescription>{tax.description}</CategoryDescription>
@@ -204,7 +204,7 @@ const ArchivePage = ({
             {posts?.map(({ id, ...rest }) => (
               <Column
                 css={css`
-                  margin-bottom: 40px !important;
+                  margin-bottom: 2.5rem !important;
                 `}
                 key={id}
               >
@@ -212,14 +212,26 @@ const ArchivePage = ({
               </Column>
             ))}
 
-            <Row nested>
-              <Column width={[1 / 12, 1 / 3]} />
-              <Paginator
-                currentPage={page}
-                totalPages={totalPages}
-                handleSelectPage={selectPage}
-              />
-            </Row>
+            <Column
+              css={css`
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                ${theme.mediaQueries.small} {
+                  justify-content: end;
+                }
+              `}
+            >
+              <Row nested>
+                <Column width={[1 / 12, 1 / 3]} />
+                <Paginator
+                  currentPage={page}
+                  totalPages={totalPages}
+                  handleSelectPage={selectPage}
+                />
+              </Row>
+            </Column>
           </Row>
         )}
 
@@ -227,7 +239,7 @@ const ArchivePage = ({
           <MoreArticlesWrapper>
             <Row
               css={css`
-                padding: 20px 0;
+                padding: 1.25rem 0;
               `}
             >
               <Column>
@@ -238,7 +250,7 @@ const ArchivePage = ({
                   <Column
                     width={[1, 1 / 2, 1 / 3]}
                     css={css`
-                      margin-bottom: 40px !important;
+                      margin-bottom: 2.5rem !important;
                     `}
                     key={p?.id}
                   >

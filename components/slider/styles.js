@@ -4,7 +4,7 @@ const SliderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  padding: 10px 0;
+  padding: 0.625rem 0;
 
   ${({ withBackground }) =>
     withBackground &&
@@ -13,24 +13,24 @@ const SliderWrapper = styled.div`
 
     .title {
       color: white;
-      font-size: 26px;
+      font-size: 1.625rem;
       font-weight: 400;
-      line-height: 30px;
-      letter-spacing: 0.25px;
+      line-height: 1.875rem;
+      letter-spacing: 0.1.5625rem;
       text-align: left;
       text-transform: uppercase;
-      padding-bottom: 25px;
-      padding-left: 16px;
-      padding-top: 35px;
+      padding-bottom: 1.5625rem;
+      padding-left: 1rem;
+      padding-top: 2.1875rem;
     }
     `}
 
   .buttons {
     display: flex;
-    gap: 12px;
-    padding-top: 10px;
-    padding-bottom: 40px;
-    padding-left: 20px;
+    gap: 0.75rem;
+    padding-top: 0.625rem;
+    padding-bottom: 2.5rem;
+    padding-left: 1.25rem;
 
     .button {
       background: #97bd3d;
@@ -45,20 +45,20 @@ const SliderWrapper = styled.div`
     }
 
     svg {
-      margin-top: 6px;
+      margin-top: 0.375rem;
     }
   }
 
   .title {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
-    line-height: 18px;
-    letter-spacing: 0.25px;
+    line-height: 1.125rem;
+    letter-spacing: 0.1.5625rem;
     text-align: left;
     text-transform: uppercase;
-    padding-bottom: 25px;
-    padding-left: 16px;
-    padding-top: 35px;
+    padding-bottom: 1.5625rem;
+    padding-left: 1rem;
+    padding-top: 2.1875rem;
   }
 
   .slider {
@@ -87,11 +87,11 @@ const SliderWrapper = styled.div`
   .slide {
     display: flex;
     flex-shrink: 0;
-    margin-right: 0px;
+    margin-right: 0;
     transform-origin: center center;
     transform: scale(1);
     scroll-snap-align: center;
-    width: 300px;
+    width: 18.75rem;
   }
 `;
 

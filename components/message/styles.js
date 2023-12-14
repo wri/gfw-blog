@@ -11,54 +11,54 @@ export const Container = styled.div`
 `;
 
 export const Image = styled.img`
-  height: 200px;
+  height: 12.5rem;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 `;
 
 export const TreeErrorIcon = styled(TreeErrorIconSrc)`
-  height: 200px;
+  height: 12.5rem;
   width: 100%;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 `;
 
 export const Title = styled.h1`
-  font-size: 48px;
+  font-size: 3rem;
   color: ${theme.colors.darkestGrey};
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
   text-align: center;
   font-weight: 400;
 
   ${theme.mediaQueries.small} {
-    font-size: 60px;
-    margin-bottom: 30px;
+    font-size: 3.75rem;
+    margin-bottom: 1.875rem;
   }
 
   ${({ small }) =>
     small &&
     `
-    font-size: 36px !important;
+    font-size: 2.25rem !important;
   `}
 `;
 
 export const Description = styled.div`
-  font-size: 18px;
-  line-height: 30px;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
   color: ${theme.colors.darkestGrey};
   text-align: center;
 
   ${({ small }) =>
     small &&
     `
-    font-size: 16px;
+    font-size: 1rem;
   `}
 `;

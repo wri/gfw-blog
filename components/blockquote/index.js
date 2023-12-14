@@ -18,11 +18,11 @@ const Blockquote = ({ children }) => (
     >
       <Button
         css={css`
-          margin-top: 25px;
+          margin-top: 1.5625rem;
           border-color: #f0f0f0;
           svg {
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             margin: 0;
           }
         `}
