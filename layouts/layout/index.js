@@ -127,9 +127,27 @@ export default function Layout(props) {
     return null;
   };
 
+  const filterYoastTags = (yoastString) => {
+    let filteredText = yoastString;
+    // removing "Written By" and "Est. reading time" meta tags as requested in FLAG-977
+    const regexes = [
+      /<meta name="twitter:label1" content="[^"]*" \/>/i,
+      /<meta name="twitter:data1" content="[^"]*" \/>/i,
+      /<meta name="twitter:label2" content="[^"]*" \/>/i,
+      /<meta name="twitter:data2" content="[^"]*" \/>/i,
+      /<meta name="author" content="[^"]*" \/>/i,
+    ];
+
+    regexes.forEach((regex) => {
+      filteredText = filteredText.replace(regex, '');
+    });
+
+    return filteredText;
+  };
+
   const isProduction = process.env.NEXT_PUBLIC_FEATURE_ENV === 'production';
   const canonicalLink = getCanonicalLink(yoast);
-  const yoastMetaTags = ReactHtmlParser(parseYoast(yoast));
+  const yoastMetaTags = ReactHtmlParser(filterYoastTags(parseYoast(yoast)));
 
   return (
     <>
