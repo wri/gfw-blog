@@ -91,7 +91,7 @@ export const CategoryDescription = styled.p`
 export const ResultsStatement = styled.p`
   font-size: 0.875rem;
   line-height: 1.3125rem;
-  color: ${theme.colors.mediumGrey};
+  color: ${theme.colors.darkGrey};
 
   ${theme.mediaQueries.small} {
     text-align: right;
@@ -181,7 +181,7 @@ export const FilterByColumn = styled.div`
 export const FilterByCategory = styled.div`
   font-size: 0.875rem;
   line-height: 1.3125rem;
-  color: #777;
+  color: ${theme.colors.darkGrey};
   text-align: right;
   margin-right: 0.3125rem;
 `;
@@ -189,7 +189,7 @@ export const FilterByCategory = styled.div`
 export const FilterByTopic = styled.div`
   font-size: 0.875rem;
   line-height: 1.3125rem;
-  color: #777;
+  color: ${theme.colors.darkGrey};
   margin-right: 0.3125rem;
 
   ${theme.mediaQueries.small} {

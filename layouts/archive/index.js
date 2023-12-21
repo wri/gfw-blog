@@ -51,7 +51,7 @@ const ArchivePage = ({
   const router = useRouter();
   const page = Number(router.query.page) || 1;
   const articleText = totalPosts === 1 ? 'article' : 'articles';
-  const postsQuantity = totalPosts < 12 ? totalPosts : 12; // 12 per page
+  const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
 
   const searchStatementTemplate =
     isSearch &&
@@ -102,7 +102,7 @@ const ArchivePage = ({
       const nextPosts = await getPostsByType({
         type: 'posts',
         params: {
-          per_page: 12,
+          per_page: 6,
           page,
           ...(isSearch && {
             search: searchQuery,
