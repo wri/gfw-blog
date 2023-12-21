@@ -73,6 +73,15 @@ const SliderWrapper = styled.div`
     position: relative;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .slides::-webkit-scrollbar {
+    display: none;
   }
 
   .slide {
