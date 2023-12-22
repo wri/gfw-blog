@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Hero = styled.div`
+  margin-top: 60px;
   padding: 0 16px;
 
   ${theme.mediaQueries.small} {
