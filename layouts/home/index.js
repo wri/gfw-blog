@@ -79,7 +79,7 @@ const HomePage = ({
           background-size: cover;
           background-image: url('images/hero-bg-mobile.png');
           margin-bottom: 20px;
-          max-width: 100%;
+          max-width: 1440px;
           padding: 70px 0;
           width: 100%;
           ${theme.mediaQueries.small} {
@@ -92,7 +92,7 @@ const HomePage = ({
           css={css`
             padding: 0px;
           `}
-          width={[1, 5 / 6, 2 / 3]}
+          width={[1, 5 / 6]}
         >
           <Hero>
             <Intro
@@ -138,7 +138,7 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 1443px;
+            max-width: 1440px;
             padding: 0 60px;
           }
         `}
@@ -152,8 +152,8 @@ const HomePage = ({
           display: none;
           ${theme.mediaQueries.small} {
             display: flex;
-            max-width: 1443px;
-            padding: 0 44px;
+            max-width: 1440px;
+            padding: 0 60px;
           }
         `}
       >
