@@ -3,8 +3,8 @@ import { theme } from '@worldresources/gfw-components';
 
 export default styled.div`
   width: 100%;
-  font-size: 12px;
-  line-height: 21px;
+  font-size: 0.75rem;
+  line-height: 1.3125rem;
   color: ${theme.colors.mediumGrey};
 
   a {

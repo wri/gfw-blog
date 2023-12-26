@@ -5,15 +5,15 @@ import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 50px 0;
+  padding: 3.125rem 0;
   ${theme.mediaQueries.small} {
-    padding-top: 40px;
+    padding-top: 2.5rem;
   }
 `;
 
 export const SearchMobile = styled(Search)`
   display: block;
-  margin-top: -20px;
+  margin-top: -1.25rem;
   ${theme.mediaQueries.small} {
     display: none;
   }
@@ -23,12 +23,12 @@ export const SearchMobile = styled(Search)`
     position: absolute;
     left: 0;
     right: 0;
-    top: -20px;
-    max-width: 1120px;
-    padding: 0 16px;
+    top: -1.25rem;
+    max-width: 111.25rem;
+    padding: 0 1rem;
     margin: 0 auto;
     ${theme.mediaQueries.small} {
-      padding: 0 20px;
+      padding: 0 1.25rem;
     }
   `}
 `;
@@ -49,19 +49,19 @@ export const SearchDesktop = styled(Search)`
     left: 0;
     right: 0;
     top: 0;
-    max-width: 1120px;
-    padding: 0 16px;
+    max-width: 111.25rem;
+    padding: 0 1rem;
     margin: 0 auto;
     ${theme.mediaQueries.small} {
-      padding: 0 20px;
+      padding: 0 1.25rem;
     }
   `}
 `;
 
 export const MoreArticlesWrapper = styled.div`
   display: none;
-  min-height: 785px;
-  margin: 50px 0;
+  min-height: 49.0625rem;
+  margin: 3.125rem 0;
 
   ${theme.mediaQueries.small} {
     display: flex;
@@ -70,28 +70,28 @@ export const MoreArticlesWrapper = styled.div`
 
 export const LatestTitle = styled.h2`
   color: ${theme.colors.darkestGrey};
-  margin-bottom: 50px;
+  margin-bottom: 3.125rem;
   text-transform: uppercase;
   font-size: 2.125rem;
   font-weight: 400;
   line-height: 3rem;
-  letter-spacing: 0.25px;
+  letter-spacing: 0.1.5625rem;
   text-align: center;
   text-transform: capitalize;
-  padding-top: 30px;
+  padding-top: 1.875rem;
 `;
 
 export const CategoryDescription = styled.p`
-  margin-top: 15px;
-  font-size: 18px;
-  line-height: 30px;
+  margin-top: 0.9375rem;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
   color: ${theme.colors.darkGrey};
 `;
 
 export const ResultsStatement = styled.p`
-  font-size: 14px;
-  line-height: 21px;
-  color: ${theme.colors.mediumGrey};
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  color: ${theme.colors.darkGrey};
 
   ${theme.mediaQueries.small} {
     text-align: right;
@@ -99,18 +99,7 @@ export const ResultsStatement = styled.p`
 `;
 
 export const MenuWrapper = styled.div`
-  margin-top: 40px;
-`;
-
-export const LoadMoreWrapper = styled(Column)`
-  margin: 20px 0 50px !important;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-
-  ${theme.mediaQueries.small} {
-    margin-top: 60px !important;
-  }
+  margin-top: 2.5rem;
 `;
 
 export const ResultsTitle = styled.h1`
@@ -120,6 +109,7 @@ export const ResultsTitle = styled.h1`
   font-weight: 500;
   line-height: 3.75rem;
   letter-spacing: 0.01563rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     font-size: 3rem;
@@ -172,6 +162,7 @@ export const FilterByWrapper = styled(Row)`
   align-items: center;
   margin: 2rem auto;
   height: 3.75rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto;
@@ -188,17 +179,17 @@ export const FilterByColumn = styled.div`
 `;
 
 export const FilterByCategory = styled.div`
-  font-size: 14px;
-  line-height: 21px;
-  color: #777;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  color: ${theme.colors.darkGrey};
   text-align: right;
   margin-right: 0.3125rem;
 `;
 
 export const FilterByTopic = styled.div`
-  font-size: 14px;
-  line-height: 21px;
-  color: #777;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+  color: ${theme.colors.darkGrey};
   margin-right: 0.3125rem;
 
   ${theme.mediaQueries.small} {

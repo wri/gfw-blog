@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const ReadingBarWrapper = styled.div`
   position: fixed;
-  height: 8px;
+  height: 0.5rem;
   background: #e5e5df;
   width: 100%;
   z-index: 99;
@@ -10,7 +10,7 @@ export const ReadingBarWrapper = styled.div`
 
 export const ActiveBarWrapper = styled.div`
   position: fixed;
-  height: 8px;
-  border-radius: 0px 2px 0px 0px;
+  height: 0.5rem;
+  border-radius: 0 0.125rem 0 0;
   background: #97bd3d;
 `;

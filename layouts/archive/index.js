@@ -6,13 +6,12 @@ import {
   Row,
   Column,
   theme,
-  Loader,
-  Button,
   ContactUsModal,
+  Loader,
+  Paginator,
 } from '@worldresources/gfw-components';
 
 import { getPostsByType } from 'lib/api';
-import { trackEvent } from 'utils/analytics';
 import { translateText } from 'utils/lang';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -25,7 +24,6 @@ import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
 import {
   Wrapper,
   ResultsStatement,
-  LoadMoreWrapper,
   CategoryDescription,
   MoreArticlesWrapper,
   LatestTitle,
@@ -51,8 +49,9 @@ const ArchivePage = ({
   searchQuery,
 }) => {
   const router = useRouter();
+  const page = Number(router.query.page) || 1;
   const articleText = totalPosts === 1 ? 'article' : 'articles';
-  const postsQuantity = totalPosts <= 0 ? 0 : 12; // 12 per page
+  const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
 
   const searchStatementTemplate =
     isSearch &&
@@ -75,7 +74,6 @@ const ArchivePage = ({
 
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [moreArticles, setMoreArticles] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -99,31 +97,32 @@ const ArchivePage = ({
   }, []);
 
   useEffect(() => {
-    if (page > 1) {
-      const fetchNextPosts = async () => {
-        setLoading(true);
+    const fetchNextPosts = async () => {
+      setLoading(true);
+      const nextPosts = await getPostsByType({
+        type: 'posts',
+        params: {
+          per_page: 6,
+          page,
+          ...(isSearch && {
+            search: searchQuery,
+          }),
+          ...(taxType && {
+            [taxType]: tax?.id,
+          }),
+        },
+      });
 
-        const nextPosts = await getPostsByType({
-          type: 'posts',
-          params: {
-            per_page: 12,
-            page,
-            ...(isSearch && {
-              search: searchQuery,
-            }),
-            ...(taxType && {
-              [taxType]: tax?.id,
-            }),
-          },
-        });
+      setPosts([...nextPosts?.posts]);
+      setLoading(false);
+    };
 
-        setPosts([...posts, ...nextPosts?.posts]);
-        setLoading(false);
-      };
-
-      fetchNextPosts();
-    }
+    fetchNextPosts();
   }, [page]);
+
+  const selectPage = (selectedPage) => {
+    location.assign(`${location.pathname}?page=${selectedPage}`);
+  };
 
   return (
     <>
@@ -168,7 +167,7 @@ const ArchivePage = ({
               <Column
                 width={[1, 3 / 4]}
                 css={css`
-                  margin-bottom: 20px !important;
+                  margin-bottom: 1.25rem !important;
                 `}
               >
                 <CategoryDescription>{tax.description}</CategoryDescription>
@@ -199,12 +198,23 @@ const ArchivePage = ({
           </Column>
         </FilterByWrapper>
 
-        {totalPosts > 0 && (
+        {loading && (
+          <div
+            style={{
+              width: '3.125rem',
+              height: '3.125rem',
+            }}
+          >
+            <Loader />
+          </div>
+        )}
+
+        {!loading && totalPosts > 0 && (
           <Row>
             {posts?.map(({ id, ...rest }) => (
               <Column
                 css={css`
-                  margin-bottom: 40px !important;
+                  margin-bottom: 2.5rem !important;
                 `}
                 key={id}
               >
@@ -212,39 +222,23 @@ const ArchivePage = ({
               </Column>
             ))}
 
-            <Column>
+            <Column
+              css={css`
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                ${theme.mediaQueries.small} {
+                  justify-content: end;
+                }
+              `}
+            >
               <Row nested>
-                <Column width={[1 / 12, 1 / 3]} />
-                <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-                  {loading && (
-                    <div
-                      style={{
-                        position: 'relative',
-                        width: '50px',
-                        height: '50px',
-                      }}
-                    >
-                      <Loader />
-                    </div>
-                  )}
-                  {!loading && page < totalPages && (
-                    <Button
-                      onClick={() => {
-                        setPage(page + 1);
-                        trackEvent({
-                          category: 'GFW Blog',
-                          label: 'User clicks on more articles button',
-                          action: 'Load more articles',
-                        });
-                      }}
-                      css={css`
-                        width: 100%;
-                      `}
-                    >
-                      Load more articles
-                    </Button>
-                  )}
-                </LoadMoreWrapper>
+                <Paginator
+                  currentPage={page}
+                  totalPages={totalPages}
+                  handleSelectPage={selectPage}
+                />
               </Row>
             </Column>
           </Row>
@@ -254,7 +248,7 @@ const ArchivePage = ({
           <MoreArticlesWrapper>
             <Row
               css={css`
-                padding: 20px 0;
+                padding: 1.25rem 0;
               `}
             >
               <Column>
@@ -265,7 +259,7 @@ const ArchivePage = ({
                   <Column
                     width={[1, 1 / 2, 1 / 3]}
                     css={css`
-                      margin-bottom: 40px !important;
+                      margin-bottom: 2.5rem !important;
                     `}
                     key={p?.id}
                   >
