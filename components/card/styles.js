@@ -95,18 +95,18 @@ export const PlayIcon = styled(PlayIconSrc)`
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
   color: ${theme.colors.darkestGrey};
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
       large &&
       `
-        font-size: 30px;
-        line-height: 38px;
+        font-size: 1.5rem;
+        line-height: 2.375rem;
     `}
   }
 `;
