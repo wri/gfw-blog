@@ -12,6 +12,7 @@ export default styled.div`
   ${theme.mediaQueries.small} {
     font-size: 1.25rem;
     line-height: 2.25rem;
+    padding-right: 12rem;
   }
 
   *::selection {
@@ -148,10 +149,12 @@ export default styled.div`
   table {
     margin: 0;
     padding: 0;
+    padding-left: 0;
     display: block;
     width: 100%;
 
     ${theme.mediaQueries.small} {
+      padding-left: 6rem;
       width: calc(100% + (100% / 7)) !important;
       margin-left: calc(-100% / 7);
 
@@ -185,6 +188,15 @@ export default styled.div`
       margin-left: 0;
       margin-right: 0;
       margin-bottom: 0;
+    }
+  }
+
+  #textbox {
+    width: 100% !important;
+    float: right;
+
+    ${theme.mediaQueries.small} {
+      float: none;
     }
   }
 
@@ -392,6 +404,11 @@ export default styled.div`
       padding-top: 0;
       margin-bottom: 0;
     }
+  }
+
+  .wp-element-caption {
+    text-transform: uppercase;
+    color: #aaaaaa;
   }
 
   .wp-block-gallery > div {

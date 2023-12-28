@@ -1,73 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 
 import Link from 'next/link';
 
 import { MetaWrapper, MetaItem } from './styles';
 
-const formatDate = (dateStr) => format(new Date(dateStr), 'MMMM d, yyyy');
+const PostMeta = ({ categories, tags, children }) => {
+  const filteredTags = tags?.slice(0, 4);
 
-const PostMeta = ({ authors, date, languages }) => (
-  <MetaWrapper>
-    {authors?.length > 0 && (
+  return (
+    <MetaWrapper>
+      {children && <MetaItem>{children}</MetaItem>}
       <MetaItem>
-        <b>By&nbsp;</b>
-        <div>
-          {authors.map((author, i) => {
-            const isLast = i === authors.length - 1;
-            const hasMany = authors.length > 2;
-            const isSecondToLast = i === authors.length - 2;
-
-            return (
-              <span key={author.name}>
-                {author.link ? (
-                  <a
-                    href={author.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {author.name}
-                  </a>
-                ) : (
-                  <span>{author.name}</span>
-                )}
-                {!isLast && (
-                  <>
-                    {!hasMany || (hasMany && isSecondToLast) ? (
-                      <span> and </span>
-                    ) : (
-                      <span>, </span>
-                    )}
-                  </>
-                )}
-              </span>
-            );
-          })}
+        <div className="title">Category</div>
+        <div className="content">
+          <ul>
+            {categories &&
+              categories.length > 0 &&
+              categories.map((category) => (
+                <li>
+                  <Link key={category.id} href={category.link}>
+                    <span className="link">{category.name}</span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
         </div>
       </MetaItem>
-    )}
-    <MetaItem>
-      <b>Posted on&nbsp;</b>
-      <span>{formatDate(date)}</span>
-    </MetaItem>
-    {languages && languages.length > 0 && (
       <MetaItem>
-        <b>Languages&nbsp;</b>
-        {languages.map((lang) => (
-          <Link key={lang.locale} href={lang.link}>
-            {lang.text}
-          </Link>
-        ))}
+        <div className="title">Topics</div>
+        <div className="content">
+          <ul>
+            {filteredTags &&
+              filteredTags.length > 0 &&
+              filteredTags.map((tag) => (
+                <li>
+                  <Link key={tag.id} href={tag.link}>
+                    <span className="link">{tag.name}</span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </div>
       </MetaItem>
-    )}
-  </MetaWrapper>
-);
+    </MetaWrapper>
+  );
+};
 
 PostMeta.propTypes = {
-  authors: PropTypes.array,
-  date: PropTypes.string,
-  languages: PropTypes.array,
+  categories: PropTypes.array,
+  tags: PropTypes.array,
+  children: PropTypes.node,
 };
 
 export default PostMeta;
