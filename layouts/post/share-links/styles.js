@@ -3,10 +3,7 @@ import { theme } from '@worldresources/gfw-components';
 
 export const ButtonsContainer = styled.div`
   display: flex;
-
-  ${theme.mediaQueries.small} {
-    flex-direction: column;
-  }
+  flex-direction: row;
 
   > a,
   > button {

@@ -32,6 +32,15 @@ export const PostContainer = styled.div`
   }
 `;
 
+export const LanguageSelectorWrapper = styled.div`
+  display: block;
+  padding: 0 1rem;
+
+  ${theme.mediaQueries.small} {
+    display: none;
+  }
+`;
+
 export const BreadCrumbsWrapper = styled(Column)`
   margin-bottom: 1.5625rem !important;
 
@@ -69,11 +78,12 @@ export const MediaWrapper = styled.div`
   margin: 0 auto;
   height: 15rem;
   margin-bottom: 0.625rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
-    height: 25rem;
-    padding: 0 1.25rem;
-    max-width: 111.25rem;
+    min-height: 34.06rem;
+    padding: 0 5.25rem;
+    max-width: 85rem;
   }
 `;
 
@@ -97,6 +107,8 @@ export const PostTitle = styled.h1`
 `;
 
 export const PostMetaMobile = styled.div`
+  padding: 0 5rem;
+
   ${theme.mediaQueries.small} {
     display: none;
   }
@@ -107,6 +119,8 @@ export const PostMetaDesktop = styled.div`
 
   ${theme.mediaQueries.small} {
     display: block;
+    max-width: 13rem;
+    padding-left: 2rem;
   }
 `;
 
@@ -134,6 +148,7 @@ export const MoreArticlesWrapper = styled.div`
   display: none;
   min-height: 49.0625rem;
   margin: 3.125rem 0;
+  width: 100%;
 
   ${theme.mediaQueries.small} {
     display: flex;
@@ -145,5 +160,6 @@ export const CaptionWrapper = styled(Row)`
 
   ${theme.mediaQueries.small} {
     margin-bottom: 2.5rem !important;
+    max-width: 77rem;
   }
 `;
