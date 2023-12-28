@@ -22,16 +22,31 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 3.75rem;
-  border-bottom: solid 0.0625rem ${theme.colors.grey};
   font-size: 1.875rem;
   line-height: 2.375rem;
   font-weight: 300;
   color: ${theme.colors.darkestGrey};
 
+  ${({ withDivider }) =>
+    withDivider &&
+    `
+      border-bottom: solid 0.0625rem ${theme.colors.grey};
+    `}
+
   span {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .title {
+    color: #333333;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.125rem;
+    letter-spacing: 0.016rem;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   ${theme.mediaQueries.small} {
