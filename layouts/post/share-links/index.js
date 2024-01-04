@@ -1,51 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from '@emotion/core';
-import {
-  Button,
-  TwitterIcon,
-  FacebookIcon,
-  theme,
-} from '@worldresources/gfw-components';
 
 import { trackEvent } from 'utils/analytics';
 
-import NewsletterIcon from 'assets/icons/envelope.svg';
-import ChatIcon from 'assets/icons/comment.svg';
+import InstagramIcon from 'assets/icons/instagram-green.svg';
+import XIcon from 'assets/icons/x-green.svg';
+import FacebookIcon from 'assets/icons/fb-green.svg';
 
-import { ButtonsContainer, Label } from './styles';
+import { ButtonsContainer } from './styles';
 
 const TWITT_SHARE_URL = 'https://twitter.com/share';
 const FB_SHARE_URL = 'https://www.facebook.com/sharer/sharer.php?u=';
+const INSTA_URL = 'https://www.instagram.com/globalforests';
 
-const ShareLinks = ({ url, title, scrollToComment }) => (
+const ShareLinks = ({ url, title }) => (
   <ButtonsContainer>
+    <a
+      href={INSTA_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="instagram"
+    >
+      <button
+        onClick={() =>
+          trackEvent({
+            category: 'Share',
+            label: 'User goaes to GFW Intagram profile',
+            action: 'Instagram',
+          })}
+      >
+        <InstagramIcon />
+      </button>
+    </a>
     <a
       href={`${TWITT_SHARE_URL}?url=${url}&text=${title}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="twitter"
+      aria-label="X"
     >
-      <Button
+      <button
         onClick={() =>
           trackEvent({
             category: 'Share',
             label: 'User shares a blog post',
-            action: 'Twitter',
+            action: 'X',
           })}
-        css={css`
-          border-color: #f0f0f0 !important;
-          svg {
-            width: 1.25rem !important;
-            height: 1.25rem !important;
-          }
-        `}
-        light
-        round
-        size="large"
       >
-        <TwitterIcon />
-      </Button>
+        <XIcon />
+      </button>
     </a>
     <a
       href={`${FB_SHARE_URL}${url}`}
@@ -53,67 +55,23 @@ const ShareLinks = ({ url, title, scrollToComment }) => (
       rel="noopener noreferrer"
       aria-label="facebook"
     >
-      <Button
+      <button
         onClick={() =>
           trackEvent({
             category: 'Share',
             label: 'User shares a blog post',
             action: 'Facebook',
           })}
-        css={css`
-          border-color: #f0f0f0 !important;
-          svg {
-            width: 1.25rem !important;
-            height: 1.25rem !important;
-          }
-        `}
-        light
-        round
-        size="large"
       >
         <FacebookIcon />
-      </Button>
+      </button>
     </a>
-    <Button
-      css={css`
-        border-color: #f0f0f0 !important;
-      `}
-      light
-      round
-      size="large"
-      onClick={scrollToComment}
-    >
-      <ChatIcon />
-    </Button>
-    <a
-      target="_blank"
-      rel="noopener noreferrer"
-      href="https://www.globalforestwatch.org/subscribe"
-    >
-      <Button
-        round
-        size="large"
-        css={css`
-          ${theme.mediaQueries.small} {
-            margin-top: 1.25rem;
-          }
-        `}
-      >
-        <NewsletterIcon />
-      </Button>
-    </a>
-    <Label>
-      Subscribe to the
-      <br />
-      GFW newsletter
-    </Label>
   </ButtonsContainer>
 );
 
 ShareLinks.propTypes = {
   url: PropTypes.string,
   title: PropTypes.string,
-  scrollToComment: PropTypes.func,
 };
 
 export default ShareLinks;
