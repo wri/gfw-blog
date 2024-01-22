@@ -9,12 +9,12 @@ export const ListWrapper = styled.ul`
   max-height: 22.5rem;
   border: solid 0.0625rem ${theme.colors.grey};
   border-top: none;
-  padding: 0.9375rem 1.875rem;
+  padding: 0 1rem;
   background-color: ${theme.colors.white};
   overflow-y: scroll;
 
   ${theme.mediaQueries.small} {
-    padding: 1.5625rem 2.5rem;
+    padding: 0 1rem;
   }
 `;
 
@@ -23,10 +23,10 @@ export const ListItem = styled.li`
 
   button {
     color: ${theme.colors.grey};
-    padding: 1.25rem 0;
+    padding: 0.75rem 0;
     width: 100%;
     display: block;
-    font-size: 1.375rem;
+    font-size: 1rem;
     text-align: left;
 
     &:hover {
