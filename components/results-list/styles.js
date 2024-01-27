@@ -13,6 +13,10 @@ export const ListWrapper = styled.ul`
   background-color: ${theme.colors.white};
   overflow-y: scroll;
 
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
   ${theme.mediaQueries.small} {
     padding: 0 1rem;
   }
