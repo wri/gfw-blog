@@ -261,15 +261,17 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           </span>
         </div>
       </Row>
-      <Row>
-        <LanguageSelectorWrapper>
-          <Dropdown
-            items={languagesForDropdown}
-            placeholder="Languages"
-            withDivider={false}
-          />
-        </LanguageSelectorWrapper>
-      </Row>
+      {languagesForDropdown.length !== 0 && (
+        <Row>
+          <LanguageSelectorWrapper>
+            <Dropdown
+              items={languagesForDropdown}
+              placeholder="Languages"
+              withDivider={false}
+            />
+          </LanguageSelectorWrapper>
+        </Row>
+      )}
       {!!media && (
         <>
           <MediaWrapper>
@@ -290,11 +292,13 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
         <Column width={[1, 1 / 4]}>
           <PostMetaDesktop>
             <PostMeta categories={post.categories} tags={post.tags}>
-              <Dropdown
-                items={languagesForDropdown}
-                placeholder="Languages"
-                withDivider={false}
-              />
+              {languagesForDropdown.length !== 0 && (
+                <Dropdown
+                  items={languagesForDropdown}
+                  placeholder="Languages"
+                  withDivider={false}
+                />
+              )}
             </PostMeta>
             <ShareLinks
               url={`https://blog.globalforestwatch.org${post.link}`}
