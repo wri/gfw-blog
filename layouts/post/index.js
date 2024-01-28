@@ -6,15 +6,8 @@ import { useRouter } from 'next/router';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
-import {
-  Row,
-  Column,
-  Desktop,
-  Mobile,
-  theme,
-} from '@worldresources/gfw-components';
+import { Row, Column, theme } from '@worldresources/gfw-components';
 
-import Breadcrumbs from 'components/breadcrumbs';
 import Media from 'components/media';
 import Caption from 'components/caption';
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -29,6 +22,8 @@ import PostMeta from './meta';
 import ShareLinks from './share-links';
 import Comments from './comments';
 
+import { SearchDesktop, SearchMobile } from '../home/styles';
+
 import {
   PostContainer,
   MediaWrapper,
@@ -37,8 +32,6 @@ import {
   PostMetaMobile,
   PostMetaDesktop,
   CaptionWrapper,
-  Search,
-  BreadCrumbsWrapper,
   MoreArticlesWrapper,
   LanguageSelectorWrapper,
 } from './styles';
@@ -52,9 +45,9 @@ const localeStrings = {
   id_ID: 'Baca dalam bahasa indonesia',
 };
 
-const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
+const Post = ({ post, preview, relatedPosts, guestAuthors, categories }) => {
   const router = useRouter();
-  const { title, categories, featured_media: media, date } = post || {};
+  const { featured_media: media, date } = post || {};
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
   const formattedDate = format(parsedDate, 'MMM dd, yyyy');
 
@@ -130,18 +123,6 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
     );
   };
 
-  const breadcrumbs = [
-    ...categories
-      ?.filter((c) => slugs?.includes(c.slug))
-      ?.map((c) => ({
-        label: c.name,
-        href: c.link,
-      })),
-    {
-      label: title,
-    },
-  ];
-
   const languagesForDropdown = languages.map((item) => ({
     ...item,
     name: item.text,
@@ -151,40 +132,38 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
     <PostContainer>
       <Row
         css={css`
+          width: 100%;
+          max-width: 90rem !important;
+          position: fixed;
+          z-index: 10;
+
           ${theme.mediaQueries.small} {
-            max-width: 90rem;
+            margin-top: 3.1rem;
           }
         `}
       >
-        <Row
+        <Column
           css={css`
-            display: flex;
-            min-height: 5.5rem;
-            max-width: 90rem;
-            position: fixed;
-            padding-top: 3.125rem;
-            width: 100%;
-            z-index: 20;
-            background: white;
-
+            display: block;
+            height: 12rem;
+            background-color: #f7f7f7;
+            padding: 2rem 0;
             ${theme.mediaQueries.small} {
-              min-height: 3.8125rem;
-              padding-top: 2.5rem;
+              display: none;
             }
           `}
         >
-          <BreadCrumbsWrapper width={[5 / 6, 2 / 3]}>
-            <Breadcrumbs links={breadcrumbs} />
-          </BreadCrumbsWrapper>
-          <Column width={[1 / 6, 1 / 3]}>
-            <Desktop>
-              <Search expandable showTitle />
-            </Desktop>
-            <Mobile>
-              <Search expandable />
-            </Mobile>
-          </Column>
-        </Row>
+          <SearchMobile categories={categories} />
+        </Column>
+        <Column
+          css={css`
+            margin-top: -1.35rem;
+            padding: 0 !important;
+            position: fixed;
+          `}
+        >
+          <SearchDesktop categories={categories} />
+        </Column>
       </Row>
       <Row
         css={css`
@@ -197,7 +176,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           css={css`
             display: flex;
             position: fixed;
-            margin-top: 7rem;
+            margin-top: 12rem;
             max-width: 90rem;
             width: 100%;
             z-index: 10;
@@ -225,7 +204,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
           css={css`
             width: 100%;
             max-width: 90rem;
-            margin-top: 11rem;
+            margin-top: 16rem;
             position: fixed;
             z-index: 90;
 
@@ -240,7 +219,7 @@ const Post = ({ post, preview, relatedPosts, slugs, guestAuthors }) => {
       <Row
         css={css`
           padding: 0 1rem;
-          margin-top: 13.125rem;
+          margin-top: 17.125rem;
 
           ${theme.mediaQueries.small} {
             margin-top: 12.125rem;
@@ -419,6 +398,7 @@ Post.propTypes = {
   relatedPosts: PropTypes.array,
   slugs: PropTypes.array,
   guestAuthors: PropTypes.array,
+  categories: PropTypes.array,
 };
 
 export default Post;

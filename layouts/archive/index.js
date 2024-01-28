@@ -20,6 +20,7 @@ import Slider from 'components/slider';
 import BackButton from 'components/back-button';
 
 import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
+import { SearchMobile, SearchDesktop } from '../home/styles';
 
 import {
   Wrapper,
@@ -47,6 +48,7 @@ const ArchivePage = ({
   totalPages,
   totalPosts,
   searchQuery,
+  categories,
 }) => {
   const router = useRouter();
   const page = Number(router.query.page) || 1;
@@ -127,171 +129,234 @@ const ArchivePage = ({
   return (
     <>
       <Wrapper>
-        <Row>
-          <BackButton
-            handleClick={() => router.push('/')}
-            title="back to all articles"
-          />
+        <Row
+          css={css`
+            width: 100%;
+            max-width: 90rem !important;
+            position: fixed;
+            z-index: 10;
 
-          {isSearch && totalPosts <= 0 && (
-            <>
-              <Column>
-                <ResultsTitle>
-                  No results for &ldquo;
-                  {searchQuery}
-                  &rdquo;
-                </ResultsTitle>
-              </Column>
-            </>
-          )}
-
-          {isSearch && totalPosts > 0 && (
-            <>
-              <Column>
-                <ResultsTitle>
-                  Results for &ldquo;
-                  {searchQuery}
-                  &rdquo;
-                </ResultsTitle>
-              </Column>
-            </>
-          )}
-        </Row>
-
-        {!isSearch && (
-          <Row>
-            <Column width={[1, 2 / 3]}>
-              <Dropdown items={allTaxOptions} selected={tax?.id} />
-            </Column>
-            {tax?.description && (
-              <Column
-                width={[1, 3 / 4]}
-                css={css`
-                  margin-bottom: 1.25rem !important;
-                `}
-              >
-                <CategoryDescription>{tax.description}</CategoryDescription>
-              </Column>
-            )}
-          </Row>
-        )}
-
-        <FilterByWrapper>
+            ${theme.mediaQueries.small} {
+              margin-top: 3.1rem;
+            }
+          `}
+        >
           <Column
             css={css`
-              display: flex;
-            `}
-          >
-            <FilterByColumn>
-              <FilterByCategory>FILTER BY CATEGORY</FilterByCategory>
-              <FilterArrowIcon />
-            </FilterByColumn>
-            <FilterByColumn>
-              <FilterByTopic>FILTER BY TOPIC</FilterByTopic>
-              <FilterArrowIcon />
-            </FilterByColumn>
-          </Column>
-          <Column>
-            <ResultsStatement>
-              {translateText(resultsStatement.toUpperCase(), { totalPosts })}
-            </ResultsStatement>
-          </Column>
-        </FilterByWrapper>
-
-        {loading && (
-          <div
-            style={{
-              width: '3.125rem',
-              height: '3.125rem',
-            }}
-          >
-            <Loader />
-          </div>
-        )}
-
-        {!loading && totalPosts > 0 && (
-          <Row>
-            {posts?.map(({ id, ...rest }) => (
-              <Column
-                css={css`
-                  margin-bottom: 2.5rem !important;
-                `}
-                key={id}
-              >
-                <Card {...rest} />
-              </Column>
-            ))}
-
-            <Column
-              css={css`
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                ${theme.mediaQueries.small} {
-                  justify-content: end;
-                }
-              `}
-            >
-              <Row nested>
-                <Paginator
-                  currentPage={page}
-                  totalPages={totalPages}
-                  handleSelectPage={selectPage}
-                />
-              </Row>
-            </Column>
-          </Row>
-        )}
-
-        {totalPosts <= 0 && (
-          <MoreArticlesWrapper>
-            <Row
-              css={css`
-                padding: 1.25rem 0;
-              `}
-            >
-              <Column>
-                <LatestTitle>Explore More Articles</LatestTitle>
-              </Column>
-              {moreArticles &&
-                moreArticles.map((p) => (
-                  <Column
-                    width={[1, 1 / 2, 1 / 3]}
-                    css={css`
-                      margin-bottom: 2.5rem !important;
-                    `}
-                    key={p?.id}
-                  >
-                    <Card
-                      {...p}
-                      large
-                      textColor="black"
-                      imageSize={`
-                        height: ${CARD_MEDIA_SIZE.MOBILE.height};
-
-                        ${theme.mediaQueries.small} {
-                          height: ${CARD_MEDIA_SIZE.MEDIUM.height};
-                        }
-                      `}
-                    />
-                  </Column>
-                ))}
-            </Row>
-          </MoreArticlesWrapper>
-        )}
-
-        {totalPosts <= 0 && (
-          <Row
-            css={css`
+              display: block;
+              height: 12rem;
+              background-color: #f7f7f7;
+              padding: 2rem 0;
               ${theme.mediaQueries.small} {
                 display: none;
               }
             `}
           >
-            <Slider cards={moreArticles} title="Explore More Articles" />
+            <SearchMobile categories={categories} />
+          </Column>
+          <Column
+            css={css`
+              margin-top: -1.35rem;
+              padding: 0 !important;
+              position: fixed;
+            `}
+          >
+            <SearchDesktop categories={categories} />
+          </Column>
+        </Row>
+        <Row
+          css={css`
+            display: flex;
+            position: fixed;
+            margin-top: 12rem;
+            max-width: 90rem;
+            width: 100%;
+            z-index: 10;
+            background: white;
+
+            ${theme.mediaQueries.small} {
+              margin-top: 5.625rem;
+            }
+          `}
+        >
+          <BackButton
+            handleClick={() => router.push('/')}
+            title="back to all articles"
+          />
+        </Row>
+
+        <Row>
+          <Row
+            css={css`
+              margin-top: 16rem;
+              width: 100%;
+
+              ${theme.mediaQueries.small} {
+                margin-top: 11rem;
+              }
+            `}
+          >
+            {isSearch && totalPosts <= 0 && (
+              <>
+                <Column>
+                  <ResultsTitle>
+                    No results for &ldquo;
+                    {searchQuery}
+                    &rdquo;
+                  </ResultsTitle>
+                </Column>
+              </>
+            )}
+
+            {isSearch && totalPosts > 0 && (
+              <>
+                <Column>
+                  <ResultsTitle>
+                    Results for &ldquo;
+                    {searchQuery}
+                    &rdquo;
+                  </ResultsTitle>
+                </Column>
+              </>
+            )}
           </Row>
-        )}
+
+          {!isSearch && (
+            <Row>
+              <Column width={[1, 2 / 3]}>
+                <Dropdown items={allTaxOptions} selected={tax?.id} />
+              </Column>
+              {tax?.description && (
+                <Column
+                  width={[1, 3 / 4]}
+                  css={css`
+                    margin-bottom: 1.25rem !important;
+                  `}
+                >
+                  <CategoryDescription>{tax.description}</CategoryDescription>
+                </Column>
+              )}
+            </Row>
+          )}
+
+          <FilterByWrapper>
+            <Column
+              css={css`
+                display: flex;
+              `}
+            >
+              <FilterByColumn>
+                <FilterByCategory>FILTER BY CATEGORY</FilterByCategory>
+                <FilterArrowIcon />
+              </FilterByColumn>
+              <FilterByColumn>
+                <FilterByTopic>FILTER BY TOPIC</FilterByTopic>
+                <FilterArrowIcon />
+              </FilterByColumn>
+            </Column>
+            <Column>
+              <ResultsStatement>
+                {translateText(resultsStatement.toUpperCase(), { totalPosts })}
+              </ResultsStatement>
+            </Column>
+          </FilterByWrapper>
+
+          {loading && (
+            <div
+              style={{
+                width: '3.125rem',
+                height: '3.125rem',
+              }}
+            >
+              <Loader />
+            </div>
+          )}
+
+          {!loading && totalPosts > 0 && (
+            <Row>
+              {posts?.map(({ id, ...rest }) => (
+                <Column
+                  css={css`
+                    margin-bottom: 2.5rem !important;
+                  `}
+                  key={id}
+                >
+                  <Card {...rest} />
+                </Column>
+              ))}
+
+              <Column
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-bottom: 2rem;
+
+                  ${theme.mediaQueries.small} {
+                    justify-content: end;
+                  }
+                `}
+              >
+                <Row nested>
+                  <Paginator
+                    currentPage={page}
+                    totalPages={totalPages}
+                    handleSelectPage={selectPage}
+                  />
+                </Row>
+              </Column>
+            </Row>
+          )}
+
+          {totalPosts <= 0 && (
+            <MoreArticlesWrapper>
+              <Row
+                css={css`
+                  padding: 1.25rem 0;
+                `}
+              >
+                <Column>
+                  <LatestTitle>Explore More Articles</LatestTitle>
+                </Column>
+                {moreArticles &&
+                  moreArticles.map((p) => (
+                    <Column
+                      width={[1, 1 / 2, 1 / 3]}
+                      css={css`
+                        margin-bottom: 2.5rem !important;
+                      `}
+                      key={p?.id}
+                    >
+                      <Card
+                        {...p}
+                        large
+                        textColor="black"
+                        imageSize={`
+                          height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                          ${theme.mediaQueries.small} {
+                            height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                          }
+                        `}
+                      />
+                    </Column>
+                  ))}
+              </Row>
+            </MoreArticlesWrapper>
+          )}
+
+          {totalPosts <= 0 && (
+            <Row
+              css={css`
+                ${theme.mediaQueries.small} {
+                  display: none;
+                }
+              `}
+            >
+              <Slider cards={moreArticles} title="Explore More Articles" />
+            </Row>
+          )}
+        </Row>
       </Wrapper>
 
       {totalPosts <= 0 && (
@@ -321,6 +386,7 @@ ArchivePage.propTypes = {
   totalPages: PropTypes.number,
   isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
+  categories: PropTypes.array,
 };
 
 export default ArchivePage;
