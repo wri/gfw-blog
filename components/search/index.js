@@ -1,198 +1,140 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import debounce from 'lodash/debounce';
-import compact from 'lodash/compact';
-import { CancelToken } from 'axios';
 import { useRouter } from 'next/router';
+import { Row, Column, theme } from '@worldresources/gfw-components';
+import CategoryList from 'components/category-list';
 
-import { SearchIcon, CloseIcon, Button } from '@worldresources/gfw-components';
+import SearchIconSrc from 'assets/icons/search-white-icon.svg';
 
-import { getPostsByType, getTags } from 'lib/api';
+import { Wrapper, Container, Input } from './styles';
 
-import ResultsList from 'components/results-list';
-
-import {
-  Wrapper,
-  Container,
-  SearchOpen,
-  SearchClosed,
-  OpenMessage,
-  Input,
-  Overlay,
-} from './styles';
-
-const Search = ({
-  actions,
-  libraries,
-  state,
-  showTitle,
-  expanded,
-  expandable,
-  ...props
-}) => {
+const Search = ({ actions, libraries, state, categories, ...props }) => {
   const { query, push } = useRouter();
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   const searchQuery = query?.query ? decodeURI(query?.query) : '';
-
-  const [open, setOpen] = useState(false);
   const [search, setSearch] = useState(searchQuery);
-  const [results, setResults] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [loading, setLoading] = useState(false);
 
-  const inputRef = React.createRef();
+  useEffect(() => {
+    const categoriesString = query?.categories || '';
 
-  const re = new RegExp(`(${search})`, 'i');
+    if (categoriesString !== '') {
+      const slugs = categoriesString.split(',');
 
-  const keyDownHandler = (e) => {
-    if (e.key === 'Enter') {
-      push('/search/[query]', `/search/${search}/`);
-      setOpen(false);
+      setSelectedCategories(slugs);
+    }
+  }, []);
+
+  const handleSelectedCategories = (categorySlug) => {
+    const slugs = [...selectedCategories];
+
+    if (slugs.includes(categorySlug)) {
+      slugs.splice(
+        slugs.findIndex((slug) => slug === categorySlug),
+        1
+      );
+    } else {
+      slugs.push(categorySlug);
+    }
+
+    setSelectedCategories(slugs);
+  };
+
+  const handleSearch = () => {
+    if (selectedCategories.length !== 0) {
+      const categoriesString = selectedCategories.join(',');
+
+      push(`/search?search=${search}&categories=${categoriesString}`);
+      return;
+    }
+
+    // TODO: add tags
+
+    push(`/search?search=${search}`);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
     }
   };
 
-  const filteredResults = results?.length
-    ? results
-    : [{ name: search, link: `/search/${search}/` }];
-
-  const searchResults = compact([
-    ...filteredResults,
-    tags?.length ? { name: 'divider', id: 'divider' } : null,
-    ...tags,
-  ]).map((meta) => ({
-    ...meta,
-    name:
-      meta.name !== 'divider'
-        ? meta?.name?.replace(re, `<b>$1</b>`)
-        : meta.name,
-  }));
-
-  useEffect(() => {
-    if (open) inputRef.current.focus();
-  }, [open]);
-
-  let postsRequest = null;
-  let tagsRequest = null;
-
-  useEffect(
-    debounce(() => {
-      const fetchSearchContent = async () => {
-        setLoading(true);
-
-        if (postsRequest) {
-          postsRequest.cancel();
-        }
-        if (tagsRequest) {
-          tagsRequest.cancel();
-        }
-
-        postsRequest = CancelToken.source();
-        tagsRequest = CancelToken.source();
-
-        const postsResponse = await getPostsByType({
-          type: 'posts',
-          params: {
-            search,
-            per_page: search ? 3 : 6,
-          },
-          cancelToken: postsRequest.token,
-          allLanguages: true,
-        });
-
-        const tagsResponse = await getTags({
-          params: {
-            search,
-            per_page: search ? 6 : 50,
-            ...(!search && {
-              orderby: 'count',
-              order: 'desc',
-            }),
-          },
-          cancelToken: tagsRequest.token,
-        });
-
-        const allResults = postsResponse?.posts?.map((r) => {
-          return {
-            ...r,
-            name: r.title,
-          };
-        });
-
-        setResults(allResults);
-        setTags(tagsResponse);
-        setLoading(false);
-      };
-
-      fetchSearchContent();
-    }, 500),
-    [search]
-  );
+  const inputRef = React.createRef();
 
   return (
     <>
-      {open && (
-        <Overlay
-          role="button"
-          aria-label="close search"
-          tabIndex={0}
-          onClick={() => setOpen(false)}
-        />
-      )}
-      <Wrapper
-        className="notranslate"
-        {...props}
-        open={open}
-        expandable={expandable}
-      >
-        <Container
-          open={open}
-          expanded={expanded}
-          onClick={() => setOpen(true)}
-        >
-          {(open || expanded) && (
-            <SearchOpen>
+      <Wrapper className="notranslate" {...props}>
+        <Row>
+          <Column
+            css={css`
+              order: 2;
+              margin-top: 2rem;
+
+              ${theme.mediaQueries.small} {
+                order: 1;
+                margin-top: 0;
+              }
+            `}
+            width={[1, 3 / 4]}
+          >
+            {categories && (
+              <CategoryList
+                title="categories"
+                categories={categories}
+                selectedCategories={selectedCategories}
+                onSelectCategory={handleSelectedCategories}
+                css={css`
+                  margin-bottom: 0.9375rem;
+
+                  ${theme.mediaQueries.small} {
+                    min-height: 3.75rem;
+                  }
+                `}
+              />
+            )}
+          </Column>
+          <Column
+            css={css`
+              order: 1;
+
+              ${theme.mediaQueries.small} {
+                order: 2;
+              }
+            `}
+            width={[1, 1 / 4]}
+          >
+            <Container>
               <Input
+                css={css`
+                  background-color: #333333;
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  line-height: 0.875rem;
+                  letter-spacing: 0.016rem;
+                  color: #ffffff !important;
+                  width: 75%;
+                  height: 80%;
+
+                  ::placeholder {
+                    color: #ffffff;
+                    opacity: 1;
+                  }
+                `}
                 ref={inputRef}
                 value={search}
-                expanded={expanded}
-                placeholder="Search the GFW Blog (e.g. fires, Brazil, palm oil)"
+                placeholder="SEARCH GFW BLOG"
                 onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={keyDownHandler}
+                onKeyDown={handleKeyDown}
               />
-              {search && (
-                <Button clear round onClick={() => setSearch('')}>
-                  <CloseIcon
-                    css={css`
-                      height: 0.625rem;
-                      width: 0.625rem;
-                      max-height: 0.625rem;
-                      max-width: 0.625rem;
-                    `}
-                  />
-                </Button>
-              )}
-            </SearchOpen>
-          )}
-          {!open && showTitle && (
-            <SearchClosed>
-              <OpenMessage>Search the GFW Blog</OpenMessage>
-            </SearchClosed>
-          )}
-          <SearchIcon
-            css={css`
-              min-width: 2rem;
-              min-height: 2rem;
-              height: 2rem;
-            `}
-          />
-        </Container>
-        {open && (
-          <ResultsList
-            items={searchResults}
-            onClickResult={() => setOpen(false)}
-            loading={loading}
-          />
-        )}
+              <div style={{ marginRight: '0.875rem' }}>
+                <button onClick={handleSearch}>
+                  <SearchIconSrc />
+                </button>
+              </div>
+            </Container>
+          </Column>
+        </Row>
       </Wrapper>
     </>
   );
@@ -203,8 +145,6 @@ export default Search;
 Search.propTypes = {
   state: PropTypes.object,
   actions: PropTypes.object,
-  showTitle: PropTypes.bool,
   libraries: PropTypes.object,
-  expanded: PropTypes.bool,
-  expandable: PropTypes.bool,
+  categories: PropTypes.array,
 };

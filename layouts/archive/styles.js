@@ -1,61 +1,8 @@
 import styled from '@emotion/styled';
 import { theme, Row, Column, Button } from '@worldresources/gfw-components';
 
-import Search from 'components/search';
-
 export const Wrapper = styled.div`
   width: 100%;
-  padding: 3.125rem 0;
-  ${theme.mediaQueries.small} {
-    padding-top: 2.5rem;
-  }
-`;
-
-export const SearchMobile = styled(Search)`
-  display: block;
-  margin-top: -1.25rem;
-  ${theme.mediaQueries.small} {
-    display: none;
-  }
-  ${({ open }) =>
-    open &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -1.25rem;
-    max-width: 111.25rem;
-    padding: 0 1rem;
-    margin: 0 auto;
-    ${theme.mediaQueries.small} {
-      padding: 0 1.25rem;
-    }
-  `}
-`;
-
-export const SearchDesktop = styled(Search)`
-  ${({ isSearch }) =>
-    !isSearch &&
-    `
-    display: none;
-    ${theme.mediaQueries.small} {
-      display: block;
-    }
-  `}
-  ${({ open }) =>
-    open &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    max-width: 111.25rem;
-    padding: 0 1rem;
-    margin: 0 auto;
-    ${theme.mediaQueries.small} {
-      padding: 0 1.25rem;
-    }
-  `}
 `;
 
 export const MoreArticlesWrapper = styled.div`
@@ -163,6 +110,7 @@ export const FilterByWrapper = styled(Row)`
   margin: 2rem auto;
   height: 3.75rem;
   padding: 0 1rem;
+  width: 100%;
 
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto;

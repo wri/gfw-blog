@@ -1,11 +1,14 @@
 import Head from 'next/head';
 
-import { getPostsByType } from 'lib/api';
+import { getPostsByType, getCategories } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
 import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
+
+import sortBy from 'lodash/sortBy';
+import { MAIN_CATEGORIES } from '../../utils/constants';
 
 export default function Search(props) {
   return (
@@ -33,12 +36,30 @@ export async function getServerSideProps({ params }) {
   });
   const notifications = await getPublishedNotifications();
 
+  const categories = await getCategories({
+    params: {
+      per_page: 100,
+    },
+  });
+
+  const filteredCategories = categories
+    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+    ?.map((c) => ({
+      ...c,
+      link: `/${c.slug}`,
+    }));
+
+  const sortedCategories = sortBy(filteredCategories, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
+
   return {
     props: {
       posts: postsResponse?.posts || [],
       totalPages: postsResponse?.totalPages || 1,
       totalPosts: postsResponse?.total || 0,
       searchQuery: params?.query,
+      categories: sortedCategories || [],
       notifications: notifications || [],
     },
   };
