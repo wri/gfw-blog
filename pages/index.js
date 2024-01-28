@@ -14,14 +14,7 @@ import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
-const MAIN_CATEGORIES = [
-  'data-and-research',
-  'people',
-  'commodities',
-  'fires',
-  'climate',
-  'places-to-watch',
-];
+import { MAIN_CATEGORIES } from '../utils/constants';
 
 export default function Index(props) {
   return (
@@ -89,6 +82,23 @@ export async function getServerSideProps({ query: { p: postId } }) {
     }
   }
 
+  const categories = await getCategories({
+    params: {
+      per_page: 100,
+    },
+  });
+
+  const filteredCategories = categories
+    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+    ?.map((c) => ({
+      ...c,
+      link: `/${c.slug}`,
+    }));
+
+  const sortedCategories = sortBy(filteredCategories, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
+
   const homepage = await getPostByType({
     type: 'pages',
     slug: 'global-forest-watch-blog',
@@ -111,23 +121,6 @@ export async function getServerSideProps({ query: { p: postId } }) {
       exclude: stickyPostsIds,
     },
   });
-
-  const categories = await getCategories({
-    params: {
-      per_page: 100,
-    },
-  });
-
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
-    MAIN_CATEGORIES.indexOf(cat.slug)
-  );
 
   return {
     props: {

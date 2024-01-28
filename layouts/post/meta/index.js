@@ -17,8 +17,8 @@ const PostMeta = ({ categories, tags, children }) => {
           <ul>
             {categories &&
               categories.length > 0 &&
-              categories.map((category) => (
-                <li>
+              categories.map((category, index) => (
+                <li key={index}>
                   <Link key={category.id} href={category.link}>
                     <span className="link">{category.name}</span>
                   </Link>
@@ -33,8 +33,8 @@ const PostMeta = ({ categories, tags, children }) => {
           <ul>
             {filteredTags &&
               filteredTags.length > 0 &&
-              filteredTags.map((tag) => (
-                <li>
+              filteredTags.map((tag, index) => (
+                <li key={index}>
                   <Link key={tag.id} href={tag.link}>
                     <span className="link">{tag.name}</span>
                   </Link>
