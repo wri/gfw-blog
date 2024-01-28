@@ -5,24 +5,11 @@ import { rgba } from 'emotion-rgba';
 export const Wrapper = styled.div`
   height: 3.75rem;
   width: 100%;
-  cursor: pointer;
   z-index: 20;
   position: relative;
 
-  ${({ open, expandable }) =>
-    open &&
-    expandable &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    max-width: 111.25rem;
-    padding: 0 1rem;
-    margin: 0 auto;
-  `}
-
   ${theme.mediaQueries.small} {
-    height: 5rem;
+    height: 5.625rem;
   }
 `;
 
@@ -33,14 +20,16 @@ export const Container = styled.div`
   width: 100%;
   height: 3.75rem;
   border-bottom: solid 0.0625rem transparent;
+  background-color: #333333;
+  max-height: 2.625rem;
+  height: 2.625rem;
+  -webkit-border-radius: 1.25rem;
+  -moz-border-radius: 1.25rem;
+  border-radius: 1.25rem;
   ${theme.mediaQueries.small} {
     height: 5rem;
+    margin-top: 1.4rem;
   }
-  ${({ open, expanded }) =>
-    (open || expanded) &&
-    `
-    border-bottom-color: ${theme.colors.grey};
-  `}
 `;
 
 export const SearchClosed = styled.div`
@@ -84,19 +73,6 @@ export const Input = styled(BasicInput)`
   ${theme.mediaQueries.small} {
     padding: 0 1.25rem;
   }
-
-  ${({ value, expanded }) =>
-    value &&
-    expanded &&
-    `
-    padding: 0 !important;
-  `}
-
-  ${({ expanded }) =>
-    expanded &&
-    `
-    padding-left: 0 !important;
-  `}
 `;
 
 export const Overlay = styled.div`

@@ -15,15 +15,7 @@ import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
-const MAIN_CATEGORIES = [
-  'data-and-research',
-  'people',
-  'commodities',
-  'fires',
-  'climate',
-  'places-to-watch',
-  'uncategorized',
-];
+import { MAIN_CATEGORIES } from 'utils/constants';
 
 export default function Index(props) {
   return (
@@ -40,19 +32,19 @@ export async function getStaticProps({ params }) {
 
   const notifications = await getPublishedNotifications();
 
+  const categories = await getCategories();
+  const filteredCategories = categories
+    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
+    ?.map((c) => ({
+      ...c,
+      link: `/${c.slug}`,
+    }));
+  const sortedCategories = sortBy(filteredCategories, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
+
   try {
     if (isCategory) {
-      const categories = await getCategories();
-      const filteredCategories = categories
-        ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-        ?.map((c) => ({
-          ...c,
-          link: `/${c.slug}`,
-        }));
-      const sortedCategories = sortBy(filteredCategories, (cat) =>
-        MAIN_CATEGORIES.indexOf(cat.slug)
-      );
-
       const category = categories?.find((cat) => cat.slug === slugs[0]);
 
       if (!category) {
@@ -78,6 +70,7 @@ export async function getStaticProps({ params }) {
           taxType: 'categories',
           tax: category || {},
           allTax: sortedCategories || [],
+          categories: sortedCategories || [],
           posts: categoryPostsResponse?.posts || [],
           totalPages: categoryPostsResponse?.totalPages || 1,
           totalPosts: categoryPostsResponse?.total || 0,
@@ -138,6 +131,7 @@ export async function getStaticProps({ params }) {
         metaTags: post?.yoast_head || '',
         guestAuthors: originalPostGuestAuthors,
         notifications: notifications || [],
+        categories: sortedCategories || [],
       },
       revalidate: 10,
     };
