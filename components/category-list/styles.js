@@ -5,8 +5,29 @@ export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 
-  a {
+  button {
     margin: 0 1.25rem 1.25rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 0.875rem;
+    letter-spacing: 0.016rem;
+    text-align: center;
+    color: #333333;
+    text-transform: uppercase;
+
+    ${theme.mediaQueries.small} {
+      margin-top: 2.4rem;
+    }
+
+    .selected {
+      padding: 0.25rem;
+      background-color: #333333;
+      color: #ffffff;
+    }
+
+    .span {
+      padding: 0.25rem;
+    }
   }
 `;
 
