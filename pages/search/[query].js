@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { getPostsByType, getCategories } from 'lib/api';
+import { getPostsByType } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
 import Layout from 'layouts/layout';
@@ -36,20 +36,7 @@ export async function getServerSideProps({ params }) {
   });
   const notifications = await getPublishedNotifications();
 
-  const categories = await getCategories({
-    params: {
-      per_page: 100,
-    },
-  });
-
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
+  const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
     MAIN_CATEGORIES.indexOf(cat.slug)
   );
 

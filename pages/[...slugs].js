@@ -32,20 +32,13 @@ export async function getStaticProps({ params }) {
   const isCategory = slugs.length === 1;
   const notifications = await getPublishedNotifications();
 
-  const categories = await getCategories();
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
+  const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
     MAIN_CATEGORIES.indexOf(cat.slug)
   );
 
   try {
     if (isCategory) {
-      const category = categories?.find((cat) => cat.slug === slugs[0]);
+      const category = MAIN_CATEGORIES?.find((cat) => cat.slug === slugs[0]);
 
       if (!category) {
         return {
