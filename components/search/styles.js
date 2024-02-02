@@ -11,6 +11,20 @@ export const Wrapper = styled.div`
   ${theme.mediaQueries.small} {
     height: 5.625rem;
   }
+
+  .hidden-content {
+    background: #333333;
+    color: #ffffff;
+    height: 19.563rem;
+    max-height: 19.563rem;
+    padding: 2rem 1.5rem;
+
+    ${theme.mediaQueries.small} {
+      padding: 2rem 4rem;
+      max-height: 14.5rem;
+      height: 14.5rem;
+    }
+  }
 `;
 
 export const Container = styled.div`

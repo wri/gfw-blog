@@ -7,6 +7,7 @@ const CategoryList = ({
   categories = [],
   onSelectCategory = () => {},
   selectedCategories = [],
+  children,
   ...props
 }) => {
   const handleClick = (category) => {
@@ -26,6 +27,7 @@ const CategoryList = ({
           </span>
         </button>
       ))}
+      {children}
     </Wrapper>
   );
 };
@@ -36,4 +38,5 @@ CategoryList.propTypes = {
   categories: PropTypes.array.isRequired,
   onSelectCategory: PropTypes.func,
   selectedCategories: PropTypes.array,
+  children: PropTypes.node,
 };
