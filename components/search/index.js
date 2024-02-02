@@ -12,6 +12,9 @@ import { Wrapper, Container, Input } from './styles';
 const Search = ({ actions, libraries, state, categories, ...props }) => {
   const { query, push } = useRouter();
   const [selectedCategories, setSelectedCategories] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [selectedTopics, setSelectedTopics] = useState([]);
+  const [showTopics, setShowTopics] = useState(false);
 
   const searchQuery = query?.query ? decodeURI(query?.query) : '';
   const [search, setSearch] = useState(searchQuery);
@@ -70,6 +73,7 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
             css={css`
               order: 2;
               margin-top: 2rem;
+              display: flex;
 
               ${theme.mediaQueries.small} {
                 order: 1;
@@ -91,7 +95,14 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
                     min-height: 3.75rem;
                   }
                 `}
-              />
+              >
+                <button
+                  className="topics-button"
+                  onClick={() => setShowTopics(!showTopics)}
+                >
+                  TOPICS
+                </button>
+              </CategoryList>
             )}
           </Column>
           <Column
@@ -135,6 +146,9 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
             </Container>
           </Column>
         </Row>
+        {showTopics && (
+          <div className="hidden-content">THIS IS THE HIDDEN CONTENT</div>
+        )}
       </Wrapper>
     </>
   );
