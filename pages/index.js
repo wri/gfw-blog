@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 
-import {
-  getPostById,
-  getPostByType,
-  getPostsByType,
-  getCategories,
-} from 'lib/api';
+import { getPostById, getPostByType, getPostsByType } from 'lib/api';
 
 import HomePage from 'layouts/home';
 import PostPage from 'layouts/post';
@@ -82,20 +77,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
     }
   }
 
-  const categories = await getCategories({
-    params: {
-      per_page: 100,
-    },
-  });
-
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
+  const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
     MAIN_CATEGORIES.indexOf(cat.slug)
   );
 
