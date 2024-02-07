@@ -96,10 +96,16 @@ export async function getStaticProps({ params }) {
      */
     const redirectionData = await getRedirectionData(slug);
     const hasRedirection = Object.keys(redirectionData).length > 0;
-    const urlArray = redirectionData?.match_url.split('/');
-    const targetURL = hasRedirection
-      ? urlArray[urlArray.length - 1] // separate category from slug
-      : slug;
+
+    let targetURL;
+
+    if (hasRedirection) {
+      const urlArray = redirectionData?.match_url.split('/');
+
+      targetURL = urlArray[urlArray.length - 1]; // separate category from slug
+    } else {
+      targetURL = slug;
+    }
 
     const post = await getPostByType({
       slug: targetURL,
