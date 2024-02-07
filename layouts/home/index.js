@@ -32,6 +32,7 @@ const HomePage = ({
   posts: firstPagePosts,
   totalPages,
   categories,
+  topics,
 }) => {
   const router = useRouter();
   const page = Number(router.query.page) || 1;
@@ -119,7 +120,7 @@ const HomePage = ({
             }
           `}
         >
-          <SearchMobile categories={categories} />
+          <SearchMobile categories={categories} topics={topics} />
         </Column>
         <Column
           css={css`
@@ -127,7 +128,7 @@ const HomePage = ({
             padding: 0 !important;
           `}
         >
-          <SearchDesktop categories={categories} />
+          <SearchDesktop categories={categories} topics={topics} />
         </Column>
       </Row>
       {/** Desktop  */}
@@ -302,6 +303,7 @@ HomePage.propTypes = {
   posts: PropTypes.array,
   totalPages: PropTypes.number,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default HomePage;

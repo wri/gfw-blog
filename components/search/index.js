@@ -6,10 +6,20 @@ import { Row, Column, theme } from '@worldresources/gfw-components';
 import CategoryList from 'components/category-list';
 
 import SearchIconSrc from 'assets/icons/search-white-icon.svg';
+import ChevronDownWhiteSrc from 'assets/icons/chevron-down-white.svg';
+import ChevronUpWhiteSrc from 'assets/icons/chevron-up-white.svg';
 
+import TopicsList from 'components/topics-list';
 import { Wrapper, Container, Input } from './styles';
 
-const Search = ({ actions, libraries, state, categories, ...props }) => {
+const Search = ({
+  actions,
+  libraries,
+  state,
+  categories,
+  topics,
+  ...props
+}) => {
   const { query, push } = useRouter();
   const [selectedCategories, setSelectedCategories] = useState([]);
   // eslint-disable-next-line no-unused-vars
@@ -29,19 +39,19 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
     }
   }, []);
 
-  const handleSelectedCategories = (categorySlug) => {
-    const slugs = [...selectedCategories];
+  const handleSelectedCollection = (slug, collection, func) => {
+    const slugs = [...collection];
 
-    if (slugs.includes(categorySlug)) {
+    if (slugs.includes(slug)) {
       slugs.splice(
-        slugs.findIndex((slug) => slug === categorySlug),
+        slugs.findIndex((s) => slug === s),
         1
       );
     } else {
-      slugs.push(categorySlug);
+      slugs.push(slug);
     }
 
-    setSelectedCategories(slugs);
+    func(slugs);
   };
 
   const handleSearch = () => {
@@ -87,21 +97,33 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
                 title="categories"
                 categories={categories}
                 selectedCategories={selectedCategories}
-                onSelectCategory={handleSelectedCategories}
+                onSelectCategory={(category) =>
+                  handleSelectedCollection(
+                    category,
+                    selectedCategories,
+                    setSelectedCategories
+                  )}
                 css={css`
-                  margin-bottom: 0.9375rem;
-
                   ${theme.mediaQueries.small} {
                     min-height: 3.75rem;
                   }
                 `}
               >
-                <button
-                  className="topics-button"
-                  onClick={() => setShowTopics(!showTopics)}
-                >
-                  TOPICS
-                </button>
+                <div className="topics-container">
+                  <button
+                    className="topics-button"
+                    onClick={() => setShowTopics(!showTopics)}
+                  >
+                    <span>TOPICS</span>
+                    <span className="chevron">
+                      {showTopics ? (
+                        <ChevronUpWhiteSrc />
+                      ) : (
+                        <ChevronDownWhiteSrc />
+                      )}
+                    </span>
+                  </button>
+                </div>
               </CategoryList>
             )}
           </Column>
@@ -147,7 +169,18 @@ const Search = ({ actions, libraries, state, categories, ...props }) => {
           </Column>
         </Row>
         {showTopics && (
-          <div className="hidden-content">THIS IS THE HIDDEN CONTENT</div>
+          <div className="hidden-content">
+            <TopicsList
+              topics={topics}
+              onSelectTopic={(topic) =>
+                handleSelectedCollection(
+                  topic,
+                  selectedTopics,
+                  setSelectedTopics
+                )}
+              selectedTopics={selectedTopics}
+            />
+          </div>
         )}
       </Wrapper>
     </>
@@ -161,4 +194,5 @@ Search.propTypes = {
   actions: PropTypes.object,
   libraries: PropTypes.object,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };

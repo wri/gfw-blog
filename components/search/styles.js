@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
     color: #ffffff;
     height: 19.563rem;
     max-height: 19.563rem;
+    overflow-y: scroll;
     padding: 2rem 1.5rem;
 
     ${theme.mediaQueries.small} {

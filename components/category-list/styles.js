@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
     text-transform: uppercase;
 
     ${theme.mediaQueries.small} {
-      margin-top: 2.4rem;
+      margin-top: 2rem;
     }
 
     .selected {
@@ -27,6 +27,19 @@ export const Wrapper = styled.div`
 
     .span {
       padding: 0.25rem;
+    }
+  }
+
+  .topics-container {
+    .topics-button {
+      border-radius: 0.375rem;
+      padding: 0.5rem 1rem;
+      background-color: #333333;
+      color: #ffffff;
+
+      .chevron {
+        margin-left: 0.5rem;
+      }
     }
   }
 `;
