@@ -7,6 +7,7 @@ import {
   getPostsByType,
   getCategories,
   getAllPostsByType,
+  getRedirectionData,
 } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
@@ -37,7 +38,6 @@ export async function getStaticProps({ params }) {
   const { slugs } = params;
 
   const isCategory = slugs.length === 1;
-
   const notifications = await getPublishedNotifications();
 
   try {
@@ -49,10 +49,10 @@ export async function getStaticProps({ params }) {
           ...c,
           link: `/${c.slug}`,
         }));
+
       const sortedCategories = sortBy(filteredCategories, (cat) =>
         MAIN_CATEGORIES.indexOf(cat.slug)
       );
-
       const category = categories?.find((cat) => cat.slug === slugs[0]);
 
       if (!category) {
@@ -90,15 +90,28 @@ export async function getStaticProps({ params }) {
 
     const slug = slugs[slugs.length - 1];
 
+    /*
+     * Verify if the URL is a WordPress redirection
+     * and gets the right slug to fetch the post
+     */
+    const redirectionData = await getRedirectionData(slug);
+    const hasRedirection = Object.keys(redirectionData).length > 0;
+
+    let targetURL;
+
+    if (hasRedirection) {
+      const urlArray = redirectionData?.match_url.split('/');
+
+      targetURL = urlArray[urlArray.length - 1]; // separate category from slug
+    } else {
+      targetURL = slug;
+    }
+
     const post = await getPostByType({
-      slug,
+      slug: targetURL,
     });
 
-    if (
-      !post ||
-      (post?.link !== `/${slugs?.join('/')}/` &&
-        post?.link !== `/${slugs?.join('/')}`)
-    ) {
+    if (!post) {
       return {
         props: {
           isError: true,
