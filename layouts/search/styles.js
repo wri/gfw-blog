@@ -144,3 +144,14 @@ export const FilterByTopic = styled.div`
     text-align: right;
   }
 `;
+
+export const PaginationColumn = styled(Column)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  ${theme.mediaQueries.small} {
+    justify-content: end;
+  }
+`;
