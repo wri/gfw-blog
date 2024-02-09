@@ -15,7 +15,7 @@ import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
-import { MAIN_CATEGORIES } from 'utils/constants';
+import { MAIN_CATEGORIES, MAIN_TOPICS } from 'utils/constants';
 
 export default function Index(props) {
   return (
@@ -64,6 +64,7 @@ export async function getStaticProps({ params }) {
           tax: category || {},
           allTax: sortedCategories || [],
           categories: sortedCategories || [],
+          topics: MAIN_TOPICS,
           posts: categoryPostsResponse?.posts || [],
           totalPages: categoryPostsResponse?.totalPages || 1,
           totalPosts: categoryPostsResponse?.total || 0,
@@ -125,6 +126,7 @@ export async function getStaticProps({ params }) {
         guestAuthors: originalPostGuestAuthors,
         notifications: notifications || [],
         categories: sortedCategories || [],
+        topics: MAIN_TOPICS,
       },
       revalidate: 10,
     };

@@ -49,6 +49,7 @@ const ArchivePage = ({
   totalPosts,
   searchQuery,
   categories,
+  topics,
 }) => {
   const router = useRouter();
   const page = Number(router.query.page) || 1;
@@ -152,7 +153,7 @@ const ArchivePage = ({
               }
             `}
           >
-            <SearchMobile categories={categories} />
+            <SearchMobile categories={categories} topics={topics} />
           </Column>
           <Column
             css={css`
@@ -161,7 +162,7 @@ const ArchivePage = ({
               position: fixed;
             `}
           >
-            <SearchDesktop categories={categories} />
+            <SearchDesktop categories={categories} topics={topics} />
           </Column>
         </Row>
         <Row
@@ -387,6 +388,7 @@ ArchivePage.propTypes = {
   isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default ArchivePage;
