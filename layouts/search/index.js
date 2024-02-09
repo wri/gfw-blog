@@ -31,6 +31,7 @@ import {
   TitleRow,
   ResultsStatement,
   ResultsTitle,
+  PaginationColumn,
 } from './styles';
 
 const SearchPage = ({
@@ -171,18 +172,7 @@ const SearchPage = ({
                 </Column>
               ))}
 
-              <Column
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  margin-bottom: 2rem;
-
-                  ${theme.mediaQueries.small} {
-                    justify-content: end;
-                  }
-                `}
-              >
+              <PaginationColumn>
                 <Row nested>
                   <Paginator
                     currentPage={page}
@@ -190,7 +180,7 @@ const SearchPage = ({
                     handleSelectPage={selectPage}
                   />
                 </Row>
-              </Column>
+              </PaginationColumn>
             </Row>
           )}
 
