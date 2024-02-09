@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 import { getPostsByType } from 'lib/api';
 
-import ArchivePage from 'layouts/archive';
+import SearchPage from 'layouts/search';
 import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
@@ -20,7 +20,7 @@ export default function Search(props) {
           content="Find tutorials, webinars and other resources in the GFW Help Center to help guide you through the forest monitoring data, analysis, technology and tools that GFW offers."
         />
       </Head>
-      <ArchivePage {...props} isSearch />
+      <SearchPage {...props} isSearch />
     </Layout>
   );
 }
