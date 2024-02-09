@@ -8,7 +8,7 @@ import Layout from 'layouts/layout';
 import { getPublishedNotifications } from 'utils/notifications';
 
 import sortBy from 'lodash/sortBy';
-import { MAIN_CATEGORIES } from '../../utils/constants';
+import { MAIN_CATEGORIES, MAIN_TOPICS } from '../../utils/constants';
 
 export default function Search(props) {
   return (
@@ -47,6 +47,7 @@ export async function getServerSideProps({ params }) {
       totalPosts: postsResponse?.total || 0,
       searchQuery: params?.query,
       categories: sortedCategories || [],
+      topics: MAIN_TOPICS,
       notifications: notifications || [],
     },
   };

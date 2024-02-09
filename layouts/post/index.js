@@ -45,7 +45,14 @@ const localeStrings = {
   id_ID: 'Baca dalam bahasa indonesia',
 };
 
-const Post = ({ post, preview, relatedPosts, guestAuthors, categories }) => {
+const Post = ({
+  post,
+  preview,
+  relatedPosts,
+  guestAuthors,
+  categories,
+  topics,
+}) => {
   const router = useRouter();
   const { featured_media: media, date } = post || {};
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
@@ -153,7 +160,7 @@ const Post = ({ post, preview, relatedPosts, guestAuthors, categories }) => {
             }
           `}
         >
-          <SearchMobile categories={categories} />
+          <SearchMobile categories={categories} topics={topics} />
         </Column>
         <Column
           css={css`
@@ -162,7 +169,7 @@ const Post = ({ post, preview, relatedPosts, guestAuthors, categories }) => {
             position: fixed;
           `}
         >
-          <SearchDesktop categories={categories} />
+          <SearchDesktop categories={categories} topics={topics} />
         </Column>
       </Row>
       <Row
@@ -399,6 +406,7 @@ Post.propTypes = {
   slugs: PropTypes.array,
   guestAuthors: PropTypes.array,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default Post;
