@@ -120,7 +120,11 @@ const HomePage = ({
             }
           `}
         >
-          <SearchMobile categories={categories} topics={topics} />
+          <SearchMobile
+            categories={categories}
+            topics={topics}
+            isFixed={false}
+          />
         </Column>
         <Column
           css={css`
@@ -128,7 +132,11 @@ const HomePage = ({
             padding: 0 !important;
           `}
         >
-          <SearchDesktop categories={categories} topics={topics} />
+          <SearchDesktop
+            categories={categories}
+            topics={topics}
+            isFixed={false}
+          />
         </Column>
       </Row>
       {/** Desktop  */}
