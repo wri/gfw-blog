@@ -18,6 +18,8 @@ const Search = ({
   state,
   categories,
   topics,
+  // eslint-disable-next-line no-unused-vars
+  isFixed = true,
   ...props
 }) => {
   const { query, push } = useRouter();
@@ -195,4 +197,5 @@ Search.propTypes = {
   libraries: PropTypes.object,
   categories: PropTypes.array,
   topics: PropTypes.array,
+  isFixed: PropTypes.bool,
 };
