@@ -28,7 +28,10 @@ export const Wrapper = styled.div`
       `}
 
     ${theme.mediaQueries.small} {
-      padding: 2rem 4rem;
+      padding-top: 2rem;
+      padding-bottom: 0;
+      padding-right: 4rem;
+      padding-left: 4rem;
       max-height: 14.5rem;
       height: 14.5rem;
     }
