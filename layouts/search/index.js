@@ -41,6 +41,7 @@ const SearchPage = ({
   totalPosts,
   searchQuery,
   categories,
+  topics,
 }) => {
   const router = useRouter();
   const page = Number(router.query.page) || 1;
@@ -99,10 +100,10 @@ const SearchPage = ({
       <Wrapper>
         <SearchRow>
           <SearchMobileColumn>
-            <SearchMobile categories={categories} />
+            <SearchMobile categories={categories} topics={topics} />
           </SearchMobileColumn>
           <SearchDesktopColumn>
-            <SearchDesktop categories={categories} />
+            <SearchDesktop categories={categories} topics={topics} />
           </SearchDesktopColumn>
         </SearchRow>
 
@@ -214,6 +215,7 @@ SearchPage.propTypes = {
   isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default SearchPage;

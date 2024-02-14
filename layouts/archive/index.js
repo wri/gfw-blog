@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
-import { Row, Column, Loader, Paginator } from '@worldresources/gfw-components';
+import {
+  Row,
+  Column,
+  Loader,
+  Paginator,
+  theme,
+} from '@worldresources/gfw-components';
 
 import { getPostsByType } from 'lib/api';
 import { translateText } from 'utils/lang';
@@ -11,6 +17,7 @@ import Card from 'components/card';
 import Dropdown from 'components/dropdown';
 import BackButton from 'components/back-button';
 import Filter from 'components/filter';
+import { SearchDesktop, SearchMobile } from '../home/styles';
 
 import {
   Wrapper,
@@ -28,6 +35,8 @@ const ArchivePage = ({
   totalPages,
   totalPosts,
   searchQuery,
+  categories,
+  topics,
 }) => {
   const router = useRouter();
 
@@ -74,6 +83,41 @@ const ArchivePage = ({
   return (
     <>
       <Wrapper>
+        <Row
+          css={css`
+            width: 100%;
+            max-width: 90rem !important;
+            position: fixed;
+            z-index: 10;
+
+            ${theme.mediaQueries.small} {
+              margin-top: 3.1rem;
+            }
+          `}
+        >
+          <Column
+            css={css`
+              display: block;
+              height: 12rem;
+              background-color: #f7f7f7;
+              padding: 2rem 0;
+              ${theme.mediaQueries.small} {
+                display: none;
+              }
+            `}
+          >
+            <SearchMobile categories={categories} topics={topics} />
+          </Column>
+          <Column
+            css={css`
+              margin-top: -1.35rem;
+              padding: 0 !important;
+              position: fixed;
+            `}
+          >
+            <SearchDesktop categories={categories} topics={topics} />
+          </Column>
+        </Row>
         <BackButtonRow>
           <BackButton
             handleClick={() => router.push('/')}

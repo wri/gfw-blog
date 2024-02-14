@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 
-  button {
+  a {
     margin: 0 1.25rem 1.25rem 0;
     font-size: 0.875rem;
     font-weight: 500;
@@ -25,9 +25,16 @@ export const Wrapper = styled.div`
       margin: 0 1rem 1rem 0;
     }
 
-    .selected {
+    span:hover {
       padding: 0.25rem;
       background-color: #658022;
+      color: #333333;
+      border-radius: 9999px;
+    }
+
+    .selected {
+      padding: 0.25rem;
+      background-color: #97bd3d;
       border-radius: 9999px;
     }
 
