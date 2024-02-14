@@ -11,7 +11,7 @@ export const BackButtonRow = styled(Row)`
   margin-top: 12rem;
   max-width: 90rem;
   width: 100%;
-  z-index: 10;
+  z-index: 1;
   background: white;
 
   ${theme.mediaQueries.small} {

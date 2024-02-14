@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   }
 
   .hidden-content {
+    margin-top: 1rem;
     background: #333333;
     color: #ffffff;
     height: 19.563rem;
@@ -34,6 +35,7 @@ export const Wrapper = styled.div`
       padding-left: 4rem;
       max-height: 14.5rem;
       height: 14.5rem;
+      margin-top: 1.5rem;
     }
   }
 `;
