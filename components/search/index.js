@@ -57,16 +57,7 @@ const Search = ({
   };
 
   const handleSearch = () => {
-    if (selectedCategories.length !== 0) {
-      const categoriesString = selectedCategories.join(',');
-
-      push(`/search?search=${search}&categories=${categoriesString}`);
-      return;
-    }
-
-    // TODO: add tags
-
-    push(`/search?search=${search}`);
+    push(`/search/${search}`);
   };
 
   const handleKeyDown = (event) => {

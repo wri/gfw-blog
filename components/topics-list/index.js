@@ -10,13 +10,17 @@ const TopicsList = ({ topics, onSelectTopic, selectedTopics }) => {
   return (
     <Wrapper>
       {topics.map((t) => (
-        <button key={t.slug} onClick={() => handleClick(t)}>
+        <a
+          key={t.slug}
+          onClick={() => handleClick(t)}
+          href={`/blog/tag/${t.slug}/`}
+        >
           <span
             className={selectedTopics.includes(t.slug) ? 'selected' : 'span'}
           >
             {t.name}
           </span>
-        </button>
+        </a>
       ))}
     </Wrapper>
   );

@@ -5,6 +5,10 @@ import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
+import { MAIN_CATEGORIES, MAIN_TOPICS } from 'utils/constants';
+
+import sortBy from 'lodash/sortBy';
+
 export default function Tag(props) {
   return (
     // eslint-disable-next-line react/prop-types
@@ -29,6 +33,10 @@ export async function getStaticProps({ params }) {
       },
     });
 
+    const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
+      MAIN_CATEGORIES.indexOf(cat.slug)
+    );
+
     const notifications = await getPublishedNotifications();
 
     return {
@@ -42,6 +50,8 @@ export async function getStaticProps({ params }) {
         metaTags: tag?.yoast_head || '',
         isError: !tag,
         notifications: notifications || [],
+        topics: MAIN_TOPICS,
+        categories: sortedCategories || [],
       },
       revalidate: 10,
     };
