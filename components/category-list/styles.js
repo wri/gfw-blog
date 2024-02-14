@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
 
-  button {
+  a {
     margin: 0 1.25rem 1.25rem 0;
     font-size: 0.875rem;
     font-weight: 500;
@@ -31,6 +31,10 @@ export const Wrapper = styled.div`
   }
 
   .topics-container {
+    ${theme.mediaQueries.small} {
+      margin-top: 1.5rem;
+    }
+
     .topics-button {
       border-radius: 0.375rem;
       padding: 0.5rem 1rem;
