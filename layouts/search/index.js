@@ -52,6 +52,8 @@ const SearchPage = ({
   const [moreArticles, setMoreArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
     setPosts(firstPagePosts);
@@ -93,6 +95,32 @@ const SearchPage = ({
 
   const selectPage = (selectedPage) => {
     location.assign(`${location.pathname}?page=${selectedPage}`);
+  };
+
+  const selectCategory = (slug) => {
+    const copy = [...selectedCategories];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedCategories(copy);
+  };
+
+  const selectTopic = (slug) => {
+    const copy = [...selectedTopics];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedTopics(copy);
   };
 
   return (
@@ -141,7 +169,14 @@ const SearchPage = ({
             )}
           </TitleRow>
 
-          <Filter>
+          <Filter
+            categories={categories}
+            topics={topics}
+            selectedCategories={selectedCategories}
+            selectedTopics={selectedTopics}
+            handleSelectedCategory={selectCategory}
+            handleSelectedTopic={selectTopic}
+          >
             <ResultsStatement>
               {translateText(searchStatementTemplate.toUpperCase(), {
                 totalPosts,
