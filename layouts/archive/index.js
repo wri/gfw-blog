@@ -2,34 +2,32 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
-import {
-  Row,
-  Column,
-  Loader,
-  Paginator,
-  theme,
-} from '@worldresources/gfw-components';
+import { Row, Column, Loader, Paginator } from '@worldresources/gfw-components';
 
 import { getPostsByType } from 'lib/api';
 import { translateText } from 'utils/lang';
 
 import Card from 'components/card';
-import Dropdown from 'components/dropdown';
 import BackButton from 'components/back-button';
 import Filter from 'components/filter';
 import { SearchDesktop, SearchMobile } from '../home/styles';
 
 import {
   Wrapper,
+  SearchRow,
+  SearchMobileColumn,
+  SearchDesktopColumn,
   BackButtonRow,
+  TitleRow,
   ResultsStatement,
-  CategoryDescription,
+  ResultsTitle,
   PaginationColumn,
-} from './styles';
+} from '../search/styles';
 
 const ArchivePage = ({
   taxType,
   tax,
+  // eslint-disable-next-line no-unused-vars
   allTax,
   posts: firstPagePosts,
   totalPages,
@@ -46,10 +44,9 @@ const ArchivePage = ({
   const page = Number(router.query.page) || 1;
   const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
   const taxStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
-  const taxFromList = allTax?.find((t) => t.id === tax?.id);
-  const allTaxOptions =
-    allTax &&
-    (taxFromList ? allTax : [{ ...tax, count: totalPosts }, ...allTax]);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
     setPosts(firstPagePosts);
@@ -80,44 +77,44 @@ const ArchivePage = ({
     location.assign(`${location.pathname}?page=${selectedPage}`);
   };
 
+  const selectCategory = (slug) => {
+    const copy = [...selectedCategories];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedCategories(copy);
+  };
+
+  const selectTopic = (slug) => {
+    const copy = [...selectedTopics];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedTopics(copy);
+  };
+
   return (
     <>
       <Wrapper>
-        <Row
-          css={css`
-            width: 100%;
-            max-width: 90rem !important;
-            position: fixed;
-            z-index: 10;
-
-            ${theme.mediaQueries.small} {
-              margin-top: 3.1rem;
-            }
-          `}
-        >
-          <Column
-            css={css`
-              display: block;
-              height: 12rem;
-              background-color: #f7f7f7;
-              padding: 2rem 0;
-              ${theme.mediaQueries.small} {
-                display: none;
-              }
-            `}
-          >
+        <SearchRow>
+          <SearchMobileColumn>
             <SearchMobile categories={categories} topics={topics} />
-          </Column>
-          <Column
-            css={css`
-              margin-top: -1.35rem;
-              padding: 0 !important;
-              position: fixed;
-            `}
-          >
+          </SearchMobileColumn>
+          <SearchDesktopColumn>
             <SearchDesktop categories={categories} topics={topics} />
-          </Column>
-        </Row>
+          </SearchDesktopColumn>
+        </SearchRow>
+
         <BackButtonRow>
           <BackButton
             handleClick={() => router.push('/')}
@@ -126,23 +123,28 @@ const ArchivePage = ({
         </BackButtonRow>
 
         <Row>
-          <Row>
-            <Column width={[1, 2 / 3]}>
-              <Dropdown items={allTaxOptions} selected={tax?.id} />
-            </Column>
-            {tax?.description && (
-              <Column
-                width={[1, 3 / 4]}
-                css={css`
-                  margin-bottom: 1.25rem !important;
-                `}
-              >
-                <CategoryDescription>{tax.description}</CategoryDescription>
-              </Column>
+          <TitleRow>
+            {totalPosts <= 0 && (
+              <>
+                <Column>
+                  <ResultsTitle>
+                    No results for &ldquo;
+                    {searchQuery}
+                    &rdquo;
+                  </ResultsTitle>
+                </Column>
+              </>
             )}
-          </Row>
+          </TitleRow>
 
-          <Filter>
+          <Filter
+            categories={categories}
+            topics={topics}
+            selectedCategories={selectedCategories}
+            selectedTopics={selectedTopics}
+            handleSelectedCategory={selectCategory}
+            handleSelectedTopic={selectTopic}
+          >
             <ResultsStatement>
               {translateText(taxStatementTemplate.toUpperCase(), {
                 totalPosts,
