@@ -24,7 +24,6 @@ const Search = ({
 }) => {
   const { query, push } = useRouter();
   const [selectedCategories, setSelectedCategories] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [showTopics, setShowTopics] = useState(false);
 
