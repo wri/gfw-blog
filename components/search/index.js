@@ -24,7 +24,6 @@ const Search = ({
 }) => {
   const { query, push } = useRouter();
   const [selectedCategories, setSelectedCategories] = useState([]);
-  // eslint-disable-next-line no-unused-vars
   const [selectedTopics, setSelectedTopics] = useState([]);
   const [showTopics, setShowTopics] = useState(false);
 
@@ -57,16 +56,7 @@ const Search = ({
   };
 
   const handleSearch = () => {
-    if (selectedCategories.length !== 0) {
-      const categoriesString = selectedCategories.join(',');
-
-      push(`/search?search=${search}&categories=${categoriesString}`);
-      return;
-    }
-
-    // TODO: add tags
-
-    push(`/search?search=${search}`);
+    push(`/search/${search}`);
   };
 
   const handleKeyDown = (event) => {

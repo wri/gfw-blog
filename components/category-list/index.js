@@ -16,16 +16,20 @@ const CategoryList = ({
 
   return (
     <Wrapper {...props}>
-      {categories.map((c) => (
-        <button key={c.name + c.link} onClick={() => handleClick(c)}>
+      {categories.map((category) => (
+        <a
+          key={category.name + category.link}
+          onClick={() => handleClick(category)}
+          href={`/blog/category/${category.slug}/`}
+        >
           <span
             className={
-              selectedCategories.includes(c.slug) ? 'selected' : 'span'
+              selectedCategories.includes(category.slug) ? 'selected' : 'span'
             }
           >
-            {c.name}
+            {category.name}
           </span>
-        </button>
+        </a>
       ))}
       {children}
     </Wrapper>

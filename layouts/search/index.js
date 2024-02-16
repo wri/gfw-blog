@@ -41,6 +41,7 @@ const SearchPage = ({
   totalPosts,
   searchQuery,
   categories,
+  topics,
 }) => {
   const router = useRouter();
   const page = Number(router.query.page) || 1;
@@ -51,6 +52,8 @@ const SearchPage = ({
   const [moreArticles, setMoreArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
     setPosts(firstPagePosts);
@@ -94,15 +97,41 @@ const SearchPage = ({
     location.assign(`${location.pathname}?page=${selectedPage}`);
   };
 
+  const selectCategory = (slug) => {
+    const copy = [...selectedCategories];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedCategories(copy);
+  };
+
+  const selectTopic = (slug) => {
+    const copy = [...selectedTopics];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedTopics(copy);
+  };
+
   return (
     <>
       <Wrapper>
         <SearchRow>
           <SearchMobileColumn>
-            <SearchMobile categories={categories} />
+            <SearchMobile categories={categories} topics={topics} />
           </SearchMobileColumn>
           <SearchDesktopColumn>
-            <SearchDesktop categories={categories} />
+            <SearchDesktop categories={categories} topics={topics} />
           </SearchDesktopColumn>
         </SearchRow>
 
@@ -140,7 +169,14 @@ const SearchPage = ({
             )}
           </TitleRow>
 
-          <Filter>
+          <Filter
+            categories={categories}
+            topics={topics}
+            selectedCategories={selectedCategories}
+            selectedTopics={selectedTopics}
+            handleSelectedCategory={selectCategory}
+            handleSelectedTopic={selectTopic}
+          >
             <ResultsStatement>
               {translateText(searchStatementTemplate.toUpperCase(), {
                 totalPosts,
@@ -214,6 +250,7 @@ SearchPage.propTypes = {
   isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default SearchPage;
