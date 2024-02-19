@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FilterDropDownWrapper, FilterDropDownContainer } from './styles';
 
@@ -33,13 +33,29 @@ const FilterDropDown = ({
   selectedItems = [],
   // eslint-disable-next-line no-unused-vars
   margin = '0',
+  onBlur,
 }) => {
   const selectItem = (item) => {
     handleSelectItem(item.slug);
   };
 
+  const dropDownWrapperReference = useRef(null);
+
+  useEffect(() => {
+    dropDownWrapperReference.current.focus();
+  }, []);
+
   return (
-    <FilterDropDownWrapper margin={margin}>
+    <FilterDropDownWrapper
+      tabIndex="0"
+      ref={dropDownWrapperReference}
+      margin={margin}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          onBlur();
+        }
+      }}
+    >
       <FilterDropDownContainer>
         {items.map((item) => (
           <Option
@@ -55,6 +71,7 @@ const FilterDropDown = ({
 };
 
 FilterDropDown.propTypes = {
+  onBlur: PropTypes.func,
   items: PropTypes.array,
   handleSelectItem: PropTypes.func,
   selectedItems: PropTypes.array,

@@ -78,6 +78,7 @@ const Filter = ({
           selectedItems={selectedCategories}
           handleSelectItem={handleSelectedCategory}
           margin="1rem"
+          onBlur={() => setIsCategoriesDropdownOpen(!isCategoriesDrodownOpen)}
         />
       )}
       {isTopicsDrodownOpen && (
@@ -86,6 +87,7 @@ const Filter = ({
           selectedItems={selectedTopics}
           handleSelectItem={handleSelectedTopic}
           margin="12rem"
+          onBlur={() => setIsTopicsDropdownOpen(!isTopicsDrodownOpen)}
         />
       )}
       <PillContainerWrapper>
