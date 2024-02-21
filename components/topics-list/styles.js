@@ -37,9 +37,5 @@ export const Wrapper = styled.div`
       background-color: #97bd3d;
       border-radius: 9999px;
     }
-
-    .span {
-      padding: 0.25rem;
-    }
   }
 `;
