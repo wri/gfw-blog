@@ -26,15 +26,16 @@ import {
 
 const ArchivePage = ({
   posts: firstPagePosts,
-  totalPages,
-  totalPosts,
+  totalPages: totalFirstPages,
+  totalPosts: totalFirstPosts,
   categories,
   topics,
 }) => {
   const router = useRouter();
-
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [loading, setLoading] = useState(false);
+  const [totalPosts, setTotalPosts] = useState(totalFirstPosts || 0);
+  const [totalPages, setTotalPages] = useState(totalFirstPages || 0);
 
   const page = Number(router.query.page) || 1;
   const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
@@ -62,6 +63,8 @@ const ArchivePage = ({
       });
 
       setPosts(postsByTaxonomy?.posts);
+      setTotalPosts(postsByTaxonomy?.totalPosts);
+      setTotalPages(postsByTaxonomy?.totalPages);
       setLoading(false);
     };
 
@@ -128,9 +131,7 @@ const ArchivePage = ({
             {totalPosts <= 0 && (
               <>
                 <Column>
-                  <ResultsTitle>
-                    No results for this filter &rdquo;
-                  </ResultsTitle>
+                  <ResultsTitle>No results for this filter</ResultsTitle>
                 </Column>
               </>
             )}

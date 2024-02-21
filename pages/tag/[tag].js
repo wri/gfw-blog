@@ -1,4 +1,4 @@
-import { getTags, getTagBySlug, getPostsByType } from 'lib/api';
+import { getTags, getTagBySlug, getPostsByTaxonomy } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
 import Layout from 'layouts/layout';
@@ -19,17 +19,18 @@ export default function Tag(props) {
 }
 
 export async function getStaticProps({ params }) {
+  const page = params?.page || 1;
   try {
     const tags = await getTags({
       params: { per_page: 50, orderby: 'count', order: 'desc' },
     });
-    const tag = await getTagBySlug({ slug: params.tag });
 
-    const postsResponse = await getPostsByType({
-      type: 'posts',
+    const tag = await getTagBySlug({ slug: params.tag });
+    const postsResponse = await getPostsByTaxonomy({
       params: {
-        tags: tag?.id,
-        per_page: 12,
+        per_page: 6,
+        page,
+        topic: params.tag,
       },
     });
 
@@ -48,7 +49,7 @@ export async function getStaticProps({ params }) {
         categories: sortedCategories || [],
         posts: postsResponse?.posts || [],
         totalPages: postsResponse?.totalPages || 1,
-        totalPosts: postsResponse?.total || 0,
+        totalPosts: postsResponse?.totalPosts || 0,
         metaTags: tag?.yoast_head || '',
         isError: !tag,
         notifications: notifications || [],
