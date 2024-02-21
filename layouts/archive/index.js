@@ -4,7 +4,7 @@ import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
 import { Row, Column, Loader, Paginator } from '@worldresources/gfw-components';
 
-import { getPostsByType } from 'lib/api';
+import { getPostsByTaxonomy } from 'lib/api';
 import { translateText } from 'utils/lang';
 
 import Card from 'components/card';
@@ -25,14 +25,9 @@ import {
 } from '../search/styles';
 
 const ArchivePage = ({
-  taxType,
-  tax,
-  // eslint-disable-next-line no-unused-vars
-  allTax,
   posts: firstPagePosts,
   totalPages,
   totalPosts,
-  searchQuery,
   categories,
   topics,
 }) => {
@@ -49,29 +44,29 @@ const ArchivePage = ({
   const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
-    setPosts(firstPagePosts);
-  }, [tax?.id, searchQuery]);
+    if (selectedCategories.length <= 0 && selectedTopics.length <= 0) {
+      setPosts(firstPagePosts);
 
-  useEffect(() => {
-    const fetchNextPosts = async () => {
+      return;
+    }
+
+    const fetchPostsByTaxonomy = async () => {
       setLoading(true);
-      const nextPosts = await getPostsByType({
-        type: 'posts',
+      const postsByTaxonomy = await getPostsByTaxonomy({
         params: {
           per_page: 6,
           page,
-          ...(taxType && {
-            [taxType]: tax?.id,
-          }),
+          topic: selectedTopics.join(','),
+          category: selectedCategories.join(','),
         },
       });
 
-      setPosts([...nextPosts?.posts]);
+      setPosts(postsByTaxonomy?.posts);
       setLoading(false);
     };
 
-    fetchNextPosts();
-  }, [page]);
+    fetchPostsByTaxonomy();
+  }, [selectedCategories, selectedTopics, page]);
 
   const selectPage = (selectedPage) => {
     location.assign(`${location.pathname}?page=${selectedPage}`);
@@ -134,9 +129,7 @@ const ArchivePage = ({
               <>
                 <Column>
                   <ResultsTitle>
-                    No results for &ldquo;
-                    {searchQuery}
-                    &rdquo;
+                    No results for this filter &rdquo;
                   </ResultsTitle>
                 </Column>
               </>
@@ -202,11 +195,9 @@ const ArchivePage = ({
 ArchivePage.propTypes = {
   taxType: PropTypes.string,
   tax: PropTypes.object,
-  allTax: PropTypes.array,
   posts: PropTypes.array,
   totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
-  searchQuery: PropTypes.string,
   categories: PropTypes.array,
   topics: PropTypes.array,
 };
