@@ -18,8 +18,7 @@ export default function Tag(props) {
   );
 }
 
-export async function getStaticProps({ params }) {
-  const page = params?.page || 1;
+export async function getServerSideProps({ params, query: { page = 1 } }) {
   try {
     const tags = await getTags({
       params: { per_page: 50, orderby: 'count', order: 'desc' },
@@ -54,7 +53,6 @@ export async function getStaticProps({ params }) {
         isError: !tag,
         notifications: notifications || [],
       },
-      revalidate: 10,
     };
   } catch (err) {
     return {
@@ -65,17 +63,17 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export async function getStaticPaths() {
-  const allTags = await getTags({ params: { _fields: 'slug' } });
+// export async function getStaticPaths() {
+//   const allTags = await getTags({ params: { _fields: 'slug' } });
 
-  const paths = allTags?.map((tag) => ({
-    params: {
-      tag: tag.slug,
-    },
-  }));
+//   const paths = allTags?.map((tag) => ({
+//     params: {
+//       tag: tag.slug,
+//     },
+//   }));
 
-  return {
-    paths: paths || [],
-    fallback: true,
-  };
-}
+//   return {
+//     paths: paths || [],
+//     fallback: true,
+//   };
+// }
