@@ -128,10 +128,10 @@ const ArchivePage = ({
 
         <Row>
           <TitleRow>
-            {totalPosts <= 0 && (
+            {totalPosts > 0 && (
               <>
                 <Column>
-                  <ResultsTitle>No results for this filter</ResultsTitle>
+                  <ResultsTitle>Filter by category and topics</ResultsTitle>
                 </Column>
               </>
             )}
