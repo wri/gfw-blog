@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import { Row, Column, theme } from '@worldresources/gfw-components';
 import CategoryList from 'components/category-list';
 
-import SearchIconSrc from 'assets/icons/search-white-icon.svg';
-import ChevronDownWhiteSrc from 'assets/icons/chevron-down-white.svg';
-import ChevronUpWhiteSrc from 'assets/icons/chevron-up-white.svg';
+// import SearchIconSrc from 'assets/icons/search-white-icon.svg';
+// import ChevronDownWhiteSrc from 'assets/icons/chevron-down-white.svg';
+// import ChevronUpWhiteSrc from 'assets/icons/chevron-up-white.svg';
 
 import TopicsList from 'components/topics-list';
 import { Wrapper, Container, Input } from './styles';
@@ -107,13 +107,13 @@ const Search = ({
                     onClick={() => setShowTopics(!showTopics)}
                   >
                     <span>TOPICS</span>
-                    <span className="chevron">
+                    {/* <span className="chevron">
                       {showTopics ? (
                         <ChevronUpWhiteSrc />
                       ) : (
                         <ChevronDownWhiteSrc />
                       )}
-                    </span>
+                    </span> */}
                   </button>
                 </div>
               </CategoryList>
@@ -154,7 +154,7 @@ const Search = ({
               />
               <div style={{ marginRight: '0.875rem' }}>
                 <button onClick={handleSearch}>
-                  <SearchIconSrc />
+                  {/* <SearchIconSrc /> */}
                 </button>
               </div>
             </Container>

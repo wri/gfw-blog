@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 
-import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
-import FilterArrowUpIcon from 'assets/icons/filter-arrow-up.svg';
-import CloseWhiteIcon from 'assets/icons/close-white.svg';
+// import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
+// import FilterArrowUpIcon from 'assets/icons/filter-arrow-up.svg';
+// import CloseWhiteIcon from 'assets/icons/close-white.svg';
 import { Column } from '@worldresources/gfw-components';
 
 import FilterDropDown from 'components/filter-dropdown';
@@ -52,21 +52,21 @@ const Filter = ({
           <FilterByColumn>
             <FilterByCategory>FILTER BY CATEGORY</FilterByCategory>
             <button onClick={handleCategoriesOpen}>
-              {isCategoriesDrodownOpen ? (
+              {/* {isCategoriesDrodownOpen ? (
                 <FilterArrowUpIcon />
               ) : (
                 <FilterArrowIcon />
-              )}
+              )} */}
             </button>
           </FilterByColumn>
           <FilterByColumn>
             <FilterByTopic>FILTER BY TOPIC</FilterByTopic>
             <button onClick={handleTopicsOpen}>
-              {isTopicsDrodownOpen ? (
+              {/* {isTopicsDrodownOpen ? (
                 <FilterArrowUpIcon />
               ) : (
                 <FilterArrowIcon />
-              )}
+              )} */}
             </button>
           </FilterByColumn>
         </Column>
@@ -97,7 +97,7 @@ const Filter = ({
               {categories.find((c) => c.slug === item)?.name}
               &nbsp;
               <button onClick={() => handleSelectedCategory(item)}>
-                <CloseWhiteIcon />
+                {/* <CloseWhiteIcon /> */}
               </button>
             </span>
           ))}
@@ -108,7 +108,7 @@ const Filter = ({
               {topics.find((t) => t.slug === item)?.name}
               &nbsp;
               <button onClick={() => handleSelectedTopic(item)}>
-                <CloseWhiteIcon />
+                {/* <CloseWhiteIcon /> */}
               </button>
             </span>
           ))}

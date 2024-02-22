@@ -1,13 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import treeIcon from 'assets/images/tree-success.png';
+import Image from 'next/image';
 
-import { Container, Image, Title, Description, TreeErrorIcon } from './styles';
+import { Container, Title, Description, TreeErrorIcon } from './styles';
 
 const Message = ({ error, title, description, small }) => (
   <Container>
-    {error ? <TreeErrorIcon /> : <Image src={treeIcon} alt="success tree" />}
+    {error ? (
+      <TreeErrorIcon />
+    ) : (
+      <Image
+        style={{
+          height: '12.5rem',
+          margin: 'auto',
+          marginBottom: '0.625rem',
+        }}
+        src="assets/images/tree-success.png"
+        alt="success tree"
+      />
+    )}
     <Title small={small}>{title}</Title>
     <Description small={small}>{description}</Description>
   </Container>

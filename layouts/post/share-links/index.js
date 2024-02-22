@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { trackEvent } from 'utils/analytics';
 
-import InstagramIcon from 'assets/icons/instagram-green.svg';
-import XIcon from 'assets/icons/x-green.svg';
-import FacebookIcon from 'assets/icons/fb-green.svg';
+// import InstagramIcon from 'assets/icons/instagram-green.svg';
+// import XIcon from 'assets/icons/x-green.svg';
+// import FacebookIcon from 'assets/icons/fb-green.svg';
 
 import { ButtonsContainer } from './styles';
 
@@ -29,7 +29,7 @@ const ShareLinks = ({ url, title }) => (
             action: 'Instagram',
           })}
       >
-        <InstagramIcon />
+        {/* <InstagramIcon /> */}
       </button>
     </a>
     <a
@@ -46,7 +46,7 @@ const ShareLinks = ({ url, title }) => (
             action: 'X',
           })}
       >
-        <XIcon />
+        {/* <XIcon /> */}
       </button>
     </a>
     <a
@@ -63,7 +63,7 @@ const ShareLinks = ({ url, title }) => (
             action: 'Facebook',
           })}
       >
-        <FacebookIcon />
+        {/* <FacebookIcon /> */}
       </button>
     </a>
   </ButtonsContainer>

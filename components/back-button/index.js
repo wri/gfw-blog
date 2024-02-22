@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BackButtonWrapper, GreenLeftArrowIcon } from './styles';
+import { BackButtonWrapper } from './styles';
 
 const BackButton = ({ handleClick, title }) => {
   return (
     <BackButtonWrapper>
       <button onClick={handleClick}>
-        <GreenLeftArrowIcon />
+        {/* <GreenLeftArrowIcon /> */}
         <span className="title">{title}</span>
       </button>
     </BackButtonWrapper>

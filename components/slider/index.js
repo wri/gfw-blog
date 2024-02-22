@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
-import LeftArrowIcon from 'assets/icons/left-arrow.svg';
-import RightArrowIcon from 'assets/icons/right-arrow.svg';
+// import LeftArrowIcon from 'assets/icons/left-arrow.svg';
+// import RightArrowIcon from 'assets/icons/right-arrow.svg';
 import SliderWrapper from './styles';
 
 /**
@@ -79,10 +79,10 @@ const Slider = ({ cards, withBackground = false, title }) => {
       </div>
       <div className="buttons">
         <button className="button" onClick={handleScrollLeft}>
-          <LeftArrowIcon />
+          {/* <LeftArrowIcon /> */}
         </button>
         <button className="button" onClick={handleScrollRight}>
-          <RightArrowIcon />
+          {/* <RightArrowIcon /> */}
         </button>
       </div>
     </SliderWrapper>

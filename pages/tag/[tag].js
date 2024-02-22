@@ -59,7 +59,7 @@ export async function getStaticProps({ params }) {
   } catch (err) {
     return {
       props: {
-        isError: true,
+        notFound: true,
       },
     };
   }

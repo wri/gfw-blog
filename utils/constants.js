@@ -2,7 +2,7 @@
 export const MAIN_CATEGORIES = [
   {
     name: 'Data & Tools',
-    slug: 'data',
+    slug: 'test-category',
   },
   {
     name: 'Users in Action',
@@ -17,7 +17,7 @@ export const MAIN_CATEGORIES = [
 export const MAIN_TOPICS = [
   {
     name: 'Amazon',
-    slug: 'amazon',
+    slug: 'test-tag',
   },
   {
     name: 'Biodiversity',
