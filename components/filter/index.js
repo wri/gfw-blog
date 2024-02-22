@@ -51,7 +51,10 @@ const Filter = ({
         >
           <FilterByColumn>
             <FilterByCategory>FILTER BY CATEGORY</FilterByCategory>
-            <button onClick={handleCategoriesOpen}>
+            <button
+              style={{ cursor: 'default' }}
+              onClick={handleCategoriesOpen}
+            >
               {isCategoriesDrodownOpen ? (
                 <FilterArrowUpIcon />
               ) : (
@@ -61,7 +64,7 @@ const Filter = ({
           </FilterByColumn>
           <FilterByColumn>
             <FilterByTopic>FILTER BY TOPIC</FilterByTopic>
-            <button onClick={handleTopicsOpen}>
+            <button style={{ cursor: 'default' }} onClick={handleTopicsOpen}>
               {isTopicsDrodownOpen ? (
                 <FilterArrowUpIcon />
               ) : (
