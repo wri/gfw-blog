@@ -38,7 +38,7 @@ const ArchivePage = ({
   const [totalPages, setTotalPages] = useState(totalFirstPages || 0);
 
   const page = Number(router.query.page) || 1;
-  const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
+  const postsQuantity = totalPosts < 6 ? totalPosts : posts.length; // 6 per page
   const taxStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
 
   const [selectedCategories, setSelectedCategories] = useState([]);
