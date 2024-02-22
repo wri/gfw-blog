@@ -126,14 +126,20 @@ const SearchPage = ({
   return (
     <>
       <Wrapper>
-        <SearchRow>
-          <SearchMobileColumn>
-            <SearchMobile categories={categories} topics={topics} />
-          </SearchMobileColumn>
-          <SearchDesktopColumn>
-            <SearchDesktop categories={categories} topics={topics} />
-          </SearchDesktopColumn>
-        </SearchRow>
+        <Row
+          css={css`
+            max-width: 90rem;
+          `}
+        >
+          <SearchRow>
+            <SearchMobileColumn>
+              <SearchMobile categories={categories} topics={topics} />
+            </SearchMobileColumn>
+            <SearchDesktopColumn>
+              <SearchDesktop categories={categories} topics={topics} />
+            </SearchDesktopColumn>
+          </SearchRow>
+        </Row>
 
         <BackButtonRow>
           <BackButton
