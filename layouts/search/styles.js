@@ -3,13 +3,14 @@ import { theme, Row, Column } from '@worldresources/gfw-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  padding-bottom: 4rem;
 `;
 
 export const SearchRow = styled(Row)`
   width: 100%;
-  max-width: 90rem !important;
   position: fixed;
   z-index: 10;
+  max-width: 90rem;
 
   ${theme.mediaQueries.small} {
     margin-top: 3.1rem;
@@ -30,20 +31,20 @@ export const SearchMobileColumn = styled(Column)`
 export const SearchDesktopColumn = styled(Column)`
   margin-top: -1.35rem;
   padding: 0 !important;
-  position: fixed;
 `;
 
 export const BackButtonRow = styled(Row)`
   display: flex;
   position: fixed;
   margin-top: 12rem;
-  max-width: 90rem;
   width: 100%;
   z-index: 1;
   background: white;
+  max-width: 100%;
 
   ${theme.mediaQueries.small} {
     margin-top: 5.625rem;
+    padding-left: 9rem !important;
   }
 `;
 export const TitleRow = styled(Row)`
