@@ -128,13 +128,9 @@ const ArchivePage = ({
 
         <Row>
           <TitleRow>
-            {totalPosts > 0 && (
-              <>
-                <Column>
-                  <ResultsTitle>Filter by category and topics</ResultsTitle>
-                </Column>
-              </>
-            )}
+            <Column>
+              <ResultsTitle>Filter by category and topics</ResultsTitle>
+            </Column>
           </TitleRow>
 
           <Filter
@@ -186,6 +182,10 @@ const ArchivePage = ({
                 </Row>
               </PaginationColumn>
             </Row>
+          )}
+
+          {!loading && totalPosts <= 0 && (
+            <Row>No posts found for this filter</Row>
           )}
         </Row>
       </Wrapper>
