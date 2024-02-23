@@ -169,7 +169,13 @@ const Post = ({
             position: fixed;
           `}
         >
-          <SearchDesktop categories={categories} topics={topics} />
+          <Row
+            css={css`
+              max-width: 90rem;
+            `}
+          >
+            <SearchDesktop categories={categories} topics={topics} />
+          </Row>
         </Column>
       </Row>
       <Row

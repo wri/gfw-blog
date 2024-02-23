@@ -20,6 +20,8 @@ export const Wrapper = styled.div`
     max-height: 19.563rem;
     overflow-y: scroll;
     padding: 2rem 1.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
     ${({ isFixed }) =>
       isFixed &&
@@ -29,7 +31,7 @@ export const Wrapper = styled.div`
       `}
 
     ${theme.mediaQueries.small} {
-      padding-top: 2rem;
+      padding-top: 2.5rem;
       padding-bottom: 0;
       padding-right: 4rem;
       padding-left: 4rem;

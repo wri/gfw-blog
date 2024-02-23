@@ -35,6 +35,10 @@ export const Wrapper = styled.div`
       margin-top: 1.5rem;
     }
 
+    span {
+      font-weight: 500;
+    }
+
     .topics-button {
       border-radius: 0.375rem;
       padding: 0.5rem 1rem;
