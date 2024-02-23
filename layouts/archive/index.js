@@ -82,7 +82,7 @@ const ArchivePage = ({
 
       copy.splice(index, 1);
     } else {
-      copy.push(slug);
+      copy[0] = slug; // just 1 category allowed to be checked at a time
     }
 
     setSelectedCategories(copy);
