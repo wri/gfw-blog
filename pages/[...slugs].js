@@ -31,7 +31,7 @@ export async function getStaticProps({ params }) {
   if (slugs[0] === 'category-and-topics') {
     return {
       redirect: {
-        destination: '/',
+        destination: '/category-and-topics',
         permanent: true,
       },
     };
