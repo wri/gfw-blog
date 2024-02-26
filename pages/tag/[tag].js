@@ -18,7 +18,10 @@ export default function Tag(props) {
   );
 }
 
-export async function getServerSideProps({ params, query: { page = 1 } }) {
+export async function getServerSideProps({
+  params,
+  query: { page = 1, topic = '', category = '' },
+}) {
   try {
     const tags = await getTags({
       params: { per_page: 50, orderby: 'count', order: 'desc' },
@@ -29,7 +32,8 @@ export async function getServerSideProps({ params, query: { page = 1 } }) {
       params: {
         per_page: 6,
         page,
-        topic: params.tag,
+        topic,
+        category,
       },
     });
 
@@ -62,18 +66,3 @@ export async function getServerSideProps({ params, query: { page = 1 } }) {
     };
   }
 }
-
-// export async function getStaticPaths() {
-//   const allTags = await getTags({ params: { _fields: 'slug' } });
-
-//   const paths = allTags?.map((tag) => ({
-//     params: {
-//       tag: tag.slug,
-//     },
-//   }));
-
-//   return {
-//     paths: paths || [],
-//     fallback: true,
-//   };
-// }
