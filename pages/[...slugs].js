@@ -28,6 +28,15 @@ export default function Index(props) {
 export async function getStaticProps({ params }) {
   const { slugs } = params;
 
+  if (slugs[0] === 'category-and-topics') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: true,
+      },
+    };
+  }
+
   const isCategory = slugs.length === 1;
   const notifications = await getPublishedNotifications();
 
