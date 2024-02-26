@@ -1,4 +1,4 @@
-import { getTagBySlug, getPostsByTaxonomy } from 'lib/api';
+import { getPostsByTaxonomy } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
 import Layout from 'layouts/layout';
@@ -19,11 +19,9 @@ export default function CategoryAndTopics(props) {
 }
 
 export async function getServerSideProps({
-  params,
   query: { page = 1, topic, category },
 }) {
   try {
-    const tag = await getTagBySlug({ slug: params.tag });
     const postsResponse = await getPostsByTaxonomy({
       params: {
         per_page: 6,
@@ -46,8 +44,6 @@ export async function getServerSideProps({
         posts: postsResponse?.posts || [],
         totalPages: postsResponse?.totalPages || 1,
         totalPosts: postsResponse?.totalPosts || 0,
-        metaTags: tag?.yoast_head || '',
-        isError: !tag,
         notifications: notifications || [],
       },
     };

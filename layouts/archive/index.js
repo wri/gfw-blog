@@ -51,6 +51,15 @@ const ArchivePage = ({
       return;
     }
 
+    router.push({
+      pathname: '/category-and-topics/',
+      query: {
+        category: selectedCategories.join(','),
+        topic: selectedTopics.join(','),
+        page,
+      },
+    });
+
     const fetchPostsByTaxonomy = async () => {
       setLoading(true);
       const postsByTaxonomy = await getPostsByTaxonomy({
