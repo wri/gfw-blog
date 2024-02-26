@@ -81,7 +81,10 @@ const ArchivePage = ({
   }, [selectedCategories, selectedTopics, page]);
 
   const selectPage = (selectedPage) => {
-    location.assign(`${location.pathname}?page=${selectedPage}`);
+    const url = new URL(window.location);
+    url.searchParams.set('page', selectedPage);
+
+    location.assign(url);
   };
 
   const selectCategory = (slug) => {
