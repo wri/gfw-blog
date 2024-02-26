@@ -10,7 +10,6 @@ import {
   getRedirectionData,
 } from 'lib/api';
 
-import ArchivePage from 'layouts/archive';
 import PostPage from 'layouts/post';
 import Layout from 'layouts/layout';
 
@@ -21,7 +20,7 @@ import { MAIN_CATEGORIES, MAIN_TOPICS } from 'utils/constants';
 export default function Index(props) {
   return (
     <Layout {...props}>
-      {props?.post ? <PostPage {...props} /> : <ArchivePage {...props} />}
+      <PostPage {...props} />
     </Layout>
   );
 }
