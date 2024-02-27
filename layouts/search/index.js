@@ -36,10 +36,9 @@ import {
 } from './styles';
 
 const SearchPage = ({
-  isSearch,
   posts: firstPagePosts,
   totalPages: totalFirstPages,
-  total: totalFirstPosts,
+  totalPosts: totalFirstPosts,
   searchQuery,
   categories,
   topics,
@@ -64,7 +63,7 @@ const SearchPage = ({
   }, [searchQuery]);
 
   useEffect(() => {
-    if (isSearch && totalPosts <= 0) {
+    if (totalPosts <= 0) {
       const populateExploreMoreArticles = async () => {
         const articles = await getPostsByType({});
 
@@ -79,7 +78,10 @@ const SearchPage = ({
   }, []);
 
   useEffect(() => {
-    const parsed = qs.parse(location.search, { comma: true });
+    const parsed = qs.parse(location.search, {
+      comma: true,
+      ignoreQueryPrefix: true,
+    });
     const categoriesList =
       (parsed?.category && parsed.category?.split(',')) || [];
     const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
@@ -307,9 +309,8 @@ const SearchPage = ({
 
 SearchPage.propTypes = {
   posts: PropTypes.array,
-  total: PropTypes.number,
+  totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
-  isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
   topics: PropTypes.array,

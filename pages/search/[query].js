@@ -20,7 +20,7 @@ export default function Search(props) {
           content="Find tutorials, webinars and other resources in the GFW Help Center to help guide you through the forest monitoring data, analysis, technology and tools that GFW offers."
         />
       </Head>
-      <SearchPage {...props} isSearch />
+      <SearchPage {...props} />
     </Layout>
   );
 }
