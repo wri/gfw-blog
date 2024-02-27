@@ -46,8 +46,9 @@ const ArchivePage = ({
 
   useEffect(() => {
     const parsed = qs.parse(location.search, { comma: true });
-    const categoriesList = parsed.category?.split(',') || [];
-    const topicsList = parsed.topic?.split(',') || [];
+    const categoriesList =
+      (parsed?.category && parsed.category?.split(',')) || [];
+    const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
 
     setSelectedCategories(categoriesList);
     setSelectedTopics(topicsList);

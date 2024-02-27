@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
+import qs from 'qs';
 import {
   Row,
   Column,
@@ -78,17 +79,40 @@ const SearchPage = ({
   }, []);
 
   useEffect(() => {
+    const parsed = qs.parse(location.search, { comma: true });
+    const categoriesList =
+      (parsed?.category && parsed.category?.split(',')) || [];
+    const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
+
+    setSelectedCategories(categoriesList);
+    setSelectedTopics(topicsList);
+  }, []);
+
+  useEffect(() => {
+    router.push({
+      pathname: `/search/${router.query.query}`,
+      query: {
+        category: selectedCategories.join(','),
+        topic: selectedTopics.join(','),
+        page,
+      },
+    });
+
     const fetchNextPosts = async () => {
       setLoading(true);
 
       let topicsIds = '';
       let categoryId = '';
 
-      selectedTopics.map(async (topic) => {
-        const topicItem = await getTagBySlug({ slug: topic });
+      if (selectedTopics.length > 0) {
+        await Promise.all(
+          selectedTopics.map(async (topic) => {
+            const topicItem = await getTagBySlug({ slug: topic });
 
-        topicsIds = topicsIds.concat(', ', String(topicItem.id));
-      });
+            topicsIds = topicsIds.concat(', ', String(topicItem.id));
+          })
+        );
+      }
 
       if (selectedCategories.length > 0) {
         const categoryItem = await getCategoryBySlug({
@@ -98,19 +122,24 @@ const SearchPage = ({
         categoryId = categoryId.concat(', ', String(categoryItem.id));
       }
 
-      const nextPosts = await getPostsByType({
-        params: {
-          ...(topicsIds && { tags: topicsIds }),
-          ...(categoryId && { categories: categoryId }),
-          per_page: 6,
-          page,
-          search: searchQuery,
-        },
-      });
+      try {
+        const nextPosts = await getPostsByType({
+          params: {
+            ...(topicsIds && { tags: topicsIds }),
+            ...(categoryId && { categories: categoryId }),
+            per_page: 6,
+            page,
+            search: searchQuery,
+          },
+        });
 
-      setPosts([...nextPosts?.posts]);
-      setTotalPosts(nextPosts?.total);
-      setTotalPages(nextPosts?.totalPages);
+        setPosts([...nextPosts?.posts]);
+        setTotalPosts(nextPosts?.total);
+        setTotalPages(nextPosts?.totalPages);
+      } catch (err) {
+        setTotalPosts(0);
+      }
+
       setLoading(false);
     };
 
@@ -177,7 +206,7 @@ const SearchPage = ({
 
         <Row>
           <TitleRow>
-            {totalPosts <= 0 && (
+            {totalPosts <= 0 && !loading && (
               <>
                 <Column>
                   <ResultsTitle>
@@ -189,7 +218,7 @@ const SearchPage = ({
               </>
             )}
 
-            {totalPosts > 0 && (
+            {totalPosts > 0 && !loading && (
               <>
                 <Column>
                   <ResultsTitle>
