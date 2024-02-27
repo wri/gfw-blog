@@ -45,9 +45,13 @@ const ArchivePage = ({
   const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
-    const parsed = qs.parse(location.search, { comma: true });
-    const categoriesList = parsed.category?.split(',') || [];
-    const topicsList = parsed.topic?.split(',') || [];
+    const parsed = qs.parse(location.search, {
+      comma: true,
+      ignoreQueryPrefix: true,
+    });
+    const categoriesList =
+      (parsed?.category && parsed.category?.split(',')) || [];
+    const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
 
     setSelectedCategories(categoriesList);
     setSelectedTopics(topicsList);

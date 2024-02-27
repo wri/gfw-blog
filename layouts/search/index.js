@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
+import qs from 'qs';
 import {
   Row,
   Column,
@@ -10,7 +11,7 @@ import {
   Paginator,
 } from '@worldresources/gfw-components';
 
-import { getPostsByType } from 'lib/api';
+import { getPostsByType, getTagBySlug, getCategoryBySlug } from 'lib/api';
 import { translateText } from 'utils/lang';
 
 import Card from 'components/card';
@@ -35,18 +36,14 @@ import {
 } from './styles';
 
 const SearchPage = ({
-  isSearch,
   posts: firstPagePosts,
-  totalPages,
-  totalPosts,
+  totalPages: totalFirstPages,
+  totalPosts: totalFirstPosts,
   searchQuery,
   categories,
   topics,
 }) => {
   const router = useRouter();
-  const page = Number(router.query.page) || 1;
-  const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
-  const searchStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
 
   const [posts, setPosts] = useState(firstPagePosts || []);
   const [moreArticles, setMoreArticles] = useState([]);
@@ -54,13 +51,19 @@ const SearchPage = ({
   const [open, setOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
+  const [totalPosts, setTotalPosts] = useState(totalFirstPosts || 0);
+  const [totalPages, setTotalPages] = useState(totalFirstPages || 0);
+
+  const page = Number(router.query.page) || 1;
+  const postsQuantity = totalPosts < 6 ? totalPosts : 6; // 6 per page
+  const searchStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
 
   useEffect(() => {
     setPosts(firstPagePosts);
   }, [searchQuery]);
 
   useEffect(() => {
-    if (isSearch && totalPosts <= 0) {
+    if (totalPosts <= 0) {
       const populateExploreMoreArticles = async () => {
         const articles = await getPostsByType({});
 
@@ -75,26 +78,81 @@ const SearchPage = ({
   }, []);
 
   useEffect(() => {
+    const parsed = qs.parse(location.search, {
+      comma: true,
+      ignoreQueryPrefix: true,
+    });
+    const categoriesList =
+      (parsed?.category && parsed.category?.split(',')) || [];
+    const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
+
+    setSelectedCategories(categoriesList);
+    setSelectedTopics(topicsList);
+  }, []);
+
+  useEffect(() => {
+    router.push({
+      pathname: `/search/${router.query.query}`,
+      query: {
+        category: selectedCategories.join(','),
+        topic: selectedTopics.join(','),
+        page,
+      },
+    });
+
     const fetchNextPosts = async () => {
       setLoading(true);
-      const nextPosts = await getPostsByType({
-        type: 'posts',
-        params: {
-          per_page: 6,
-          page,
-          search: searchQuery,
-        },
-      });
 
-      setPosts([...nextPosts?.posts]);
+      let topicsIds = '';
+      let categoryId = '';
+
+      if (selectedTopics.length > 0) {
+        await Promise.all(
+          selectedTopics.map(async (topic) => {
+            const topicItem = await getTagBySlug({ slug: topic });
+
+            topicsIds = topicsIds.concat(', ', String(topicItem.id));
+          })
+        );
+      }
+
+      if (selectedCategories.length > 0) {
+        const categoryItem = await getCategoryBySlug({
+          slug: selectedCategories[0],
+        });
+
+        categoryId = categoryId.concat(', ', String(categoryItem.id));
+      }
+
+      try {
+        const nextPosts = await getPostsByType({
+          params: {
+            ...(topicsIds && { tags: topicsIds }),
+            ...(categoryId && { categories: categoryId }),
+            per_page: 6,
+            page,
+            search: searchQuery,
+          },
+        });
+
+        setPosts([...nextPosts?.posts]);
+        setTotalPosts(nextPosts?.total);
+        setTotalPages(nextPosts?.totalPages);
+      } catch (err) {
+        setTotalPosts(0);
+      }
+
       setLoading(false);
     };
 
     fetchNextPosts();
-  }, [page]);
+  }, [page, selectedTopics, selectedCategories]);
 
   const selectPage = (selectedPage) => {
-    location.assign(`${location.pathname}?page=${selectedPage}`);
+    const url = new URL(window.location);
+    url.searchParams.set('page', selectedPage);
+
+    location.assign(url);
   };
 
   const selectCategory = (slug) => {
@@ -150,7 +208,7 @@ const SearchPage = ({
 
         <Row>
           <TitleRow>
-            {totalPosts <= 0 && (
+            {totalPosts <= 0 && !loading && (
               <>
                 <Column>
                   <ResultsTitle>
@@ -162,7 +220,7 @@ const SearchPage = ({
               </>
             )}
 
-            {totalPosts > 0 && (
+            {totalPosts > 0 && !loading && (
               <>
                 <Column>
                   <ResultsTitle>
@@ -253,7 +311,6 @@ SearchPage.propTypes = {
   posts: PropTypes.array,
   totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
-  isSearch: PropTypes.bool,
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
   topics: PropTypes.array,
