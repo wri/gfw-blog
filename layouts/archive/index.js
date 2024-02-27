@@ -10,6 +10,7 @@ import { translateText } from 'utils/lang';
 import Card from 'components/card';
 import BackButton from 'components/back-button';
 import Filter from 'components/filter';
+import qs from 'qs';
 import { SearchDesktop, SearchMobile } from '../home/styles';
 
 import {
@@ -40,17 +41,19 @@ const ArchivePage = ({
   const page = Number(router.query.page) || 1;
   const postsQuantity = totalPosts < 6 ? totalPosts : posts?.length; // 6 per page
   const taxStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
-
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
 
   useEffect(() => {
-    if (selectedCategories.length <= 0 && selectedTopics.length <= 0) {
-      setPosts(firstPagePosts);
+    const parsed = qs.parse(location.search, { comma: true });
+    const categoriesList = parsed.category?.split(',') || [];
+    const topicsList = parsed.topic?.split(',') || [];
 
-      return;
-    }
+    setSelectedCategories(categoriesList);
+    setSelectedTopics(topicsList);
+  }, []);
 
+  useEffect(() => {
     router.push({
       pathname: '/category-and-topics/',
       query: {
