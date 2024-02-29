@@ -53,6 +53,7 @@ const Card = ({
   imageSize = '',
   textColor = '#333',
   showExcerpt = true,
+  isVerticalList,
   ...rawCardData
 }) => {
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
@@ -62,7 +63,6 @@ const Card = ({
     return (
       !!featured_media && (
         <MediaWrapper
-          large={large}
           css={css`
             ${imageSize}
           `}
@@ -109,7 +109,7 @@ const Card = ({
   };
 
   const renderCard = ({ title, excerpt }) => {
-    if (large) {
+    if (isVerticalList) {
       return (
         <Column width={[1]}>
           {renderMedia()}
@@ -229,6 +229,7 @@ Card.propTypes = {
   media: PropTypes.object,
   categories: PropTypes.array,
   large: PropTypes.bool,
+  isVerticalList: PropTypes.bool,
   isFeaturedSubPost: PropTypes.bool,
   video: PropTypes.bool,
   featured_media: PropTypes.object,

@@ -3,7 +3,6 @@ import { theme, Row } from '@worldresources/gfw-components';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding-bottom: 3rem;
 `;
 
 export const FilterByWrapper = styled(Row)`
