@@ -44,7 +44,7 @@ export const BackButtonRow = styled(Row)`
 
   ${theme.mediaQueries.small} {
     margin-top: 5.625rem;
-    padding-left: 9rem !important;
+    padding-left: 3.75rem !important;
   }
 `;
 export const TitleRow = styled(Row)`
