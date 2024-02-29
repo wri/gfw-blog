@@ -73,8 +73,8 @@ export const ContentWrapper = styled.div`
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 1.875rem;
-  line-height: 2.3125rem;
+  font-size: 3rem;
+  line-height: 3rem;
   color: ${theme.colors.white};
   width: 100%;
   margin-bottom: 1.25rem;
