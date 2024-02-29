@@ -20,7 +20,7 @@ const CategoryList = ({
         <a
           key={category.name + category.link}
           onClick={() => handleClick(category)}
-          href={`/blog/category-and-topics/?category=${category.slug}/`}
+          href={`/blog/category-and-topics/?category=${category.slug}`}
         >
           <span
             className={
