@@ -13,7 +13,7 @@ const TopicsList = ({ topics, onSelectTopic, selectedTopics }) => {
         <a
           key={topic.slug}
           onClick={() => handleClick(topic)}
-          href={`/blog/category-and-topics/?topic=${topic.slug}/`}
+          href={`/blog/category-and-topics/?topic=${topic.slug}`}
         >
           <span
             className={
