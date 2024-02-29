@@ -94,9 +94,11 @@ const SearchPage = ({
     router.push({
       pathname: `/search/${router.query.query}`,
       query: {
-        category: selectedCategories.join(','),
-        topic: selectedTopics.join(','),
-        page,
+        ...(selectedCategories.length > 0 && {
+          category: selectedCategories.join(','),
+        }),
+        ...(selectedTopics.length > 0 && { topic: selectedTopics.join(',') }),
+        ...(page > 1 && { page }),
       },
     });
 
@@ -127,7 +129,10 @@ const SearchPage = ({
       try {
         const nextPosts = await getPostsByType({
           params: {
-            ...(topicsIds && { tags: topicsIds }),
+            ...(topicsIds && {
+              'tags[terms]': topicsIds,
+              'tags[operator]': 'AND',
+            }),
             ...(categoryId && { categories: categoryId }),
             per_page: 6,
             page,
