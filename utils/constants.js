@@ -96,10 +96,6 @@ export const MAIN_TOPICS = [
     slug: 'mexico',
   },
   {
-    name: 'Natural Resources',
-    slug: 'natural-resources',
-  },
-  {
     name: 'Palm Oil',
     slug: 'palm-oil',
   },
@@ -110,10 +106,6 @@ export const MAIN_TOPICS = [
   {
     name: 'Peru',
     slug: 'peru',
-  },
-  {
-    name: 'Places to Watch',
-    slug: 'places-to-watch',
   },
   {
     name: 'Policy',
