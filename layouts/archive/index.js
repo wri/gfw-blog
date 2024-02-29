@@ -204,7 +204,7 @@ const ArchivePage = ({
           )}
 
           {!loading && totalPosts <= 0 && (
-            <Row>No posts found for this filter</Row>
+            <Row>No articles found for this filter</Row>
           )}
         </Row>
       </Wrapper>
