@@ -125,7 +125,7 @@ export default styled.div`
   }
 
   h3 {
-    font-size: 1.25rem;
+    font-size: 2rem;
   }
 
   h4 {
