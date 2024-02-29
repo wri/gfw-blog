@@ -176,6 +176,7 @@ const HomePage = ({
           <Card
             {...mainPost}
             large
+            isVerticalList
             imageSize={`
               height: ${CARD_MEDIA_SIZE.MOBILE.height};
 

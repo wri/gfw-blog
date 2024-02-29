@@ -65,12 +65,13 @@ const SearchPage = ({
   useEffect(() => {
     if (totalPosts <= 0) {
       const populateExploreMoreArticles = async () => {
-        const articles = await getPostsByType({});
+        const articles = await getPostsByType({
+          params: {
+            per_page: 3, // To show only 3 items at the carousel
+          },
+        });
 
-        // To show only 3 items at the carousel
-        const slicedArticleList = articles.posts.slice(0, 3);
-
-        setMoreArticles(slicedArticleList);
+        setMoreArticles(articles.posts);
       };
 
       populateExploreMoreArticles();
