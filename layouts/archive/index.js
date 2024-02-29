@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
@@ -44,11 +44,14 @@ const ArchivePage = ({
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTopics, setSelectedTopics] = useState([]);
 
+  const firstRender = useRef(true);
+
   useEffect(() => {
     const parsed = qs.parse(location.search, {
       comma: true,
       ignoreQueryPrefix: true,
     });
+
     const categoriesList =
       (parsed?.category && parsed.category?.split(',')) || [];
     const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
@@ -58,14 +61,23 @@ const ArchivePage = ({
   }, []);
 
   useEffect(() => {
-    router.push({
-      pathname: '/category-and-topics/',
-      query: {
-        category: selectedCategories.join(','),
-        topic: selectedTopics.join(','),
-        page,
-      },
-    });
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+
+    const setRoute = () => {
+      router.push({
+        pathname: '/category-and-topics/',
+        query: {
+          ...(selectedCategories.length > 0 && {
+            category: selectedCategories.join(','),
+          }),
+          ...(selectedTopics.length > 0 && { topic: selectedTopics.join(',') }),
+          ...(page > 1 && { page }),
+        },
+      });
+    };
 
     const fetchPostsByTaxonomy = async () => {
       setLoading(true);
@@ -84,6 +96,7 @@ const ArchivePage = ({
       setLoading(false);
     };
 
+    setRoute();
     fetchPostsByTaxonomy();
   }, [selectedCategories, selectedTopics, page]);
 
