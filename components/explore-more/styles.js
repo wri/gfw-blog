@@ -15,7 +15,7 @@ export const LatestTitle = styled.h2`
   color: ${theme.colors.darkestGrey};
   margin-bottom: 3.125rem;
   text-transform: uppercase;
-  font-size: 2.125rem;
+  font-size: 3rem;
   font-weight: 400;
   line-height: 3rem;
   letter-spacing: 0.1.5625rem;

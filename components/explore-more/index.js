@@ -29,7 +29,7 @@ const ExploreMore = ({ moreArticles }) => {
             >
               <Card
                 {...p}
-                large
+                isVerticalList
                 textColor="black"
                 imageSize={`
                   height: ${CARD_MEDIA_SIZE.MOBILE.height};
