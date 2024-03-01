@@ -145,6 +145,14 @@ const Search = ({
                   width: 75%;
                   height: 80%;
 
+                  ${theme.mediaQueries.small} {
+                    width: 60%;
+                  }
+
+                  ${theme.mediaQueries.medium} {
+                    width: 75%;
+                  }
+
                   ::placeholder {
                     color: #ffffff;
                     opacity: 1;

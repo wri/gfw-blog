@@ -135,69 +135,35 @@ const HomePage = ({
         </Column>
       </Row>
       {/** Desktop  */}
-      <Row
-        css={css`
-          display: none;
-          ${theme.mediaQueries.small} {
-            margin-top: 3rem;
-            display: flex;
-            max-width: 90rem;
-            justify-content: center;
-          }
-        `}
-      >
-        <Column
-          css={css`
-            max-width: 81.25rem;
-          `}
-        >
-          <LatestTitle>Featured Articles</LatestTitle>
-        </Column>
-      </Row>
-      <Row
-        css={css`
-          display: none;
-          ${theme.mediaQueries.small} {
-            display: flex;
-            max-width: 81.25rem;
-            padding: 0;
-          }
-        `}
-      >
-        <Column
-          css={css`
-            ${theme.mediaQueries.small} {
-              padding: 0;
-            }
-          `}
-          width={[1, 1 / 2]}
-        >
-          <Card
-            {...mainPost}
-            large
-            isVerticalList
-            imageSize={`
-              height: ${CARD_MEDIA_SIZE.MOBILE.height};
-
+      {page === 1 && (
+        <>
+          <Row
+            css={css`
+              display: none;
               ${theme.mediaQueries.small} {
                 margin-top: 3rem;
                 display: flex;
                 max-width: 90rem;
-                padding: 0 3.75rem;
+                justify-content: center;
               }
             `}
           >
-            <Column>
+            <Column
+              css={css`
+                max-width: 81.25rem;
+              `}
+            >
               <LatestTitle>Featured Articles</LatestTitle>
             </Column>
           </Row>
           <Row
             css={css`
               display: none;
+
               ${theme.mediaQueries.small} {
                 display: flex;
-                max-width: 90rem;
-                padding: 0 2.75rem;
+                max-width: 81.25rem;
+                padding: 0;
               }
             `}
           >
@@ -214,7 +180,7 @@ const HomePage = ({
                 large
                 isVerticalList
                 imageSize={`
-                  height: ${CARD_MEDIA_SIZE.MOBILE.height};
+                height: ${CARD_MEDIA_SIZE.MOBILE.height};
 
                   ${theme.mediaQueries.small} {
                     height: ${CARD_MEDIA_SIZE.LARGE.height};
