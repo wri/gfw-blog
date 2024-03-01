@@ -121,12 +121,6 @@ export const FilterByWrapper = styled(Row)`
   }
 `;
 
-export const FilterByColumn = styled.div`
-  margin-right: 1rem;
-  display: flex;
-  align-items: start;
-`;
-
 export const FilterByCategory = styled.div`
   font-size: 0.875rem;
   line-height: 1.3125rem;
