@@ -82,6 +82,7 @@ const Filter = ({
           handleSelectItem={handleSelectedCategory}
           margin="1rem"
           onBlur={() => setIsCategoriesDropdownOpen(!isCategoriesDrodownOpen)}
+          isRadio
         />
       )}
       {isTopicsDrodownOpen && (
