@@ -45,6 +45,9 @@ export const BackButtonRow = styled(Row)`
 
   ${theme.mediaQueries.small} {
     margin-top: 5.625rem;
+  }
+
+  ${theme.mediaQueries.large} {
     padding-left: 3.75rem !important;
   }
 `;

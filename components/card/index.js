@@ -164,6 +164,9 @@ const Card = ({
             ${theme.mediaQueries.small} {
               max-width: 18.9375rem;
               padding-left: 0;
+            }
+
+            ${theme.mediaQueries.large} {
               margin-right: 2.25rem;
             }
           `}
