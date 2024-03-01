@@ -32,6 +32,7 @@ module.exports = withPlugins(
           Authorization: `Basic ${userPassword}`,
         },
       };
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?per_page=5&filterBy[status]=enabled`,
         fetchConfig
@@ -40,9 +41,9 @@ module.exports = withPlugins(
       const totalPages = Math.ceil(parseInt(json.total, 10) / 50);
 
       const redirectPages = await Promise.all(
-        Array.from(Array(totalPages).keys()).map(() =>
+        Array.from(Array(totalPages).keys()).map((i) =>
           fetch(
-            `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?filterBy[status]=enabled`,
+            `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?filterBy[status]=enabled&page=${i}`,
             fetchConfig
           )
         )
