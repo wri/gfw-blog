@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
-import { Row, Column, Loader, Paginator } from '@worldresources/gfw-components';
+import { Loader, Paginator } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
 import { getPostsByTaxonomy } from 'lib/api';
 import { translateText } from 'utils/lang';
@@ -160,7 +161,11 @@ const ArchivePage = ({
 
         <Row>
           <TitleRow>
-            <Column>
+            <Column
+              css={css`
+                padding: 0;
+              `}
+            >
               <ResultsTitle>Filter by category and topics</ResultsTitle>
             </Column>
           </TitleRow>

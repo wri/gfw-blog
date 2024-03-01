@@ -6,7 +6,8 @@ import Link from 'next/link';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
-import { Button, Row, Column } from '@worldresources/gfw-components';
+import { Button } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
 import { LangConsumer } from 'utils/lang';
 
@@ -156,7 +157,16 @@ const Card = ({
 
     return (
       <>
-        <Column width={widthValues[0]}>{renderMedia()}</Column>
+        <Column
+          css={css`
+            padding-left: 0 !important;
+            max-width: 18.9375rem;
+          }
+        `}
+          width={widthValues[0]}
+        >
+          {renderMedia()}
+        </Column>
         <Column width={widthValues[1]}>
           {renderInfo()}
           {title && (

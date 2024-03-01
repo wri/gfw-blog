@@ -70,7 +70,11 @@ const Search = ({
   return (
     <>
       <Wrapper className="notranslate" {...props}>
-        <Row>
+        <Row
+          css={css`
+            max-width: 81.25rem;
+          `}
+        >
           <Column
             css={css`
               order: 2;

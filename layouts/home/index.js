@@ -4,13 +4,8 @@ import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import { useRouter } from 'next/router';
 
-import {
-  Row,
-  Column,
-  theme,
-  Loader,
-  Paginator,
-} from '@worldresources/gfw-components';
+import { theme, Loader, Paginator } from '@worldresources/gfw-components';
+import { Column, Row } from 'components/grid';
 import { getPostsByType } from 'lib/api';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -140,11 +135,50 @@ const HomePage = ({
         </Column>
       </Row>
       {/** Desktop  */}
-      {page === 1 && (
-        <>
-          <Row
-            css={css`
-              display: none;
+      <Row
+        css={css`
+          display: none;
+          ${theme.mediaQueries.small} {
+            margin-top: 3rem;
+            display: flex;
+            max-width: 90rem;
+            justify-content: center;
+          }
+        `}
+      >
+        <Column
+          css={css`
+            max-width: 81.25rem;
+          `}
+        >
+          <LatestTitle>Featured Articles</LatestTitle>
+        </Column>
+      </Row>
+      <Row
+        css={css`
+          display: none;
+          ${theme.mediaQueries.small} {
+            display: flex;
+            max-width: 81.25rem;
+            padding: 0;
+          }
+        `}
+      >
+        <Column
+          css={css`
+            ${theme.mediaQueries.small} {
+              padding: 0;
+            }
+          `}
+          width={[1, 1 / 2]}
+        >
+          <Card
+            {...mainPost}
+            large
+            isVerticalList
+            imageSize={`
+              height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
               ${theme.mediaQueries.small} {
                 margin-top: 3rem;
                 display: flex;
@@ -235,8 +269,8 @@ const HomePage = ({
         css={css`
           max-width: 100%;
           ${theme.mediaQueries.small} {
-            padding: 0 3.75rem;
-            max-width: 90.1875rem;
+            padding: 0;
+            max-width: 81.25rem;
           }
         `}
       >

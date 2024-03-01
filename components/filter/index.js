@@ -5,7 +5,7 @@ import { css } from '@emotion/core';
 import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
 import FilterArrowUpIcon from 'assets/icons/filter-arrow-up.svg';
 import CloseWhiteIcon from 'assets/icons/close-white.svg';
-import { Column } from '@worldresources/gfw-components';
+import { Column } from 'components/grid';
 
 import FilterDropDown from 'components/filter-dropdown';
 import {
