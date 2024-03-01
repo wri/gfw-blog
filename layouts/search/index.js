@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import { useRouter } from 'next/router';
 import qs from 'qs';
-import {
-  Row,
-  Column,
-  theme,
-  Loader,
-  Paginator,
-} from '@worldresources/gfw-components';
+import { theme, Loader, Paginator } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
 import { getPostsByType, getTagBySlug, getCategoryBySlug } from 'lib/api';
 import { translateText } from 'utils/lang';

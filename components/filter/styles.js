@@ -14,7 +14,7 @@ export const FilterByWrapper = styled(Row)`
   margin: 2rem auto;
   height: 3.75rem;
   width: 100%;
-
+  
   ${theme.mediaQueries.small} {
     margin: 3.875rem auto 1.25rem;
     flex-flow: row;
@@ -23,8 +23,12 @@ export const FilterByWrapper = styled(Row)`
 
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-columns: 30rem 30rem;
+    grid-template-columns: 25rem 20rem;
   }
+  
+  ${theme.mediaQueries.medium} {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 30rem 30rem;
 `;
 
 export const FilterByColumn = styled.div`

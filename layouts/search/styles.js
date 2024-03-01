@@ -47,7 +47,7 @@ export const BackButtonRow = styled(Row)`
     margin-top: 5.625rem;
   }
 
-  ${theme.mediaQueries.large} {
+  @media (min-width: 1350px) {
     padding-left: 3.75rem !important;
   }
 `;
