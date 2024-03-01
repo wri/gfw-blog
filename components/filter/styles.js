@@ -16,7 +16,7 @@ export const FilterByWrapper = styled(Row)`
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    margin: 3.875rem auto;
+    margin: 3.875rem auto 1.25rem;
     flex-flow: row;
     height: 1.25rem;
     justify-content: space-between;
@@ -57,6 +57,7 @@ export const PillContainerWrapper = styled(Row)`
   grid-template-columns: repeat(2, minmax(0, 1fr));
   padding: 1rem 1.25rem;
   width: 100%;
+  margin-bottom: 4rem;
 
   ${theme.mediaQueries.small} {
     grid-template-columns: repeat(3, minmax(0, 1fr));

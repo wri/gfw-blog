@@ -161,11 +161,7 @@ const ArchivePage = ({
 
         <Row>
           <TitleRow>
-            <Column
-              css={css`
-                padding: 0;
-              `}
-            >
+            <Column>
               <ResultsTitle>Filter by category and topics</ResultsTitle>
             </Column>
           </TitleRow>
