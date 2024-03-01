@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { theme, Row, Column } from '@worldresources/gfw-components';
+import { theme } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -96,7 +97,6 @@ export const ResultsTitle = styled.h1`
   font-weight: 500;
   line-height: 3.75rem;
   letter-spacing: 0.01563rem;
-  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     font-size: 3rem;

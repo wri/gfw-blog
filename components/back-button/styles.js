@@ -6,10 +6,11 @@ import GreenLeftArrowSrc from 'assets/icons/green-left-arrow.svg';
 export const BackButtonWrapper = styled.div`
   padding: 1.5625rem 1rem;
   width: 100%;
-  max-width: 1120px;
+  max-width: 85rem;
 
   ${theme.mediaQueries.small} {
     padding: 2.125rem 0;
+    padding-left: 1.25rem;
     margin: 0 auto;
   }
 
