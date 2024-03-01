@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
 import { FilterDropDownWrapper, FilterDropDownContainer } from './styles';
 
-const Option = ({ item, selectedItems, handleChange }) => {
+const Option = ({ item, selectedItems, handleChange, isRadio }) => {
   const isChecked = selectedItems.includes(item.slug);
 
   return (
@@ -15,7 +17,11 @@ const Option = ({ item, selectedItems, handleChange }) => {
           checked={isChecked}
           onChange={() => handleChange(item)}
         />
-        <span className="checkmark" />
+        <span
+          className={classNames('checkmark', {
+            radio: isRadio,
+          })}
+        />
       </label>
     </>
   );
@@ -25,6 +31,7 @@ Option.propTypes = {
   item: PropTypes.object,
   handleChange: PropTypes.func,
   selectedItems: PropTypes.array,
+  isRadio: PropTypes.bool,
 };
 
 const FilterDropDown = ({
@@ -34,6 +41,7 @@ const FilterDropDown = ({
   // eslint-disable-next-line no-unused-vars
   margin = '0',
   onBlur,
+  isRadio = false,
 }) => {
   const selectItem = (item) => {
     handleSelectItem(item.slug);
@@ -63,6 +71,7 @@ const FilterDropDown = ({
             item={item}
             selectedItems={selectedItems}
             handleChange={selectItem}
+            isRadio={isRadio}
           />
         ))}
       </FilterDropDownContainer>
@@ -76,6 +85,7 @@ FilterDropDown.propTypes = {
   handleSelectItem: PropTypes.func,
   selectedItems: PropTypes.array,
   margin: PropTypes.string,
+  isRadio: PropTypes.bool,
 };
 
 export default FilterDropDown;

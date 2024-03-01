@@ -79,6 +79,10 @@ export const FilterDropDownContainer = styled.div`
     border-radius: 0.125rem;
   }
 
+  .checkmark.radio {
+    border-radius: 50% !important;
+  }
+
   .container input:checked ~ .checkmark {
     background-color: #97bd3d;
   }
