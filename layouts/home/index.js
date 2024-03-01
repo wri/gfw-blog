@@ -140,89 +140,95 @@ const HomePage = ({
         </Column>
       </Row>
       {/** Desktop  */}
-      <Row
-        css={css`
-          display: none;
-          ${theme.mediaQueries.small} {
-            margin-top: 3rem;
-            display: flex;
-            max-width: 90rem;
-            padding: 0 3.75rem;
-          }
-        `}
-      >
-        <Column>
-          <LatestTitle>Featured Articles</LatestTitle>
-        </Column>
-      </Row>
-      <Row
-        css={css`
-          display: none;
-          ${theme.mediaQueries.small} {
-            display: flex;
-            max-width: 90rem;
-            padding: 0 2.75rem;
-          }
-        `}
-      >
-        <Column
-          css={css`
-            ${theme.mediaQueries.small} {
-              padding: 0;
-            }
-          `}
-          width={[1, 1 / 2]}
-        >
-          <Card
-            {...mainPost}
-            large
-            isVerticalList
-            imageSize={`
-              height: ${CARD_MEDIA_SIZE.MOBILE.height};
-
+      {page === 1 && (
+        <>
+          <Row
+            css={css`
+              display: none;
               ${theme.mediaQueries.small} {
-                height: ${CARD_MEDIA_SIZE.LARGE.height};
+                margin-top: 3rem;
+                display: flex;
+                max-width: 90rem;
+                padding: 0 3.75rem;
               }
             `}
-            showExcerpt={false}
-          />
-        </Column>
-        <Column
-          css={css`
-            ${theme.mediaQueries.small} {
-              padding: 0;
-            }
-          `}
-          width={[1, 1 / 2]}
-        >
-          {subPosts?.map((post) => (
-            <Card
-              key={post.id}
-              {...post}
-              showExcerpt={false}
-              isFeaturedSubPost
-              imageSize={`
-                height: ${CARD_MEDIA_SIZE.MOBILE.height};
-
+          >
+            <Column>
+              <LatestTitle>Featured Articles</LatestTitle>
+            </Column>
+          </Row>
+          <Row
+            css={css`
+              display: none;
+              ${theme.mediaQueries.small} {
+                display: flex;
+                max-width: 90rem;
+                padding: 0 2.75rem;
+              }
+            `}
+          >
+            <Column
+              css={css`
                 ${theme.mediaQueries.small} {
-                  height: ${CARD_MEDIA_SIZE.SMALL.height};
+                  padding: 0;
                 }
               `}
-            />
-          ))}
-        </Column>
-      </Row>
+              width={[1, 1 / 2]}
+            >
+              <Card
+                {...mainPost}
+                large
+                isVerticalList
+                imageSize={`
+                  height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                  ${theme.mediaQueries.small} {
+                    height: ${CARD_MEDIA_SIZE.LARGE.height};
+                  }
+                `}
+                showExcerpt={false}
+              />
+            </Column>
+            <Column
+              css={css`
+                ${theme.mediaQueries.small} {
+                  padding: 0;
+                }
+              `}
+              width={[1, 1 / 2]}
+            >
+              {subPosts?.map((post) => (
+                <Card
+                  key={post.id}
+                  {...post}
+                  showExcerpt={false}
+                  isFeaturedSubPost
+                  imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                    ${theme.mediaQueries.small} {
+                      height: ${CARD_MEDIA_SIZE.SMALL.height};
+                    }
+                  `}
+                />
+              ))}
+            </Column>
+          </Row>
+        </>
+      )}
       {/** END Desktop  */}
       {/** Mobile  */}
-      <Row
-        css={css`
-          ${theme.mediaQueries.small} {
-            display: none;
-          }
-        `}
-      >
-        <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
-      </Row>
+      {page === 1 && (
+        <Row
+          css={css`
+            ${theme.mediaQueries.small} {
+              display: none;
+            }
+          `}
+        >
+          <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
+        </Row>
+      )}
       {/** END Mobile  */}
       <Divider />
       <Row
