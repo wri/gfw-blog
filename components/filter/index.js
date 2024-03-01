@@ -80,7 +80,7 @@ const Filter = ({
           items={categories}
           selectedItems={selectedCategories}
           handleSelectItem={handleSelectedCategory}
-          margin="1rem"
+          margin="1.2rem"
           onBlur={() => setIsCategoriesDropdownOpen(!isCategoriesDrodownOpen)}
           isRadio
         />
@@ -90,7 +90,7 @@ const Filter = ({
           items={topics}
           selectedItems={selectedTopics}
           handleSelectItem={handleSelectedTopic}
-          margin="12rem"
+          margin="12.3rem"
           onBlur={() => setIsTopicsDropdownOpen(!isTopicsDrodownOpen)}
         />
       )}

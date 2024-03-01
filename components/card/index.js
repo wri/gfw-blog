@@ -6,7 +6,7 @@ import Link from 'next/link';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 
-import { Button } from '@worldresources/gfw-components';
+import { Button, theme } from '@worldresources/gfw-components';
 import { Row, Column } from 'components/grid';
 
 import { LangConsumer } from 'utils/lang';
@@ -159,15 +159,24 @@ const Card = ({
       <>
         <Column
           css={css`
-            padding-left: 0 !important;
-            max-width: 18.9375rem;
-          }
-        `}
+            padding: 0;
+
+            ${theme.mediaQueries.small} {
+              max-width: 18.9375rem;
+              padding-left: 0;
+              margin-right: 2.25rem;
+            }
+          `}
           width={widthValues[0]}
         >
           {renderMedia()}
         </Column>
-        <Column width={widthValues[1]}>
+        <Column
+          width={widthValues[1]}
+          css={css`
+            padding-left: 0 !important;
+          `}
+        >
           {renderInfo()}
           {title && (
             <PostTitle

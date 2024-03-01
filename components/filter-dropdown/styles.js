@@ -14,7 +14,6 @@ export const FilterDropDownWrapper = styled.div`
   ${theme.mediaQueries.small} {
     min-width: 17rem;
     width: auto;
-    margin-top: -2.5rem;
 
     ${({ margin }) =>
       `
