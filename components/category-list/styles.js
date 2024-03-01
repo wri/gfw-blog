@@ -4,6 +4,7 @@ import { theme } from '@worldresources/gfw-components';
 export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 
   a {
     margin: 0 1.25rem 1.25rem 0;
@@ -14,8 +15,10 @@ export const Wrapper = styled.div`
     text-align: center;
     color: #333333;
     text-transform: uppercase;
+    padding-top: 0.313rem;
 
     ${theme.mediaQueries.small} {
+      padding-top: 0;
       margin-top: 2rem;
     }
 

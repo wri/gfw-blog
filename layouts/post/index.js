@@ -192,7 +192,7 @@ const Post = ({
             margin-top: 12rem;
             max-width: 90rem;
             width: 100%;
-            z-index: 1;
+            z-index: 4;
             background: white;
 
             ${theme.mediaQueries.small} {
@@ -219,7 +219,7 @@ const Post = ({
             max-width: 90rem;
             margin-top: 16rem;
             position: fixed;
-            z-index: 1;
+            z-index: 4;
 
             ${theme.mediaQueries.small} {
               margin-top: 10.75rem;
