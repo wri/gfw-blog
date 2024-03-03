@@ -73,7 +73,6 @@ export const PillContainerWrapper = styled(Row)`
     text-transform: uppercase;
     font-size: 0.875rem;
     line-height: 1.3125rem;
-    font-weight: 500;
     text-align: left;
     margin-right: 0.5rem;
   }
@@ -87,7 +86,6 @@ export const PillContainerWrapper = styled(Row)`
     text-transform: uppercase;
     font-size: 0.875rem;
     line-height: 1.3125rem;
-    font-weight: 500;
     text-align: left;
     margin-right: 0.5rem;
   }
