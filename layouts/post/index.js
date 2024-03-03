@@ -281,7 +281,7 @@ const Post = ({
           max-width: 90rem;
         `}
       >
-        <Column width={[1, 1 / 4]}>
+        <Column width={[1, 1 / 5]}>
           <PostMetaDesktop>
             <PostMeta categories={post.categories} tags={post.tags}>
               {languagesForDropdown.length !== 0 && (
