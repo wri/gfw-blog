@@ -38,7 +38,7 @@ export const BackButtonRow = styled(Row)`
   position: fixed;
   margin-top: 12rem;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   background: white;
   max-width: 100%;
 
