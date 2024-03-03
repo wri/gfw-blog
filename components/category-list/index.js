@@ -26,9 +26,9 @@ const CategoryList = ({
             className={
               selectedCategories.includes(category.slug) ? 'selected' : 'span'
             }
-          >
-            {category.name}
-          </span>
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: category.name }}
+          />
         </a>
       ))}
       {children}
