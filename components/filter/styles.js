@@ -61,7 +61,7 @@ export const PillContainerWrapper = styled(Row)`
   ${theme.mediaQueries.small} {
     padding-left: 2.4rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-columns: 12rem 30rem;
+    grid-template-columns: 11rem 30rem;
   }
 
   .category {
@@ -73,7 +73,6 @@ export const PillContainerWrapper = styled(Row)`
     text-transform: uppercase;
     font-size: 0.875rem;
     line-height: 1.3125rem;
-    font-weight: 500;
     text-align: left;
     margin-right: 0.5rem;
   }
@@ -87,7 +86,6 @@ export const PillContainerWrapper = styled(Row)`
     text-transform: uppercase;
     font-size: 0.875rem;
     line-height: 1.3125rem;
-    font-weight: 500;
     text-align: left;
     margin-right: 0.5rem;
   }
