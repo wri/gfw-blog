@@ -4,10 +4,12 @@ import { theme } from '@worldresources/gfw-components';
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-bottom: 3rem;
 
   > a,
   > button {
-    margin: 0 1.25rem 1.25rem 0;
+    margin: 0.5rem;
   }
 `;
 

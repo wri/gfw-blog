@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -20,7 +21,10 @@ const PostMeta = ({ categories, tags, children }) => {
               categories.map((category, index) => (
                 <li key={index}>
                   <Link key={category.id} href={category.link}>
-                    <span className="link">{category.name}</span>
+                    <span
+                      className="link"
+                      dangerouslySetInnerHTML={{ __html: category.name }}
+                    />
                   </Link>
                 </li>
               ))}
@@ -36,7 +40,10 @@ const PostMeta = ({ categories, tags, children }) => {
               filteredTags.map((tag, index) => (
                 <li key={index}>
                   <Link key={tag.id} href={tag.link}>
-                    <span className="link">{tag.name}</span>
+                    <span
+                      className="link"
+                      dangerouslySetInnerHTML={{ __html: tag.name }}
+                    />
                   </Link>
                 </li>
               ))}
