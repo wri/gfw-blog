@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 
-import { Column, Row, theme } from '@worldresources/gfw-components';
+import { theme } from '@worldresources/gfw-components';
+
+import { Column, Row } from 'components/grid';
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
 
 import { MoreArticlesWrapper, LatestTitle } from './styles';

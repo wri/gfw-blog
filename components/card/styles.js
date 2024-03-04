@@ -7,6 +7,10 @@ import PlayIconSrc from 'assets/icons/play.svg';
 export const CardWrapper = styled.div`
   position: relative;
 
+  :first-child {
+    padding: 0 !important;
+  }
+
   ${({ isFeaturedSubPost }) =>
     isFeaturedSubPost &&
     `

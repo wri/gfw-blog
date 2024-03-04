@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { theme, Row } from '@worldresources/gfw-components';
+import { theme } from '@worldresources/gfw-components';
+import { Row } from 'components/grid';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -12,19 +13,22 @@ export const FilterByWrapper = styled(Row)`
   align-items: center;
   margin: 2rem auto;
   height: 3.75rem;
-  padding: 0 1rem;
   width: 100%;
-
+  
   ${theme.mediaQueries.small} {
-    margin: 3.875rem auto;
+    margin: 3.875rem auto 1.25rem;
     flex-flow: row;
     height: 1.25rem;
     justify-content: space-between;
 
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-columns: 30rem 30rem;
+    grid-template-columns: 25rem 20rem;
   }
+  
+  ${theme.mediaQueries.medium} {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 30rem 30rem;
 `;
 
 export const FilterByColumn = styled.div`
@@ -55,17 +59,16 @@ export const FilterByTopic = styled.div`
 export const PillContainerWrapper = styled(Row)`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  padding: 1rem 2rem;
+  padding: 1rem 1.25rem;
   width: 100%;
+  margin-bottom: 4rem;
 
   ${theme.mediaQueries.small} {
-    padding-left: 2.4rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-columns: 11rem 30rem;
   }
 
   .category {
-    padding: 0.25rem;
     background-color: #95bc3b;
     color: #ffffff;
     border-radius: 0.125rem;
@@ -78,7 +81,6 @@ export const PillContainerWrapper = styled(Row)`
   }
 
   .topic {
-    padding: 0.25rem;
     background-color: #333333;
     color: #ffffff;
     border-radius: 0.125rem;

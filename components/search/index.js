@@ -70,7 +70,11 @@ const Search = ({
   return (
     <>
       <Wrapper className="notranslate" {...props}>
-        <Row>
+        <Row
+          css={css`
+            max-width: 81.25rem;
+          `}
+        >
           <Column
             css={css`
               order: 2;
@@ -140,6 +144,14 @@ const Search = ({
                   color: #ffffff !important;
                   width: 75%;
                   height: 80%;
+
+                  ${theme.mediaQueries.small} {
+                    width: 60%;
+                  }
+
+                  ${theme.mediaQueries.medium} {
+                    width: 75%;
+                  }
 
                   ::placeholder {
                     color: #ffffff;

@@ -351,7 +351,6 @@ const Post = ({
                 >
                   <Card
                     {...p}
-                    large
                     isVerticalList
                     textColor="white"
                     imageSize={`

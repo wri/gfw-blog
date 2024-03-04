@@ -4,13 +4,8 @@ import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import { useRouter } from 'next/router';
 
-import {
-  Row,
-  Column,
-  theme,
-  Loader,
-  Paginator,
-} from '@worldresources/gfw-components';
+import { theme, Loader, Paginator } from '@worldresources/gfw-components';
+import { Column, Row } from 'components/grid';
 import { getPostsByType } from 'lib/api';
 
 import Card, { CARD_MEDIA_SIZE } from 'components/card';
@@ -149,21 +144,26 @@ const HomePage = ({
                 margin-top: 3rem;
                 display: flex;
                 max-width: 90rem;
-                padding: 0 3.75rem;
+                justify-content: center;
               }
             `}
           >
-            <Column>
+            <Column
+              css={css`
+                max-width: 81.25rem;
+              `}
+            >
               <LatestTitle>Featured Articles</LatestTitle>
             </Column>
           </Row>
           <Row
             css={css`
               display: none;
+
               ${theme.mediaQueries.small} {
                 display: flex;
-                max-width: 90rem;
-                padding: 0 2.75rem;
+                max-width: 81.25rem;
+                padding: 0;
               }
             `}
           >
@@ -180,7 +180,7 @@ const HomePage = ({
                 large
                 isVerticalList
                 imageSize={`
-                  height: ${CARD_MEDIA_SIZE.MOBILE.height};
+                height: ${CARD_MEDIA_SIZE.MOBILE.height};
 
                   ${theme.mediaQueries.small} {
                     height: ${CARD_MEDIA_SIZE.LARGE.height};
@@ -235,8 +235,8 @@ const HomePage = ({
         css={css`
           max-width: 100%;
           ${theme.mediaQueries.small} {
-            padding: 0 3.75rem;
-            max-width: 90.1875rem;
+            padding: 0;
+            max-width: 81.25rem;
           }
         `}
       >

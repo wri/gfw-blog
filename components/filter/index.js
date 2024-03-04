@@ -5,7 +5,7 @@ import { css } from '@emotion/core';
 import FilterArrowIcon from 'assets/icons/filter-arrow.svg';
 import FilterArrowUpIcon from 'assets/icons/filter-arrow-up.svg';
 import CloseWhiteIcon from 'assets/icons/close-white.svg';
-import { Column } from '@worldresources/gfw-components';
+import { Column } from 'components/grid';
 
 import FilterDropDown from 'components/filter-dropdown';
 import {
@@ -80,8 +80,9 @@ const Filter = ({
           items={categories}
           selectedItems={selectedCategories}
           handleSelectItem={handleSelectedCategory}
-          margin="1rem"
+          margin="1.2rem"
           onBlur={() => setIsCategoriesDropdownOpen(!isCategoriesDrodownOpen)}
+          isRadio
         />
       )}
       {isTopicsDrodownOpen && (
@@ -89,7 +90,7 @@ const Filter = ({
           items={topics}
           selectedItems={selectedTopics}
           handleSelectItem={handleSelectedTopic}
-          margin="12rem"
+          margin="12.3rem"
           onBlur={() => setIsTopicsDropdownOpen(!isTopicsDrodownOpen)}
         />
       )}

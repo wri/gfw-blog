@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { theme, Row, Column } from '@worldresources/gfw-components';
+import { theme } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -44,6 +45,9 @@ export const BackButtonRow = styled(Row)`
 
   ${theme.mediaQueries.small} {
     margin-top: 5.625rem;
+  }
+
+  @media (min-width: 1350px) {
     padding-left: 3.75rem !important;
   }
 `;
@@ -96,35 +100,10 @@ export const ResultsTitle = styled.h1`
   font-weight: 500;
   line-height: 3.75rem;
   letter-spacing: 0.01563rem;
-  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
     font-size: 3rem;
   }
-`;
-
-export const FilterByWrapper = styled(Row)`
-  display: flex;
-  flex-flow: column-reverse;
-  justify-content: space-between;
-  align-items: center;
-  margin: 2rem auto;
-  height: 3.75rem;
-  padding: 0 1rem;
-  width: 100%;
-
-  ${theme.mediaQueries.small} {
-    margin: 3.875rem auto;
-    flex-flow: row;
-    height: 1.25rem;
-    justify-content: space-between;
-  }
-`;
-
-export const FilterByColumn = styled.div`
-  margin-right: 1rem;
-  display: flex;
-  align-items: start;
 `;
 
 export const FilterByCategory = styled.div`

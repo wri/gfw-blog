@@ -87,7 +87,7 @@ const SliderWrapper = styled.div`
   .slide {
     display: flex;
     flex-shrink: 0;
-    margin-right: 0;
+    margin-right: 3rem;
     transform-origin: center center;
     transform: scale(1);
     scroll-snap-align: center;

@@ -14,7 +14,6 @@ export const FilterDropDownWrapper = styled.div`
   ${theme.mediaQueries.small} {
     min-width: 17rem;
     width: auto;
-    margin-top: -2.5rem;
 
     ${({ margin }) =>
       `
@@ -37,7 +36,7 @@ export const FilterDropDownContainer = styled.div`
   }
 
   .title {
-    padding-top: 1rem;
+    padding-top: 0.3125rem;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 2.375rem;
@@ -46,7 +45,7 @@ export const FilterDropDownContainer = styled.div`
   }
 
   .container {
-    padding-top: 1rem;
+    padding-top: 0.3125rem;
     display: block;
     position: relative;
     padding-left: 2.188rem;
@@ -69,7 +68,7 @@ export const FilterDropDownContainer = styled.div`
 
   .checkmark {
     position: absolute;
-    top: 1.56rem;
+    top: 1.0625rem;
     left: 0;
     height: 1rem;
     width: 1rem;
@@ -77,6 +76,10 @@ export const FilterDropDownContainer = styled.div`
     border: solid #97bd3d;
     border-width: 0.1rem;
     border-radius: 0.125rem;
+  }
+
+  .checkmark.radio {
+    border-radius: 50% !important;
   }
 
   .container input:checked ~ .checkmark {
