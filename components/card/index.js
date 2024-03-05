@@ -55,6 +55,7 @@ const Card = ({
   textColor = '#333',
   showExcerpt = true,
   isVerticalList,
+  fontSize,
   ...rawCardData
 }) => {
   const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
@@ -124,6 +125,7 @@ const Card = ({
               css={css`
                 color: ${textColor};
               `}
+              fontSize={fontSize}
               className="notranslate"
               large={large}
             >
@@ -261,6 +263,7 @@ Card.propTypes = {
   textColor: PropTypes.string,
   imageSize: PropTypes.string,
   showExcerpt: PropTypes.bool,
+  fontSize: PropTypes.string,
 };
 
 export default Card;

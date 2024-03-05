@@ -112,19 +112,22 @@ export const PostTitle = styled.h3`
         font-size: 3rem;
         line-height: 3rem;
     `}
+
+    ${({ fontSize }) =>
+      fontSize &&
+      `
+      font-size: ${fontSize};
+  `}
   }
 `;
 
 export const PostExcerpt = styled.div`
   color: ${theme.colors.mediumGrey};
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   font-size: 1rem;
   line-height: 1.3125rem;
   width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
