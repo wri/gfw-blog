@@ -352,6 +352,7 @@ const Post = ({
                   <Card
                     {...p}
                     isVerticalList
+                    fontSize="1.6rem"
                     textColor="white"
                     imageSize={`
                         height: ${CARD_MEDIA_SIZE.MEDIUM.height};
