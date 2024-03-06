@@ -5,10 +5,14 @@ import { theme } from '@worldresources/gfw-components';
 export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem 2.5rem;
+  grid-auto-flow: column;
   text-align: start;
 
   ${theme.mediaQueries.small} {
     grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-rows: 2.5rem 2.5rem 2.5rem 2.5rem;
+    grid-auto-flow: column;
   }
 
   a {
