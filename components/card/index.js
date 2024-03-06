@@ -99,9 +99,9 @@ const Card = ({
         {categories && (
           <>
             <span className="separator">|</span>
-            {/* eslint-disable-next-line react/no-danger */}
             <span
               className="bold"
+              // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: categories[0].name }}
             />
           </>

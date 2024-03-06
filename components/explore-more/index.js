@@ -33,6 +33,7 @@ const ExploreMore = ({ moreArticles }) => {
                 {...p}
                 isVerticalList
                 textColor="black"
+                fontSize="1.6rem"
                 imageSize={`
                   height: ${CARD_MEDIA_SIZE.MOBILE.height};
 
