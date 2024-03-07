@@ -39,11 +39,10 @@ module.exports = withPlugins(
       );
       const json = await response.json();
       const totalPages = Math.ceil(parseInt(json.total, 10) / 50);
-
       const redirectPages = await Promise.all(
         Array.from(Array(totalPages).keys()).map((i) =>
           fetch(
-            `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?filterBy[status]=enabled&page=${i}`,
+            `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/redirection/v1/redirect?filterBy[status]=enabled&page=${i}&per_page=50`,
             fetchConfig
           )
         )
