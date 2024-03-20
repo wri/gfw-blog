@@ -239,7 +239,7 @@ const HeaderWrapper = styled.div`
   position: fixed;
   z-index: 100;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   button {
     background-color: transparent;
     border-radius: initial;
@@ -248,12 +248,12 @@ const HeaderWrapper = styled.div`
 `;
 
 const PageWrapper = styled.div`
-  padding-top: 56px;
+  padding-top: 3.5rem;
 `;
 
 const LoaderWrapper = styled.div`
   position: relative;
-  min-height: 400px;
+  min-height: 25rem;
 `;
 
 Layout.propTypes = {

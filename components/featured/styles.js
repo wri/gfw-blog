@@ -2,16 +2,16 @@ import styled from '@emotion/styled';
 import { theme } from '@worldresources/gfw-components';
 
 export const Wrapper = styled.div`
-  height: 400px;
+  height: 25rem;
   position: relative;
   overflow: hidden;
 
   ${theme.mediaQueries.small} {
-    height: 440px;
+    height: 27.5rem;
   }
 
   ${theme.mediaQueries.medium} {
-    height: 440px;
+    height: 27.5rem;
   }
 
   > a {
@@ -58,26 +58,26 @@ export const ContentWrapper = styled.div`
   justify-content: flex-end;
   flex-direction: column;
   top: 0;
-  padding: 30px 16px;
+  padding: 1.875rem 1rem;
   width: 100%;
   height: 100%;
 
   ${theme.mediaQueries.small} {
-    padding: 40px 50px;
+    padding: 2.5rem 3.125rem;
     width: 75%;
   }
 
   ${theme.mediaQueries.medium} {
-    padding: 50px 70px;
+    padding: 3.125rem 4.375rem;
   }
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 30px;
-  line-height: 37px;
+  font-size: 3rem;
+  line-height: 3rem;
   color: ${theme.colors.white};
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -85,14 +85,14 @@ export const PostTitle = styled.h3`
   -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
-    font-size: 36px;
-    line-height: 45px;
+    font-size: 2.25rem;
+    line-height: 2.8125rem;
   }
 `;
 
 export const PostExcerpt = styled.div`
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
   color: ${theme.colors.white};
   width: 100%;
   overflow: hidden;
@@ -102,7 +102,7 @@ export const PostExcerpt = styled.div`
   -webkit-box-orient: vertical;
 
   ${theme.mediaQueries.small} {
-    font-size: 16px;
-    line-height: 28px;
+    font-size: 1rem;
+    line-height: 1.75rem;
   }
 `;

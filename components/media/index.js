@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ExternalPostIcon from 'assets/icons/external-post.svg';
 import { Container, StyledImage } from './styles';
 
 const Media = ({
@@ -11,6 +12,7 @@ const Media = ({
   url,
   source_url,
   alt_text: altText,
+  isExternalLink = false,
 }) => {
   const sourceUrl = url || source_url;
   const imageSizes = sizes || media_details?.sizes;
@@ -31,6 +33,11 @@ const Media = ({
 
   return (
     <Container css={styles}>
+      {isExternalLink && (
+        <div className="icon">
+          <ExternalPostIcon />
+        </div>
+      )}
       <StyledImage
         alt={altText || title.rendered || title}
         src={sourceUrl}
@@ -48,6 +55,7 @@ Media.propTypes = {
   media_details: PropTypes.object,
   styles: PropTypes.string,
   alt_text: PropTypes.string,
+  isExternalLink: PropTypes.bool,
 };
 
 export default Media;

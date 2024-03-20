@@ -5,25 +5,25 @@ export const CommentHeader = styled.div`
   display: flex;
   justify-content: space-between;
   background-color: ${theme.colors.white};
-  padding: 20px 0;
+  padding: 1.25rem 0;
 `;
 
 export const AuthorName = styled.h6`
-  font-size: 16px;
+  font-size: 1rem;
   color: ${theme.colors.darkestGrey};
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 `;
 
 export const DateWrapper = styled.span`
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: ${theme.colors.darkGrey};
 `;
 
 export const Body = styled.div`
-  font-size: 16px;
-  line-height: 28px;
+  font-size: 1rem;
+  line-height: 1.75rem;
   color: ${theme.colors.darkGrey};
-  margin-bottom: 60px;
+  margin-bottom: 3.75rem;
 `;

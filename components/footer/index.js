@@ -38,7 +38,7 @@ const Footer = ({ openContactUsModal }) => {
       <Column
         width={[1, 1 / 2]}
         css={css`
-          margin-bottom: 30px;
+          margin-bottom: 1.875rem;
         `}
       >
         <a
@@ -55,7 +55,7 @@ const Footer = ({ openContactUsModal }) => {
       <Column
         width={[1, 1 / 2]}
         css={css`
-          margin-bottom: 30px;
+          margin-bottom: 1.875rem;
         `}
       >
         <button
@@ -77,10 +77,10 @@ const Footer = ({ openContactUsModal }) => {
 };
 
 const Title = styled(H4)`
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   ${theme.mediaQueries.small} {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
   }
 `;
 

@@ -6,15 +6,19 @@ export const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 360px;
-  border: solid 1px ${theme.colors.grey};
+  max-height: 22.5rem;
+  border: solid 0.0625rem ${theme.colors.grey};
   border-top: none;
-  padding: 15px 30px;
+  padding: 0 1rem;
   background-color: ${theme.colors.white};
   overflow-y: scroll;
 
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
   ${theme.mediaQueries.small} {
-    padding: 25px 40px;
+    padding: 0 1rem;
   }
 `;
 
@@ -23,10 +27,10 @@ export const ListItem = styled.li`
 
   button {
     color: ${theme.colors.grey};
-    padding: 20px 0;
+    padding: 0.75rem 0;
     width: 100%;
     display: block;
-    font-size: 22px;
+    font-size: 1rem;
     text-align: left;
 
     &:hover {
@@ -46,8 +50,8 @@ export const ListItem = styled.li`
 `;
 
 export const Divider = styled.div`
-  width: 65px;
-  height: 2px;
+  width: 4.0625rem;
+  height: 0.125rem;
   background-color: ${theme.colors.lightGrey};
-  margin: 15px 0;
+  margin: 0.9375rem 0;
 `;

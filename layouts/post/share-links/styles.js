@@ -3,14 +3,13 @@ import { theme } from '@worldresources/gfw-components';
 
 export const ButtonsContainer = styled.div`
   display: flex;
-
-  ${theme.mediaQueries.small} {
-    flex-direction: column;
-  }
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 3rem;
 
   > a,
   > button {
-    margin: 0 20px 20px 0;
+    margin: 0.5rem;
   }
 `;
 

@@ -2,30 +2,23 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
+import { useRouter } from 'next/router';
 
-import {
-  Row,
-  Column,
-  theme,
-  Loader,
-  Button,
-} from '@worldresources/gfw-components';
+import { theme, Loader, Paginator } from '@worldresources/gfw-components';
+import { Column, Row } from 'components/grid';
 import { getPostsByType } from 'lib/api';
-import { trackEvent } from 'utils/analytics';
 
-import Card from 'components/card';
-import CategoryList from 'components/category-list';
-import Featured from 'components/featured';
+import Card, { CARD_MEDIA_SIZE } from 'components/card';
 import Intro from 'components/intro';
+import Slider from 'components/slider';
 
 import {
   Wrapper,
   SearchMobile,
   SearchDesktop,
-  FeatureWrapper,
   Divider,
   LatestTitle,
-  LoadMoreWrapper,
+  Hero,
 } from './styles';
 
 const HomePage = ({
@@ -34,158 +27,284 @@ const HomePage = ({
   posts: firstPagePosts,
   totalPages,
   categories,
+  topics,
 }) => {
+  const router = useRouter();
+  const page = Number(router.query.page) || 1;
   const mainPost = stickyPosts?.[0] || firstPagePosts?.[0];
   const subPosts = stickyPosts?.length
-    ? stickyPosts.slice(1, 3)
-    : firstPagePosts?.slice(1, 3);
+    ? stickyPosts.slice(1, 4)
+    : firstPagePosts?.slice(1, 4);
 
   const [posts, setPosts] = useState(
     stickyPosts?.length
       ? firstPagePosts
       : firstPagePosts.slice(3, firstPagePosts.length) || []
   );
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (page > 1) {
-      const fetchNextPosts = async () => {
-        setLoading(true);
+    const fetchNextPosts = async () => {
+      setLoading(true);
 
-        const nextPosts = await getPostsByType({
-          type: 'posts',
-          params: {
-            per_page: 9,
-            exclude: stickyPosts.map((s) => s.id),
-            page,
-          },
-        });
+      const nextPosts = await getPostsByType({
+        type: 'posts',
+        params: {
+          per_page: 6,
+          exclude: stickyPosts.map((s) => s.id),
+          page,
+        },
+      });
 
-        setPosts([...posts, ...nextPosts?.posts]);
-        setLoading(false);
-      };
+      setPosts([...nextPosts?.posts]);
+      setLoading(false);
+    };
 
-      fetchNextPosts();
-    }
+    fetchNextPosts();
   }, [page]);
+
+  const selectPage = (selectedPage) => {
+    location.assign(`/blog/?page=${selectedPage}`);
+  };
 
   return (
     <Wrapper>
       <Row
         css={css`
-          margin-bottom: 20px;
+          background-size: cover;
+          background-image: url('images/hero-bg-mobile.png');
+          margin-bottom: 1.25rem;
+          max-width: 90rem;
+          padding: 4.375rem 0;
+          width: 100%;
           ${theme.mediaQueries.small} {
-            margin-bottom: 50px;
+            margin-bottom: 3.125rem;
+            background-image: url('images/hero-bg-desktop.png');
+          }
+        `}
+      >
+        <Column
+          css={css`
+            padding: 0;
+          `}
+          width={[1, 5 / 6]}
+        >
+          <Hero>
+            <Intro
+              title={homepage?.title}
+              description={ReactHtmlParser(homepage?.excerpt)}
+            />
+          </Hero>
+        </Column>
+      </Row>
+      <Row
+        css={css`
+          width: 100%;
+          max-width: 90rem;
+        `}
+      >
+        <Column
+          css={css`
+            display: block;
+            height: 12rem;
+            background-color: #f7f7f7;
+            padding: 2rem 0;
+            margin-top: -1.25rem;
+            ${theme.mediaQueries.small} {
+              display: none;
+            }
+          `}
+        >
+          <SearchMobile
+            categories={categories}
+            topics={topics}
+            isFixed={false}
+          />
+        </Column>
+        <Column
+          css={css`
+            margin-top: -1.35rem;
+            padding: 0 !important;
+          `}
+        >
+          <SearchDesktop
+            categories={categories}
+            topics={topics}
+            isFixed={false}
+          />
+        </Column>
+      </Row>
+      {/** Desktop  */}
+      {page === 1 && (
+        <>
+          <Row
+            css={css`
+              display: none;
+              ${theme.mediaQueries.small} {
+                margin-top: 3rem;
+                display: flex;
+                max-width: 90rem;
+                justify-content: center;
+              }
+            `}
+          >
+            <Column
+              css={css`
+                max-width: 81.25rem;
+              `}
+            >
+              <LatestTitle>Featured Articles</LatestTitle>
+            </Column>
+          </Row>
+          <Row
+            css={css`
+              display: none;
+
+              ${theme.mediaQueries.small} {
+                display: flex;
+                max-width: 81.25rem;
+                padding: 0;
+              }
+            `}
+          >
+            <Column
+              css={css`
+                ${theme.mediaQueries.small} {
+                  padding: 0;
+                }
+              `}
+              width={[1, 1 / 2]}
+            >
+              <Card
+                {...mainPost}
+                large
+                isVerticalList
+                imageSize={`
+                height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                  ${theme.mediaQueries.small} {
+                    height: ${CARD_MEDIA_SIZE.LARGE.height};
+                  }
+                `}
+                showExcerpt={false}
+              />
+            </Column>
+            <Column
+              css={css`
+                ${theme.mediaQueries.small} {
+                  padding: 0;
+                }
+              `}
+              width={[1, 1 / 2]}
+            >
+              {subPosts?.map((post) => (
+                <Card
+                  key={post.id}
+                  {...post}
+                  showExcerpt={false}
+                  isFeaturedSubPost
+                  imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                    ${theme.mediaQueries.small} {
+                      height: ${CARD_MEDIA_SIZE.SMALL.height};
+                    }
+                  `}
+                />
+              ))}
+            </Column>
+          </Row>
+        </>
+      )}
+      {/** END Desktop  */}
+      {/** Mobile  */}
+      {page === 1 && (
+        <Row
+          css={css`
+            ${theme.mediaQueries.small} {
+              display: none;
+            }
+          `}
+        >
+          <Slider cards={[mainPost, ...subPosts]} title="Featured Articles" />
+        </Row>
+      )}
+      {/** END Mobile  */}
+      <Divider />
+      <Row
+        css={css`
+          max-width: 100%;
+          ${theme.mediaQueries.small} {
+            padding: 0;
+            max-width: 81.25rem;
           }
         `}
       >
         <Column>
-          <SearchMobile />
+          <LatestTitle
+            css={css`
+              margin-bottom: 1.5625rem;
+            `}
+          >
+            All articles
+          </LatestTitle>
         </Column>
-        <Column width={[1, 5 / 6, 2 / 3]}>
-          <Intro
-            title={homepage?.title}
-            description={ReactHtmlParser(homepage?.excerpt)}
-          />
-        </Column>
-      </Row>
-      <Row>
-        <Column width={[1, 3 / 4]}>
-          {categories && (
-            <CategoryList
-              title="categories"
-              categories={categories}
+        {loading && (
+          <div
+            style={{
+              position: 'relative',
+              width: '3.125rem',
+              height: '3.125rem',
+            }}
+          >
+            <Loader />
+          </div>
+        )}
+        {!loading &&
+          posts?.map((post) => (
+            <Column
+              key={post.id}
+              width={[1]}
               css={css`
-                margin-bottom: 15px;
-
-                ${theme.mediaQueries.small} {
-                  min-height: 60px;
-                }
+                margin-bottom: 2.5rem !important;
+                width: auto;
               `}
-            />
-          )}
-        </Column>
-        <Column width={[1, 1 / 4]}>
-          <SearchDesktop showTitle expandable />
-        </Column>
-      </Row>
-      <FeatureWrapper
-        css={css`
-          position: relative;
-          z-index: 1;
-          margin-bottom: 40px;
-        `}
-      >
-        <Featured {...mainPost} />
-      </FeatureWrapper>
-      <Row
-        css={css`
-          position: relative;
-          z-index: 1;
-        `}
-      >
-        {subPosts?.map((post) => (
-          <Column
-            key={post.id}
-            width={[1, 1 / 2]}
-            css={css`
-              margin-bottom: 40px !important;
-            `}
-          >
-            <Card {...post} large />
-          </Column>
-        ))}
-      </Row>
-      <Divider />
-      <Row>
-        <Column>
-          <LatestTitle>Latest articles</LatestTitle>
-        </Column>
-        {posts?.map((post) => (
-          <Column
-            key={post.id}
-            width={[1, 1 / 2, 1 / 3]}
-            css={css`
-              margin-bottom: 40px !important;
-            `}
-          >
-            <Card {...post} />
-          </Column>
-        ))}
-        <Column>
+            >
+              <Card
+                {...post}
+                imageSize={`
+                    height: ${CARD_MEDIA_SIZE.MOBILE.height};
+
+                    ${theme.mediaQueries.small} {
+                      height: ${CARD_MEDIA_SIZE.MEDIUM.height};
+                    }
+                `}
+              />
+            </Column>
+          ))}
+        <Column
+          css={css`
+            padding-bottom: 5rem !important;
+            padding-top: 3.75rem !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            ${theme.mediaQueries.small} {
+              padding-bottom: 9.8125rem !important;
+              padding-top: 6.25rem !important;
+              padding-right: 2.8125rem !important;
+              justify-content: end;
+            }
+          `}
+        >
           <Row nested>
             <Column width={[1 / 12, 1 / 3]} />
-            <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-              {loading && (
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '50px',
-                    height: '50px',
-                  }}
-                >
-                  <Loader />
-                </div>
-              )}
-              {!loading && page < totalPages && (
-                <Button
-                  onClick={() => {
-                    setPage(page + 1);
-                    trackEvent({
-                      category: 'GFW Blog',
-                      label: 'User clicks on more articles button',
-                      action: 'Load more articles',
-                    });
-                  }}
-                  css={css`
-                    width: 100%;
-                  `}
-                >
-                  Load more articles
-                </Button>
-              )}
-            </LoadMoreWrapper>
+            <Paginator
+              currentPage={page}
+              totalPages={totalPages}
+              handleSelectPage={selectPage}
+            />
           </Row>
         </Column>
       </Row>
@@ -199,6 +318,7 @@ HomePage.propTypes = {
   posts: PropTypes.array,
   totalPages: PropTypes.number,
   categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default HomePage;
