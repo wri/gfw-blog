@@ -6,9 +6,7 @@ import Link from 'next/link';
 
 import { MetaWrapper, MetaItem } from './styles';
 
-const PostMeta = ({ categories, tags, children }) => {
-  const filteredTags = tags?.slice(0, 4);
-
+const PostMeta = ({ categories, tags = [], children }) => {
   return (
     <MetaWrapper>
       {children && <MetaItem>{children}</MetaItem>}
@@ -35,18 +33,16 @@ const PostMeta = ({ categories, tags, children }) => {
         <div className="title">Topics</div>
         <div className="content">
           <ul>
-            {filteredTags &&
-              filteredTags.length > 0 &&
-              filteredTags.map((tag, index) => (
-                <li key={index}>
-                  <Link key={tag.id} href={tag.link}>
-                    <span
-                      className="link"
-                      dangerouslySetInnerHTML={{ __html: tag.name }}
-                    />
-                  </Link>
-                </li>
-              ))}
+            {tags.map((tag, index) => (
+              <li key={index}>
+                <Link key={tag.id} href={tag.link}>
+                  <span
+                    className="link"
+                    dangerouslySetInnerHTML={{ __html: tag.name }}
+                  />
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </MetaItem>
