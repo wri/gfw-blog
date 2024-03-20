@@ -1,240 +1,239 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import {
-  Row,
-  Column,
-  theme,
-  Loader,
-  Button,
-} from '@worldresources/gfw-components';
-import compact from 'lodash/compact';
+import { useRouter } from 'next/router';
+import { Loader, Paginator } from '@worldresources/gfw-components';
+import { Row, Column } from 'components/grid';
 
-import { getPostsByType } from 'lib/api';
-import { trackEvent } from 'utils/analytics';
+import { getPostsByTaxonomy } from 'lib/api';
 import { translateText } from 'utils/lang';
 
 import Card from 'components/card';
-import Breadcrumbs from 'components/breadcrumbs';
-import Dropdown from 'components/dropdown';
+import BackButton from 'components/back-button';
+import Filter from 'components/filter';
+import qs from 'qs';
+import { SearchDesktop, SearchMobile } from '../home/styles';
 
 import {
   Wrapper,
-  SearchMobile,
-  SearchDesktop,
+  SearchRow,
+  SearchMobileColumn,
+  SearchDesktopColumn,
+  BackButtonRow,
+  TitleRow,
   ResultsStatement,
-  LoadMoreWrapper,
-  CategoryDescription,
-} from './styles';
+  ResultsTitle,
+  PaginationColumn,
+} from '../search/styles';
 
 const ArchivePage = ({
-  taxType,
-  tax,
-  allTax,
-  isSearch,
   posts: firstPagePosts,
-  totalPages,
-  totalPosts,
-  searchQuery,
+  totalPages: totalFirstPages,
+  totalPosts: totalFirstPosts,
+  categories,
+  topics,
 }) => {
-  const articleText = totalPosts === 1 ? 'article' : 'articles';
-
-  const searchStatementTemplate =
-    isSearch &&
-    searchQuery &&
-    `{totalPosts} ${articleText} with the keyword ${decodeURI(searchQuery)}`;
-
-  const taxStatementTemplate =
-    taxType === 'categories'
-      ? `{totalPosts} ${articleText} under the ${tax?.name} category`
-      : `{totalPosts} ${articleText} tagged with ${tax?.name}`;
-
-  const resultsStatement = isSearch
-    ? searchStatementTemplate
-    : taxStatementTemplate;
-
-  const taxFromList = allTax?.find((t) => t.id === tax?.id);
-  const allTaxOptions =
-    allTax &&
-    (taxFromList ? allTax : [{ ...tax, count: totalPosts }, ...allTax]);
-
-  const breadCrumbs = compact([
-    isSearch && {
-      label: 'Search',
-    },
-    taxType === 'tags' && {
-      label: 'Tag',
-    },
-    searchQuery &&
-      isSearch && {
-        label: decodeURI(searchQuery),
-      },
-    !isSearch && {
-      label: tax?.name,
-    },
-  ]);
-
+  const router = useRouter();
   const [posts, setPosts] = useState(firstPagePosts || []);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [totalPosts, setTotalPosts] = useState(totalFirstPosts || 0);
+  const [totalPages, setTotalPages] = useState(totalFirstPages || 0);
+
+  const page = Number(router.query.page) || 1;
+  const postsQuantity = totalPosts < 6 ? totalPosts : posts?.length; // 6 per page
+  const taxStatementTemplate = `Showing ${postsQuantity} of ${totalPosts} posts`;
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
+
+  const firstRender = useRef(true);
 
   useEffect(() => {
-    setPosts(firstPagePosts);
-  }, [tax?.id, searchQuery]);
+    const parsed = qs.parse(location.search, {
+      comma: true,
+      ignoreQueryPrefix: true,
+    });
+
+    const categoriesList =
+      (parsed?.category && parsed.category?.split(',')) || [];
+    const topicsList = (parsed?.topic && parsed.topic?.split(',')) || [];
+
+    setSelectedCategories(categoriesList);
+    setSelectedTopics(topicsList);
+  }, []);
 
   useEffect(() => {
-    if (page > 1) {
-      const fetchNextPosts = async () => {
-        setLoading(true);
-
-        const nextPosts = await getPostsByType({
-          type: 'posts',
-          params: {
-            per_page: 12,
-            page,
-            ...(isSearch && {
-              search: searchQuery,
-            }),
-            ...(taxType && {
-              [taxType]: tax?.id,
-            }),
-          },
-        });
-
-        setPosts([...posts, ...nextPosts?.posts]);
-        setLoading(false);
-      };
-
-      fetchNextPosts();
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
     }
-  }, [page]);
+
+    const setRoute = () => {
+      router.push({
+        pathname: '/category-and-topics/',
+        query: {
+          ...(selectedCategories.length > 0 && {
+            category: selectedCategories.join(','),
+          }),
+          ...(selectedTopics.length > 0 && { topic: selectedTopics.join(',') }),
+          ...(page > 1 && { page }),
+        },
+      });
+    };
+
+    const fetchPostsByTaxonomy = async () => {
+      setLoading(true);
+      const postsByTaxonomy = await getPostsByTaxonomy({
+        params: {
+          per_page: 6,
+          page,
+          topic: selectedTopics.join(','),
+          category: selectedCategories.join(','),
+        },
+      });
+
+      setPosts(postsByTaxonomy?.posts);
+      setTotalPosts(postsByTaxonomy?.totalPosts);
+      setTotalPages(postsByTaxonomy?.totalPages);
+      setLoading(false);
+    };
+
+    setRoute();
+    fetchPostsByTaxonomy();
+  }, [selectedCategories, selectedTopics, page]);
+
+  const selectPage = (selectedPage) => {
+    const url = new URL(window.location);
+    url.searchParams.set('page', selectedPage);
+
+    location.assign(url);
+  };
+
+  const selectCategory = (slug) => {
+    const copy = [...selectedCategories];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy[0] = slug; // just 1 category allowed to be checked at a time
+    }
+
+    setSelectedCategories(copy);
+  };
+
+  const selectTopic = (slug) => {
+    const copy = [...selectedTopics];
+    if (copy.includes(slug)) {
+      const index = copy.findIndex((item) => item === slug);
+
+      copy.splice(index, 1);
+    } else {
+      copy.push(slug);
+    }
+
+    setSelectedTopics(copy);
+  };
 
   return (
-    <Wrapper>
-      <Row
-        css={css`
-          position: relative;
-          min-height: 40px;
-        `}
-      >
-        <Column width={[3 / 4]}>
-          <Breadcrumbs
-            css={css`
-              margin-bottom: 25px;
-              ${theme.mediaQueries.small} {
-                margin-bottom: 40px;
-              }
-            `}
-            links={breadCrumbs}
-          />
-        </Column>
-        {!isSearch && (
-          <Column width={[1 / 4]}>
-            <SearchMobile expandable />
-          </Column>
-        )}
-        {isSearch && (
-          <>
-            <Column>
-              <SearchDesktop expanded isSearch />
-            </Column>
-          </>
-        )}
-      </Row>
-      {!isSearch && (
+    <>
+      <Wrapper>
         <Row
           css={css`
-            position: relative;
+            max-width: 90rem;
           `}
         >
-          <Column width={[1, 2 / 3]}>
-            <Dropdown items={allTaxOptions} selected={tax?.id} />
-          </Column>
-          <Column width={[1, 1 / 3]}>
-            <SearchDesktop showTitle expandable />
-          </Column>
-          {tax?.description && (
-            <Column
-              width={[1, 3 / 4]}
-              css={css`
-                margin-bottom: 20px !important;
-              `}
-            >
-              <CategoryDescription>{tax.description}</CategoryDescription>
+          <SearchRow>
+            <SearchMobileColumn>
+              <SearchMobile categories={categories} topics={topics} />
+            </SearchMobileColumn>
+            <SearchDesktopColumn>
+              <SearchDesktop categories={categories} topics={topics} />
+            </SearchDesktopColumn>
+          </SearchRow>
+        </Row>
+
+        <BackButtonRow>
+          <BackButton
+            handleClick={() => router.push('/')}
+            title="back to all articles"
+          />
+        </BackButtonRow>
+
+        <Row>
+          <TitleRow>
+            <Column>
+              <ResultsTitle>Filter by category and topics</ResultsTitle>
             </Column>
+          </TitleRow>
+
+          <Filter
+            categories={categories}
+            topics={topics}
+            selectedCategories={selectedCategories}
+            selectedTopics={selectedTopics}
+            handleSelectedCategory={selectCategory}
+            handleSelectedTopic={selectTopic}
+          >
+            <ResultsStatement>
+              {translateText(taxStatementTemplate.toUpperCase(), {
+                totalPosts,
+              })}
+            </ResultsStatement>
+          </Filter>
+
+          {loading && (
+            <div
+              style={{
+                width: '3.125rem',
+                height: '3.125rem',
+              }}
+            >
+              <Loader />
+            </div>
+          )}
+
+          {!loading && totalPosts > 0 && (
+            <Row>
+              {posts?.map(({ id, ...rest }) => (
+                <Column
+                  css={css`
+                    margin-bottom: 2.5rem !important;
+                  `}
+                  key={id}
+                >
+                  <Card {...rest} />
+                </Column>
+              ))}
+
+              <PaginationColumn>
+                <Row nested>
+                  <Paginator
+                    currentPage={page}
+                    totalPages={totalPages}
+                    handleSelectPage={selectPage}
+                  />
+                </Row>
+              </PaginationColumn>
+            </Row>
+          )}
+
+          {!loading && totalPosts <= 0 && (
+            <Row>No articles found for this filter</Row>
           )}
         </Row>
-      )}
-      <Row>
-        <Column
-          css={css`
-            margin-bottom: 20px !important;
-          `}
-        >
-          <ResultsStatement>
-            {translateText(resultsStatement, { totalPosts })}
-          </ResultsStatement>
-        </Column>
-        {posts?.map(({ id, ...rest }) => (
-          <Column
-            width={[1, 1 / 2, 1 / 3]}
-            css={css`
-              margin-bottom: 40px !important;
-            `}
-            key={id}
-          >
-            <Card {...rest} />
-          </Column>
-        ))}
-        <Column>
-          <Row nested>
-            <Column width={[1 / 12, 1 / 3]} />
-            <LoadMoreWrapper width={[5 / 6, 1 / 3]}>
-              {loading && (
-                <div
-                  style={{
-                    position: 'relative',
-                    width: '50px',
-                    height: '50px',
-                  }}
-                >
-                  <Loader />
-                </div>
-              )}
-              {!loading && page < totalPages && (
-                <Button
-                  onClick={() => {
-                    setPage(page + 1);
-                    trackEvent({
-                      category: 'GFW Blog',
-                      label: 'User clicks on more articles button',
-                      action: 'Load more articles',
-                    });
-                  }}
-                  css={css`
-                    width: 100%;
-                  `}
-                >
-                  Load more articles
-                </Button>
-              )}
-            </LoadMoreWrapper>
-          </Row>
-        </Column>
-      </Row>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 };
 
 ArchivePage.propTypes = {
   taxType: PropTypes.string,
   tax: PropTypes.object,
-  allTax: PropTypes.array,
   posts: PropTypes.array,
   totalPosts: PropTypes.number,
   totalPages: PropTypes.number,
-  isSearch: PropTypes.bool,
-  searchQuery: PropTypes.string,
+  categories: PropTypes.array,
+  topics: PropTypes.array,
 };
 
 export default ArchivePage;

@@ -9,13 +9,13 @@ export const Wrapper = styled.div`
 `;
 
 export const Container = styled.div`
-  height: 40px;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
   color: ${theme.colors.white};
-  font-size: 12px;
+  font-size: 0.75rem;
 
   a {
     color: inherit;
@@ -23,8 +23,8 @@ export const Container = styled.div`
 `;
 
 export const CloseIcon = styled(CloseIconSrc)`
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
   fill: ${theme.colors.white};
-  margin-left: 10px;
+  margin-left: 0.625rem;
 `;

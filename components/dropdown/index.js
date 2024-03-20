@@ -5,7 +5,12 @@ import ResultsList from '../results-list';
 
 import { Wrapper, Container, ArrowIcon } from './styles';
 
-const Dropdown = ({ selected, items }) => {
+const Dropdown = ({
+  selected,
+  items,
+  placeholder = '',
+  withDivider = true,
+}) => {
   const [open, setOpen] = useState(false);
 
   const wrapperRef = useRef(null);
@@ -31,8 +36,9 @@ const Dropdown = ({ selected, items }) => {
 
   return (
     <Wrapper ref={wrapperRef}>
-      <Container onClick={() => setOpen(!open)}>
-        <span>{selectedLabel}</span>
+      <Container withDivider={withDivider} onClick={() => setOpen(!open)}>
+        {selectedLabel && <span className="title">{selectedLabel}</span>}
+        {!selectedLabel && <span className="title">{placeholder}</span>}
         <ArrowIcon open={open} />
       </Container>
       {open && (
@@ -50,6 +56,8 @@ const Dropdown = ({ selected, items }) => {
 Dropdown.propTypes = {
   items: PropTypes.array,
   selected: PropTypes.number,
+  placeholder: PropTypes.string,
+  withDivider: PropTypes.bool,
 };
 
 export default Dropdown;

@@ -10,26 +10,17 @@ import {
   getRedirectionData,
 } from 'lib/api';
 
-import ArchivePage from 'layouts/archive';
 import PostPage from 'layouts/post';
 import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
-const MAIN_CATEGORIES = [
-  'data-and-research',
-  'people',
-  'commodities',
-  'fires',
-  'climate',
-  'places-to-watch',
-  'uncategorized',
-];
+import { MAIN_CATEGORIES, MAIN_TOPICS } from 'utils/constants';
 
 export default function Index(props) {
   return (
     <Layout {...props}>
-      {props?.post ? <PostPage {...props} /> : <ArchivePage {...props} />}
+      <PostPage {...props} />
     </Layout>
   );
 }
@@ -37,23 +28,25 @@ export default function Index(props) {
 export async function getStaticProps({ params }) {
   const { slugs } = params;
 
+  if (slugs[0] === 'category-and-topics') {
+    return {
+      redirect: {
+        destination: '/category-and-topics',
+        permanent: true,
+      },
+    };
+  }
+
   const isCategory = slugs.length === 1;
   const notifications = await getPublishedNotifications();
 
+  const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
+
   try {
     if (isCategory) {
-      const categories = await getCategories();
-      const filteredCategories = categories
-        ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-        ?.map((c) => ({
-          ...c,
-          link: `/${c.slug}`,
-        }));
-
-      const sortedCategories = sortBy(filteredCategories, (cat) =>
-        MAIN_CATEGORIES.indexOf(cat.slug)
-      );
-      const category = categories?.find((cat) => cat.slug === slugs[0]);
+      const category = MAIN_CATEGORIES?.find((cat) => cat.slug === slugs[0]);
 
       if (!category) {
         return {
@@ -78,6 +71,8 @@ export async function getStaticProps({ params }) {
           taxType: 'categories',
           tax: category || {},
           allTax: sortedCategories || [],
+          categories: sortedCategories || [],
+          topics: MAIN_TOPICS,
           posts: categoryPostsResponse?.posts || [],
           totalPages: categoryPostsResponse?.totalPages || 1,
           totalPosts: categoryPostsResponse?.total || 0,
@@ -151,6 +146,8 @@ export async function getStaticProps({ params }) {
         metaTags: post?.yoast_head || '',
         guestAuthors: originalPostGuestAuthors,
         notifications: notifications || [],
+        categories: sortedCategories || [],
+        topics: MAIN_TOPICS,
       },
       revalidate: 10,
     };

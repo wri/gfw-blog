@@ -3,6 +3,8 @@ const optimizedImages = require('next-optimized-images');
 const fetch = require('node-fetch');
 const btoa = require('btoa');
 
+const redirects = require('./redirects.json');
+
 module.exports = withPlugins(
   [[optimizedImages, { handleImages: ['jpeg', 'png', 'webp', 'gif'] }]],
   {
@@ -47,22 +49,24 @@ module.exports = withPlugins(
           )
         )
       );
-      const allResponses = await Promise.all(
+      const allWordpressResponses = await Promise.all(
         redirectPages.map((res) => res.json())
       );
 
-      const allRedirects = allResponses.reduce(
+      const allWordpressRedirects = allWordpressResponses.reduce(
         (arr, res) => [...arr, ...res.items],
         []
       );
 
-      return allRedirects.map((r) => ({
+      const formattedRedirects = allWordpressRedirects.map((r) => ({
         source: `${r.url}${!r.url.endsWith('/') ? '/' : ''}`,
         destination: `${r.action_data.url}${
           !r.action_data.url.endsWith('/') ? '/' : ''
         }`,
         permanent: true,
       }));
+
+      return [...formattedRedirects, ...redirects];
     },
   }
 );

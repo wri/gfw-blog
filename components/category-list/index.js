@@ -1,27 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from 'next/link';
+import { Wrapper } from './styles';
 
-import { Wrapper, CategoryPill, H5 } from './styles';
+const CategoryList = ({
+  categories = [],
+  onSelectCategory = () => {},
+  selectedCategories = [],
+  children,
+  ...props
+}) => {
+  const handleClick = (category) => {
+    onSelectCategory(category.slug);
+  };
 
-const CategoryList = ({ categories = [], light, title, ...props }) => (
-  <Wrapper {...props}>
-    {title && <H5>{title}</H5>}
-    {categories.map(({ name, link } = {}) => (
-      <Link key={name + link} href={link}>
-        <a>
-          <CategoryPill light={light}>{name}</CategoryPill>
+  return (
+    <Wrapper {...props}>
+      {categories.map((category) => (
+        <a
+          key={category.name + category.link}
+          onClick={() => handleClick(category)}
+          href={`/blog/category-and-topics/?category=${category.slug}`}
+        >
+          <span
+            className={
+              selectedCategories.includes(category.slug) ? 'selected' : 'span'
+            }
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: category.name }}
+          />
         </a>
-      </Link>
-    ))}
-  </Wrapper>
-);
+      ))}
+      {children}
+    </Wrapper>
+  );
+};
 
 export default CategoryList;
 
 CategoryList.propTypes = {
   categories: PropTypes.array.isRequired,
-  light: PropTypes.bool,
-  title: PropTypes.string,
+  onSelectCategory: PropTypes.func,
+  selectedCategories: PropTypes.array,
+  children: PropTypes.node,
 };

@@ -1,0 +1,12 @@
+[
+  {
+    "source": "/tag/:path*/",
+    "destination": "/category-and-topics?topic=:path*",
+    "permanent": true
+  },
+  {
+    "source": "/category/:path*/",
+    "destination": "/category-and-topics?category=:path*",
+    "permanent": true
+  }
+]

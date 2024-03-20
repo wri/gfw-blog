@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import sortBy from 'lodash/sortBy';
 
-import {
-  getPostById,
-  getPostByType,
-  getPostsByType,
-  getCategories,
-} from 'lib/api';
+import { getPostById, getPostByType, getPostsByType } from 'lib/api';
 
 import HomePage from 'layouts/home';
 import PostPage from 'layouts/post';
@@ -14,14 +9,7 @@ import Layout from 'layouts/layout';
 
 import { getPublishedNotifications } from 'utils/notifications';
 
-const MAIN_CATEGORIES = [
-  'data-and-research',
-  'people',
-  'commodities',
-  'fires',
-  'climate',
-  'places-to-watch',
-];
+import { MAIN_CATEGORIES, MAIN_TOPICS } from '../utils/constants';
 
 export default function Index(props) {
   return (
@@ -89,6 +77,10 @@ export async function getServerSideProps({ query: { p: postId } }) {
     }
   }
 
+  const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
+    MAIN_CATEGORIES.indexOf(cat.slug)
+  );
+
   const homepage = await getPostByType({
     type: 'pages',
     slug: 'global-forest-watch-blog',
@@ -97,7 +89,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
   const stickyPosts = await getPostsByType({
     type: 'posts',
     params: {
-      per_page: 3,
+      per_page: 4,
       sticky: true,
     },
   });
@@ -112,23 +104,6 @@ export async function getServerSideProps({ query: { p: postId } }) {
     },
   });
 
-  const categories = await getCategories({
-    params: {
-      per_page: 100,
-    },
-  });
-
-  const filteredCategories = categories
-    ?.filter((c) => MAIN_CATEGORIES.includes(c.slug))
-    ?.map((c) => ({
-      ...c,
-      link: `/${c.slug}`,
-    }));
-
-  const sortedCategories = sortBy(filteredCategories, (cat) =>
-    MAIN_CATEGORIES.indexOf(cat.slug)
-  );
-
   return {
     props: {
       homepage: homepage || {},
@@ -136,6 +111,7 @@ export async function getServerSideProps({ query: { p: postId } }) {
       posts: posts?.posts || [],
       totalPages: posts?.totalPages || 1,
       categories: sortedCategories || [],
+      topics: MAIN_TOPICS,
       metaTags: homepage?.yoast_head || '',
       notifications: notifications || [],
     },

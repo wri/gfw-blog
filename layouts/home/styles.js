@@ -5,10 +5,14 @@ import Search from 'components/search';
 
 export const Wrapper = styled.div`
   width: 100%;
-  padding-top: 20px;
+`;
+
+export const Hero = styled.div`
+  margin-top: 3.75rem;
+  padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
-    padding: 70px 0;
+    padding: 0 3.75rem;
   }
 `;
 
@@ -22,42 +26,27 @@ export const SearchMobile = styled(Search)`
 
 export const SearchDesktop = styled(Search)`
   display: none;
-  margin-top: -28px;
+  margin-top: -1.75rem;
+  background-color: #f7f7f7;
 
   ${theme.mediaQueries.small} {
     display: block;
   }
-
-  ${({ open }) =>
-    open &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -28px;
-    max-width: 1120px;
-    padding: 0 16px;
-    margin: 0 auto;
-
-    ${theme.mediaQueries.small} {
-      padding: 0 20px;
-    }
-  `}
 `;
 
 export const FeatureWrapper = styled.div`
-  max-width: 1120px;
+  max-width: 111.25rem;
   margin: auto;
 
   ${theme.mediaQueries.small} {
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
 `;
 
 export const Divider = styled.div`
-  border-top: 1px solid ${theme.colors.lightGrey};
-  margin-top: 20px;
-  margin-bottom: 60px;
+  border-top: 0.0625rem solid ${theme.colors.lightGrey};
+  margin-top: 1.25rem;
+  margin-bottom: 3.75rem;
   display: none;
 
   ${theme.mediaQueries.small} {
@@ -66,25 +55,21 @@ export const Divider = styled.div`
 `;
 
 export const LatestTitle = styled.h2`
-  font-size: 18px;
+  font-size: 1.125rem;
   color: ${theme.colors.darkestGrey};
-  margin-bottom: 50px;
+  margin-bottom: 3.125rem;
   text-transform: uppercase;
   font-weight: 500;
-  display: none;
-
-  ${theme.mediaQueries.small} {
-    display: block;
-  }
+  display: block;
 `;
 
 export const LoadMoreWrapper = styled(Column)`
-  margin: 20px 0 50px !important;
+  margin: 1.25rem 0 3.125rem !important;
   display: flex;
   justify-content: center;
   width: 100%;
 
   ${theme.mediaQueries.small} {
-    margin-top: 60px !important;
+    margin-top: 3.75rem !important;
   }
 `;

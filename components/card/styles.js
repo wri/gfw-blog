@@ -7,6 +7,16 @@ import PlayIconSrc from 'assets/icons/play.svg';
 export const CardWrapper = styled.div`
   position: relative;
 
+  :first-child {
+    padding: 0 !important;
+  }
+
+  ${({ isFeaturedSubPost }) =>
+    isFeaturedSubPost &&
+    `
+        padding: 0.625rem 0;
+      `}
+
   > a {
     position: absolute;
     top: 0;
@@ -23,7 +33,6 @@ export const CardWrapper = styled.div`
 
   &:hover {
     h3 {
-      color: ${theme.colors.darkGreen};
       text-decoration: underline;
     }
 
@@ -34,20 +43,42 @@ export const CardWrapper = styled.div`
   }
 `;
 
+export const InfoWrapper = styled.div`
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 0.875rem;
+  letter-spacing: 0.1.5625rem;
+  padding: 0 0 0.625rem;
+  text-align: left;
+
+  > span {
+    padding: 0 0.125rem;
+  }
+
+  .bold {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 0.875;
+    letter-spacing: 0.015625rem;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  .separator {
+    color: #97bd3d;
+  }
+
+  .reading-time {
+    text-transform: uppercase;
+  }
+`;
+
 export const MediaWrapper = styled.div`
-  height: 200px;
+  height: 12.5rem;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
   position: relative;
   display: flex;
-
-  ${theme.mediaQueries.small} {
-    ${({ large }) =>
-      large &&
-      `
-        height: 300px;
-    `}
-  }
 `;
 
 export const Overlay = styled.div`
@@ -63,44 +94,47 @@ export const Overlay = styled.div`
 `;
 
 export const PlayIcon = styled(PlayIconSrc)`
-  width: 10px;
-  height: 10px;
+  width: 0.625rem;
+  height: 0.625rem;
 `;
 
 export const PostTitle = styled.h3`
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 2rem;
+  line-height: 2.125rem;
   color: ${theme.colors.darkestGrey};
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
       large &&
       `
-        font-size: 30px;
-        line-height: 38px;
+        font-size: 3rem;
+        line-height: 3rem;
     `}
+
+    ${({ fontSize }) =>
+      fontSize &&
+      `
+      font-size: ${fontSize};
+  `}
   }
 `;
 
 export const PostExcerpt = styled.div`
-  font-size: 14px;
-  line-height: 21px;
   color: ${theme.colors.mediumGrey};
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  font-size: 1rem;
+  line-height: 1.3125rem;
+  width: 100%;
 
   ${theme.mediaQueries.small} {
     ${({ large }) =>
       large &&
       `
-        font-size: 16px;
-        line-height: 28px;
+        font-size: 1rem;
+        line-height: 1.75rem;
     `}
   }
 `;

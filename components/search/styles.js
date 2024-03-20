@@ -3,26 +3,42 @@ import { BasicInput, theme } from '@worldresources/gfw-components';
 import { rgba } from 'emotion-rgba';
 
 export const Wrapper = styled.div`
-  height: 60px;
+  height: 3.75rem;
   width: 100%;
-  cursor: pointer;
   z-index: 20;
   position: relative;
 
-  ${({ open, expandable }) =>
-    open &&
-    expandable &&
-    `
-    position: absolute;
-    left: 0;
-    right: 0;
-    max-width: 1120px;
-    padding: 0 16px;
-    margin: 0 auto;
-  `}
-
   ${theme.mediaQueries.small} {
-    height: 80px;
+    height: 5.625rem;
+  }
+
+  .hidden-content {
+    margin-top: 1rem;
+    background: #333333;
+    color: #ffffff;
+    height: 19.563rem;
+    max-height: 19.563rem;
+    overflow-y: scroll;
+    padding: 2rem 1.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    ${({ isFixed }) =>
+      isFixed &&
+      `
+        position: fixed;
+        z-index: 20;
+      `}
+
+    ${theme.mediaQueries.small} {
+      padding-top: 2.5rem;
+      padding-bottom: 0;
+      padding-right: 4rem;
+      padding-left: 4rem;
+      max-height: 14.5rem;
+      height: 14.5rem;
+      margin-top: 1.5rem;
+    }
   }
 `;
 
@@ -31,16 +47,18 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  height: 60px;
-  border-bottom: solid 1px transparent;
+  height: 3.75rem;
+  border-bottom: solid 0.0625rem transparent;
+  background-color: #333333;
+  max-height: 2.625rem;
+  height: 2.625rem;
+  -webkit-border-radius: 1.25rem;
+  -moz-border-radius: 1.25rem;
+  border-radius: 1.25rem;
   ${theme.mediaQueries.small} {
-    height: 80px;
+    height: 5rem;
+    margin-top: 1.4rem;
   }
-  ${({ open, expanded }) =>
-    (open || expanded) &&
-    `
-    border-bottom-color: ${theme.colors.grey};
-  `}
 `;
 
 export const SearchClosed = styled.div`
@@ -57,10 +75,10 @@ export const SearchOpen = styled.div`
 
 export const OpenMessage = styled.span`
   color: ${theme.colors.mediumGrey};
-  font-size: 12px;
+  font-size: 0.75rem;
   text-transform: uppercase;
   font-weight: 400;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 `;
 
 export const Input = styled(BasicInput)`
@@ -70,9 +88,9 @@ export const Input = styled(BasicInput)`
   background: ${theme.colors.white};
   border: none !important;
   border-radius: 0;
-  font-size: 22px;
+  font-size: 1.375rem;
   color: ${theme.colors.darkestGrey};
-  padding: 0 10px 0 0;
+  padding: 0 0.625rem 0 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -82,21 +100,8 @@ export const Input = styled(BasicInput)`
   }
 
   ${theme.mediaQueries.small} {
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
-
-  ${({ value, expanded }) =>
-    value &&
-    expanded &&
-    `
-    padding: 0 !important;
-  `}
-
-  ${({ expanded }) =>
-    expanded &&
-    `
-    padding-left: 0 !important;
-  `}
 `;
 
 export const Overlay = styled.div`
