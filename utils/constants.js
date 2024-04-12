@@ -2,15 +2,15 @@
 export const MAIN_CATEGORIES = [
   {
     name: 'Data & Tools',
-    slug: 'data',
+    slug: 'data-and-tools',
   },
   {
     name: 'Users in Action',
-    slug: 'people',
+    slug: 'users-in-action',
   },
   {
     name: 'Forest Insights',
-    slug: 'insights',
+    slug: 'forest-insights',
   },
 ];
 
