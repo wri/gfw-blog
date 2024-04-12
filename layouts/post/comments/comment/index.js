@@ -23,7 +23,7 @@ const Comment = ({
         <CommentHeader>
           <div>
             <AuthorName>{authorName}</AuthorName>
-            {date && <DateWrapper>{formattedDateTime}</DateWrapper>}
+            {date && <DateWrapper className="notranslate">{formattedDateTime}</DateWrapper>}
           </div>
           <Button size="small" light onClick={onClickReply}>
             reply

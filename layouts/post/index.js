@@ -242,7 +242,7 @@ const Post = ({
           {ReactHtmlParser(post.title)}
         </PostTitle>
         <div className="subtitle">
-          <span>{formattedDate}</span>
+          <span className="notranslate">{formattedDate}</span>
           <span className="pipe">|</span>
           <span>{renderAuthors()}</span>
           <span className="pipe">|</span>

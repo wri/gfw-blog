@@ -94,7 +94,7 @@ const Card = ({
           color: ${textColor};
         `}
       >
-        <span>{formattedDate}</span>
+        <span className="notranslate">{formattedDate}</span>
         {categories && (
           <>
             <span className="separator">|</span>
