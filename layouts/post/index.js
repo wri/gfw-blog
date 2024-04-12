@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import { useRouter } from 'next/router';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 
 import { Row, Column, theme } from '@worldresources/gfw-components';
 
@@ -17,6 +15,7 @@ import Slider from 'components/slider';
 import BackButton from 'components/back-button';
 import ReadingBar from 'components/reading-bar';
 import Dropdown from 'components/dropdown';
+import useLocalizeDatetime from 'hooks/use-localize-datetime';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
@@ -53,11 +52,10 @@ const Post = ({
   categories,
   topics,
 }) => {
-  const router = useRouter();
   const { featured_media: media, date } = post || {};
-  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
-  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
-
+  
+  const router = useRouter();
+  const formattedDate = useLocalizeDatetime(date);
   const commentsRef = useRef(null);
 
   const ownGuestAuthors =
