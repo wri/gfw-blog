@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 
 import { Button, theme } from '@worldresources/gfw-components';
 import { Row, Column } from 'components/grid';
@@ -12,6 +10,8 @@ import { Row, Column } from 'components/grid';
 import { LangConsumer } from 'utils/lang';
 
 import Media from 'components/media';
+
+import useLocalizeDatetime from 'hooks/use-localize-datetime';
 
 import {
   CardWrapper,
@@ -58,8 +58,7 @@ const Card = ({
   fontSize,
   ...rawCardData
 }) => {
-  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
-  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
+  const formattedDate = useLocalizeDatetime(date);
 
   const renderMedia = () => {
     return (
