@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
-import { format } from 'date-fns';
 import ReactHtmlParser from 'react-html-parser';
 
 import { Button, Column } from '@worldresources/gfw-components';
 
+import useLocalizeDatetime from 'hooks/use-localize-datetime';
 import { CommentHeader, AuthorName, DateWrapper, Body } from './styles';
 
 const Comment = ({
@@ -15,17 +15,15 @@ const Comment = ({
   isLast,
   onClickReply,
 }) => {
+  const formattedDateTime = useLocalizeDatetime(date, 'PP: mmbbbb');
+
   return (
     <>
       <Column>
         <CommentHeader>
           <div>
             <AuthorName>{authorName}</AuthorName>
-            {date && (
-              <DateWrapper>
-                {format(new Date(date), 'MMMM d, yyyy hh:mmbbbb')}
-              </DateWrapper>
-            )}
+            {date && <DateWrapper>{formattedDateTime}</DateWrapper>}
           </div>
           <Button size="small" light onClick={onClickReply}>
             reply
