@@ -1,6 +1,7 @@
 import dateFnsformat from 'date-fns/format';
 import { enUS, es, ptBR, zhCN, fr, id } from 'date-fns/locale';
 
+// TX language codes (set in localStorage) mapping to ISO codes that date-fns uses for locales
 const TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING = {
   en: enUS,
   zh: zhCN,
@@ -10,7 +11,16 @@ const TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING = {
   es_MX: es,
 };
 
+/**
+ * 
+ * @param {string} dateTime Datetime string returned from the wordpress api
+ * @param {string} format date-fns formatting string
+ * @returns {string} with the localized datetime
+ */
 const useLocalizeDatetime = (dateTime, format = 'PP') => {
+  // Check local storage for the language code Transifex live sets, return the respective
+  //   locale component to pass to date-fns. If none are found, or an error is returned, 
+  //   default to American English.
   const getDateFnsLocale = () => {
     try {
       const txLiveLanguage = JSON.parse(
@@ -22,6 +32,7 @@ const useLocalizeDatetime = (dateTime, format = 'PP') => {
     }
   };
 
+  // Parse the date. 
   return dateFnsformat(new Date(dateTime), format, {
     locale: getDateFnsLocale(),
   });
