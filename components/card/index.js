@@ -12,7 +12,7 @@ import { LangConsumer } from 'utils/lang';
 import Media from 'components/media';
 
 import useLocalizeDatetime from 'hooks/use-localize-datetime';
-import useTranslateYoastReadingTime from 'hooks/use-translate-yoast-reading-time';
+import useLocalizeYoastReadingTime from 'hooks/use-localize-yoast-reading-time';
 
 import {
   CardWrapper,
@@ -88,7 +88,7 @@ const Card = ({
 
   const renderInfo = () => {
     const formattedDate = useLocalizeDatetime(date);
-    const estReadingTime = useTranslateYoastReadingTime(
+    const estReadingTime = useLocalizeYoastReadingTime(
       rawCardData.yoast_head_json
     );
 

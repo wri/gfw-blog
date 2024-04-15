@@ -36,7 +36,7 @@ const LOCALE_STRINGS_MINUTES = {
  * @param {string} wpLocale locale override. If not set the function will use the one set by txlive
  * @returns {string} with the localized minutes
  */
-const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
+const useLocalizeYoastReadingTime = (yoastHeadJson, wpLocale) => {
   // Get Transifex locale
   const txLocale = useGetTxLocale();
 
@@ -80,4 +80,4 @@ const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
   }
 };
 
-export default useTranslateYoastReadingTime;
+export default useLocalizeYoastReadingTime;
