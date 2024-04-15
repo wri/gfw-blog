@@ -54,7 +54,7 @@ const Post = ({
   topics,
 }) => {
   const { featured_media: media, date } = post || {};
-  
+
   const router = useRouter();
   const formattedDate = useLocalizeDatetime(date);
   const estReadingTime = useTranslateYoastReadingTime(post.yoast_head_json);
@@ -247,10 +247,12 @@ const Post = ({
           <span className="notranslate">{formattedDate}</span>
           <span className="pipe">|</span>
           <span>{renderAuthors()}</span>
-          <span className="pipe">|</span>
-          <span className="notranslate">
-            {estReadingTime}
-          </span>
+          {estReadingTime && (
+            <>
+              <span className="pipe">|</span>
+              <span className="notranslate">{estReadingTime}</span>
+            </>
+          )}
         </div>
       </Row>
       {languagesForDropdown.length !== 0 && (

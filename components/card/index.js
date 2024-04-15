@@ -88,7 +88,9 @@ const Card = ({
 
   const renderInfo = () => {
     const formattedDate = useLocalizeDatetime(date);
-    const estReadingTime = useTranslateYoastReadingTime(rawCardData.yoast_head_json);
+    const estReadingTime = useTranslateYoastReadingTime(
+      rawCardData.yoast_head_json
+    );
 
     return (
       <InfoWrapper
@@ -107,10 +109,12 @@ const Card = ({
             />
           </>
         )}
-        <span className="separator">|</span>
-        <span className="reading-time notranslate">
-          {estReadingTime}
-        </span>
+        {estReadingTime && (
+          <>
+            <span className="separator">|</span>
+            <span className="reading-time notranslate">{estReadingTime}</span>
+          </>
+        )}
       </InfoWrapper>
     );
   };

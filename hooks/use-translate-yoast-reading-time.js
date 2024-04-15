@@ -26,7 +26,8 @@ const LOCALE_STRINGS = {
 };
 
 const useTranslateYoastReadingTime = (yoast_head_json) => {
-  const yoastEstReadingTime = yoast_head_json?.twitter_misc?.['Est. reading time'] || '';
+  const yoastEstReadingTime =
+    yoast_head_json?.twitter_misc?.['Est. reading time'] || '';
 
   const getTxLiveLanguage = () => {
     try {
@@ -47,7 +48,7 @@ const useTranslateYoastReadingTime = (yoast_head_json) => {
 
   const getTranslatedMinutes = (minutes, lang) => {
     const localeStrings = LOCALE_STRINGS[lang];
-    return (minutes === 1) ? localeStrings.singular : localeStrings.plural;
+    return minutes === 1 ? localeStrings.singular : localeStrings.plural;
   };
 
   try {
@@ -55,10 +56,12 @@ const useTranslateYoastReadingTime = (yoast_head_json) => {
     const minutesInt = extractMinutesFromYoastString(yoastEstReadingTime);
     const minutesWord = getTranslatedMinutes(minutesInt, language);
 
+    if (!minutesInt) return null;
+
     return `${minutesInt} ${minutesWord}`;
   } catch {
     return yoastEstReadingTime;
-  } 
+  }
 };
 
 export default useTranslateYoastReadingTime;
