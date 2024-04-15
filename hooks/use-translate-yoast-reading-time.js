@@ -29,7 +29,7 @@ const LOCALE_STRINGS_MINUTES = {
 };
 
 /**
- * 
+ *
  * @param {string} yoastHeadJson yoast_head_json as returned by the API
  * @param {string} wpLocale locale override. If not set the function will use the one set by txlive
  * @returns {string} with the localized minutes
@@ -53,7 +53,7 @@ const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
   };
 
   // Extract the minutes integer from the time string provided by yoast.
-  // We use regex to extract this information (eg: '10 minutes'). 
+  // We use regex to extract this information (eg: '10 minutes').
   const extractMinutesFromYoastString = (timeStr) => {
     const match = timeStr?.match(/^([\d]+)\s[a-zA-Z]+$/);
     if (!match) return timeStr;
@@ -62,7 +62,7 @@ const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
 
   // Given the number of minutes, we get the localized string. Because '1' tends
   // to be followed by a singular word 'minutes' in many languages,
-  // we need to take this into account. 
+  // we need to take this into account.
   const getTranslatedMinutes = (minutes, lang) => {
     const localeStrings = LOCALE_STRINGS_MINUTES[lang];
     return minutes === 1 ? localeStrings.singular : localeStrings.plural;
@@ -78,7 +78,9 @@ const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
 
     const minutesWord = getTranslatedMinutes(minutesInt, locale);
 
-    // 
+    // There are instances in which this information isn't returned with the yoast data.
+    // Returning null here will allow the components to hide the pipe | and estimated
+    // reading time entirely
     if (!minutesInt) return null;
 
     return `${minutesInt} ${minutesWord}`;
