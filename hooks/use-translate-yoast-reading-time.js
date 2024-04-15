@@ -1,11 +1,4 @@
-const WP_POST_LOCALE_TO_TX_MAPPING = {
-  en_US: 'en',
-  zh_CN: 'zh',
-  fr_FR: 'fr',
-  id_ID: 'id',
-  pt_BR: 'pt_BR',
-  es_MX: 'es_MX',
-};
+import { WP_POST_LOCALE_TO_TX_MAPPING } from 'constants/locale-mapping';
 
 // Translation strings for minutes
 const LOCALE_STRINGS_MINUTES = {
