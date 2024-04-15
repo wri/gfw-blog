@@ -12,6 +12,7 @@ import { LangConsumer } from 'utils/lang';
 import Media from 'components/media';
 
 import useLocalizeDatetime from 'hooks/use-localize-datetime';
+import useTranslateYoastReadingTime from 'hooks/use-translate-yoast-reading-time';
 
 import {
   CardWrapper,
@@ -58,7 +59,6 @@ const Card = ({
   fontSize,
   ...rawCardData
 }) => {
-
   const renderMedia = () => {
     return (
       !!featured_media && (
@@ -88,6 +88,7 @@ const Card = ({
 
   const renderInfo = () => {
     const formattedDate = useLocalizeDatetime(date);
+    const estReadingTime = useTranslateYoastReadingTime(rawCardData.yoast_head_json);
 
     return (
       <InfoWrapper
@@ -107,8 +108,8 @@ const Card = ({
           </>
         )}
         <span className="separator">|</span>
-        <span className="reading-time">
-          {rawCardData.yoast_head_json?.twitter_misc['Est. reading time'] || ''}
+        <span className="reading-time notranslate">
+          {estReadingTime}
         </span>
       </InfoWrapper>
     );

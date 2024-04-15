@@ -16,6 +16,7 @@ import BackButton from 'components/back-button';
 import ReadingBar from 'components/reading-bar';
 import Dropdown from 'components/dropdown';
 import useLocalizeDatetime from 'hooks/use-localize-datetime';
+import useTranslateYoastReadingTime from 'hooks/use-translate-yoast-reading-time';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
@@ -56,6 +57,7 @@ const Post = ({
   
   const router = useRouter();
   const formattedDate = useLocalizeDatetime(date);
+  const estReadingTime = useTranslateYoastReadingTime(post.yoast_head_json);
   const commentsRef = useRef(null);
 
   const ownGuestAuthors =
@@ -246,8 +248,8 @@ const Post = ({
           <span className="pipe">|</span>
           <span>{renderAuthors()}</span>
           <span className="pipe">|</span>
-          <span>
-            {post.yoast_head_json.twitter_misc['Est. reading time'] || ''}
+          <span className="notranslate">
+            {estReadingTime}
           </span>
         </div>
       </Row>
