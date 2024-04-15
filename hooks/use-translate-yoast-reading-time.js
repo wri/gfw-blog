@@ -1,4 +1,5 @@
-const LOCALE_STRINGS = {
+// Translation strings for minutes
+const LOCALE_STRINGS_MINUTES = {
   en: {
     singular: 'minute',
     plural: 'minutes',
@@ -25,10 +26,18 @@ const LOCALE_STRINGS = {
   },
 };
 
-const useTranslateYoastReadingTime = (yoast_head_json) => {
+/**
+ * 
+ * @param {string} yoastHeadJson yoast_head_json as returned by the API
+ * @returns {string} with the localized minutes
+ */
+const useTranslateYoastReadingTime = (yoastHeadJson) => {
+  // Get the estimated reading time string from yoast data
   const yoastEstReadingTime =
-    yoast_head_json?.twitter_misc?.['Est. reading time'] || '';
+    yoastHeadJson?.twitter_misc?.['Est. reading time'] || '';
 
+  // Check local storage for the language code Transifex live sets, return the code
+  // to be used when picking a localized string for minutes.
   const getTxLiveLanguage = () => {
     try {
       const txLiveLanguage = JSON.parse(
@@ -40,14 +49,19 @@ const useTranslateYoastReadingTime = (yoast_head_json) => {
     }
   };
 
+  // Extract the minutes integer from the time string provided by yoast.
+  // We use regex to extract this information (eg: '10 minutes'). 
   const extractMinutesFromYoastString = (timeStr) => {
     const match = timeStr?.match(/^([\d]+)\s[a-zA-Z]+$/);
     if (!match) return timeStr;
     return parseInt(match[1], 10);
   };
 
+  // Given the number of minutes, we get the localized string. Because '1' tends
+  // to be followed by a singular word 'minutes' in many languages,
+  // we need to take this into account. 
   const getTranslatedMinutes = (minutes, lang) => {
-    const localeStrings = LOCALE_STRINGS[lang];
+    const localeStrings = LOCALE_STRINGS_MINUTES[lang];
     return minutes === 1 ? localeStrings.singular : localeStrings.plural;
   };
 
@@ -56,6 +70,7 @@ const useTranslateYoastReadingTime = (yoast_head_json) => {
     const minutesInt = extractMinutesFromYoastString(yoastEstReadingTime);
     const minutesWord = getTranslatedMinutes(minutesInt, language);
 
+    // 
     if (!minutesInt) return null;
 
     return `${minutesInt} ${minutesWord}`;

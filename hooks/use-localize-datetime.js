@@ -19,8 +19,8 @@ const TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING = {
  */
 const useLocalizeDatetime = (dateTime, format = 'PP') => {
   // Check local storage for the language code Transifex live sets, return the respective
-  //   locale component to pass to date-fns. If none are found, or an error is returned, 
-  //   default to American English.
+  // locale component to pass to date-fns. If none are found, or an error is returned, 
+  // default to American English.
   const getDateFnsLocale = () => {
     try {
       const txLiveLanguage = JSON.parse(
