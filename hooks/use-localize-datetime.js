@@ -15,6 +15,13 @@ const useLocalizeDatetime = (dateTime, wpLocale, format = 'PP') => {
   // Get Transifex locale
   const txLocale = useGetTxLocale();
 
+  // Capitalize first letter (a-zA-Z only)
+  const capitalizeFirstLetter = (dateStr) => {
+    const match = dateStr?.match(/[a-zA-Z]/);
+    if (!match) return dateStr;
+    return dateStr.substring(0, match.index) + match[0].toUpperCase() + dateStr.substring(match.index + 1);
+  }
+
   // We'll get the dateFns locale object based on the locale we want to use. 
   // If a wpLocale has been set, we'll need to first resort to the mapping.
   const dateFnsLocale = TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING[
@@ -26,13 +33,8 @@ const useLocalizeDatetime = (dateTime, wpLocale, format = 'PP') => {
     locale: dateFnsLocale,
   });
 
-  // Capitalize first letter (a-zA-Z only)
-  const capitalizeFirstLetter = (dateStr) => {
-    const match = dateStr?.match(/[a-zA-Z]/);
-    if (!match) return dateStr;
-    return dateStr.substring(0, match.index) + match[0].toUpperCase() + dateStr.substring(match.index + 1);
-  }
-
+  // Capitalize first letter found in the string. This should be the month; 
+  // date-fns doesn't always do it, so we'll ensure it is done.
   const formattedDate = capitalizeFirstLetter(localizedDate);
 
   return formattedDate;
