@@ -58,7 +58,6 @@ const Card = ({
   fontSize,
   ...rawCardData
 }) => {
-  const formattedDate = useLocalizeDatetime(date);
 
   const renderMedia = () => {
     return (
@@ -88,6 +87,8 @@ const Card = ({
   };
 
   const renderInfo = () => {
+    const formattedDate = useLocalizeDatetime(date);
+
     return (
       <InfoWrapper
         css={css`
