@@ -56,8 +56,8 @@ const Post = ({
   const { featured_media: media, date } = post || {};
 
   const router = useRouter();
-  const formattedDate = useLocalizeDatetime(date);
-  const estReadingTime = useTranslateYoastReadingTime(post.yoast_head_json);
+  const formattedDate = useLocalizeDatetime(date, post?.locale);
+  const estReadingTime = useTranslateYoastReadingTime(post.yoast_head_json, post?.locale);
   const commentsRef = useRef(null);
 
   const ownGuestAuthors =

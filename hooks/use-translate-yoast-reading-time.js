@@ -1,3 +1,12 @@
+const WP_POST_LOCALE_TO_TX_MAPPING = {
+  en_US: 'en',
+  zh_CN: 'zh',
+  fr_FR: 'fr',
+  id_ID: 'id',
+  pt_BR: 'pt_BR',
+  es_MX: 'es_MX',
+};
+
 // Translation strings for minutes
 const LOCALE_STRINGS_MINUTES = {
   en: {
@@ -29,16 +38,17 @@ const LOCALE_STRINGS_MINUTES = {
 /**
  * 
  * @param {string} yoastHeadJson yoast_head_json as returned by the API
+ * @param {string} wpLocale locale override. If not set the function will use the one set by txlive
  * @returns {string} with the localized minutes
  */
-const useTranslateYoastReadingTime = (yoastHeadJson) => {
+const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
   // Get the estimated reading time string from yoast data
   const yoastEstReadingTime =
     yoastHeadJson?.twitter_misc?.['Est. reading time'] || '';
 
   // Check local storage for the language code Transifex live sets, return the code
   // to be used when picking a localized string for minutes.
-  const getTxLiveLanguage = () => {
+  const getTxLocale = () => {
     try {
       const txLiveLanguage = JSON.parse(
         localStorage?.getItem('txlive:selectedlang')
@@ -66,9 +76,14 @@ const useTranslateYoastReadingTime = (yoastHeadJson) => {
   };
 
   try {
-    const language = getTxLiveLanguage();
+    const txLocale = getTxLocale();
     const minutesInt = extractMinutesFromYoastString(yoastEstReadingTime);
-    const minutesWord = getTranslatedMinutes(minutesInt, language);
+
+    // If wpLocale has been set, then we'll have to resort to the mapping to check
+    // the corresponding Transifex live based locale entry we want to use.
+    const locale = wpLocale ? WP_POST_LOCALE_TO_TX_MAPPING[wpLocale] : txLocale;
+
+    const minutesWord = getTranslatedMinutes(minutesInt, locale);
 
     // 
     if (!minutesInt) return null;
