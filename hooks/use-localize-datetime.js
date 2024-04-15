@@ -2,6 +2,8 @@ import dateFnsformat from 'date-fns/format';
 
 import { WP_POST_LOCALE_TO_TX_MAPPING, TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING } from 'constants/locale-mapping';
 
+import useGetTxLocale from 'hooks/use-get-tx-locale';
+
 /**
  * 
  * @param {string} dateTime Datetime string returned from the wordpress api
@@ -10,21 +12,8 @@ import { WP_POST_LOCALE_TO_TX_MAPPING, TX_LANGUAGE_TO_DATEFNS_LOCALE_MAPPING } f
  * @returns {string} with the localized datetime
  */
 const useLocalizeDatetime = (dateTime, wpLocale, format = 'PP') => {
-  // Check local storage for the language code Transifex live sets, return the code
-  // to be used when picking a localized string for minutes.
-  const getTxLocale = () => {
-    try {
-      const txLiveLanguage = JSON.parse(
-        localStorage?.getItem('txlive:selectedlang')
-      );
-      return txLiveLanguage;
-    } catch {
-      return 'en';
-    }
-  };
-
   // Get Transifex locale
-  const txLocale = getTxLocale();
+  const txLocale = useGetTxLocale();
 
   // We'll get the dateFns locale object based on the locale we want to use. 
   // If a wpLocale has been set, we'll need to first resort to the mapping.

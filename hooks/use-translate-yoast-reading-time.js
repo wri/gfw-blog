@@ -1,5 +1,7 @@
 import { WP_POST_LOCALE_TO_TX_MAPPING } from 'constants/locale-mapping';
 
+import useGetTxLocale from 'hooks/use-get-tx-locale';
+
 // Translation strings for minutes
 const LOCALE_STRINGS_MINUTES = {
   en: {
@@ -35,22 +37,12 @@ const LOCALE_STRINGS_MINUTES = {
  * @returns {string} with the localized minutes
  */
 const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
+  // Get Transifex locale
+  const txLocale = useGetTxLocale();
+
   // Get the estimated reading time string from yoast data
   const yoastEstReadingTime =
     yoastHeadJson?.twitter_misc?.['Est. reading time'] || '';
-
-  // Check local storage for the language code Transifex live sets, return the code
-  // to be used when picking a localized string for minutes.
-  const getTxLocale = () => {
-    try {
-      const txLiveLanguage = JSON.parse(
-        localStorage?.getItem('txlive:selectedlang')
-      );
-      return txLiveLanguage;
-    } catch {
-      return 'en';
-    }
-  };
 
   // Extract the minutes integer from the time string provided by yoast.
   // We use regex to extract this information (eg: '10 minutes').
@@ -69,7 +61,6 @@ const useTranslateYoastReadingTime = (yoastHeadJson, wpLocale) => {
   };
 
   try {
-    const txLocale = getTxLocale();
     const minutesInt = extractMinutesFromYoastString(yoastEstReadingTime);
 
     // If wpLocale has been set, then we'll have to resort to the mapping to check
