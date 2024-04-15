@@ -32,10 +32,21 @@ const useLocalizeDatetime = (dateTime, format = 'PP') => {
     }
   };
 
-  // Parse the date. 
-  return dateFnsformat(new Date(dateTime), format, {
+  // Format the date. 
+  const localizedDate = dateFnsformat(new Date(dateTime), format, {
     locale: getDateFnsLocale(),
   });
+
+  // Capitalize first letter (a-zA-Z only)
+  const capitalizeFirstLetter = (dateStr) => {
+    const match = dateStr?.match(/[a-zA-Z]/);
+    if (!match) return dateStr;
+    return dateStr.substring(0, match.index) + match[0].toUpperCase() + dateStr.substring(match.index + 1);
+  }
+
+  const formattedDate = capitalizeFirstLetter(localizedDate);
+
+  return formattedDate;
 };
 
 export default useLocalizeDatetime;
