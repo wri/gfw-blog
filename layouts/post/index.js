@@ -16,7 +16,7 @@ import BackButton from 'components/back-button';
 import ReadingBar from 'components/reading-bar';
 import Dropdown from 'components/dropdown';
 import useLocalizeDatetime from 'hooks/use-localize-datetime';
-import useLocalizeYoastReadingTime from 'hooks/use-translate-yoast-reading-time';
+import useLocalizeYoastReadingTime from 'hooks/use-localize-yoast-reading-time';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
