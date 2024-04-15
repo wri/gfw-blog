@@ -32,7 +32,7 @@ const LOCALE_STRINGS_MINUTES = {
 
 /**
  *
- * @param {string} yoastHeadJson yoast_head_json as returned by the API
+ * @param {object} yoastHeadJson yoast_head_json as returned by the API
  * @param {string} wpLocale locale override. If not set the function will use the one set by txlive
  * @returns {string} with the localized minutes
  */

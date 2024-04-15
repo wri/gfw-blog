@@ -57,10 +57,7 @@ const Post = ({
 
   const router = useRouter();
   const formattedDate = useLocalizeDatetime(date, post?.locale);
-  const estReadingTime = useLocalizeYoastReadingTime(
-    post.yoast_head_json,
-    post?.locale
-  );
+  const estReadingTime = useLocalizeYoastReadingTime(post.yoast_head_json, post?.locale);
   const commentsRef = useRef(null);
 
   const ownGuestAuthors =

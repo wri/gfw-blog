@@ -88,9 +88,7 @@ const Card = ({
 
   const renderInfo = () => {
     const formattedDate = useLocalizeDatetime(date);
-    const estReadingTime = useLocalizeYoastReadingTime(
-      rawCardData.yoast_head_json
-    );
+    const estReadingTime = useLocalizeYoastReadingTime(rawCardData.yoast_head_json);
 
     return (
       <InfoWrapper
