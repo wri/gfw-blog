@@ -5,7 +5,7 @@ import { theme } from '@worldresources/gfw-components';
 export const FilterDropDownWrapper = styled.div`
   position: absolute;
   background: #333333;
-  min-height: 13rem;
+  min-height: 8.5rem;
   max-height: 16rem;
   overflow-y: scroll;
   z-index: 10;
@@ -24,7 +24,7 @@ export const FilterDropDownWrapper = styled.div`
 
 export const FilterDropDownContainer = styled.div`
   margin-top: 1rem;
-  padding: 0 2rem;
+  padding: 0 2rem 1rem;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-columns: 12rem 3rem;
@@ -39,7 +39,7 @@ export const FilterDropDownContainer = styled.div`
     padding-top: 0.3125rem;
     font-size: 0.875rem;
     font-weight: 500;
-    line-height: 2.375rem;
+    line-height: 1.875rem;
     letter-spacing: 0.016rem;
     text-align: left;
   }
@@ -68,7 +68,7 @@ export const FilterDropDownContainer = styled.div`
 
   .checkmark {
     position: absolute;
-    top: 1.0625rem;
+    top: 0.6875rem;
     left: 0;
     height: 1rem;
     width: 1rem;
