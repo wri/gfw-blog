@@ -81,7 +81,7 @@ export const MediaWrapper = styled.div`
   padding: 0 1rem;
 
   ${theme.mediaQueries.small} {
-    min-height: 34.06rem;
+    min-height: 28rem;
     padding: 0 5.25rem;
     max-width: 85rem;
   }
@@ -98,7 +98,7 @@ export const PostTitle = styled.h1`
 
   ${theme.mediaQueries.small} {
     margin-bottom: 1.25rem;
-    font-size: 3.75rem;
+    font-size: 3rem;
     font-weight: 500;
     line-height: 3.75rem;
     letter-spacing: 0.1.5625rem;
