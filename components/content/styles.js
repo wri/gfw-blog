@@ -302,8 +302,6 @@ export default styled.div`
   }
 
   table {
-    border-left: 0.0625rem solid ${theme.colors.lightGrey};
-    border-right: 0.0625rem solid ${theme.colors.lightGrey};
     border-collapse: collapse;
     border-spacing: 0;
     empty-cells: show;
