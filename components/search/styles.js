@@ -35,8 +35,8 @@ export const Wrapper = styled.div`
       padding-bottom: 0;
       padding-right: 4rem;
       padding-left: 4rem;
-      max-height: 14.5rem;
-      height: 14.5rem;
+      max-height: 16rem;
+      height: 16rem;
       margin-top: 1.5rem;
     }
   }
