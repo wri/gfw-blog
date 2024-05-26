@@ -90,5 +90,9 @@ export const PillContainerWrapper = styled(Row)`
     line-height: 1.3125rem;
     text-align: left;
     margin-right: 0.5rem;
+
+    ${theme.mediaQueries.small} {
+      white-space: nowrap;
+    }
   }
 `;
