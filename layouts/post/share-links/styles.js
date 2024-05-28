@@ -7,6 +7,10 @@ export const ButtonsContainer = styled.div`
   justify-content: center;
   margin-bottom: 3rem;
 
+  ${theme.mediaQueries.small} {
+    margin-left: -1.6rem;
+  }
+
   > a,
   > button {
     margin: 0.5rem;
