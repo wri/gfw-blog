@@ -30,7 +30,7 @@ export const CARD_MEDIA_SIZE = Object.freeze({
     width: '37.6875rem',
   },
   MEDIUM: {
-    height: '14.5rem',
+    height: '12.5rem',
     width: '18.9375rem',
   },
   SMALL: {

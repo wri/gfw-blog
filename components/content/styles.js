@@ -153,19 +153,6 @@ export default styled.div`
     display: block;
     width: 100%;
 
-    ${theme.mediaQueries.small} {
-      padding-left: 6rem;
-      width: calc(100% + (100% / 7)) !important;
-      margin-left: calc(-100% / 7);
-
-      ${({ align }) =>
-        align === 'left' &&
-        `
-        margin-left: unset;
-        margin-right: calc(-100% / 7);
-      `}
-    }
-
     iframe {
       width: 100%;
       min-height: 15.625rem;
@@ -314,12 +301,6 @@ export default styled.div`
     overflow: hidden;
     overflow-x: auto;
     width: 100%;
-
-    ${theme.mediaQueries.small} {
-      width: calc(100% + ((100% / 7) * 2));
-      max-width: calc(100% + ((100% / 7) * 2));
-      margin-left: calc(-100% / 7);
-    }
   }
 
   .alignleft > table {

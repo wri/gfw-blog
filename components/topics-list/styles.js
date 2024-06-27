@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
   ${theme.mediaQueries.small} {
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    grid-template-rows: 2.5rem 2.5rem 2.5rem 2.5rem;
+    grid-template-rows: 3rem 3rem 3rem 3rem;
     grid-auto-flow: column;
   }
 
@@ -27,6 +27,10 @@ export const Wrapper = styled.div`
 
     ${theme.mediaQueries.small} {
       margin: 0 1rem 1rem 0;
+    }
+
+    span {
+      line-height: 1.275rem;
     }
 
     span:hover {
