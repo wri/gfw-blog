@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import { useRouter } from 'next/router';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 
 import { Row, Column, theme } from '@worldresources/gfw-components';
 
@@ -17,6 +15,8 @@ import Slider from 'components/slider';
 import BackButton from 'components/back-button';
 import ReadingBar from 'components/reading-bar';
 import Dropdown from 'components/dropdown';
+import useLocalizeDatetime from 'hooks/use-localize-datetime';
+import useLocalizeYoastReadingTime from 'hooks/use-localize-yoast-reading-time';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
@@ -53,11 +53,11 @@ const Post = ({
   categories,
   topics,
 }) => {
-  const router = useRouter();
   const { featured_media: media, date } = post || {};
-  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
-  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
 
+  const router = useRouter();
+  const formattedDate = useLocalizeDatetime(date, post?.locale);
+  const estReadingTime = useLocalizeYoastReadingTime(post.yoast_head_json, post?.locale);
   const commentsRef = useRef(null);
 
   const ownGuestAuthors =
@@ -244,13 +244,15 @@ const Post = ({
           {ReactHtmlParser(post.title)}
         </PostTitle>
         <div className="subtitle">
-          <span>{formattedDate}</span>
+          <span className="notranslate">{formattedDate}</span>
           <span className="pipe">|</span>
           <span>{renderAuthors()}</span>
-          <span className="pipe">|</span>
-          <span>
-            {post.yoast_head_json.twitter_misc['Est. reading time'] || ''}
-          </span>
+          {estReadingTime && (
+            <>
+              <span className="pipe">|</span>
+              <span className="notranslate">{estReadingTime}</span>
+            </>
+          )}
         </div>
       </Row>
       {languagesForDropdown.length !== 0 && (
