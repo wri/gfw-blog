@@ -104,7 +104,6 @@ export async function getStaticProps({ params }) {
 
     const post = await getPostByType({
       slug: targetURL,
-      // TODO debug
     });
 
     if (!post) {
