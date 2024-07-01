@@ -28,7 +28,6 @@ import serializeYoastGraph from 'utils/yoast-graph';
 
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
-import Cookies from 'components/cookies';
 
 const Header = dynamic(() => import('components/header'), {
   ssr: false,
@@ -230,7 +229,6 @@ export default function Layout(props) {
       </main>
       <Footer openContactUsModal={() => setOpen(true)} />
       <ContactUsModal open={open} onRequestClose={() => setOpen(false)} />
-      <Cookies />
     </>
   );
 }
