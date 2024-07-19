@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { css } from '@emotion/core';
 import ReactHtmlParser from 'react-html-parser';
 import Link from 'next/link';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
 
 import { Button, theme } from '@worldresources/gfw-components';
 import { Row, Column } from 'components/grid';
@@ -12,6 +10,9 @@ import { Row, Column } from 'components/grid';
 import { LangConsumer } from 'utils/lang';
 
 import Media from 'components/media';
+
+import useLocalizeDatetime from 'hooks/use-localize-datetime';
+import useLocalizeYoastReadingTime from 'hooks/use-localize-yoast-reading-time';
 
 import {
   CardWrapper,
@@ -58,9 +59,6 @@ const Card = ({
   fontSize,
   ...rawCardData
 }) => {
-  const parsedDate = parse(date.substring(0, 10), 'yyyy-MM-dd', new Date());
-  const formattedDate = format(parsedDate, 'MMM dd, yyyy');
-
   const renderMedia = () => {
     return (
       !!featured_media && (
@@ -89,13 +87,16 @@ const Card = ({
   };
 
   const renderInfo = () => {
+    const formattedDate = useLocalizeDatetime(date);
+    const estReadingTime = useLocalizeYoastReadingTime(rawCardData.yoast_head_json);
+
     return (
       <InfoWrapper
         css={css`
           color: ${textColor};
         `}
       >
-        <span>{formattedDate}</span>
+        <span className="notranslate">{formattedDate}</span>
         {categories && (
           <>
             <span className="separator">|</span>
@@ -106,10 +107,12 @@ const Card = ({
             />
           </>
         )}
-        <span className="separator">|</span>
-        <span className="reading-time">
-          {rawCardData.yoast_head_json?.twitter_misc['Est. reading time'] || ''}
-        </span>
+        {estReadingTime && (
+          <>
+            <span className="separator">|</span>
+            <span className="reading-time notranslate">{estReadingTime}</span>
+          </>
+        )}
       </InfoWrapper>
     );
   };
