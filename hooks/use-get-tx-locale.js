@@ -3,7 +3,8 @@ const useGetTxLocale = () => {
     const txLiveLanguage = JSON.parse(
       localStorage?.getItem('txlive:selectedlang')
     );
-    return txLiveLanguage;
+
+    return txLiveLanguage === null ? 'en' : txLiveLanguage;
   } catch {
     return 'en';
   }
