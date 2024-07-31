@@ -34,15 +34,25 @@ const LOCALE_STRINGS_MINUTES = {
  *
  * @param {object} yoastHeadJson yoast_head_json as returned by the API
  * @param {string} wpLocale locale override. If not set the function will use the one set by txlive
+ * @param {string} overridenReadTime quantity in minutes that was manually entered as reading time value in the API
  * @returns {string} with the localized minutes
  */
-const useLocalizeYoastReadingTime = (yoastHeadJson, wpLocale) => {
+const useLocalizeYoastReadingTime = ({
+  yoastHeadJson,
+  wpLocale,
+  overridenReadTime,
+}) => {
   // Get Transifex locale
   const txLocale = useGetTxLocale();
 
   // Get the estimated reading time string from yoast data
-  const yoastEstReadingTime =
+  let yoastEstReadingTime =
     yoastHeadJson?.twitter_misc?.['Est. reading time'] || '';
+
+  // if overridenReadTime isn't undefined, then use it instead of 'Est. reading time'
+  if (overridenReadTime !== undefined) {
+    yoastEstReadingTime = overridenReadTime;
+  }
 
   // Extract the minutes integer from the time string provided by yoast.
   // We use regex to extract this information (eg: '10 minutes').
