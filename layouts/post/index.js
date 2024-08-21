@@ -145,7 +145,6 @@ const Post = ({
         css={css`
           width: 100%;
           max-width: 90rem !important;
-          position: fixed;
           z-index: 10;
 
           ${theme.mediaQueries.small} {
@@ -170,7 +169,6 @@ const Post = ({
           css={css`
             margin-top: -1.35rem;
             padding: 0 !important;
-            position: fixed;
           `}
         >
           <Row
@@ -187,20 +185,21 @@ const Post = ({
           ${theme.mediaQueries.small} {
             max-width: 90rem;
           }
+          position: sticky;
+          top: 3.5rem;
+          z-index: 9;
         `}
       >
         <Row
           css={css`
             display: flex;
-            position: fixed;
-            margin-top: 12rem;
             max-width: 90rem;
             width: 100%;
             z-index: 4;
             background: white;
 
             ${theme.mediaQueries.small} {
-              margin-top: 5.625rem;
+              margin-top: 0rem;
             }
           `}
         >
@@ -214,19 +213,20 @@ const Post = ({
         css={css`
           ${theme.mediaQueries.small} {
             max-width: 90rem;
+            top: 8.25rem;
           }
+          position: sticky;
+          top: 7.875rem;
         `}
       >
         <Row
           css={css`
             width: 100%;
             max-width: 90rem;
-            margin-top: 16rem;
-            position: fixed;
             z-index: 4;
 
             ${theme.mediaQueries.small} {
-              margin-top: 10.75rem;
+              margin-top: 0;
             }
           `}
         >
@@ -236,10 +236,9 @@ const Post = ({
       <Row
         css={css`
           padding: 0 1rem;
-          margin-top: 17.125rem;
+          margin-top: 1rem;
 
           ${theme.mediaQueries.small} {
-            margin-top: 12.125rem;
             padding: 2.5rem 9.375rem;
           }
         `}

@@ -9,7 +9,7 @@ export const BackButtonWrapper = styled.div`
   max-width: 85rem;
 
   ${theme.mediaQueries.small} {
-    padding: 2.125rem 0;
+    padding: 1.75rem 0;
     padding-left: 1.25rem;
     margin: 0 auto;
   }
