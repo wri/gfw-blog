@@ -186,7 +186,7 @@ const Post = ({
             max-width: 90rem;
           }
           position: sticky;
-          top: 3.5rem;
+          top: 3.45rem;
           z-index: 9;
         `}
       >
