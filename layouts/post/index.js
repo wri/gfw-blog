@@ -213,10 +213,11 @@ const Post = ({
         css={css`
           ${theme.mediaQueries.small} {
             max-width: 90rem;
-            top: 8.25rem;
+            top: 8.2rem;
           }
           position: sticky;
-          top: 7.875rem;
+          top: 7.87rem;
+          z-index: 9;
         `}
       >
         <Row
