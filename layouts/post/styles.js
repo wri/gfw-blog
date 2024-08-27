@@ -4,7 +4,6 @@ import SearchComponent from 'components/search';
 
 export const PostContainer = styled.div`
   width: 100%;
-  overflow: hidden;
   min-height: 31.25rem;
 
   .subtitle {
