@@ -152,6 +152,20 @@ export default class MyDocument extends Document {
           )}
           {/* End Google Tag Manager (noscript) */}
           <Main />
+          {isOsanoEnabled && (
+            <script
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: `
+                  document.addEventListener('DOMContentLoaded', function(event) {
+                    setTimeout(() => {
+                      document.getElementsByClassName('osano-cm-window__widget osano-cm-widget osano-cm-widget--position_right')[0].style.display = 'none';
+                    }, 100);
+                  });
+                `,
+              }}
+            />
+          )}
           <NextScript />
         </body>
       </Html>

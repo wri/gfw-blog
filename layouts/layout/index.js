@@ -29,6 +29,8 @@ import serializeYoastGraph from 'utils/yoast-graph';
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
 
+const isOsanoEnabled = process.env.NEXT_PUBLIC_OSANO_ENABLED === 'true';
+
 const Header = dynamic(() => import('components/header'), {
   ssr: false,
 });
@@ -148,6 +150,15 @@ export default function Layout(props) {
   const canonicalLink = getCanonicalLink(yoast);
   const yoastMetaTags = ReactHtmlParser(filterYoastTags(parseYoast(yoast)));
 
+  const handleOsanoCookiePreferences = (e) => {
+    e.preventDefault();
+
+    if (isOsanoEnabled) {
+      // eslint-disable-next-line no-undef
+      Osano.cm.showDrawer('osano-cm-dom-info-dialog-open');
+    }
+  };
+
   return (
     <>
       <Head>
@@ -227,7 +238,11 @@ export default function Layout(props) {
           renderPage(isError, statusCode, children, preview, language)
         )}
       </main>
-      <Footer openContactUsModal={() => setOpen(true)} />
+      <Footer
+        showCookiePreferencesLink={isOsanoEnabled}
+        handleCookiePreferencesClick={handleOsanoCookiePreferences}
+        openContactUsModal={() => setOpen(true)}
+      />
       <ContactUsModal open={open} onRequestClose={() => setOpen(false)} />
     </>
   );
