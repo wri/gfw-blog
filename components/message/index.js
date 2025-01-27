@@ -3,11 +3,21 @@ import PropTypes from 'prop-types';
 
 import treeIcon from 'assets/images/tree-success.png';
 
-import { Container, Image, Title, Description, TreeErrorIcon } from './styles';
+import {
+  Container,
+  StyledImage,
+  Title,
+  Description,
+  TreeErrorIcon,
+} from './styles';
 
 const Message = ({ error, title, description, small }) => (
   <Container>
-    {error ? <TreeErrorIcon /> : <Image src={treeIcon} alt="success tree" />}
+    {error ? (
+      <TreeErrorIcon />
+    ) : (
+      <StyledImage src={treeIcon} alt="success tree" />
+    )}
     <Title small={small}>{title}</Title>
     <Description small={small}>{description}</Description>
   </Container>
