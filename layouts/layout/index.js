@@ -104,10 +104,12 @@ export default function Layout(props) {
           ...categories
             ?.filter((c) => slugs?.includes(c.slug))
             ?.map((c) => ({
+              key: `category-${c.slug}`,
               label: c.name,
               href: c.link,
             })),
           {
+            key: `post-${post.id || post.link}`,
             label: title,
             href: post.link,
           },
