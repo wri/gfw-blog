@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 import { theme } from '@worldresources/gfw-components';
+import Image from 'next/image';
 
 import TreeErrorIconSrc from 'assets/icons/error.svg';
 
@@ -10,7 +11,7 @@ export const Container = styled.div`
   flex-direction: column;
 `;
 
-export const Image = styled.img`
+export const StyledImage = styled(Image)`
   height: 12.5rem;
   margin: auto;
   margin-bottom: 0.625rem;
