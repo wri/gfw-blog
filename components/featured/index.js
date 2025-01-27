@@ -42,11 +42,7 @@ const MainPost = ({ featured_media, categories, translations_posts }) => {
                 aria-label={title}
               />
             )}
-            {!extLink && link && (
-              <Link href={link}>
-                <a> </a>
-              </Link>
-            )}
+            {!extLink && link && <Link href={link} />}
             <Overlay>
               <ContentWrapper>
                 {categories && <CategoryList categories={categories} />}
