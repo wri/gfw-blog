@@ -233,11 +233,7 @@ const Card = ({
                 aria-label="external link"
               />
             )}
-            {!extLink && link && (
-              <Link href={link}>
-                <a> </a>
-              </Link>
-            )}
+            {!extLink && link && <Link href={link} />}
             <Row
               css={css`
                 padding: 0;
