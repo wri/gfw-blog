@@ -5,11 +5,6 @@
     "permanent": true
   },
   {
-    "source": "/data-and-tools/",
-    "destination": "/category-and-topics/?category=data-and-tools",
-    "permanent": true
-  },
-  {
     "source": "/category/:path*/",
     "destination": "/category-and-topics/?category=:path*",
     "permanent": true
