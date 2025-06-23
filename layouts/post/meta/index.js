@@ -18,7 +18,10 @@ const PostMeta = ({ categories, tags = [], children }) => {
               categories.length > 0 &&
               categories.map((category, index) => (
                 <li key={index}>
-                  <Link key={category.id} href={category.link}>
+                  <Link
+                    key={category.id}
+                    href={`/category-and-topics/?category=${category.slug}`}
+                  >
                     <span
                       className="link"
                       dangerouslySetInnerHTML={{ __html: category.name }}
@@ -35,7 +38,10 @@ const PostMeta = ({ categories, tags = [], children }) => {
           <ul>
             {tags.map((tag, index) => (
               <li key={index}>
-                <Link key={tag.id} href={tag.link}>
+                <Link
+                  key={tag.id}
+                  href={`/category-and-topics/?topic=${tag.slug}`}
+                >
                   <span
                     className="link"
                     dangerouslySetInnerHTML={{ __html: tag.name }}
