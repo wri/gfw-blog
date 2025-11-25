@@ -2035,10 +2035,10 @@
     qs "^6.5.2"
     react-native-url-polyfill "^1.1.2"
 
-"@worldresources/gfw-components@^3.5.11":
-  version "3.5.11"
-  resolved "https://registry.yarnpkg.com/@worldresources/gfw-components/-/gfw-components-3.5.11.tgz#ab11df86819057c9a5bb812a1526eaa28e5e4f8e"
-  integrity sha512-n9gI4xDykAwesTMtmdhOSRrK/QoxVvrDSJsv+Y011qkdmS7b8pVtpRMBIXcF10oC7gf7ZSIR+IM7ApEosPYLnw==
+"@worldresources/gfw-components@^3.5.12":
+  version "3.5.12"
+  resolved "https://registry.yarnpkg.com/@worldresources/gfw-components/-/gfw-components-3.5.12.tgz#9b3ea1a0fdf9393aa6abd61a8cff8dc40e4c6008"
+  integrity sha512-FHS1fQSarcfGruKgSZppWOoBDafI3wJOiaflQ2+QXeZEzrreG+n0szX422om8sMCLFGcTw6NlWPeBosIL8jO6g==
   dependencies:
     "@artsy/fresnel" "^1.1.0"
     "@tippyjs/react" "^4.0.2"
