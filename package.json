@@ -17,7 +17,7 @@
     "@svgr/webpack": "^5.4.0",
     "@wordpress/api-fetch": "^3.19.0",
     "@worldresources/gfw-components": "^3.5.14",
-    "axios": "^0.20.0",
+    "axios": "^1.15.0",
     "btoa": "^1.2.1",
     "buttercms": "1.2.2",
     "classnames": "2.2.6",
