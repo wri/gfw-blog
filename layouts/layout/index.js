@@ -28,6 +28,7 @@ import serializeYoastGraph from 'utils/yoast-graph';
 
 import ErrorPage from 'layouts/error';
 import PreviewBanner from 'components/preview-banner';
+import FooterLogoStyles from 'components/footer-logo-styles';
 
 const isOsanoEnabled = process.env.NEXT_PUBLIC_OSANO_ENABLED === 'true';
 
@@ -224,6 +225,7 @@ export default function Layout(props) {
           })}
       </Head>
       <GlobalStyles />
+      <FooterLogoStyles />
       <HeaderWrapper>
         <Header
           setOpen={setOpen}
