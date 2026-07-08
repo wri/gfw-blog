@@ -54,13 +54,15 @@ module.exports = {
       []
     );
 
-    const formattedRedirects = allWordpressRedirects.map((r) => ({
-      source: `${r.url}${!r.url.endsWith('/') ? '/' : ''}`,
-      destination: `${r.action_data.url}${
-        !r.action_data.url.endsWith('/') ? '/' : ''
-      }`,
-      permanent: true,
-    }));
+    const formattedRedirects = allWordpressRedirects
+      .filter((r) => r.url && r.action_data && r.action_data.url)
+      .map((r) => ({
+        source: `${r.url}${!r.url.endsWith('/') ? '/' : ''}`,
+        destination: `${r.action_data.url}${
+          !r.action_data.url.endsWith('/') ? '/' : ''
+        }`,
+        permanent: true,
+      }));
 
     return [...formattedRedirects, ...redirects];
   },
