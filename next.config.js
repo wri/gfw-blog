@@ -36,6 +36,13 @@ module.exports = {
       fetchConfig
     );
     const json = await response.json();
+    if (!response.ok || !Number.isFinite(parseInt(json.total, 10))) {
+      throw new Error(
+        `Failed to fetch WordPress redirects: HTTP ${response.status} ${
+          response.statusText
+        }. Response body: ${JSON.stringify(json)}`
+      );
+    }
     const totalPages = Math.ceil(parseInt(json.total, 10) / 50);
     const redirectPages = await Promise.all(
       Array.from(Array(totalPages).keys()).map((i) =>
@@ -46,7 +53,15 @@ module.exports = {
       )
     );
     const allWordpressResponses = await Promise.all(
-      redirectPages.map((res) => res.json())
+      redirectPages.map(async (res) => {
+        if (!res.ok) {
+          const body = await res.text();
+          throw new Error(
+            `Failed to fetch WordPress redirects page: HTTP ${res.status} ${res.statusText}. Response body: ${body}`
+          );
+        }
+        return res.json();
+      })
     );
 
     const allWordpressRedirects = allWordpressResponses.reduce(
