@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Host: https://globalforestwatch.org/blog
-Sitemap: https://globalforestwatch.org/blog/sitemap.xml
+Host: https://www.globalforestwatch.org/blog
+Sitemap: https://www.globalforestwatch.org/blog/sitemap.xml
