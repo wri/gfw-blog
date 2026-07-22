@@ -40,7 +40,7 @@ export async function getServerSideProps({
       getPostByType({
         type: 'pages',
         slug: 'global-forest-watch-blog',
-      }),
+      }).catch(() => null),
     ]);
 
     return {
