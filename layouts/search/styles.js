@@ -7,57 +7,21 @@ export const Wrapper = styled.div`
   padding-bottom: 4rem;
 `;
 
-export const SearchRow = styled(Row)`
-  width: 100%;
-  position: fixed;
-  z-index: 10;
-  max-width: 90rem;
-
-  ${theme.mediaQueries.small} {
-    margin-top: 3.1rem;
-  }
-`;
-
-export const SearchMobileColumn = styled(Column)`
-  display: block;
-  height: 12rem;
-  background-color: #f7f7f7;
-  padding: 2rem 0;
-
-  ${theme.mediaQueries.small} {
-    display: none;
-  }
-`;
-
-export const SearchDesktopColumn = styled(Column)`
-  margin-top: -1.35rem;
-  padding: 0 !important;
-`;
-
 export const BackButtonRow = styled(Row)`
   display: flex;
-  position: fixed;
-  margin-top: 12rem;
   width: 100%;
-  z-index: 2;
-  background: white;
   max-width: 100%;
-
-  ${theme.mediaQueries.small} {
-    margin-top: 5.625rem;
-  }
+  margin-top: 1.5rem;
+  background: white;
 
   @media (min-width: 1350px) {
     padding-left: 3.75rem !important;
   }
 `;
-export const TitleRow = styled(Row)`
-  margin-top: 16rem;
-  width: 100%;
 
-  ${theme.mediaQueries.small} {
-    margin-top: 11rem;
-  }
+export const TitleRow = styled(Row)`
+  margin-top: 1.5rem;
+  width: 100%;
 `;
 
 export const MoreArticlesWrapper = styled.div`
