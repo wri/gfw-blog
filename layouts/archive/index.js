@@ -11,14 +11,11 @@ import { translateText } from 'utils/lang';
 import Card from 'components/card';
 import BackButton from 'components/back-button';
 import Filter from 'components/filter';
+import BlogHero from 'components/blog-hero';
 import qs from 'qs';
-import { SearchDesktop, SearchMobile } from '../home/styles';
 
 import {
   Wrapper,
-  SearchRow,
-  SearchMobileColumn,
-  SearchDesktopColumn,
   BackButtonRow,
   TitleRow,
   ResultsStatement,
@@ -32,6 +29,7 @@ const ArchivePage = ({
   totalPosts: totalFirstPosts,
   categories,
   topics,
+  homepage,
 }) => {
   const router = useRouter();
   const [posts, setPosts] = useState(firstPagePosts || []);
@@ -137,20 +135,7 @@ const ArchivePage = ({
   return (
     <>
       <Wrapper>
-        <Row
-          css={css`
-            max-width: 90rem;
-          `}
-        >
-          <SearchRow>
-            <SearchMobileColumn>
-              <SearchMobile categories={categories} topics={topics} />
-            </SearchMobileColumn>
-            <SearchDesktopColumn>
-              <SearchDesktop categories={categories} topics={topics} />
-            </SearchDesktopColumn>
-          </SearchRow>
-        </Row>
+        <BlogHero homepage={homepage} categories={categories} topics={topics} />
 
         <BackButtonRow>
           <BackButton
@@ -234,6 +219,7 @@ ArchivePage.propTypes = {
   totalPages: PropTypes.number,
   categories: PropTypes.array,
   topics: PropTypes.array,
+  homepage: PropTypes.object,
 };
 
 export default ArchivePage;

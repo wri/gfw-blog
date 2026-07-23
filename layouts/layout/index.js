@@ -18,7 +18,6 @@ import {
 import {
   GlobalStyles,
   Loader,
-  Footer,
   ContactUsModal,
 } from '@worldresources/gfw-components';
 
@@ -35,6 +34,12 @@ const isOsanoEnabled = process.env.NEXT_PUBLIC_OSANO_ENABLED === 'true';
 const Header = dynamic(() => import('components/header'), {
   ssr: false,
 });
+
+// Avoid hydration mismatch when analytics rewrites footer Map href (ap3c).
+const Footer = dynamic(
+  () => import('@worldresources/gfw-components').then((mod) => mod.Footer),
+  { ssr: false }
+);
 
 const LOCALES = {
   es_ES: 'es',

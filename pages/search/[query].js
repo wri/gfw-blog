@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { getPostsByType } from 'lib/api';
+import { getPostsByType, getPostByType } from 'lib/api';
 
 import SearchPage from 'layouts/search';
 import Layout from 'layouts/layout';
@@ -34,11 +34,18 @@ export async function getServerSideProps({ params }) {
     },
     allLanguages: true,
   });
-  const notifications = await getPublishedNotifications();
 
   const sortedCategories = sortBy(MAIN_CATEGORIES, (cat) =>
     MAIN_CATEGORIES.indexOf(cat.slug)
   );
+
+  const [notifications, homepage] = await Promise.all([
+    getPublishedNotifications(),
+    getPostByType({
+      type: 'pages',
+      slug: 'global-forest-watch-blog',
+    }).catch(() => null),
+  ]);
 
   return {
     props: {
@@ -49,6 +56,7 @@ export async function getServerSideProps({ params }) {
       categories: sortedCategories || [],
       topics: MAIN_TOPICS,
       notifications: notifications || [],
+      homepage: homepage || {},
     },
   };
 }
