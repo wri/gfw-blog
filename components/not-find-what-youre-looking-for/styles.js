@@ -3,13 +3,13 @@ import { theme, Row, Column, Button } from '@worldresources/gfw-components';
 
 export const NotFindWhatYoureLookingForWrapper = styled(Row)`
   background-size: cover;
-  background-image: url('images/hero-bg-mobile.png');
+  background-image: url('/blog/images/hero-bg-mobile.png');
   max-width: 100%;
   width: 100%;
   height: 15.625rem;
 
   ${theme.mediaQueries.small} {
-    background-image: url('images/hero-bg-desktop.png');
+    background-image: url('/blog/images/hero-bg-desktop.png');
     height: 20.5625rem;
   }
 `;
@@ -21,7 +21,7 @@ export const NotFindWhatYoureLookingForColumn = styled(Column)`
   align-items: center;
   background-size: cover;
   background-position: center;
-  background-image: url('../../images/no-results-bg.png');
+  background-image: url('/blog/images/no-results-bg.png');
 `;
 
 export const NotFindWhatYoureLookingForTitle = styled.h2`
