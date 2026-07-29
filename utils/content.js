@@ -1,4 +1,4 @@
-const BLOG_LINK = 'https://www.globalforestwatch.org/blog';
+import { BLOG_URL as BLOG_LINK } from './external-links';
 
 export const clearExcerptHellip = (str) => {
   return str.replace(/(\[(&hellip;)\])<\/.>/, '$2');

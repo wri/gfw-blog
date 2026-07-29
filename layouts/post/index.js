@@ -17,6 +17,7 @@ import ReadingBar from 'components/reading-bar';
 import Dropdown from 'components/dropdown';
 import useLocalizeDatetime from 'hooks/use-localize-datetime';
 import useLocalizeYoastReadingTime from 'hooks/use-localize-yoast-reading-time';
+import { BLOG_SHARE_URL } from 'utils/external-links';
 import { MetaItem } from './meta/styles';
 import PostMeta from './meta';
 import ShareLinks from './share-links';
@@ -299,7 +300,7 @@ const Post = ({
               )}
             </PostMeta>
             <ShareLinks
-              url={`https://blog.globalforestwatch.org${post.link}`}
+              url={`${BLOG_SHARE_URL}${post.link}`}
               title={post.title}
               scrollToComment={() =>
                 commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
@@ -311,7 +312,7 @@ const Post = ({
           <PostMetaMobile>
             <PostMeta categories={post.categories} tags={post.tags} />
             <ShareLinks
-              url={`https://blog.globalforestwatch.org${post.link}`}
+              url={`${BLOG_SHARE_URL}${post.link}`}
               title={post.title}
               scrollToComment={() =>
                 commentsRef.current.scrollIntoView({ behavior: 'smooth' })}
