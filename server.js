@@ -1,6 +1,7 @@
 const next = require('next');
 const express = require('express');
 const sslRedirect = require('heroku-ssl-redirect').default;
+const { GFW_DOMAIN } = require('./utils/domain');
 
 const port = parseInt(process.env.PORT, 10) || 9090;
 const dev = process.env.NODE_ENV !== 'production';
@@ -15,10 +16,7 @@ app.prepare().then(() => {
   server.all('*', (req, res) => {
     const host = req.get('Host');
     if (host === 'blog.globalforestwatch.org') {
-      return res.redirect(
-        301,
-        `https://www.globalforestwatch.org/blog${req.originalUrl}`
-      );
+      return res.redirect(301, `${GFW_DOMAIN}/blog${req.originalUrl}`);
     }
     return handle(req, res);
   });

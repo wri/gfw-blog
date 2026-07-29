@@ -22,6 +22,7 @@ import {
 } from '@worldresources/gfw-components';
 
 import { useTrackPage } from 'utils/analytics';
+import { BLOG_URL } from 'utils/external-links';
 
 import serializeYoastGraph from 'utils/yoast-graph';
 
@@ -186,16 +187,12 @@ export default function Layout(props) {
           <>
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                post?.link
-              )}`}
+              href={`${BLOG_URL}${ensureTrailingSlash(post?.link)}`}
               hrefLang="en"
             />
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                post?.link
-              )}`}
+              href={`${BLOG_URL}${ensureTrailingSlash(post?.link)}`}
               hrefLang="x-default"
             />
           </>
@@ -209,9 +206,7 @@ export default function Layout(props) {
                   <link
                     key={tr.locale}
                     rel="alternate"
-                    href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                      tr.link
-                    )}`}
+                    href={`${BLOG_URL}${ensureTrailingSlash(tr.link)}`}
                     hrefLang={LOCALES[tr.locale]}
                   />
                 </>
@@ -221,9 +216,7 @@ export default function Layout(props) {
               <link
                 key={tr.locale}
                 rel="alternate"
-                href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                  tr.link
-                )}`}
+                href={`${BLOG_URL}${ensureTrailingSlash(tr.link)}`}
                 hrefLang={tr.locale}
               />
             );

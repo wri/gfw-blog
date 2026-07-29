@@ -1,5 +1,7 @@
+const { GFW_DOMAIN } = require('./utils/domain');
+
 module.exports = {
-  siteUrl: 'https://www.globalforestwatch.org/blog',
+  siteUrl: `${GFW_DOMAIN}/blog`,
   generateRobotsTxt: true,
   sitemapSize: 5000,
   priority: 1.0,
