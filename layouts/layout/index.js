@@ -18,11 +18,11 @@ import {
 import {
   GlobalStyles,
   Loader,
-  Footer,
   ContactUsModal,
 } from '@worldresources/gfw-components';
 
 import { useTrackPage } from 'utils/analytics';
+import { BLOG_URL } from 'utils/external-links';
 
 import serializeYoastGraph from 'utils/yoast-graph';
 
@@ -35,6 +35,12 @@ const isOsanoEnabled = process.env.NEXT_PUBLIC_OSANO_ENABLED === 'true';
 const Header = dynamic(() => import('components/header'), {
   ssr: false,
 });
+
+// Avoid hydration mismatch when analytics rewrites footer Map href (ap3c).
+const Footer = dynamic(
+  () => import('@worldresources/gfw-components').then((mod) => mod.Footer),
+  { ssr: false }
+);
 
 const LOCALES = {
   es_ES: 'es',
@@ -181,16 +187,12 @@ export default function Layout(props) {
           <>
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                post?.link
-              )}`}
+              href={`${BLOG_URL}${ensureTrailingSlash(post?.link)}`}
               hrefLang="en"
             />
             <link
               rel="alternate"
-              href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                post?.link
-              )}`}
+              href={`${BLOG_URL}${ensureTrailingSlash(post?.link)}`}
               hrefLang="x-default"
             />
           </>
@@ -204,9 +206,7 @@ export default function Layout(props) {
                   <link
                     key={tr.locale}
                     rel="alternate"
-                    href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                      tr.link
-                    )}`}
+                    href={`${BLOG_URL}${ensureTrailingSlash(tr.link)}`}
                     hrefLang={LOCALES[tr.locale]}
                   />
                 </>
@@ -216,9 +216,7 @@ export default function Layout(props) {
               <link
                 key={tr.locale}
                 rel="alternate"
-                href={`https://www.globalforestwatch.org/blog${ensureTrailingSlash(
-                  tr.link
-                )}`}
+                href={`${BLOG_URL}${ensureTrailingSlash(tr.link)}`}
                 hrefLang={tr.locale}
               />
             );

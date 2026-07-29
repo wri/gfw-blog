@@ -4,6 +4,14 @@
 // @ids are mapped wrong
 // these utilites solves that for our yoast graph
 
+import {
+  GFW_DOMAIN,
+  APEX_BLOG_URL,
+  BLOG_URL,
+  DATA_URL,
+  PRO_URL,
+} from './external-links';
+
 function serializeContentUrl(url) {
   // Remove yoast bload
   let urlSerializer = url.replace(/global-forest-watch-blog/, '');
@@ -11,11 +19,11 @@ function serializeContentUrl(url) {
   // Cleanup cms urls
   urlSerializer = urlSerializer.replace(
     /https:\/\/content.globalforestwatch.org\//,
-    'https://www.globalforestwatch.org/blog/'
+    `${BLOG_URL}/`
   );
   urlSerializer = urlSerializer.replace(
     /https:\/\/www.globalforestwatch.org\/(blog)?\/?/,
-    'https://www.globalforestwatch.org/blog/'
+    `${BLOG_URL}/`
   );
 
   // Remove any breadcrump references.
@@ -42,7 +50,7 @@ function serializeContentUrl(url) {
 }
 
 function parseBreadcrumbListItems(breadcrump) {
-  const ROOT_URL = 'https://globalforestwatch.org/blog';
+  const ROOT_URL = APEX_BLOG_URL;
   const breadListItems = [
     {
       type: 'ListItem',
@@ -84,9 +92,9 @@ export default (metaTags, breadcrumbs) => {
             name: 'Global Forest Watch',
             description:
               'Global Forest Watch offers free, real-time data, technology and tools for monitoring the world’s forests, enabling better protection against illegal deforestation and unsustainable practices.',
-            image: 'https://www.globalforestwatch.org/assets/card-2.png',
-            logo: 'https://www.globalforestwatch.org/assets/gfw.png',
-            url: 'https://www.globalforestwatch.org/',
+            image: `${GFW_DOMAIN}/assets/card-2.png`,
+            logo: `${GFW_DOMAIN}/assets/gfw.png`,
+            url: `${GFW_DOMAIN}/`,
             telephone: '+12027297600',
             sameAs: [
               'https://twitter.com/globalforests',
@@ -96,7 +104,7 @@ export default (metaTags, breadcrumbs) => {
               'https://en.wikipedia.org/wiki/Global_Forest_Watch',
               'https://www.wikidata.org/wiki/Q22677558',
               'https://www.crunchbase.com/organization/global-forest-watch',
-              'https://www.wri.org/our-work/project/global-forest-watch, https://data.globalforestwatch.org/, https://pro.globalforestwatch.org/, https://www.unenvironment.org/resources/toolkits-manuals-and-guides/global-forest-watch',
+              `https://www.wri.org/our-work/project/global-forest-watch, ${DATA_URL}/, ${PRO_URL}/, https://www.unenvironment.org/resources/toolkits-manuals-and-guides/global-forest-watch`,
             ],
             address: {
               '@type': 'PostalAddress',

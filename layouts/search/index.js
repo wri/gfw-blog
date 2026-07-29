@@ -15,14 +15,10 @@ import BackButton from 'components/back-button';
 import ExploreMore from 'components/explore-more';
 import Filter from 'components/filter';
 import NotFindWhatYoureLookingFor from 'components/not-find-what-youre-looking-for';
-
-import { SearchMobile, SearchDesktop } from '../home/styles';
+import BlogHero from 'components/blog-hero';
 
 import {
   Wrapper,
-  SearchRow,
-  SearchMobileColumn,
-  SearchDesktopColumn,
   BackButtonRow,
   TitleRow,
   ResultsStatement,
@@ -37,6 +33,7 @@ const SearchPage = ({
   searchQuery,
   categories,
   topics,
+  homepage,
 }) => {
   const router = useRouter();
 
@@ -185,20 +182,7 @@ const SearchPage = ({
   return (
     <>
       <Wrapper>
-        <Row
-          css={css`
-            max-width: 90rem;
-          `}
-        >
-          <SearchRow>
-            <SearchMobileColumn>
-              <SearchMobile categories={categories} topics={topics} />
-            </SearchMobileColumn>
-            <SearchDesktopColumn>
-              <SearchDesktop categories={categories} topics={topics} />
-            </SearchDesktopColumn>
-          </SearchRow>
-        </Row>
+        <BlogHero homepage={homepage} categories={categories} topics={topics} />
 
         <BackButtonRow>
           <BackButton
@@ -315,6 +299,7 @@ SearchPage.propTypes = {
   searchQuery: PropTypes.string,
   categories: PropTypes.array,
   topics: PropTypes.array,
+  homepage: PropTypes.object,
 };
 
 export default SearchPage;

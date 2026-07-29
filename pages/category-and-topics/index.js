@@ -1,4 +1,4 @@
-import { getPostsByTaxonomy } from 'lib/api';
+import { getPostsByTaxonomy, getPostByType } from 'lib/api';
 
 import ArchivePage from 'layouts/archive';
 import Layout from 'layouts/layout';
@@ -35,7 +35,13 @@ export async function getServerSideProps({
       MAIN_CATEGORIES.indexOf(cat.slug)
     );
 
-    const notifications = await getPublishedNotifications();
+    const [notifications, homepage] = await Promise.all([
+      getPublishedNotifications(),
+      getPostByType({
+        type: 'pages',
+        slug: 'global-forest-watch-blog',
+      }).catch(() => null),
+    ]);
 
     return {
       props: {
@@ -45,6 +51,7 @@ export async function getServerSideProps({
         totalPages: postsResponse?.totalPages || 1,
         totalPosts: postsResponse?.totalPosts || 0,
         notifications: notifications || [],
+        homepage: homepage || {},
       },
     };
   } catch (err) {
